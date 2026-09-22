@@ -1,0 +1,6 @@
+pytest>=8.3,<10
+httpx>=0.28,<1
+pytest-playwright>=0.7,<1
+pytest-xdist>=3.6,<4
+hypothesis>=6,<7
+jsonschema>=4,<5
