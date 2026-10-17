@@ -1,0 +1,94 @@
+name: Capture AI PATH project screenshots
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/ai-path-media.yml
+      - scripts/ai-path-media.py
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ai-path-project-media
+  cancel-in-progress: false
+
+jobs:
+  capture:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+      LIBGL_ALWAYS_SOFTWARE: '1'
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Install screenshot dependencies
+        run: |
+          python -m pip install 'Pillow==11.3.0' 'beautifulsoup4==4.13.5' 'playwright==1.55.0'
+          python -m playwright install --with-deps chromium
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb xauth imagemagick xdotool libgl1-mesa-dri libglx-mesa0 libxrandr2 libxinerama1 libxcursor1 libxi6
+      - name: Build the exact Awakening source without changing the game
+        run: |
+          git clone --filter=blob:none --no-checkout https://github.com/safal207/Awakening.git "$RUNNER_TEMP/awakening"
+          git -C "$RUNNER_TEMP/awakening" checkout a92bd1560215833a232362ad78de88335e51ac81
+          dotnet build "$RUNNER_TEMP/awakening/Probuzhdenie.csproj" --configuration Release
+      - name: Capture the actual running desktop game
+        run: |
+          mkdir -p artifacts/ai-path-media
+          export EVIDENCE_DIR="$GITHUB_WORKSPACE/artifacts/ai-path-media"
+          timeout 90s xvfb-run -a -s '-screen 0 1440x960x24 +extension GLX +render -noreset' bash <<'SH'
+          set -euo pipefail
+          cd "$RUNNER_TEMP/awakening"
+          dotnet bin/Release/net8.0/Probuzhdenie.dll --runtime-profile --profile-seconds 25 --profile-output "$EVIDENCE_DIR/game-runtime.json" > "$EVIDENCE_DIR/game.log" 2>&1 &
+          game_pid=$!
+          trap 'kill "$game_pid" 2>/dev/null || true' EXIT
+          window=''
+          for i in $(seq 1 40); do
+            kill -0 "$game_pid" || { cat "$EVIDENCE_DIR/game.log"; exit 1; }
+            window=$(xdotool search --onlyvisible --name 'Пробуждение' 2>/dev/null | head -n 1 || true)
+            [ -z "$window" ] || break
+            sleep 0.5
+          done
+          [ -n "$window" ] || { cat "$EVIDENCE_DIR/game.log"; exit 1; }
+          sleep 8
+          import -window "$window" "$EVIDENCE_DIR/awakening.png"
+          wait "$game_pid"
+          test -s "$EVIDENCE_DIR/game-runtime.json"
+          SH
+      - name: Capture websites, install the gallery and check mobile interactions
+        run: python scripts/ai-path-media.py
+      - name: Run existing syntax checks
+        run: npm run check
+      - name: Commit only checked screenshots, provenance and the updated mini-site
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- dist/ai-path/index.html dist/ai-path/assets/awakening.webp dist/ai-path/assets/architectural.webp dist/ai-path/assets/rustclip.webp dist/ai-path/assets/testit.webp dist/ai-path/assets/sources.json
+          git diff --cached --check
+          git commit -m 'Show real project screenshots and keyboard-accessible gallery in AI PATH'
+          git push origin HEAD:main
+      - name: Preserve screenshot and browser-check evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-path-real-screenshots
+          path: artifacts/ai-path-media
+          if-no-files-found: warn
+          retention-days: 14
