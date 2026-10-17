@@ -15,6 +15,7 @@ async function startServer() {
     if (server.exitCode !== null) throw new Error('Server exited: ' + serverLog);
     try {
       const response = await fetch(base);
+      await response.arrayBuffer(); // Fully drain HTTP response: Node undici must not retain a paused body.
       if (response.status === 200) return;
     } catch {}
     await new Promise(resolve => setTimeout(resolve, 100));
