@@ -4,9 +4,9 @@ import { chromium } from 'playwright';
 
 const base = 'http://127.0.0.1:4179/ai-path/';
 const artifacts = 'artifacts/ai-path-qa';
-const programIds = ['explore', 'build', 'space', 'furniture', 'create', 'comics', 'qa', 'game', 'ml', 'hack', 'grant', 'frontier', 'books'];
+const programIds = ['explore', 'build', 'space', 'furniture', 'create', 'comics', 'qa', 'game', 'ml', 'hack', 'grant', 'frontier', 'books', 'designlab'];
 const groups = {
-  explore: ['explore'], visual: ['furniture', 'space', 'comics', 'books', 'create'],
+  explore: ['explore'], visual: ['furniture', 'space', 'designlab', 'comics', 'books', 'create'],
   build: ['build', 'qa', 'game'], research: ['ml', 'hack', 'grant', 'frontier']
 };
 const server = spawn('python3', ['-m', 'http.server', '4179', '--bind', '127.0.0.1', '--directory', 'dist'], {
@@ -311,6 +311,29 @@ async function booksRoute(page, width) {
   await selected(page, 'books');
   assert(await page.locator('#selTitle').evaluate(el => document.activeElement === el), 'Book quick start focuses the selected program');
 }
+async function designLabRoute(page, width) {
+  await chooseQuiz(page, { goal: 'visual', interest: 'designlab', level: 'zero' });
+  await selected(page, 'designlab');
+  assert((await page.locator('#selTitle').innerText()).trim() === 'Design Lab — интерактивные сайты', 'Design Lab program title');
+  assert((await ids(page.locator('#recommendationList .program'))).join('|') === 'designlab|build|space', 'Design Lab recommends relevant development and space alternatives');
+  assert(await page.locator('#selSteps li').count() === 6, 'Design Lab includes six learning stages');
+  assert((await page.locator('#selOutcome').innerText()).includes('Один собственный'), 'Learning outcome is one student project');
+  assert(await page.locator('#design-lab article.project').count() === 4, 'Four separate teaching examples');
+  const demos = await page.locator('#design-lab .design-lab-visual').evaluateAll(items => items.map(a => a.href));
+  assert(demos.length === 4 && new Set(demos).size === 4, 'Teaching demo links are distinct');
+  assert(await page.locator('#design-lab .design-lab-skill').count() === 4, 'Every example explains the skill taught');
+  await contact(page);
+  const message = await page.locator('#contactMessage').inputValue();
+  assert(message.includes('Design Lab') && message.includes('program=designlab'), 'Contact draft keeps the new route');
+  const plan = await downloadPlan(page, width, 'designlab');
+  for (const name of ['VESPER','Layer Lab','Quiet Hours','Room Control']) assert(plan.includes(name), 'Downloaded curriculum names example ' + name);
+  await screenshot(page, width, 'design-lab', '#design-lab');
+  await page.locator('#design-lab [data-start-track="designlab"]').click();
+  await selected(page, 'designlab');
+  assert(await page.locator('#selTitle').evaluate(el => document.activeElement === el), 'Design Lab CTA focuses chosen program');
+  await noOverflow(page, 'Design Lab selection ' + width);
+}
+
 async function desktopRegressions(page) {
   await chooseQuiz(page, { goal: 'research', interest: 'ml', level: 'zero' });
   await selected(page, 'qa');
@@ -396,7 +419,7 @@ try {
     const response = await page.goto(base, { waitUntil: 'domcontentloaded' });
     assert(response?.status() === 200, 'Page returns HTTP 200');
     await page.locator('#programList .program').first().waitFor();
-    assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'All 13 stable programs are available');
+    assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'All 14 stable programs are available');
     const trackNumbers = await page.locator('#programList .program').evaluateAll(cards => Object.fromEntries(cards.map(card => [card.dataset.program, card.querySelector('.n').textContent.match(/ТРЕК\s*(\d+)/)?.[1]])));
     for (const [index, id] of programIds.entries()) assert(Number(trackNumbers[id]) === index + 1, `Track number stays stable: ${id}`);
     assert(!(await page.locator('#selected').isVisible()) && !(await page.locator('#results').isVisible()), 'Fresh entry does not claim the visitor already selected a program');
@@ -438,6 +461,7 @@ try {
     assert(new URL(page.url()).searchParams.get('pace') === 'light', 'Selected route survives reload');
     await preservedContent(page, width === 1440);
     await booksRoute(page, width);
+    await designLabRoute(page, width);
     await conversionFlow(page, width);
     if (width === 1440) await desktopRegressions(page);
     await noOverflow(page, 'final');
