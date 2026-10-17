@@ -1,0 +1,36 @@
+{
+  "attribution": "Мир и персонажи — Юра. Продолжения созданы с помощью ИИ как черновики для авторской проверки.",
+  "project_url": "https://yin-yanka-comics.safalex.chatgpt.site",
+  "images": [
+    {
+      "file": "issue-02-cover.webp",
+      "description": "Живут в папках — выпуск 2, Лист на ветру, обложка",
+      "source": "https://yin-yanka-comics.safalex.chatgpt.site",
+      "original_sha256": "87f98494f3d14dcdc57ff569a36625adca448de2532225f80effcb7aaaee2380",
+      "sha256": "40ea5af56a3d80e10263aea31e82a5a191624248540de25fe6442e26d87d1a8d",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 373910
+    },
+    {
+      "file": "issue-03-cover.webp",
+      "description": "Живут в папках — выпуск 3, Записка на крыльях, обложка",
+      "source": "https://yin-yanka-comics.safalex.chatgpt.site",
+      "original_sha256": "a41f32430459d295f20bf8927e337a6b6f445290be00b1525e12d0457387f325",
+      "sha256": "651435daf7b0be42cfe2e1e4a0c95b48fcaec531192cf300d0ead57bdde420d2",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 416860
+    },
+    {
+      "file": "issue-03-page-05.webp",
+      "description": "Живут в папках — выпуск 3, страница 5, Доставлено",
+      "source": "https://yin-yanka-comics.safalex.chatgpt.site",
+      "original_sha256": "66d9f747855f767d33c7bd1a0637d3fea0f154a15ba6c099bb13f435f8caab35",
+      "sha256": "3be3b43f90a51736cc931db50acfb290e7be3de442eccde07f66d9a37e5f2790",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 380216
+    }
+  ]
+}

@@ -44,7 +44,7 @@ try {
     assert(response?.status() === 200, 'Page returns HTTP 200');
     await page.locator('#programList .program').first().waitFor();
 
-    assert(await page.locator('#programList .program').count() === 10, '10 selectable learning programs');
+    assert(await page.locator('#programList .program').count() === 11, '11 selectable learning programs');
     assert((await page.locator('#selTitle').innerText()).includes('AI Lab'), 'Frontier program deep link');
     assert(await page.locator('#examples article.project').count() === 6, '6 source-backed project screenshot cards');
     assert(await page.locator('#nbGrid .nb-card').count() === 6, 'Featured ML notebooks visible');
@@ -61,7 +61,8 @@ try {
     assert(new Set(links).size === 24, 'Notebook GitHub URLs unique');
     assert(links.every(url => url.startsWith('https://github.com/safal207/students/blob/')), 'Notebooks link to source archive');
 
-    const galleryButtons = page.locator('#examples .project-shot');
+    assert(await page.locator('#comics article.project').count() === 3, '3 existing comic examples');
+    const galleryButtons = page.locator('#examples .project-shot, #comics .project-shot');
     for (let i = 0; i < await galleryButtons.count(); i++) {
       const button = galleryButtons.nth(i);
       await button.scrollIntoViewIfNeeded();
@@ -78,6 +79,14 @@ try {
     assert((await page.locator('#selTitle').innerText()).includes('AI Lab'), 'Frontier CTA selects training');
     await page.locator('#interests [data-interest="game"]').click();
     assert((await page.locator('#selTitle').innerText()).includes('Пробуждение'), 'Game path selectable');
+    await page.locator('#comics [data-start-track="comics"]').click();
+    assert((await page.locator('#selTitle').innerText()).includes('Комиксы'), 'Comic CTA selects the program');
+    assert(new URL(page.url()).searchParams.get('program') === 'comics', 'Comic choice is preserved in URL');
+    assert((await page.locator('#selOutcome').innerText()).includes('PDF'), 'Comic program has a concrete deliverable');
+    await page.reload({ waitUntil: 'domcontentloaded' });
+    assert((await page.locator('#selTitle').innerText()).includes('Комиксы'), 'Comic route survives reload');
+    await page.locator('#interests [data-interest="comics"]').click();
+    assert((await page.locator('#recommendation').innerText()).includes('Комиксы'), 'Comic interest recommends the new program');
     const widthReport = await page.evaluate(() => ({
       windowWidth: innerWidth, documentWidth: document.documentElement.scrollWidth,
       offenders: [...document.querySelectorAll('body *')]
@@ -100,9 +109,9 @@ try {
       console.error('AI_PATH_MOBILE_OVERFLOW', JSON.stringify(widthReport));
     assert(widthReport.documentWidth <= widthReport.windowWidth + 1, 'No horizontal overflow');
     assert(errors.length === 0, 'No browser JavaScript errors: ' + errors.join('; '));
-    await page.locator('#research').scrollIntoViewIfNeeded();
+    await page.locator('#comics').scrollIntoViewIfNeeded();
     await page.screenshot({ path: 'artifacts/ai-path-qa/ai-path-' + width + '.png', animations: 'disabled' });
-    console.log('PASS ' + width + 'x' + height + ': 10 programs, 6 screenshots, 24 notebook links, 4 lab routes, gallery and keyboard');
+    console.log('PASS ' + width + 'x' + height + ': 11 programs, 6 project screenshots, 3 comic examples, 24 notebook links, 4 lab routes, gallery and keyboard');
     await context.close();
   }
 } finally {
