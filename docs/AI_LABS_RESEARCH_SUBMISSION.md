@@ -34,10 +34,11 @@ The following statuses are based on repository notes, **not evidence of selectio
 
 | Project / opportunity | Evidence | Status / next action |
 | --- | --- | --- |
-| **CAEP-OpenAI** · Cybersecurity Grant | [GitHub issue #248 and owner's July 23 note](https://github.com/safal207/pythiaLabs/issues/248#issuecomment-5057425053) | **Submitted (reported by applicant), July 23, 2026.** Follow up in the existing thread if an official reply arrives; no duplicate submission. Submission confirmation is not an award. |
+| **CAEP-OpenAI** · Cybersecurity Grant | [GitHub issue #248 and owner's July 23 note](https://github.com/safal207/pythiaLabs/issues/248#issuecomment-5057425053) | **Submission acknowledged by email, July 23, 2026.** The owner located an OpenAI Cybersecurity Grant Program acknowledgement in the private applicant mailbox. No grant decision or funding acceptance is confirmed. Follow up only if a substantive reply arrives; never submit the same version twice. |
 | **PythiaLabs** · NLnet NGI Commons | [Reviewer path, application 2026-06-133](https://github.com/safal207/pythiaLabs/blob/main/docs/NGI_COMMONS_REVIEWER_PATH.md) | Acknowledged/reviewer-ready in last documented status, not approved or funded. Keep one canonical proposal. |
 | **LiminalDB** · NLnet Fediversity | [Reviewer path, application 2026-08-00c](https://github.com/safal207/LiminalDB/blob/main/docs/FEDIVERSITY_REVIEWER_PATH.md) | Documented as submitted; not a grant award. |
 | **OpenAI Safety Fellowship pilot** | [Public draft only](https://github.com/safal207/pythiaLabs/blob/main/docs/fellowship_openai_safety_2026_application.md) | Draft does not prove submission. **Deadline May 3, 2026 passed.** |
+| **T-Trace third-party evaluations** · Anthropic | Earlier outgoing email checked in the owner's Sent mailbox, August 24, 2026 | **Previously sent.** No substantive reply identified in the reviewed search. The right next artifact is a bounded adversarial completeness fixture and a concise reviewer memo, not another identical first-contact message. |
 | **Previous OpenAI/Anthropic/DeepMind outreach** | Prior communications referenced in working history | **Not reverified here.** Check Sent folder and the original conversation thread, recipients, subject, dates and replies before contacting again. Do not create parallel cold-email threads. |
 
 For projects with private correspondence, avoid publishing personal names, applicant details, emails or credentials in repository status trackers.
