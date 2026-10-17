@@ -6,9 +6,9 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="dark" name="color-scheme"/>
 <meta content="#090c15" name="theme-color"/>
-<meta content="Выбери своё направление: AI-старт, разработка, 3D, мебель, видео, комиксы или Python + QA. Индивидуальные занятия и реальные проекты с наставником." name="description"/>
+<meta content="Подбери программу по трём вопросам. Создай приложение, комикс, видео или 3D-проект на индивидуальных занятиях с Алексеем Сафоновым." name="description"/>
 <meta content="AI PATH — выбери свой маршрут в ИИ" property="og:title"/>
-<meta content="12 программ, мебель и комиксы, настоящие игровые скриншоты, нейронные сети и подготовка проектов для ведущих AI-лабораторий." property="og:description"/>
+<meta content="От идеи до собственного проекта: подбор по интересам и опыту, реальные примеры работ и персональное AI-наставничество." property="og:description"/>
 <meta content="website" property="og:type"/>
 <title>AI PATH — выбери свой маршрут</title>
 <style>
@@ -94,35 +94,37 @@
 .furniture-section{padding-top:20px}.furniture-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.furniture-grid .project-shot{aspect-ratio:4/5}.furniture-grid .project-body{padding:21px}.furniture-intro{max-width:760px;color:#b7c5d2;font-size:15px;line-height:1.7;margin:0 0 26px}.furniture-note{margin:22px 0;color:var(--muted);font-size:13px;line-height:1.65}.furniture-note strong{color:#dceeba}.furniture-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}.furniture-skill{display:block;color:var(--accent);font-size:12px;font-weight:750;line-height:1.6}.furniture-section .project-body p{margin-bottom:0}
 @media(max-width:760px){.furniture-grid{grid-template-columns:1fr}.furniture-grid .project{width:100%;max-width:410px;margin-inline:auto}.furniture-section .furniture-actions .btn{width:100%}}
 </style>
+<link href="choice.css" rel="stylesheet"/>
 </head>
 <body>
 <header class="header">
 <div class="wrap nav">
 <a aria-label="AI PATH, на главную" class="logo" href="#top"><span class="mark">↗</span><span>AI<b>PATH</b></span></a>
-<nav aria-label="Основное меню" class="navlinks"><a href="#selector">Подбор</a><a href="#programs">Программы</a><a href="#process">Как учимся</a><a href="#awakening">3D-игра</a><a href="#examples">Проекты</a><a href="#research">Нейросети</a><a href="#labs">Хакатоны и гранты</a><a href="#frontier">AI Labs</a></nav>
-<a class="navcta" href="#selector">Выбрать трек ↗</a>
+<nav aria-label="Основное меню" class="navlinks"><a href="#selector">Подобрать программу</a><a href="#programs">Все программы</a><a href="#examples">Примеры работ</a><a href="#mentor">Наставник</a></nav>
+<a class="navcta" href="#selector">Подобрать маршрут ↗</a>
 </div>
 </header>
 <main id="top">
+<noscript><div class="wrap notices"><p>Для подбора программы включи JavaScript. Примеры работ доступны ниже. Обсудить обучение: <a href="mailto:safal0645@gmail.com">safal0645@gmail.com</a>.</p></div></noscript>
 <div class="hero">
 <div class="wrap hero-grid">
 <div>
-<span class="eyebrow"><span class="dot"></span> Твой первый шаг в технологии</span>
-<h1>Не решил,<br/>куда идти?<br/><em>Начни создавать.</em></h1>
-<p class="lead">ИИ, нейросети, 3D-игры, программирование, мебель, видео, комиксы и реальные проекты. Выбери интересное направление, попробуй настоящие инструменты и создай проект, который не стыдно показать.</p>
+<span class="eyebrow"><span class="dot"></span> Персональное AI-наставничество</span>
+<h1>Твоя идея.<br/>Твой первый<br/><em>проект с ИИ.</em></h1>
+<p class="lead">Создай приложение, комикс, видео или 3D-проект вместе с наставником. Найдём направление под твои интересы и опыт — и начнём с посильной задачи.</p>
 <div class="buttons">
-<a class="btn primary" href="#selector">Найти свой маршрут <span aria-hidden="true">↗</span></a>
-<a class="btn ghost" href="#programs">Смотреть 12 программ <span aria-hidden="true">↓</span></a>
+<a class="btn primary" href="#selector">Подобрать по 3 вопросам <span aria-hidden="true">↗</span></a>
+<a class="btn ghost" href="#examples">Смотреть работы <span aria-hidden="true">↓</span></a>
 </div>
-<div class="hero-foot"><span><strong>01:01</strong> персональные занятия</span><span><strong>4–12</strong> недель</span><span><strong>24</strong> ноутбука по нейросетям</span></div>
+<div class="hero-foot"><span><strong>1:1</strong> с наставником</span><span><strong>4–12 недель</strong> базовый план</span><span><strong>Свой проект</strong> в портфолио</span></div>
 </div>
-<div aria-hidden="true" class="stage">
-<div class="orbit"></div><div class="orbit two"></div>
-<div class="float f1">◈ 3D / DESIGN</div>
-<div class="float f2"><i>●</i> AI / BUILD</div>
-<div class="float f3">⌘ PYTHON / QA</div>
-<div class="float f4">▶ VIDEO / CREATOR</div>
-<div class="centericon"><span>✳</span></div>
+<div>
+<div class="hero-showcase" aria-label="Выбрать направление по примеру работы">
+<button class="hero-work" type="button" data-start-track="furniture" aria-label="Хочу создать предмет: программа по мебели"><img src="assets/furniture/luma01-hero.webp" alt="LUMA 01: цифровой концепт кресла" width="1200" height="1500" fetchpriority="high"/><span class="hero-work-copy"><small>Мебель · LUMA 01</small><strong>От замысла к предмету</strong><span>Хочу создать такой проект ↗</span></span></button>
+<button class="hero-work" type="button" data-start-track="comics" aria-label="Хочу создать комикс: программа по визуальным историям"><img src="assets/comics/issue-02-cover.webp" alt="Обложка комикса Иня и Янки «Лист на ветру»" width="1024" height="1536" decoding="async"/><span class="hero-work-copy"><small>Комиксы · Инь и Янка</small><strong>Свои герои. Своя история.</strong><span>Выбрать комиксы ↗</span></span></button>
+<button class="hero-work" type="button" data-start-track="game" aria-label="Хочу доработать игру: программа 3D GameDev"><img src="assets/awakening.webp" alt="Реальный игровой кадр «Пробуждения»" width="800" height="500" decoding="async" loading="lazy"/><span class="hero-work-copy"><small>3D GameDev · Пробуждение</small><strong>Мир, который можно менять</strong><span>Выбрать разработку игр ↗</span></span></button>
+</div>
+<p class="showcase-note">Примеры из наших проектов. Авторство и процесс — в галерее ниже.</p>
 </div>
 </div>
 </div>
@@ -134,78 +136,64 @@
 <section class="section" id="selector">
 <div class="wrap">
 <div class="section-top">
-<div><span class="tag">01 / Точка старта</span><h2>Что тебе ближе?</h2></div>
-<p>Нет неправильного ответа. Можно выбрать одну тему, а потом спокойно сменить направление.</p>
+<div><span class="tag">01 / Найди свою точку старта</span><h2>С чего начнём?</h2></div>
+<p>Три вопроса — и несколько подходящих маршрутов с объяснением выбора. Без регистрации, можно поменять любой ответ.</p>
 </div>
-<div class="quiz">
-<div>
-<h3>Что хочется попробовать?</h3>
-<p>Выбери тему, и мы подсветим подходящую программу.</p>
-<div aria-label="Интересующее направление" class="choices" id="interests" role="group">
-<button aria-pressed="true" class="chip" data-interest="explore" type="button">✦ Пока не определился</button>
-<button aria-pressed="false" class="chip" data-interest="build" type="button">⌘ Приложения и AI</button>
-<button aria-pressed="false" class="chip" data-interest="space" type="button">◈ 3D и пространства</button>
-<button aria-pressed="false" class="chip" data-interest="furniture" type="button">▤ Мебель и предметный дизайн</button>
-<button aria-pressed="false" class="chip" data-interest="game" type="button">▣ Создание 3D-игр</button>
-<button aria-pressed="false" class="chip" data-interest="create" type="button">▶ Видео и креатив</button>
-<button aria-pressed="false" class="chip" data-interest="comics" type="button">✎ Комиксы и истории</button>
-<button aria-pressed="false" class="chip" data-interest="qa" type="button">◎ Код и поиск ошибок</button>
-<button aria-pressed="false" class="chip" data-interest="ml" type="button">◈ Нейронные сети</button>
-<button aria-pressed="false" class="chip" data-interest="hack" type="button">⚑ Хакатоны и соревнования</button>
-<button aria-pressed="false" class="chip" data-interest="grant" type="button">◇ Гранты и исследовательские проекты</button>
-<button aria-pressed="false" class="chip" data-interest="frontier" type="button">✧ Подготовка проектов для AI-лабораторий</button>
+<div class="quiz" role="form" aria-label="Подбор программы по трём вопросам">
+<h3><span class="question-no">1</span> Что хочется создать?</h3>
+<div class="goal-options choices" id="goals" role="group" aria-label="Цель обучения">
+<button class="chip goal-option" type="button" data-goal="explore" aria-pressed="true"><span class="goal-glyph" aria-hidden="true">✦</span><b>Хочу попробовать</b><small>Пока ищу своё направление</small></button>
+<button class="chip goal-option" type="button" data-goal="visual" aria-pressed="false"><span class="goal-glyph" aria-hidden="true">◈</span><b>Визуальный проект</b><small>Мебель, пространства, комиксы, видео</small></button>
+<button class="chip goal-option" type="button" data-goal="build" aria-pressed="false"><span class="goal-glyph" aria-hidden="true">⌘</span><b>Программу или игру</b><small>Приложения, Python и GameDev</small></button>
+<button class="chip goal-option" type="button" data-goal="research" aria-pressed="false"><span class="goal-glyph" aria-hidden="true">↗</span><b>Развивать проект</b><small>Нейросети, хакатоны и исследования</small></button>
 </div>
-<div aria-live="polite" class="quiz-hint" id="recommendation" role="status">Если пока не определился, начни с программы «AI Навигатор» — она помогает попробовать несколько профессий без жёсткого выбора.</div>
+<div class="topic-picker" id="topicPicker" hidden><p>Какой результат тебе интереснее?</p><div class="choices" id="interests" role="group" aria-label="Интересующее направление"></div></div>
+<div class="quiz-secondary">
+<div><h3><span class="question-no">2</span> Какой у тебя опыт?</h3><div class="choices" id="levels" role="group" aria-label="Начальный уровень"><button type="button" class="chip" data-level="zero" aria-pressed="true">Начинаю с нуля</button><button type="button" class="chip" data-level="basic" aria-pressed="false">Уже немного пробовал</button><button type="button" class="chip" data-level="project" aria-pressed="false">Есть свой проект</button></div><p>Это поможет выбрать старт. Требования каждого направления покажем отдельно.</p></div>
+<div><h3><span class="question-no">3</span> Сколько времени есть?</h3><div class="choices" id="paces" role="group" aria-label="Время на занятия"><button type="button" class="chip" data-pace="light" aria-pressed="false">2–3 ч/нед.</button><button type="button" class="chip" data-pace="balanced" aria-pressed="true">4–6 ч/нед.</button><button type="button" class="chip" data-pace="deep" aria-pressed="false">7+ ч/нед.</button></div><p>Вместе со встречами и самостоятельной работой. Точный график согласуем до старта.</p></div>
 </div>
-<div class="quiz-side">
-<h3>Твой уровень</h3>
-<div aria-label="Начальный уровень" class="choices" id="levels" role="group">
-<button aria-pressed="true" class="chip" data-level="zero" type="button">С нуля</button>
-<button aria-pressed="false" class="chip" data-level="basic" type="button">Уже немного пробовал</button>
-</div>
-<h3 class="gap-top">Сколько времени есть?</h3>
-<div aria-label="Время на занятия" class="choices" id="paces" role="group">
-<button aria-pressed="false" class="chip" data-pace="light" type="button">2–3 ч/нед.</button>
-<button aria-pressed="true" class="chip" data-pace="balanced" type="button">4–6 ч/нед.</button>
-<button aria-pressed="false" class="chip" data-pace="deep" type="button">7+ ч/нед.</button>
-</div>
-<p style="margin-top:17px;margin-bottom:0">Время включает занятия с наставником и самостоятельную практику.</p>
-</div>
+<div class="quiz-bottom"><div class="quiz-hint" id="recommendation" role="status" aria-live="polite">Можно начать без готовой идеи. AI Навигатор поможет попробовать несколько направлений.</div><button class="btn primary" id="showRecommendation" type="button">Показать мой маршрут ↗</button></div>
 </div>
 </div>
 </section>
-<section class="section" id="programs" style="padding-top:0">
+<section class="section results-section" id="results" hidden>
 <div class="wrap">
-<div class="section-top">
-<div><span class="tag">02 / Каталог</span><h2>Двенадцать маршрутов.<br/><span class="accent">Твой выбор.</span></h2></div>
-<p>Восемь прикладных программ, включая мебель и комиксы, и четыре продвинутых трека: ML, хакатоны, гранты и подготовка исследований для AI-лабораторий.</p>
-</div>
-<div aria-label="Выбор программы обучения" class="programs" id="programList" role="group"></div>
-<div aria-atomic="false" aria-live="polite" class="detail" id="selected">
-<div class="detail-main">
-<span class="tag">Твой выбранный маршрут</span>
-<h3 id="selTitle">AI Навигатор</h3>
-<p class="detail-lead" id="selText"></p>
-<div class="facts">
-<div class="fact"><strong id="selDuration">4 недели</strong><span>Продолжительность</span></div>
-<div class="fact"><strong id="selMeetings">4 встречи</strong><span>1:1 с наставником</span></div>
-<div class="fact"><strong id="selTime">4–6 ч</strong><span>Практики в неделю</span></div>
-</div>
-<div class="outcome"><strong>Что получится в конце</strong><p id="selOutcome"></p></div>
-<div class="detail-actions">
-<button class="btn primary" id="copyLink" type="button">↗ Скопировать ссылку на мой выбор</button>
-<a class="btn ghost" href="https://wa.me/" id="shareWhatsApp" rel="noopener noreferrer" target="_blank">Отправить через WhatsApp ↗</a>
-</div>
-<div class="notices"><span>ⓘ</span><span>Это стартовый учебный маршрут, не гарантия трудоустройства или квалификации за несколько недель. Расписание и стоимость согласуются отдельно.</span></div>
-</div>
-<div class="detail-aside">
-<h4>План по этапам</h4>
-<ol class="steps" id="selSteps"></ol>
-<div class="refs"><span class="subhead" style="width:100%">Примеры проектов и работ</span><div id="selRefs" style="display:flex;gap:9px;flex-wrap:wrap"></div></div>
-</div>
-</div>
+<div class="section-top"><div class="result-summary"><span class="tag">Твоя точка старта</span><h2 id="resultTitle" tabindex="-1">Вот с чего можно начать</h2><p id="resultReason"></p></div><a class="quiet-link" href="#selector">Изменить ответы</a></div>
+<div class="programs" id="recommendationList" role="group" aria-label="Рекомендация и альтернативы"></div>
+<div class="results-actions"><button class="btn ghost" id="compareToggle" type="button" aria-expanded="false" aria-controls="comparison">Сравнить варианты</button><a class="quiet-link" href="#programs">Посмотреть все 12 программ</a></div>
+<div class="comparison" id="comparison" hidden><p class="comparison-help">Сравни результат и требования. На небольшом экране таблицу можно сдвигать в сторону.</p><div class="comparison-scroll" tabindex="0" role="region" aria-label="Таблица сравнения программ"><table id="comparisonTable"></table></div></div>
 </div>
 </section>
+<section class="selection-section" id="selected" aria-labelledby="selTitle" hidden>
+<div class="wrap"><div class="detail">
+<div class="detail-main">
+<span class="tag">Твоя выбранная программа</span><h3 id="selTitle" tabindex="-1">AI Навигатор</h3><p class="detail-lead" id="selText"></p>
+<figure class="selected-example" id="selPreview" hidden><img id="selImage" alt="" width="800" height="500" loading="lazy" decoding="async"/><figcaption id="selImageCaption"></figcaption></figure>
+<p class="requirement"><strong>Для старта:</strong> <span id="selRequirement"></span></p>
+<div class="facts"><div class="fact"><strong id="selDuration">4 недели</strong><span>Базовый план</span></div><div class="fact"><strong id="selMeetings">4 встречи</strong><span>1:1 с наставником</span></div><div class="fact"><strong id="selTime">4–6 ч</strong><span>Твоё время в неделю</span></div></div>
+<p class="pace-note" id="selPaceNote"></p>
+<div class="outcome"><strong>Что получится в конце</strong><p id="selOutcome"></p></div>
+<div class="first-task"><strong>Первый небольшой шаг</strong><p id="selFirstTask"></p></div>
+<div class="detail-actions"><a class="btn primary" id="contactMentor" href="mailto:safal0645@gmail.com">Обсудить программу с Алексеем ↗</a><button class="btn ghost" id="copyLink" type="button">Сохранить ссылку на план</button><a class="quiet-link" id="backToResults" href="#results" hidden>К сравнению вариантов ↑</a><a class="quiet-link" href="#selector">Подобрать ещё раз</a></div>
+<p class="contact-note">Откроется почта с твоим выбором. Добавь удобное время для связи — обсудим цель, стоимость и расписание до начала занятий.</p>
+<details class="message-fallback"><summary>Почта не открывается?</summary><p>Напиши на <a href="mailto:safal0645@gmail.com">safal0645@gmail.com</a> или <a href="https://solvery.io/ru/mentor/5295" target="_blank" rel="noopener noreferrer">оставь заявку на Solvery ↗</a>.</p><label for="contactMessage">Текст запроса — можно скопировать</label><textarea id="contactMessage" readonly rows="7"></textarea><button class="btn ghost" id="copyMessage" type="button">Скопировать текст</button></details>
+</div>
+<div class="detail-aside"><h4>План по этапам</h4><ol class="steps" id="selSteps"></ol>
+<div class="refs"><span class="subhead" style="width:100%">Примеры проектов и работ</span><div id="selRefs" style="display:flex;gap:9px;flex-wrap:wrap"></div></div>
+<dl class="offer-facts"><div><dt>Формат</dt><dd>Персональные встречи, практика на своём проекте и разбор результата.</dd></div><div><dt>Стоимость и график</dt><dd>Согласуем полную стоимость программы, длительность встречи и помощь между занятиями до старта.</dd></div><div><dt>Компьютер и AI-сервисы</dt><dd>Проверим, какие инструменты подойдут твоей задаче и устройству. Возможные расходы на подписки обсудим отдельно.</dd></div></dl>
+<div class="notices"><span aria-hidden="true">ⓘ</span><span>Это учебный маршрут. Итоговый объём зависит от подготовки и практики; трудоустройство и квалификация за несколько недель не гарантируются.</span></div>
+</div>
+</div></div>
+</section>
+<section class="section catalog-section" id="programs">
+<div class="wrap"><div class="section-top"><div><span class="tag">02 / Выбери свой результат</span><h2>Что ты хочешь<br/><span class="accent">создать?</span></h2></div><p>Можно сразу выбрать программу по примеру работы. Восемь прикладных направлений и четыре трека для развития навыков и проектов.</p></div>
+<div class="catalog-toolbar"><div class="choices" id="catalogFilters" role="group" aria-label="Фильтр программ"><button type="button" class="chip" data-filter="all" aria-pressed="true">Все 12</button><button type="button" class="chip" data-filter="explore" aria-pressed="false">Пробую и выбираю</button><button type="button" class="chip" data-filter="visual" aria-pressed="false">Визуальные проекты</button><button type="button" class="chip" data-filter="build" aria-pressed="false">Программы и игры</button><button type="button" class="chip" data-filter="research" aria-pressed="false">Развитие проекта</button></div><p class="catalog-count" id="catalogCount" role="status" aria-live="polite">12 программ</p></div>
+<div class="programs" id="programList" role="group" aria-label="Выбор программы обучения"></div><p class="catalog-note">На карточках — примеры из наших проектов и планируемые учебные результаты. Подробности и авторство работ доступны ниже.</p></div>
+</section>
+<section class="mentor-section" id="mentor" aria-labelledby="mentorTitle"><div class="wrap">
+<div class="mentor-card"><div class="mentor-intro"><div class="mentor-avatar" aria-hidden="true">АС</div><span class="tag">Твой наставник</span><h2 id="mentorTitle">Алексей Сафонов</h2><p>QA-инженер и ментор по применению ИИ. Создаю приложения, цифровые проекты и инструменты для проверки результатов.</p><a class="quiet-link" href="https://github.com/safal207" target="_blank" rel="noopener noreferrer">Проекты и опыт на GitHub ↗</a></div><div><h2>Начнём с твоей идеи</h2><p>Разберём, что тебе интересно, выберем посильную задачу и определим, как проверить результат. Можно задавать базовые вопросы и разбираться в своём темпе.</p><div class="mentor-proof"><a href="#furniture">Мебель: LUMA 01 ↗</a><a href="#awakening">3D-игра: Пробуждение ↗</a><a href="https://safal207.github.io/test-it-python/">Тренажёр Python ↗</a></div><a class="btn primary" href="https://solvery.io/ru/mentor/5295" target="_blank" rel="noopener noreferrer">Познакомиться на Solvery ↗</a><p class="intro-offer">В профиле — отзывы и заявка на бесплатное 15-минутное знакомство. Полную программу обсудим отдельно.</p></div></div>
+<div class="faq" aria-label="Вопросы перед стартом"><details><summary>Можно начать совсем без опыта?</summary><p>Да, у нас есть программы с нуля. Для нейросетей полезны основы Python, а для грантов и исследовательских презентаций нужен собственный проект. Подбор покажет подходящую точку старта и требования.</p></details><details><summary>Что делать, если нравится сразу несколько направлений?</summary><p>Начни с AI Навигатора или сравни варианты после подбора. Первые небольшие работы помогут понять, какой процесс тебе интереснее. Смену направления можно обсудить с наставником.</p></details><details><summary>Нужно сразу оплачивать все AI-сервисы?</summary><p>Сначала определим задачу и набор инструментов. Доступность сервисов, возможности компьютера и возможные дополнительные расходы проверим до начала работы.</p></details><details><summary>Почему время в неделю не меняет срок автоматически?</summary><p>4–12 недель — базовые планы программ. Выбранные часы показывают, сколько времени у тебя есть вместе со встречами и практикой. На знакомстве уточним объём проекта и реалистичный график под твою подготовку.</p></details></div>
+</div></section>
 <section class="section how" id="process">
 <div class="wrap">
 <span class="tag">03 / Формат</span><h2>Учимся через действие</h2>
@@ -379,118 +367,17 @@
 </section>
 <div class="wrap">
 <div class="closing">
-<div><span class="tag">Готов пробовать?</span><h2>Начни с одного небольшого проекта.</h2><p>Не нужно сегодня выбирать профессию на всю жизнь. Выбери трек, сохрани план и обсуди его с наставником. Его можно изменить после первых занятий.</p></div>
+<div><span class="tag">Готов пробовать?</span><h2>Начни с одного небольшого проекта.</h2><p>Выбери интересный результат, посмотри свой план и обсуди первый шаг с наставником. Если пока сомневаешься — начни с трёх вопросов.</p></div>
 <a class="btn primary" href="#selector">Подобрать программу ↗</a>
 </div>
 </div>
 </main>
 <footer class="wrap footer">
 <div><strong style="color:#e4e9f3">AI PATH</strong> · практическое AI-наставничество · 2026</div>
-<div>Наставник: Алексей Сафонов · <a href="https://github.com/safal207" rel="noopener noreferrer" target="_blank">GitHub ↗</a></div>
+<div>Наставник: Алексей Сафонов · <a class="contact-email" href="mailto:safal0645@gmail.com">safal0645@gmail.com</a></div>
 </footer>
 <div aria-live="polite" class="toast" id="toast" role="status">Ссылка скопирована</div>
-<script>
-(function(){
-  'use strict';
-  var programs=[
-    {id:'explore',num:'01',glyph:'✦',name:'AI Навигатор',short:'Попробуй сразу несколько IT-направлений и найди то, что действительно нравится.',weeks:4,meetings:4,level:'С нуля',outcome:'Мини-портфолио из 3 пробных работ: простая визуализация, короткий ролик и первая программа. Понимание, куда двигаться дальше.',steps:['Неделя 1 — знакомство с ИИ, GitHub и безопасной работой с AI-инструментами.','Неделя 2 — эксперимент с визуализацией или коротким видео.','Неделя 3 — первые шаги в Python и поиске ошибок.','Неделя 4 — презентация результатов и выбор дальнейшей программы.'],refs:[['3D-демо','https://safal207.github.io/Architectural-AI-Lab/'],['Python-практика','https://safal207.github.io/test-it-python/']]},
-    {id:'build',num:'02',glyph:'⌘',name:'AI Разработчик',short:'Создавай простые сайты, инструменты и AI-приложения. Учись управлять кодом, а не просто просить нейросеть сделать всё.',weeks:8,meetings:8,level:'Можно с нуля',outcome:'Рабочее веб-приложение на GitHub Pages с понятным интерфейсом, документацией и ручной проверкой ключевых сценариев.',steps:['Недели 1–2 — основы Python или JavaScript, Git и устройство веб-приложений.','Недели 3–4 — интерфейс, запросы к API, проектирование простого AI-сценария.','Недели 5–6 — сборка прототипа с помощью ИИ и самостоятельная проверка кода.','Недели 7–8 — исправления, публикация и показ работающего проекта.'],refs:[['Кофейня: веб-продукт','https://safal207.github.io/robys-coffee-house-demo/'],['AI-приложения','https://github.com/safal207/ai-cafe-network']]},
-    {id:'space',num:'03',glyph:'◈',name:'AI + 3D / Дизайн',short:'От референса до цифрового пространства: Blender, материалы, визуализация и интерактивные показы.',weeks:6,meetings:6,level:'Можно с нуля',outcome:'Один самостоятельный учебный 3D-кейс: модель комнаты или предмета, несколько ракурсов, визуальная презентация и описание ограничений.',steps:['Неделя 1 — референсы, размеры, базовые принципы 3D.','Недели 2–3 — моделирование и материалы в Blender, поиск неточностей.','Недели 4–5 — освещение, AI-варианты, рендеры или простой 3D-просмотр.','Неделя 6 — портфолио-кейс с исходниками и презентацией.'],refs:[['Вилла и 3D-тур','https://safal207.github.io/Architectural-AI-Lab/'],['Интерьерное портфолио','https://safal207.github.io/safonov-interior-portfolio/']]},
-    {"id":"furniture","num":"04","glyph":"▤","name":"Мебель и предметный дизайн","short":"Создай цифровой концепт своего предмета: форма, пропорции, материалы и несколько согласованных 3D-ракурсов. Практика на примере кресла LUMA 01.","weeks":6,"meetings":6,"level":"Можно с нуля","outcome":"Один учебный концепт предмета мебели: цифровая 3D-модель, 3–4 ракурса и презентация с описанием замысла. По готовности — короткий оборот камеры и экспорт геометрии GLB/OBJ. Конструкция не проходит инженерную проверку; производственные чертежи и изготовление не входят.","steps":["Неделя 1 — выбрать простой предмет, собрать референсы и описать назначение, форму и примерные размеры.","Неделя 2 — разобрать сцену LUMA 01 и собрать базовую геометрию собственного концепта с помощью кода и ИИ.","Неделя 3 — уточнить пропорции и детали; проверить одну модель с разных сторон.","Неделя 4 — настроить материалы, свет и камеры; получить 3–4 согласованных ракурса.","Неделя 5 — собрать презентацию; по готовности сделать короткий оборот камеры или экспорт GLB/OBJ.","Неделя 6 — проверить визуальный результат, оформить исходники и объяснить ограничения цифрового концепта."],"refs":[["LUMA 01: три ракурса","#furniture"],["Полный предметный 3D-кейс","https://safal207.github.io/safonov-interior-portfolio/cases/luma-01.html"],["Сцена и исходники","https://github.com/safal207/safonov-interior-portfolio/tree/main/assets/luma01/source"]]},
-    {id:'create',num:'05',glyph:'▶',name:'AI Видео / Креатив',short:'От идеи до короткого ролика: сценарий, изображения, звук, монтаж, субтитры и AI-инструменты.',weeks:6,meetings:6,level:'С нуля',outcome:'Один авторский клип или рекламный Shorts до 30 секунд с чистым звуком, титрами и исходным проектом.',steps:['Неделя 1 — сценарий, раскадровка, настроение и права на материалы.','Недели 2–3 — визуальные сцены и создание/обработка звука.','Недели 4–5 — монтаж, ритм, субтитры, ручная проверка кадров.','Неделя 6 — экспорт 9:16 и презентация готового ролика.'],refs:[['Студия видео','https://github.com/safal207/rustclip-studio'],['3D-портфолио','https://safal207.github.io/creative-portfolio/']]},
-    {"id":"comics","num":"06","glyph":"✎","name":"Комиксы и визуальные истории","short":"Придумай героев, напиши сценарий и собери свой короткий комикс с помощью ИИ. От раскадровки до обложки, страниц и публикации.","weeks":6,"meetings":6,"level":"Можно с нуля","outcome":"Короткий авторский комикс на 3–5 страниц с обложкой, сценарием и раскадровкой; PDF для чтения и показа. По желанию — озвученный вертикальный ролик на основе готовых страниц.","steps":["Неделя 1 — идея, мир, герои и одна законченная история. Автор выбирает, что происходит в сюжете.","Неделя 2 — сценарий, диалоги и раскадровка на 3–5 страниц.","Неделя 3 — визуальный стиль и постоянство персонажей; работа с референсами и AI-инструментами.","Неделя 4 — сборка страниц: композиция кадров, реплики, проверка текста и читаемости.","Неделя 5 — обложка, экспорт в PDF и проверка комикса на телефоне.","Неделя 6 — презентация результата; по желанию — дикторская озвучка, субтитры и короткий вертикальный ролик."],"refs":[["Инь и Янка: обложки и страница","#comics"],["Читать выпуски «Живут в папках»","https://yin-yanka-comics.safalex.chatgpt.site"]]},
-    {id:'qa',num:'07',glyph:'◎',name:'Python + QA',short:'Пойми, как работает программа, научись находить ошибки и напиши первые проверки на Python.',weeks:8,meetings:8,level:'С нуля',outcome:'Собственный небольшой Python-проект, набор тест-кейсов, несколько автопроверок и репозиторий с понятной инструкцией.',steps:['Недели 1–2 — основы Python: условия, циклы, функции.','Недели 3–4 — тест-дизайн, баг-репорты, браузерные и API-проверки.','Недели 5–6 — pytest, позитивные и негативные сценарии.','Недели 7–8 — GitHub, запуск проверок и демонстрация результатов.'],refs:[['Тренажёр Python','https://safal207.github.io/test-it-python/'],['Финтех QA-курс','https://github.com/safal207/qa-fintech-api-python-course']]},
-    {id:'game',num:'08',glyph:'▣',name:'3D GameDev — Пробуждение',short:'Создавай воксельные миры: C#, камера, блоки, генерация ландшафта и игровые механики на основе проекта Awakening.',weeks:8,meetings:8,level:'С основ C#',outcome:'Первая собственная доработка игры «Пробуждение» — новый тип блока или простая механика, проверка работы, GitHub-описание и видеодемонстрация. Полный новый движок за 8 недель не обещаем.',steps:['Неделя 1 — основы C#, GitHub и запуск игры на совместимом компьютере.','Неделя 2 — игровой цикл, камера и управление WASD.','Неделя 3 — блоки, воксели и чанки.','Неделя 4 — генерация мира и выбор небольшого улучшения.','Неделя 5 — взаимодействие с блоками и игровые механики.','Неделя 6 — освещение и цикл дня/ночи.','Неделя 7 — поиск ошибок, тестирование и отладка.','Неделя 8 — презентация своей доработки и проекта в GitHub.'],refs:[['Исходники «Пробуждения»','https://github.com/safal207/Awakening'],['Как запустить','https://github.com/safal207/Awakening#build--run']]},
-
-    {id:'ml',num:'09',glyph:'◈',name:'Нейросети · 24 ноутбука',short:'От Python и данных до нейронных сетей для изображений, текста и звука. Учимся читать и проверять настоящие Jupyter-эксперименты.',weeks:12,meetings:12,level:'Желательны основы Python',outcome:'Один воспроизведённый учебный эксперимент с понятным объяснением кода, метрик и ограничений. 24 ноутбука — библиотека для выбора, не обещание освоить все работы за курс.',steps:['Недели 1–2 — Python, NumPy, данные и основы математического аппарата.','Недели 3–4 — обучающая и тестовая выборки, нейронные сети, переобучение.','Недели 5–6 — CNN, MNIST и компьютерное зрение.','Недели 7–8 — тексты, токенизация, RNN, LSTM, GRU.','Недели 9–10 — аудио или настройка гиперпараметров.','Недели 11–12 — воспроизведение одной работы, отчёт и GitHub-портфолио.'],refs:[['Подборка 24 ноутбуков','#research'],['Архив: 65 ноутбуков','https://github.com/safal207/students']]},
-    {id:'hack',num:'10',glyph:'⚑',name:'Hackathon Lab',short:'Участие в проектных соревнованиях: поиск идеи, сборка прототипа, тестирование, питч и подготовка конкурсных материалов.',weeks:6,meetings:6,level:'После вводных навыков',outcome:'GitHub-репозиторий, работающий прототип, короткая демонстрация и черновик заявки для конкретного хакатона. Победа, призы и допуск не гарантируются.',steps:['Неделя 1 — найти событие, проверить сроки, требования и правила использования ИИ.','Неделя 2 — сформулировать проблему, командные роли и минимальный результат.','Неделя 3 — прототип, репозиторий и основные пользовательские сценарии.','Неделя 4 — тестирование, исправления и фиксация ограничений.','Неделя 5 — питч, демовидео, скриншоты и README.','Неделя 6 — контрольный чек-лист, репетиция и подготовка материалов к подаче.'],refs:[['NextRole: hackathon MVP','https://github.com/safal207/NextRole'],['Liminal Recall','https://github.com/safal207/Causal-Memory-Layer/tree/main/hackathons/liminal-recall']]},
-    {id:'grant',num:'11',glyph:'◇',name:'Grant Lab · заявки',short:'Учимся превращать исследовательскую идею в понятную экспертам заявку: гипотеза, доказательства, этапы и бюджет.',weeks:6,meetings:6,level:'После первого проекта',outcome:'Черновик one-pager, план этапов, учебный бюджет, evidence pack и матрица соответствия требованиям. Подача и финансирование не гарантируются и требуют отдельной проверки правил.',steps:['Неделя 1 — отобрать реальную грантовую программу и прочитать критерии.','Неделя 2 — проблема, гипотеза, новизна и общественная польза.','Неделя 3 — научиться связывать репозиторий, тесты, демонстрацию и доказательства.','Неделя 4 — реалистичные сроки, этапы, результаты, расходы и риски.','Неделя 5 — one-pager, основной текст и материалы для reviewer.','Неделя 6 — независимая проверка фактов, прав на код и условий подачи.'],refs:[['PythiaLabs: пакет гранта','https://github.com/safal207/pythiaLabs/blob/main/docs/GRANT_EVIDENCE.md'],['LTP: пример proposal','https://github.com/safal207/L-THREAD-Liminal-Thread-Secure-Protocol-LTP-/blob/main/docs/GRANT_PROPOSAL_20K_50K.md']]},
-    {id:'frontier',num:'12',glyph:'✧',name:'AI Lab Research Pitch',short:'Подготовь исследовательский проект к экспертной оценке: воспроизводимые тесты, demo, английский memo и выбор настоящего канала.',weeks:8,meetings:8,level:'Нужен собственный проект',outcome:'One-pager, evidence pack, reviewer demo, сравнительная таблица с baseline и черновик заявки. Нет гарантии ответа, приёма, доступа к моделям или финансирования.',steps:['Неделя 1 — выбрать одну проверяемую проблему и потенциальную лабораторию.','Неделя 2 — research question, baseline, новизна и ограничения.','Недели 3–4 — воспроизводимый эксперимент, README, тесты, метрики.','Неделя 5 — reviewer demo и технический walkthrough.','Неделя 6 — краткий memo и письмо на английском без преувеличений.','Неделя 7 — проверить правила, аффилиацию, регион, дедлайны и права на данные.','Неделя 8 — финальный audit и подготовка пакета к согласованной подаче.'],refs:[['Causal Memory Layer','https://github.com/safal207/Causal-Memory-Layer'],['AI Lab маршруты','#frontier']]}
-  ];
-  var notebooks=[{"cat":"cv","group":"Computer Vision","title":"Conv2D: параметры свёртки","path":"CV/Conv2D_Arguments.ipynb","url":"https://github.com/safal207/students/blob/main/CV/Conv2D_Arguments.ipynb"},{"cat":"cv","group":"Computer Vision","title":"CIFAR-10 и CIFAR-100","path":"CV/База_Cifar10_(accuracy=85_)_и_Cifar100((accuracy=56_)).ipynb","url":"https://github.com/safal207/students/blob/main/CV/%D0%91%D0%B0%D0%B7%D0%B0_Cifar10_(accuracy%3D85_)_%D0%B8_Cifar100((accuracy%3D56_)).ipynb"},{"cat":"cv","group":"Computer Vision","title":"Распознавание марок авто","path":"CV/Задача_классификация_авто_по_фото_(3_марки_авто)_Результат_точность_77_\".ipynb","url":"https://github.com/safal207/students/blob/main/CV/%D0%97%D0%B0%D0%B4%D0%B0%D1%87%D0%B0_%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D1%8F_%D0%B0%D0%B2%D1%82%D0%BE_%D0%BF%D0%BE_%D1%84%D0%BE%D1%82%D0%BE_(3_%D0%BC%D0%B0%D1%80%D0%BA%D0%B8_%D0%B0%D0%B2%D1%82%D0%BE)_%D0%A0%D0%B5%D0%B7%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%82_%D1%82%D0%BE%D1%87%D0%BD%D0%BE%D1%81%D1%82%D1%8C_77_%22.ipynb"},{"cat":"cv","group":"Computer Vision","title":"MNIST: свёрточные сети","path":"CV/Распознавание_изображений_из_набора_данных_MNIST,_с_помощью_свёрточных_нейронных_сетей.ipynb","url":"https://github.com/safal207/students/blob/main/CV/%D0%A0%D0%B0%D1%81%D0%BF%D0%BE%D0%B7%D0%BD%D0%B0%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B9_%D0%B8%D0%B7_%D0%BD%D0%B0%D0%B1%D0%BE%D1%80%D0%B0_%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85_MNIST%2C_%D1%81_%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%D1%8E_%D1%81%D0%B2%D1%91%D1%80%D1%82%D0%BE%D1%87%D0%BD%D1%8B%D1%85_%D0%BD%D0%B5%D0%B9%D1%80%D0%BE%D0%BD%D0%BD%D1%8B%D1%85_%D1%81%D0%B5%D1%82%D0%B5%D0%B9.ipynb"},{"cat":"cv","group":"Computer Vision","title":"Обнаружение объектов: MobileNetV2","path":"CV/Сафонов\"objects_detection_ssdlite_mobilenet_v2_ipynb\".ipynb","url":"https://github.com/safal207/students/blob/main/CV/%D0%A1%D0%B0%D1%84%D0%BE%D0%BD%D0%BE%D0%B2%22objects_detection_ssdlite_mobilenet_v2_ipynb%22.ipynb"},{"cat":"cv","group":"Computer Vision","title":"Камень, ножницы, бумага · CNN","path":"CV/Сафонов_\"rock_paper_scissors_cnn_ipynb\".ipynb","url":"https://github.com/safal207/students/blob/main/CV/%D0%A1%D0%B0%D1%84%D0%BE%D0%BD%D0%BE%D0%B2_%22rock_paper_scissors_cnn_ipynb%22.ipynb"},{"cat":"cv","group":"Computer Vision","title":"Сегментация изображений","path":"CV/Сафонов_Домашнее_задание_№3\"_Лучшая_точность_для_сегментации_Стройки_val_точность_60_95_.ipynb","url":"https://github.com/safal207/students/blob/main/CV/%D0%A1%D0%B0%D1%84%D0%BE%D0%BD%D0%BE%D0%B2_%D0%94%D0%BE%D0%BC%D0%B0%D1%88%D0%BD%D0%B5%D0%B5_%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5_%E2%84%963%22_%D0%9B%D1%83%D1%87%D1%88%D0%B0%D1%8F_%D1%82%D0%BE%D1%87%D0%BD%D0%BE%D1%81%D1%82%D1%8C_%D0%B4%D0%BB%D1%8F_%D1%81%D0%B5%D0%B3%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D0%B8_%D0%A1%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8_val_%D1%82%D0%BE%D1%87%D0%BD%D0%BE%D1%81%D1%82%D1%8C_60_95_.ipynb"},{"cat":"nlp","group":"Обработка текста / NLP","title":"Dense, RNN, Conv1D, LSTM, GRU","path":"NLP/NLP_SafonovAlex_DenseRNN_,Conv1d,LSTM,_GRU_для_обработки_текстов\".ipynb","url":"https://github.com/safal207/students/blob/main/NLP/NLP_SafonovAlex_DenseRNN_%2CConv1d%2CLSTM%2C_GRU_%D0%B4%D0%BB%D1%8F_%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B8_%D1%82%D0%B5%D0%BA%D1%81%D1%82%D0%BE%D0%B2%22.ipynb"},{"cat":"nlp","group":"Обработка текста / NLP","title":"Тональность текстов · Conv1D","path":"NLP/NLP_Анализ_тональности_Решение_через_Conv1d_(accuracy_0_8533).ipynb","url":"https://github.com/safal207/students/blob/main/NLP/NLP_%D0%90%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7_%D1%82%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8_%D0%A0%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5_%D1%87%D0%B5%D1%80%D0%B5%D0%B7_Conv1d_(accuracy_0_8533).ipynb"},{"cat":"nlp","group":"Обработка текста / NLP","title":"Тональность текстов · GRU","path":"NLP/NLP_Анализ_тональности_Решение_через_Embedding_+_GRU(accuracy_0_83).ipynb","url":"https://github.com/safal207/students/blob/main/NLP/NLP_%D0%90%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7_%D1%82%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8_%D0%A0%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5_%D1%87%D0%B5%D1%80%D0%B5%D0%B7_Embedding_%2B_GRU(accuracy_0_83).ipynb"},{"cat":"nlp","group":"Обработка текста / NLP","title":"Тональность текстов · LSTM","path":"NLP/NLP_Анализ_тональности_Решение_через_Embedding_+_LSTM(accuracy_0_86).ipynb","url":"https://github.com/safal207/students/blob/main/NLP/NLP_%D0%90%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7_%D1%82%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8_%D0%A0%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5_%D1%87%D0%B5%D1%80%D0%B5%D0%B7_Embedding_%2B_LSTM(accuracy_0_86).ipynb"},{"cat":"nlp","group":"Обработка текста / NLP","title":"Тональность текстов · RNN","path":"NLP/NLP_Анализ_тональности_Решение_через_Embedding_+_RNN_(accuracy_0_58)_\"dl_nlp_imdb_simple_rnn_ipynb\".ipynb","url":"https://github.com/safal207/students/blob/main/NLP/NLP_%D0%90%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7_%D1%82%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8_%D0%A0%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5_%D1%87%D0%B5%D1%80%D0%B5%D0%B7_Embedding_%2B_RNN_(accuracy_0_58)_%22dl_nlp_imdb_simple_rnn_ipynb%22.ipynb"},{"cat":"nlp","group":"Обработка текста / NLP","title":"Определение автора текста","path":"NLP/NLP_Определение_автора_по_отрывкам_текста_Dense,RNN_,Conv1d,LSTM,_GRU_для_обработки_текстов\".ipynb","url":"https://github.com/safal207/students/blob/main/NLP/NLP_%D0%9E%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%B0%D0%B2%D1%82%D0%BE%D1%80%D0%B0_%D0%BF%D0%BE_%D0%BE%D1%82%D1%80%D1%8B%D0%B2%D0%BA%D0%B0%D0%BC_%D1%82%D0%B5%D0%BA%D1%81%D1%82%D0%B0_Dense%2CRNN_%2CConv1d%2CLSTM%2C_GRU_%D0%B4%D0%BB%D1%8F_%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B8_%D1%82%D0%B5%D0%BA%D1%81%D1%82%D0%BE%D0%B2%22.ipynb"},{"cat":"nlp","group":"Обработка текста / NLP","title":"Отзывы IMDb · NLP","path":"NLP/NLP_Определение_тональности_текста_отзывов_на_фильмы_из_IMDb_(Internet_Movie_Database).ipynb","url":"https://github.com/safal207/students/blob/main/NLP/NLP_%D0%9E%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D1%82%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8_%D1%82%D0%B5%D0%BA%D1%81%D1%82%D0%B0_%D0%BE%D1%82%D0%B7%D1%8B%D0%B2%D0%BE%D0%B2_%D0%BD%D0%B0_%D1%84%D0%B8%D0%BB%D1%8C%D0%BC%D1%8B_%D0%B8%D0%B7_IMDb_(Internet_Movie_Database).ipynb"},{"cat":"nlp","group":"Обработка текста / NLP","title":"Yelp: классификация отзывов","path":"NLP/dl_nlp_yelp_polarity.ipynb","url":"https://github.com/safal207/students/blob/main/NLP/dl_nlp_yelp_polarity.ipynb"},{"cat":"nlp","group":"Обработка текста / NLP","title":"Yelp: анализ тональности · Conv1D","path":"NLP/Определение_тональности_текстов_YELP_через_Conv1D_сеть_точность_94_.ipynb","url":"https://github.com/safal207/students/blob/main/NLP/%D0%9E%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D1%82%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8_%D1%82%D0%B5%D0%BA%D1%81%D1%82%D0%BE%D0%B2_YELP_%D1%87%D0%B5%D1%80%D0%B5%D0%B7_Conv1D_%D1%81%D0%B5%D1%82%D1%8C_%D1%82%D0%BE%D1%87%D0%BD%D0%BE%D1%81%D1%82%D1%8C_94_.ipynb"},{"cat":"nlp","group":"Обработка текста / NLP","title":"Yelp: анализ тональности · LSTM","path":"NLP/Определение_тональности_текстов_YELP_через_LSTM_сеть_точность_95_.ipynb","url":"https://github.com/safal207/students/blob/main/NLP/%D0%9E%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D1%82%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8_%D1%82%D0%B5%D0%BA%D1%81%D1%82%D0%BE%D0%B2_YELP_%D1%87%D0%B5%D1%80%D0%B5%D0%B7_LSTM_%D1%81%D0%B5%D1%82%D1%8C_%D1%82%D0%BE%D1%87%D0%BD%D0%BE%D1%81%D1%82%D1%8C_95_.ipynb"},{"cat":"audio","group":"Аудио / нейросети","title":"Распознавание пения птиц","path":"AudioNet/Сафонов\"Аудио_Распознавание_птиц_по_пению_ipynb\".ipynb","url":"https://github.com/safal207/students/blob/main/AudioNet/%D0%A1%D0%B0%D1%84%D0%BE%D0%BD%D0%BE%D0%B2%22%D0%90%D1%83%D0%B4%D0%B8%D0%BE_%D0%A0%D0%B0%D1%81%D0%BF%D0%BE%D0%B7%D0%BD%D0%B0%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5_%D0%BF%D1%82%D0%B8%D1%86_%D0%BF%D0%BE_%D0%BF%D0%B5%D0%BD%D0%B8%D1%8E_ipynb%22.ipynb"},{"cat":"audio","group":"Аудио / нейросети","title":"Обработка аудиосигналов","path":"AudioNet/Сафонов_Обработка_сигналов\"\".ipynb","url":"https://github.com/safal207/students/blob/main/AudioNet/%D0%A1%D0%B0%D1%84%D0%BE%D0%BD%D0%BE%D0%B2_%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0_%D1%81%D0%B8%D0%B3%D0%BD%D0%B0%D0%BB%D0%BE%D0%B2%22%22.ipynb"},{"cat":"class","group":"Классификация","title":"MNIST: обучение и тест","path":"Classification/Light_Обучающая_Тестовая_\"Сафонов_А_А_MNIST_цифры_.ipynb","url":"https://github.com/safal207/students/blob/main/Classification/Light_%D0%9E%D0%B1%D1%83%D1%87%D0%B0%D1%8E%D1%89%D0%B0%D1%8F_%D0%A2%D0%B5%D1%81%D1%82%D0%BE%D0%B2%D0%B0%D1%8F_%22%D0%A1%D0%B0%D1%84%D0%BE%D0%BD%D0%BE%D0%B2_%D0%90_%D0%90_MNIST_%D1%86%D0%B8%D1%84%D1%80%D1%8B_.ipynb"},{"cat":"class","group":"Классификация","title":"Классификация изображений","path":"Classification/Pro_Сафонов_Цель_=_90_точности_база_МИНЫ_на_тестовой_выбоке.ipynb","url":"https://github.com/safal207/students/blob/main/Classification/Pro_%D0%A1%D0%B0%D1%84%D0%BE%D0%BD%D0%BE%D0%B2_%D0%A6%D0%B5%D0%BB%D1%8C_%3D_90_%D1%82%D0%BE%D1%87%D0%BD%D0%BE%D1%81%D1%82%D0%B8_%D0%B1%D0%B0%D0%B7%D0%B0_%D0%9C%D0%98%D0%9D%D0%AB_%D0%BD%D0%B0_%D1%82%D0%B5%D1%81%D1%82%D0%BE%D0%B2%D0%BE%D0%B9_%D0%B2%D1%8B%D0%B1%D0%BE%D0%BA%D0%B5.ipynb"},{"cat":"class","group":"Классификация","title":"Классификация: практическая задача","path":"Classification/Сафонов_Домашнее_задание_№2\".ipynb","url":"https://github.com/safal207/students/blob/main/Classification/%D0%A1%D0%B0%D1%84%D0%BE%D0%BD%D0%BE%D0%B2_%D0%94%D0%BE%D0%BC%D0%B0%D1%88%D0%BD%D0%B5%D0%B5_%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5_%E2%84%962%22.ipynb"},{"cat":"tuning","group":"Подбор архитектуры","title":"Поиск архитектуры нейросети","path":"SeletNetAI/Апрельский_курс_(2020)_Pro_Занятие_16_Часть_2_Подбор_архитектуры.ipynb","url":"https://github.com/safal207/students/blob/main/SeletNetAI/%D0%90%D0%BF%D1%80%D0%B5%D0%BB%D1%8C%D1%81%D0%BA%D0%B8%D0%B9_%D0%BA%D1%83%D1%80%D1%81_(2020)_Pro_%D0%97%D0%B0%D0%BD%D1%8F%D1%82%D0%B8%D0%B5_16_%D0%A7%D0%B0%D1%81%D1%82%D1%8C_2_%D0%9F%D0%BE%D0%B4%D0%B1%D0%BE%D1%80_%D0%B0%D1%80%D1%85%D0%B8%D1%82%D0%B5%D0%BA%D1%82%D1%83%D1%80%D1%8B.ipynb"},{"cat":"tuning","group":"Подбор архитектуры","title":"Keras Tuner и Fashion MNIST","path":"SeletNetAI/Оптимизация_гиперпараметров_нейросети_с_помощью_Keras_Tuner_\"fashion_mnist_keras_tuner_ipynb\".ipynb","url":"https://github.com/safal207/students/blob/main/SeletNetAI/%D0%9E%D0%BF%D1%82%D0%B8%D0%BC%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_%D0%B3%D0%B8%D0%BF%D0%B5%D1%80%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2_%D0%BD%D0%B5%D0%B9%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8_%D1%81_%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%D1%8E_Keras_Tuner_%22fashion_mnist_keras_tuner_ipynb%22.ipynb"}];
-  var state={interest:'explore',program:'explore',level:'zero',pace:'balanced'};
-  var paceLabels={light:'2–3 ч',balanced:'4–6 ч',deep:'7+ ч'};
-  var recommendations={furniture:'Попробуй «Мебель и предметный дизайн»: создай цифровой концепт предмета, проверь его в нескольких ракурсах и собери презентацию. Пример — кресло LUMA 01.',comics:'Попробуй «Комиксы и визуальные истории»: собственные герои, сценарий, обложка и законченный комикс. Примеры — выпуски Иня и Янки.',explore:'Если пока не определился, начни с программы «AI Навигатор»: пробуешь несколько направлений без жёсткого выбора.',build:'Тебе может понравиться «AI Разработчик»: от простого кода и веб-сайтов до рабочего AI-прототипа.',space:'Обрати внимание на «AI + 3D / Дизайн»: виртуальные пространства, 3D-модели, материалы и свет.',create:'Подойдёт «AI Видео / Креатив»: можно сразу делать короткий авторский видеопроект.',qa:'Посмотри «Python + QA»: программирование через понятные задачи и поиск ошибок.',game:'Тебе подойдёт «3D GameDev — Пробуждение»: C#, воксельный мир, игровые механики и первая самостоятельная доработка.',ml:'Нейросети через практику: 24 Jupyter-ноутбука в подборке и самостоятельное воспроизведение выбранного эксперимента.',hack:'Hackathon Lab: от идеи и команды до прототипа, демо и подготовленной конкурсной заявки.',grant:'Grant Lab: учись подтверждать исследовательскую идею фактами, планировать этапы, бюджет и готовить экспертную заявку.',frontier:'Путь к внешней экспертизе: один качественный проект, проверяемая методика, честный результат и подходящий официальный канал.'};
-  var $=function(id){return document.getElementById(id)};
-  var esc=function(str){return String(str).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
-  var params=new URLSearchParams(window.location.search);
-  if(programs.some(function(p){return p.id===params.get('program')})){state.program=params.get('program');state.interest=state.program}
-  if(params.get('level')==='basic')state.level='basic';
-  if(paceLabels[params.get('pace')])state.pace=params.get('pace');
-  function urlForSelection(){var u=new URL(window.location.href);u.searchParams.set('program',state.program);u.searchParams.set('level',state.level);u.searchParams.set('pace',state.pace);u.hash='selected';return u.toString()}
-  function textForSelection(){var p=programs.find(function(x){return x.id===state.program});return 'Я выбрал(а) программу «'+p.name+'» ('+p.weeks+' недель, '+p.meetings+' встреч). Уровень: '+(state.level==='zero'?'с нуля':'есть небольшая база')+'. Темп: '+paceLabels[state.pace]+' в неделю. Посмотреть план: '+urlForSelection()}
-  function toast(s){var e=$('toast');e.textContent=s;e.classList.add('show');window.clearTimeout(toast.t);toast.t=window.setTimeout(function(){e.classList.remove('show')},2700)}
-  function syncButtons(group,key,value){document.querySelectorAll('#'+group+' button').forEach(function(btn){btn.setAttribute('aria-pressed',String(btn.dataset[key]===value))})}
-  function render(){
-    syncButtons('interests','interest',state.interest);
-    syncButtons('levels','level',state.level);
-    syncButtons('paces','pace',state.pace);
-    $('recommendation').textContent=recommendations[state.interest];
-    $('programList').innerHTML=programs.map(function(p){
-      var sel=p.id===state.program;
-      return '<button type="button" class="program'+(p.id===state.interest?' recommended':'')+'" data-program="'+p.id+'" aria-pressed="'+sel+'">'+
-        '<span class="n">ТРЕК '+p.num+(p.id===state.interest?' <span class="pill">Рекомендуем</span>':'')+'</span>'+
-        '<span class="glyph" aria-hidden="true">'+p.glyph+'</span><h3>'+esc(p.name)+'</h3><p>'+esc(p.short)+'</p><footer><span>'+p.weeks+' недель · '+p.meetings+' занятия</span><span>'+(sel?'Выбрано ✓':'Выбрать ↗')+'</span></footer></button>';
-    }).join('');
-    var p=programs.find(function(x){return x.id===state.program});
-    $('selTitle').textContent=p.name;
-    $('selText').textContent=p.short;
-    $('selDuration').textContent=p.weeks+' недель';
-    $('selMeetings').textContent=p.meetings+' встречи';
-    $('selTime').textContent=paceLabels[state.pace];
-    $('selOutcome').textContent=p.outcome;
-    $('selSteps').innerHTML=p.steps.map(function(s,i){return '<li><span class="step-no">'+(i+1)+'</span><span>'+esc(s)+'</span></li>'}).join('');
-    $('selRefs').innerHTML=p.refs.map(function(r){return '<a href="'+esc(r[1])+'"'+(r[1].charAt(0)==='#'?'':' target="_blank" rel="noopener noreferrer"')+'>'+esc(r[0])+' ↗</a>'}).join('');
-    $('shareWhatsApp').href='https://wa.me/?text='+encodeURIComponent(textForSelection());
-    var u=new URL(window.location.href);u.searchParams.set('program',state.program);u.searchParams.set('level',state.level);u.searchParams.set('pace',state.pace);window.history.replaceState({},'',u.pathname+u.search+u.hash);
-  }
-  $('interests').addEventListener('click',function(e){var b=e.target.closest('button[data-interest]');if(!b)return;state.interest=b.dataset.interest;state.program=b.dataset.interest;render();$('programs').scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start'})});
-  $('levels').addEventListener('click',function(e){var b=e.target.closest('button[data-level]');if(!b)return;state.level=b.dataset.level;render()});
-  $('paces').addEventListener('click',function(e){var b=e.target.closest('button[data-pace]');if(!b)return;state.pace=b.dataset.pace;render()});
-  $('programList').addEventListener('click',function(e){var b=e.target.closest('button[data-program]');if(!b)return;state.program=b.dataset.program;render();$('selected').scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'center'})});
-  $('chooseAwakening').addEventListener('click',function(){state.program='game';state.interest='game';render();$('selected').scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'center'})});
-  $('copyLink').addEventListener('click',async function(){
-    var value=urlForSelection();
-    try{
-      if(navigator.clipboard && navigator.clipboard.writeText){await navigator.clipboard.writeText(value)}
-      else{var x=document.createElement('textarea');x.value=value;x.style.position='fixed';x.style.opacity='0';document.body.appendChild(x);x.select();if(!document.execCommand('copy'))throw new Error('copy');x.remove()}
-      toast('Ссылка на выбранный маршрут скопирована');
-    }catch(e){window.prompt('Скопируйте ссылку:',value)}
-  });
-
-  var notebookFilter='all', notebookExpanded=false;
-  function renderNotebooks(){
-    var filtered=notebookFilter==='all'?notebooks:notebooks.filter(function(n){return n.cat===notebookFilter});
-    var featured=[notebooks[0],notebooks[2],notebooks[7],notebooks[14],notebooks[17],notebooks[23]];
-    var visible=notebookFilter==='all'&&!notebookExpanded?featured:filtered;
-    $('nbGrid').innerHTML=visible.map(function(n){
-      return '<a class="nb-card" role="listitem" href="'+esc(n.url)+'" target="_blank" rel="noopener noreferrer"><span class="nb-type">'+esc(n.group)+'</span><strong>'+esc(n.title)+'</strong><span class="nb-open">Открыть ноутбук на GitHub ↗</span></a>';
-    }).join('');
-    document.querySelectorAll('#nbFilters button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.nbcat===notebookFilter))});
-    $('nbCount').textContent='Показано '+visible.length+' из 24 выбранных · в архиве 66';
-    $('nbSeeAll').hidden=notebookFilter!=='all';
-    $('nbSeeAll').setAttribute('aria-expanded',String(notebookExpanded));
-    $('nbSeeAll').textContent=notebookExpanded?'Свернуть ↑':'Показать все 24 ↓';
-  }
-  $('nbFilters').addEventListener('click',function(e){
-    var b=e.target.closest('button[data-nbcat]');if(!b)return;
-    notebookFilter=b.dataset.nbcat;
-    notebookExpanded=notebookFilter!=='all';
-    renderNotebooks();
-  });
-  $('nbSeeAll').addEventListener('click',function(){notebookExpanded=!notebookExpanded;renderNotebooks()});
-  document.querySelectorAll('[data-start-track]').forEach(function(b){
-    b.addEventListener('click',function(){
-      var id=b.dataset.startTrack;
-      if(!programs.some(function(p){return p.id===id}))return;
-      state.program=id;state.interest=id;render();
-      $('selected').scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'center'});
-    });
-  });
-  renderNotebooks();
-  render();
-})();
-</script>
+<script src="app.js"></script>
 <dialog aria-labelledby="galleryTitle" id="projectLightbox">
 <div class="gallery-toolbar"><h3 id="galleryTitle">Скриншот проекта</h3><button aria-label="Закрыть скриншот" id="galleryClose" type="button">Закрыть ×</button></div>
 <img alt="" id="galleryImage"/>

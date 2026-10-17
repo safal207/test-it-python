@@ -1,0 +1,255 @@
+(function(){
+  'use strict';
+  var programs=[
+    {id:'explore',num:'01',glyph:'✦',name:'AI Навигатор',short:'Попробуй сразу несколько IT-направлений и найди то, что действительно нравится.',weeks:4,meetings:4,level:'С нуля',outcome:'Мини-портфолио из 2 пробных работ: простая визуализация или короткий ролик и первая программа. Понимание, куда двигаться дальше.',steps:['Неделя 1 — знакомство с ИИ, GitHub и безопасной работой с AI-инструментами.','Неделя 2 — эксперимент с визуализацией или коротким видео.','Неделя 3 — первые шаги в Python и поиске ошибок.','Неделя 4 — презентация результатов и выбор дальнейшей программы.'],refs:[['3D-демо','https://safal207.github.io/Architectural-AI-Lab/'],['Python-практика','https://safal207.github.io/test-it-python/']]},
+    {id:'build',num:'02',glyph:'⌘',name:'AI Разработчик',short:'Создавай простые сайты, инструменты и AI-приложения. Учись управлять кодом, а не просто просить нейросеть сделать всё.',weeks:8,meetings:8,level:'Можно с нуля',outcome:'Рабочее веб-приложение на GitHub Pages с понятным интерфейсом, документацией и ручной проверкой ключевых сценариев.',steps:['Недели 1–2 — основы Python или JavaScript, Git и устройство веб-приложений.','Недели 3–4 — интерфейс, запросы к API, проектирование простого AI-сценария.','Недели 5–6 — сборка прототипа с помощью ИИ и самостоятельная проверка кода.','Недели 7–8 — исправления, публикация и показ работающего проекта.'],refs:[['Кофейня: веб-продукт','https://safal207.github.io/robys-coffee-house-demo/'],['AI-приложения','https://github.com/safal207/ai-cafe-network']]},
+    {id:'space',num:'03',glyph:'◈',name:'AI + 3D / Дизайн',short:'От референса до цифрового пространства: Blender, материалы, визуализация и интерактивные показы.',weeks:6,meetings:6,level:'Можно с нуля',outcome:'Один самостоятельный учебный 3D-кейс: модель комнаты или небольшого пространства, несколько ракурсов, визуальная презентация и описание ограничений.',steps:['Неделя 1 — референсы, размеры, базовые принципы 3D.','Недели 2–3 — моделирование и материалы в Blender, поиск неточностей.','Недели 4–5 — освещение, AI-варианты, рендеры или простой 3D-просмотр.','Неделя 6 — портфолио-кейс с исходниками и презентацией.'],refs:[['Вилла и 3D-тур','https://safal207.github.io/Architectural-AI-Lab/'],['Интерьерное портфолио','https://safal207.github.io/safonov-interior-portfolio/']]},
+    {"id":"furniture","num":"04","glyph":"▤","name":"Мебель и предметный дизайн","short":"Создай цифровой концепт своего предмета: форма, пропорции, материалы и несколько согласованных 3D-ракурсов. Практика на примере кресла LUMA 01.","weeks":6,"meetings":6,"level":"Можно с нуля","outcome":"Один учебный концепт предмета мебели: цифровая 3D-модель, 3–4 ракурса и презентация с описанием замысла. По готовности — короткий оборот камеры и экспорт геометрии GLB/OBJ. Конструкция не проходит инженерную проверку; производственные чертежи и изготовление не входят.","steps":["Неделя 1 — выбрать простой предмет, собрать референсы и описать назначение, форму и примерные размеры.","Неделя 2 — разобрать сцену LUMA 01 и собрать базовую геометрию собственного концепта с помощью кода и ИИ.","Неделя 3 — уточнить пропорции и детали; проверить одну модель с разных сторон.","Неделя 4 — настроить материалы, свет и камеры; получить 3–4 согласованных ракурса.","Неделя 5 — собрать презентацию; по готовности сделать короткий оборот камеры или экспорт GLB/OBJ.","Неделя 6 — проверить визуальный результат, оформить исходники и объяснить ограничения цифрового концепта."],"refs":[["LUMA 01: три ракурса","#furniture"],["Полный предметный 3D-кейс","https://safal207.github.io/safonov-interior-portfolio/cases/luma-01.html"],["Сцена и исходники","https://github.com/safal207/safonov-interior-portfolio/tree/main/assets/luma01/source"]]},
+    {id:'create',num:'05',glyph:'▶',name:'AI Видео / Креатив',short:'От идеи до короткого ролика: сценарий, изображения, звук, монтаж, субтитры и AI-инструменты.',weeks:6,meetings:6,level:'С нуля',outcome:'Один авторский клип или рекламный Shorts до 30 секунд с чистым звуком, титрами и исходным проектом.',steps:['Неделя 1 — сценарий, раскадровка, настроение и права на материалы.','Недели 2–3 — визуальные сцены и создание/обработка звука.','Недели 4–5 — монтаж, ритм, субтитры, ручная проверка кадров.','Неделя 6 — экспорт 9:16 и презентация готового ролика.'],refs:[['Студия видео','https://github.com/safal207/rustclip-studio'],['3D-портфолио','https://safal207.github.io/creative-portfolio/']]},
+    {"id":"comics","num":"06","glyph":"✎","name":"Комиксы и визуальные истории","short":"Придумай героев, напиши сценарий и собери свой короткий комикс с помощью ИИ. От раскадровки до обложки, страниц и публикации.","weeks":6,"meetings":6,"level":"Можно с нуля","outcome":"Короткий авторский комикс на 3–5 страниц с обложкой, сценарием и раскадровкой; PDF для чтения и показа. По желанию — озвученный вертикальный ролик на основе готовых страниц.","steps":["Неделя 1 — идея, мир, герои и одна законченная история. Автор выбирает, что происходит в сюжете.","Неделя 2 — сценарий, диалоги и раскадровка на 3–5 страниц.","Неделя 3 — визуальный стиль и постоянство персонажей; работа с референсами и AI-инструментами.","Неделя 4 — сборка страниц: композиция кадров, реплики, проверка текста и читаемости.","Неделя 5 — обложка, экспорт в PDF и проверка комикса на телефоне.","Неделя 6 — презентация результата; по желанию — дикторская озвучка, субтитры и короткий вертикальный ролик."],"refs":[["Инь и Янка: обложки и страница","#comics"],["Читать выпуски «Живут в папках»","https://yin-yanka-comics.safalex.chatgpt.site"]]},
+    {id:'qa',num:'07',glyph:'◎',name:'Python + QA',short:'Пойми, как работает программа, научись находить ошибки и напиши первые проверки на Python.',weeks:8,meetings:8,level:'С нуля',outcome:'Собственный небольшой Python-проект, набор тест-кейсов, несколько автопроверок и репозиторий с понятной инструкцией.',steps:['Недели 1–2 — основы Python: условия, циклы, функции.','Недели 3–4 — тест-дизайн, баг-репорты, браузерные и API-проверки.','Недели 5–6 — pytest, позитивные и негативные сценарии.','Недели 7–8 — GitHub, запуск проверок и демонстрация результатов.'],refs:[['Тренажёр Python','https://safal207.github.io/test-it-python/'],['Финтех QA-курс','https://github.com/safal207/qa-fintech-api-python-course']]},
+    {id:'game',num:'08',glyph:'▣',name:'3D GameDev — Пробуждение',short:'Создавай воксельные миры: C#, камера, блоки, генерация ландшафта и игровые механики на основе проекта Awakening.',weeks:8,meetings:8,level:'С основ C#',outcome:'Первая собственная доработка игры «Пробуждение» — новый тип блока или простая механика, проверка работы, GitHub-описание и видеодемонстрация. Полный новый движок за 8 недель не обещаем.',steps:['Неделя 1 — основы C#, GitHub и запуск игры на совместимом компьютере.','Неделя 2 — игровой цикл, камера и управление WASD.','Неделя 3 — блоки, воксели и чанки.','Неделя 4 — генерация мира и выбор небольшого улучшения.','Неделя 5 — взаимодействие с блоками и игровые механики.','Неделя 6 — освещение и цикл дня/ночи.','Неделя 7 — поиск ошибок, тестирование и отладка.','Неделя 8 — презентация своей доработки и проекта в GitHub.'],refs:[['Исходники «Пробуждения»','https://github.com/safal207/Awakening'],['Как запустить','https://github.com/safal207/Awakening#build--run']]},
+
+    {id:'ml',num:'09',glyph:'◈',name:'Нейросети · 24 ноутбука',short:'От Python и данных до нейронных сетей для изображений, текста и звука. Учимся читать и проверять настоящие Jupyter-эксперименты.',weeks:12,meetings:12,level:'Желательны основы Python',outcome:'Один воспроизведённый учебный эксперимент с понятным объяснением кода, метрик и ограничений. 24 ноутбука — библиотека для выбора, не обещание освоить все работы за курс.',steps:['Недели 1–2 — Python, NumPy, данные и основы математического аппарата.','Недели 3–4 — обучающая и тестовая выборки, нейронные сети, переобучение.','Недели 5–6 — CNN, MNIST и компьютерное зрение.','Недели 7–8 — тексты, токенизация, RNN, LSTM, GRU.','Недели 9–10 — аудио или настройка гиперпараметров.','Недели 11–12 — воспроизведение одной работы, отчёт и GitHub-портфолио.'],refs:[['Подборка 24 ноутбуков','#research'],['Архив: 65 ноутбуков','https://github.com/safal207/students']]},
+    {id:'hack',num:'10',glyph:'⚑',name:'Hackathon Lab',short:'Участие в проектных соревнованиях: поиск идеи, сборка прототипа, тестирование, питч и подготовка конкурсных материалов.',weeks:6,meetings:6,level:'После вводных навыков',outcome:'GitHub-репозиторий, работающий прототип, короткая демонстрация и черновик заявки для конкретного хакатона. Победа, призы и допуск не гарантируются.',steps:['Неделя 1 — найти событие, проверить сроки, требования и правила использования ИИ.','Неделя 2 — сформулировать проблему, командные роли и минимальный результат.','Неделя 3 — прототип, репозиторий и основные пользовательские сценарии.','Неделя 4 — тестирование, исправления и фиксация ограничений.','Неделя 5 — питч, демовидео, скриншоты и README.','Неделя 6 — контрольный чек-лист, репетиция и подготовка материалов к подаче.'],refs:[['NextRole: hackathon MVP','https://github.com/safal207/NextRole'],['Liminal Recall','https://github.com/safal207/Causal-Memory-Layer/tree/main/hackathons/liminal-recall']]},
+    {id:'grant',num:'11',glyph:'◇',name:'Grant Lab · заявки',short:'Учимся превращать исследовательскую идею в понятную экспертам заявку: гипотеза, доказательства, этапы и бюджет.',weeks:6,meetings:6,level:'После первого проекта',outcome:'Черновик one-pager, план этапов, учебный бюджет, evidence pack и матрица соответствия требованиям. Подача и финансирование не гарантируются и требуют отдельной проверки правил.',steps:['Неделя 1 — отобрать реальную грантовую программу и прочитать критерии.','Неделя 2 — проблема, гипотеза, новизна и общественная польза.','Неделя 3 — научиться связывать репозиторий, тесты, демонстрацию и доказательства.','Неделя 4 — реалистичные сроки, этапы, результаты, расходы и риски.','Неделя 5 — one-pager, основной текст и материалы для reviewer.','Неделя 6 — независимая проверка фактов, прав на код и условий подачи.'],refs:[['PythiaLabs: пакет гранта','https://github.com/safal207/pythiaLabs/blob/main/docs/GRANT_EVIDENCE.md'],['LTP: пример proposal','https://github.com/safal207/L-THREAD-Liminal-Thread-Secure-Protocol-LTP-/blob/main/docs/GRANT_PROPOSAL_20K_50K.md']]},
+    {id:'frontier',num:'12',glyph:'✧',name:'AI Lab Research Pitch',short:'Подготовь исследовательский проект к экспертной оценке: воспроизводимые тесты, demo, английский memo и выбор настоящего канала.',weeks:8,meetings:8,level:'Нужен собственный проект',outcome:'One-pager, evidence pack, reviewer demo, сравнительная таблица с baseline и черновик заявки. Нет гарантии ответа, приёма, доступа к моделям или финансирования.',steps:['Неделя 1 — выбрать одну проверяемую проблему и потенциальную лабораторию.','Неделя 2 — research question, baseline, новизна и ограничения.','Недели 3–4 — воспроизводимый эксперимент, README, тесты, метрики.','Неделя 5 — reviewer demo и технический walkthrough.','Неделя 6 — краткий memo и письмо на английском без преувеличений.','Неделя 7 — проверить правила, аффилиацию, регион, дедлайны и права на данные.','Неделя 8 — финальный audit и подготовка пакета к согласованной подаче.'],refs:[['Causal Memory Layer','https://github.com/safal207/Causal-Memory-Layer'],['AI Lab маршруты','#frontier']]}
+  ];
+  var notebooks=[{"cat":"cv","group":"Computer Vision","title":"Conv2D: параметры свёртки","path":"CV/Conv2D_Arguments.ipynb","url":"https://github.com/safal207/students/blob/main/CV/Conv2D_Arguments.ipynb"},{"cat":"cv","group":"Computer Vision","title":"CIFAR-10 и CIFAR-100","path":"CV/База_Cifar10_(accuracy=85_)_и_Cifar100((accuracy=56_)).ipynb","url":"https://github.com/safal207/students/blob/main/CV/%D0%91%D0%B0%D0%B7%D0%B0_Cifar10_(accuracy%3D85_)_%D0%B8_Cifar100((accuracy%3D56_)).ipynb"},{"cat":"cv","group":"Computer Vision","title":"Распознавание марок авто","path":"CV/Задача_классификация_авто_по_фото_(3_марки_авто)_Результат_точность_77_\".ipynb","url":"https://github.com/safal207/students/blob/main/CV/%D0%97%D0%B0%D0%B4%D0%B0%D1%87%D0%B0_%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D1%8F_%D0%B0%D0%B2%D1%82%D0%BE_%D0%BF%D0%BE_%D1%84%D0%BE%D1%82%D0%BE_(3_%D0%BC%D0%B0%D1%80%D0%BA%D0%B8_%D0%B0%D0%B2%D1%82%D0%BE)_%D0%A0%D0%B5%D0%B7%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%82_%D1%82%D0%BE%D1%87%D0%BD%D0%BE%D1%81%D1%82%D1%8C_77_%22.ipynb"},{"cat":"cv","group":"Computer Vision","title":"MNIST: свёрточные сети","path":"CV/Распознавание_изображений_из_набора_данных_MNIST,_с_помощью_свёрточных_нейронных_сетей.ipynb","url":"https://github.com/safal207/students/blob/main/CV/%D0%A0%D0%B0%D1%81%D0%BF%D0%BE%D0%B7%D0%BD%D0%B0%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B9_%D0%B8%D0%B7_%D0%BD%D0%B0%D0%B1%D0%BE%D1%80%D0%B0_%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85_MNIST%2C_%D1%81_%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%D1%8E_%D1%81%D0%B2%D1%91%D1%80%D1%82%D0%BE%D1%87%D0%BD%D1%8B%D1%85_%D0%BD%D0%B5%D0%B9%D1%80%D0%BE%D0%BD%D0%BD%D1%8B%D1%85_%D1%81%D0%B5%D1%82%D0%B5%D0%B9.ipynb"},{"cat":"cv","group":"Computer Vision","title":"Обнаружение объектов: MobileNetV2","path":"CV/Сафонов\"objects_detection_ssdlite_mobilenet_v2_ipynb\".ipynb","url":"https://github.com/safal207/students/blob/main/CV/%D0%A1%D0%B0%D1%84%D0%BE%D0%BD%D0%BE%D0%B2%22objects_detection_ssdlite_mobilenet_v2_ipynb%22.ipynb"},{"cat":"cv","group":"Computer Vision","title":"Камень, ножницы, бумага · CNN","path":"CV/Сафонов_\"rock_paper_scissors_cnn_ipynb\".ipynb","url":"https://github.com/safal207/students/blob/main/CV/%D0%A1%D0%B0%D1%84%D0%BE%D0%BD%D0%BE%D0%B2_%22rock_paper_scissors_cnn_ipynb%22.ipynb"},{"cat":"cv","group":"Computer Vision","title":"Сегментация изображений","path":"CV/Сафонов_Домашнее_задание_№3\"_Лучшая_точность_для_сегментации_Стройки_val_точность_60_95_.ipynb","url":"https://github.com/safal207/students/blob/main/CV/%D0%A1%D0%B0%D1%84%D0%BE%D0%BD%D0%BE%D0%B2_%D0%94%D0%BE%D0%BC%D0%B0%D1%88%D0%BD%D0%B5%D0%B5_%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5_%E2%84%963%22_%D0%9B%D1%83%D1%87%D1%88%D0%B0%D1%8F_%D1%82%D0%BE%D1%87%D0%BD%D0%BE%D1%81%D1%82%D1%8C_%D0%B4%D0%BB%D1%8F_%D1%81%D0%B5%D0%B3%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D0%B8_%D0%A1%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8_val_%D1%82%D0%BE%D1%87%D0%BD%D0%BE%D1%81%D1%82%D1%8C_60_95_.ipynb"},{"cat":"nlp","group":"Обработка текста / NLP","title":"Dense, RNN, Conv1D, LSTM, GRU","path":"NLP/NLP_SafonovAlex_DenseRNN_,Conv1d,LSTM,_GRU_для_обработки_текстов\".ipynb","url":"https://github.com/safal207/students/blob/main/NLP/NLP_SafonovAlex_DenseRNN_%2CConv1d%2CLSTM%2C_GRU_%D0%B4%D0%BB%D1%8F_%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B8_%D1%82%D0%B5%D0%BA%D1%81%D1%82%D0%BE%D0%B2%22.ipynb"},{"cat":"nlp","group":"Обработка текста / NLP","title":"Тональность текстов · Conv1D","path":"NLP/NLP_Анализ_тональности_Решение_через_Conv1d_(accuracy_0_8533).ipynb","url":"https://github.com/safal207/students/blob/main/NLP/NLP_%D0%90%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7_%D1%82%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8_%D0%A0%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5_%D1%87%D0%B5%D1%80%D0%B5%D0%B7_Conv1d_(accuracy_0_8533).ipynb"},{"cat":"nlp","group":"Обработка текста / NLP","title":"Тональность текстов · GRU","path":"NLP/NLP_Анализ_тональности_Решение_через_Embedding_+_GRU(accuracy_0_83).ipynb","url":"https://github.com/safal207/students/blob/main/NLP/NLP_%D0%90%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7_%D1%82%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8_%D0%A0%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5_%D1%87%D0%B5%D1%80%D0%B5%D0%B7_Embedding_%2B_GRU(accuracy_0_83).ipynb"},{"cat":"nlp","group":"Обработка текста / NLP","title":"Тональность текстов · LSTM","path":"NLP/NLP_Анализ_тональности_Решение_через_Embedding_+_LSTM(accuracy_0_86).ipynb","url":"https://github.com/safal207/students/blob/main/NLP/NLP_%D0%90%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7_%D1%82%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8_%D0%A0%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5_%D1%87%D0%B5%D1%80%D0%B5%D0%B7_Embedding_%2B_LSTM(accuracy_0_86).ipynb"},{"cat":"nlp","group":"Обработка текста / NLP","title":"Тональность текстов · RNN","path":"NLP/NLP_Анализ_тональности_Решение_через_Embedding_+_RNN_(accuracy_0_58)_\"dl_nlp_imdb_simple_rnn_ipynb\".ipynb","url":"https://github.com/safal207/students/blob/main/NLP/NLP_%D0%90%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7_%D1%82%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8_%D0%A0%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5_%D1%87%D0%B5%D1%80%D0%B5%D0%B7_Embedding_%2B_RNN_(accuracy_0_58)_%22dl_nlp_imdb_simple_rnn_ipynb%22.ipynb"},{"cat":"nlp","group":"Обработка текста / NLP","title":"Определение автора текста","path":"NLP/NLP_Определение_автора_по_отрывкам_текста_Dense,RNN_,Conv1d,LSTM,_GRU_для_обработки_текстов\".ipynb","url":"https://github.com/safal207/students/blob/main/NLP/NLP_%D0%9E%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%B0%D0%B2%D1%82%D0%BE%D1%80%D0%B0_%D0%BF%D0%BE_%D0%BE%D1%82%D1%80%D1%8B%D0%B2%D0%BA%D0%B0%D0%BC_%D1%82%D0%B5%D0%BA%D1%81%D1%82%D0%B0_Dense%2CRNN_%2CConv1d%2CLSTM%2C_GRU_%D0%B4%D0%BB%D1%8F_%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B8_%D1%82%D0%B5%D0%BA%D1%81%D1%82%D0%BE%D0%B2%22.ipynb"},{"cat":"nlp","group":"Обработка текста / NLP","title":"Отзывы IMDb · NLP","path":"NLP/NLP_Определение_тональности_текста_отзывов_на_фильмы_из_IMDb_(Internet_Movie_Database).ipynb","url":"https://github.com/safal207/students/blob/main/NLP/NLP_%D0%9E%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D1%82%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8_%D1%82%D0%B5%D0%BA%D1%81%D1%82%D0%B0_%D0%BE%D1%82%D0%B7%D1%8B%D0%B2%D0%BE%D0%B2_%D0%BD%D0%B0_%D1%84%D0%B8%D0%BB%D1%8C%D0%BC%D1%8B_%D0%B8%D0%B7_IMDb_(Internet_Movie_Database).ipynb"},{"cat":"nlp","group":"Обработка текста / NLP","title":"Yelp: классификация отзывов","path":"NLP/dl_nlp_yelp_polarity.ipynb","url":"https://github.com/safal207/students/blob/main/NLP/dl_nlp_yelp_polarity.ipynb"},{"cat":"nlp","group":"Обработка текста / NLP","title":"Yelp: анализ тональности · Conv1D","path":"NLP/Определение_тональности_текстов_YELP_через_Conv1D_сеть_точность_94_.ipynb","url":"https://github.com/safal207/students/blob/main/NLP/%D0%9E%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D1%82%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8_%D1%82%D0%B5%D0%BA%D1%81%D1%82%D0%BE%D0%B2_YELP_%D1%87%D0%B5%D1%80%D0%B5%D0%B7_Conv1D_%D1%81%D0%B5%D1%82%D1%8C_%D1%82%D0%BE%D1%87%D0%BD%D0%BE%D1%81%D1%82%D1%8C_94_.ipynb"},{"cat":"nlp","group":"Обработка текста / NLP","title":"Yelp: анализ тональности · LSTM","path":"NLP/Определение_тональности_текстов_YELP_через_LSTM_сеть_точность_95_.ipynb","url":"https://github.com/safal207/students/blob/main/NLP/%D0%9E%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D1%82%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8_%D1%82%D0%B5%D0%BA%D1%81%D1%82%D0%BE%D0%B2_YELP_%D1%87%D0%B5%D1%80%D0%B5%D0%B7_LSTM_%D1%81%D0%B5%D1%82%D1%8C_%D1%82%D0%BE%D1%87%D0%BD%D0%BE%D1%81%D1%82%D1%8C_95_.ipynb"},{"cat":"audio","group":"Аудио / нейросети","title":"Распознавание пения птиц","path":"AudioNet/Сафонов\"Аудио_Распознавание_птиц_по_пению_ipynb\".ipynb","url":"https://github.com/safal207/students/blob/main/AudioNet/%D0%A1%D0%B0%D1%84%D0%BE%D0%BD%D0%BE%D0%B2%22%D0%90%D1%83%D0%B4%D0%B8%D0%BE_%D0%A0%D0%B0%D1%81%D0%BF%D0%BE%D0%B7%D0%BD%D0%B0%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5_%D0%BF%D1%82%D0%B8%D1%86_%D0%BF%D0%BE_%D0%BF%D0%B5%D0%BD%D0%B8%D1%8E_ipynb%22.ipynb"},{"cat":"audio","group":"Аудио / нейросети","title":"Обработка аудиосигналов","path":"AudioNet/Сафонов_Обработка_сигналов\"\".ipynb","url":"https://github.com/safal207/students/blob/main/AudioNet/%D0%A1%D0%B0%D1%84%D0%BE%D0%BD%D0%BE%D0%B2_%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0_%D1%81%D0%B8%D0%B3%D0%BD%D0%B0%D0%BB%D0%BE%D0%B2%22%22.ipynb"},{"cat":"class","group":"Классификация","title":"MNIST: обучение и тест","path":"Classification/Light_Обучающая_Тестовая_\"Сафонов_А_А_MNIST_цифры_.ipynb","url":"https://github.com/safal207/students/blob/main/Classification/Light_%D0%9E%D0%B1%D1%83%D1%87%D0%B0%D1%8E%D1%89%D0%B0%D1%8F_%D0%A2%D0%B5%D1%81%D1%82%D0%BE%D0%B2%D0%B0%D1%8F_%22%D0%A1%D0%B0%D1%84%D0%BE%D0%BD%D0%BE%D0%B2_%D0%90_%D0%90_MNIST_%D1%86%D0%B8%D1%84%D1%80%D1%8B_.ipynb"},{"cat":"class","group":"Классификация","title":"Классификация изображений","path":"Classification/Pro_Сафонов_Цель_=_90_точности_база_МИНЫ_на_тестовой_выбоке.ipynb","url":"https://github.com/safal207/students/blob/main/Classification/Pro_%D0%A1%D0%B0%D1%84%D0%BE%D0%BD%D0%BE%D0%B2_%D0%A6%D0%B5%D0%BB%D1%8C_%3D_90_%D1%82%D0%BE%D1%87%D0%BD%D0%BE%D1%81%D1%82%D0%B8_%D0%B1%D0%B0%D0%B7%D0%B0_%D0%9C%D0%98%D0%9D%D0%AB_%D0%BD%D0%B0_%D1%82%D0%B5%D1%81%D1%82%D0%BE%D0%B2%D0%BE%D0%B9_%D0%B2%D1%8B%D0%B1%D0%BE%D0%BA%D0%B5.ipynb"},{"cat":"class","group":"Классификация","title":"Классификация: практическая задача","path":"Classification/Сафонов_Домашнее_задание_№2\".ipynb","url":"https://github.com/safal207/students/blob/main/Classification/%D0%A1%D0%B0%D1%84%D0%BE%D0%BD%D0%BE%D0%B2_%D0%94%D0%BE%D0%BC%D0%B0%D1%88%D0%BD%D0%B5%D0%B5_%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5_%E2%84%962%22.ipynb"},{"cat":"tuning","group":"Подбор архитектуры","title":"Поиск архитектуры нейросети","path":"SeletNetAI/Апрельский_курс_(2020)_Pro_Занятие_16_Часть_2_Подбор_архитектуры.ipynb","url":"https://github.com/safal207/students/blob/main/SeletNetAI/%D0%90%D0%BF%D1%80%D0%B5%D0%BB%D1%8C%D1%81%D0%BA%D0%B8%D0%B9_%D0%BA%D1%83%D1%80%D1%81_(2020)_Pro_%D0%97%D0%B0%D0%BD%D1%8F%D1%82%D0%B8%D0%B5_16_%D0%A7%D0%B0%D1%81%D1%82%D1%8C_2_%D0%9F%D0%BE%D0%B4%D0%B1%D0%BE%D1%80_%D0%B0%D1%80%D1%85%D0%B8%D1%82%D0%B5%D0%BA%D1%82%D1%83%D1%80%D1%8B.ipynb"},{"cat":"tuning","group":"Подбор архитектуры","title":"Keras Tuner и Fashion MNIST","path":"SeletNetAI/Оптимизация_гиперпараметров_нейросети_с_помощью_Keras_Tuner_\"fashion_mnist_keras_tuner_ipynb\".ipynb","url":"https://github.com/safal207/students/blob/main/SeletNetAI/%D0%9E%D0%BF%D1%82%D0%B8%D0%BC%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_%D0%B3%D0%B8%D0%BF%D0%B5%D1%80%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2_%D0%BD%D0%B5%D0%B9%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8_%D1%81_%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%D1%8E_Keras_Tuner_%22fashion_mnist_keras_tuner_ipynb%22.ipynb"}];
+  // Quiz answers are a draft; selection stores the answers agreed at the last choice.
+  // Editing the quiz must not silently change an already shared programme.
+  var state={goal:'explore',interest:'explore',level:'zero',pace:'balanced',selection:null,result:null,filter:'all'};
+  var groups={explore:['explore'],visual:['furniture','space','comics','create'],build:['build','qa','game'],research:['ml','hack','grant','frontier']};
+  var goalLabels={explore:'попробовать разные направления',visual:'создавать визуальные проекты',build:'создавать приложения и игры',research:'развивать проект и исследовать'};
+  var interestLabels={explore:'Пока выбираю направление',furniture:'Мебель и предметы',space:'Комнаты и пространства',comics:'Комиксы и истории',create:'Короткие видео',build:'Веб-приложения',qa:'Python и тестирование',game:'3D-игры',ml:'Нейросети и данные',hack:'Хакатоны',grant:'Грантовая заявка',frontier:'Исследовательский проект'};
+  var levelLabels={zero:'с нуля',basic:'есть небольшая база',project:'есть свой проект'};
+  var paceLabels={light:'2–3 ч',balanced:'4–6 ч',deep:'7+ ч'};
+  var paceNotes={
+    light:'Ты планируешь уделять 2–3 часа в неделю. При таком ритме объём первой работы или календарный срок может потребовать корректировки; согласуем это до начала.',
+    balanced:'Ты планируешь уделять 4–6 часов в неделю. Вместе согласуем время встреч и самостоятельной работы под выбранную задачу.',
+    deep:'Ты планируешь уделять 7 и более часов в неделю. Обсудим дополнительную практику и глубину проекта с учётом твоей подготовки.'
+  };
+  var presentation={
+    explore:{headline:'Попробуй два проекта и выбери своё направление',first:'Выбрать одну небольшую идею и составить понятное задание для ИИ.'},
+    build:{headline:'Собери и опубликуй своё веб-приложение',image:'assets/testit.webp',width:1440,height:960,caption:'Пример веб-интерфейса — тренажёр Test it Python.',first:'Описать одну полезную функцию приложения и собрать первый экран с работающей кнопкой.'},
+    space:{headline:'Создай 3D-комнату и покажи её с разных сторон',image:'assets/architectural.webp',width:1440,height:960,caption:'Пример портфолио пространств — Architectural AI Lab.',first:'Выбрать небольшую комнату, собрать референсы и набросать её простую объёмную схему.'},
+    furniture:{headline:'Придумай предмет мебели и создай 3–4 ракурса',image:'assets/furniture/luma01-hero.webp',width:1200,height:1500,caption:'LUMA 01 — цифровой концепт кресла Алексея Сафонова.',first:'Выбрать простой предмет, описать его назначение и набросать основную форму.'},
+    create:{headline:'Создай свой короткий ролик до 30 секунд',image:'assets/rustclip.webp',width:675,height:1200,caption:'Кадр демонстрационного ролика RustClip Studio.',first:'Написать идею ролика и собрать раскадровку из трёх сцен.'},
+    comics:{headline:'Собери комикс на 3–5 страниц с обложкой',image:'assets/comics/issue-02-cover.webp',width:1024,height:1536,caption:'«Инь и Янка»: мир и герои Юры; продолжение — AI-черновик для его редактуры.',first:'Придумать героя, его цель и три кадра одной короткой сцены.'},
+    qa:{headline:'Напиши Python-проект и научись его проверять',image:'assets/testit.webp',width:1440,height:960,caption:'Учебный тренажёр Test it Python: пример практики с кодом.',first:'Написать небольшую функцию и проверить её на обычном и ошибочном входе.'},
+    game:{headline:'Добавь свою механику в 3D-игру «Пробуждение»',image:'assets/awakening.webp',width:1280,height:720,caption:'Скриншот запущенной игры «Пробуждение» (Awakening).',first:'Проверить совместимость компьютера, запустить игру и выбрать одно маленькое улучшение.'},
+    ml:{headline:'Воспроизведи эксперимент с нейросетью',first:'Выбрать один ноутбук, прочитать входные данные и запустить небольшой фрагмент кода.'},
+    hack:{headline:'Подготовь прототип и питч для хакатона',first:'Выбрать событие и сформулировать одну задачу, которую сможет решить прототип.'},
+    grant:{headline:'Собери черновик заявки для своего проекта',first:'Сопоставить идею проекта с критериями одной реальной грантовой программы.'},
+    frontier:{headline:'Подготовь исследовательский проект к экспертизе',first:'Сформулировать один проверяемый вопрос и определить, с чем сравнивать результат.'}
+  };
+  var alternatives={explore:['build','create'],furniture:['space','create'],space:['furniture','game'],comics:['create','explore'],create:['comics','space'],build:['qa','game'],qa:['build','ml'],game:['build','qa'],ml:['qa','frontier'],hack:['build','grant'],grant:['hack','frontier'],frontier:['ml','grant']};
+  var $=function(id){return document.getElementById(id)};
+  var esc=function(str){return String(str).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
+  function programById(id){return programs.find(function(p){return p.id===id})}
+  function groupFor(id){return Object.keys(groups).find(function(key){return groups[key].indexOf(id)!==-1})||'explore'}
+  function own(obj,key){return Object.prototype.hasOwnProperty.call(obj,key)}
+  function countLabel(n,one,few,many){var last=n%10,lastTwo=n%100;return n+' '+(last===1&&lastTwo!==11?one:last>=2&&last<=4&&(lastTwo<12||lastTwo>14)?few:many)}
+  function weekLabel(n){return countLabel(n,'неделя','недели','недель')}
+  function meetingLabel(n){return countLabel(n,'встреча','встречи','встреч')}
+  function captureSelection(id){return {program:id,level:state.level,pace:state.pace}}
+  var params=new URLSearchParams(window.location.search);
+  if(own(levelLabels,params.get('level')))state.level=params.get('level');
+  if(own(paceLabels,params.get('pace')))state.pace=params.get('pace');
+  if(programById(params.get('program'))){
+    state.interest=params.get('program');state.goal=groupFor(state.interest);
+    state.selection=captureSelection(state.interest);
+  }
+  function urlForSelection(){
+    if(!state.selection)return '';
+    var u=new URL('https://safal207.github.io/test-it-python/ai-path/');
+    u.searchParams.set('program',state.selection.program);u.searchParams.set('level',state.selection.level);u.searchParams.set('pace',state.selection.pace);u.hash='selected';
+    return u.toString();
+  }
+  function updateSelectionUrl(){
+    var u=new URL(window.location.href);
+    u.searchParams.set('program',state.selection.program);u.searchParams.set('level',state.selection.level);u.searchParams.set('pace',state.selection.pace);u.hash='selected';
+    window.history.replaceState({},'',u.pathname+u.search+u.hash);
+  }
+  function textForSelection(){
+    if(!state.selection)return '';
+    var selected=state.selection,p=programById(selected.program);
+    return 'Алексей, здравствуйте! Хочу обсудить программу «'+p.name+'».\n\n'+
+      'Ориентир плана: '+weekLabel(p.weeks)+', '+meetingLabel(p.meetings)+'.\n'+
+      'Мой уровень: '+levelLabels[selected.level]+'.\n'+
+      'Желаемая нагрузка: '+paceLabels[selected.pace]+' в неделю, включая встречи и самостоятельную работу.\n'+
+      'План программы: '+urlForSelection()+'\n\n'+
+      'Подскажите, подходит ли мне программа, какова полная стоимость, длительность встреч и доступное расписание? Какая поддержка есть между встречами и нужны ли платные сервисы?';
+  }
+  function toast(s){var e=$('toast');e.textContent=s;e.classList.add('show');window.clearTimeout(toast.t);toast.t=window.setTimeout(function(){e.classList.remove('show')},3500)}
+  function focusSection(id){var el=$(id);el.focus({preventScroll:true});el.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start'})}
+  function syncButtons(group,key,value){document.querySelectorAll('#'+group+' button').forEach(function(btn){btn.setAttribute('aria-pressed',String(btn.dataset[key]===value))})}
+  function quizSummary(changed){
+    var summary='Выбор: '+interestLabels[state.interest]+'. Уровень: '+levelLabels[state.level]+'. Желаемая нагрузка: '+paceLabels[state.pace]+' в неделю.';
+    $('recommendation').textContent=summary+(changed?' Ответы изменены. Нажми «Показать мой маршрут», чтобы обновить подбор.':' Нажми «Показать мой маршрут», чтобы увидеть подходящие программы.');
+  }
+  function closeResults(){
+    state.result=null;$('results').hidden=true;$('comparison').hidden=true;$('backToResults').hidden=true;
+    $('compareToggle').setAttribute('aria-expanded','false');
+  }
+  function invalidateResults(){closeResults();quizSummary(true)}
+  function renderInterests(){
+    $('topicPicker').hidden=state.goal==='explore';
+    $('interests').innerHTML=groups[state.goal].map(function(id){return '<button type="button" class="chip" data-interest="'+id+'" aria-pressed="'+(id===state.interest)+'">'+esc(interestLabels[id])+'</button>'}).join('');
+  }
+  function cardMarkup(p,recommended){
+    var m=presentation[p.id],sel=Boolean(state.selection&&state.selection.program===p.id);
+    var media=m.image?'<span class="program-media"><img src="'+esc(m.image)+'" alt="'+esc(m.caption)+'" width="'+m.width+'" height="'+m.height+'" loading="lazy" decoding="async"></span>':'<span class="program-placeholder"><span aria-hidden="true">'+p.glyph+'</span><span>Результат программы</span></span>';
+    return '<button type="button" class="program'+(recommended?' recommended':'')+'" data-program="'+p.id+'" aria-pressed="'+sel+'">'+media+
+      '<span class="program-body"><span class="n">ТРЕК '+p.num+(recommended?' <span class="pill">Рекомендуем начать</span>':'')+'</span>'+
+      '<span class="program-name">'+esc(p.name)+'</span><h3>'+esc(m.headline)+'</h3><p>'+esc(p.short)+'</p><span class="program-level">'+esc(p.level)+'</span>'+
+      '<footer><span>'+weekLabel(p.weeks)+' · '+meetingLabel(p.meetings)+'</span><span class="program-choice">'+(sel?'Выбрано ✓':'Посмотреть план ↗')+'</span></footer></span></button>';
+  }
+  function syncCards(){
+    document.querySelectorAll('button[data-program]').forEach(function(button){
+      var selected=Boolean(state.selection&&button.dataset.program===state.selection.program);
+      button.setAttribute('aria-pressed',String(selected));
+      var label=button.querySelector('.program-choice');if(label)label.textContent=selected?'Выбрано ✓':'Посмотреть план ↗';
+    });
+  }
+  function filterCatalog(){
+    var count=0;
+    document.querySelectorAll('#programList [data-program]').forEach(function(button){var visible=state.filter==='all'||groups[state.filter].indexOf(button.dataset.program)!==-1;button.hidden=!visible;if(visible)count++});
+    syncButtons('catalogFilters','filter',state.filter);
+    $('catalogCount').textContent='Показано '+count+' из '+programs.length+' программ';
+  }
+  function recommendationForAnswers(){
+    var target=state.interest,primary=target,options=alternatives[target].slice();
+    var reason='Тебе интересно '+goalLabels[state.goal]+'. «'+programById(target).name+'» соответствует выбранной теме: '+interestLabels[target].toLowerCase()+'.';
+    if(target==='explore')reason='Ты пока выбираешь направление. AI Навигатор даёт две небольшие пробы, чтобы затем выбрать следующий проект.';
+    if(target==='ml'&&state.level==='zero'){
+      primary='qa';options=['ml','explore'];
+      reason='Тебя интересуют нейросети, а опыта пока нет. Начни с Python + QA: освоишь код и проверки. Нейросети остаются следующим вариантом, когда появятся основы Python.';
+    }else if(target==='hack'&&state.level==='zero'){
+      primary='build';options=['hack','explore'];
+      reason='Для хакатона пригодятся навыки сборки прототипа. С нуля рекомендуем AI Разработчика; Hackathon Lab можно выбрать после вводной практики.';
+    }else if((target==='grant'||target==='frontier')&&state.level!=='project'){
+      primary='build';options=[target,'hack'];
+      reason='Для «'+programById(target).name+'» нужен собственный проект с результатами. Сначала предлагаем создать прототип на программе AI Разработчик, затем вернуться к заявке или экспертизе.';
+    }else if(target==='ml'){
+      reason+=' Для старта желательны основы Python: перед началом проверим, хватает ли твоей базы.';
+    }else if(target==='game'){
+      reason+=' Начинаем с основ C#; перед стартом проверим, запускается ли игра на твоём компьютере.';
+    }else if(target==='hack'){
+      reason+=' Понадобятся вводные навыки разработки; объём прототипа подберём под твою базу.';
+    }else if(target==='grant'||target==='frontier'){
+      reason+=' У тебя уже есть свой проект; начнём с проверки его готовности и требований выбранной программы.';
+    }
+    reason+=' Время '+paceLabels[state.pace]+' в неделю — твоё пожелание. Срок и объём работы согласуем до начала.';
+    return {ids:[primary].concat(options).filter(function(id,index,array){return array.indexOf(id)===index}).slice(0,3),reason:reason,pace:state.pace};
+  }
+  function renderComparison(){
+    if(!state.result)return;
+    var candidates=state.result.ids.map(programById);
+    var rows=[
+      ['Результат',function(p){return p.outcome}],
+      ['Срок',function(p){return weekLabel(p.weeks)+' · '+meetingLabel(p.meetings)+'; ориентир плана'}],
+      ['Для старта',function(p){return p.level}],
+      ['Время в неделю',function(){return paceLabels[state.result.pace]+' — желаемая нагрузка; уточним до начала'}],
+      ['Стоимость',function(){return 'Обсудим до начала'}]
+    ];
+    $('comparisonTable').innerHTML='<caption>Сравнение подходящих программ</caption><thead><tr><th scope="col">Что сравниваем</th>'+candidates.map(function(p){return '<th scope="col">'+esc(p.name)+'</th>'}).join('')+'</tr></thead><tbody>'+rows.map(function(row){return '<tr><th scope="row">'+esc(row[0])+'</th>'+candidates.map(function(p){return '<td>'+esc(row[1](p))+'</td>'}).join('')+'</tr>'}).join('')+'</tbody>';
+  }
+  function renderSelection(){
+    $('selected').hidden=!state.selection;$('backToResults').hidden=!state.result;if(!state.selection)return;
+    var selected=state.selection,p=programById(selected.program),m=presentation[p.id];
+    $('selTitle').textContent=p.name;$('selText').textContent=p.short;
+    $('selDuration').textContent=weekLabel(p.weeks);$('selMeetings').textContent=meetingLabel(p.meetings);$('selTime').textContent=paceLabels[selected.pace];
+    $('selOutcome').textContent=p.outcome;$('selRequirement').textContent=p.level;
+    $('selPaceNote').textContent=paceNotes[selected.pace]+' План на '+weekLabel(p.weeks)+' — ориентир; итоговый график определим вместе.';
+    $('selFirstTask').textContent=m.first;
+    $('selSteps').innerHTML=p.steps.map(function(s,i){return '<li><span class="step-no">'+(i+1)+'</span><span>'+esc(s)+'</span></li>'}).join('');
+    $('selRefs').innerHTML=p.refs.map(function(r){return '<a href="'+esc(r[1])+'"'+(r[1].charAt(0)==='#'?'':' target="_blank" rel="noopener noreferrer"')+'>'+esc(r[0])+' ↗</a>'}).join('');
+    $('selPreview').hidden=!m.image;
+    if(m.image){$('selImage').src=m.image;$('selImage').alt=m.caption;$('selImage').width=m.width;$('selImage').height=m.height;$('selImageCaption').textContent=m.caption}
+    else{$('selImage').removeAttribute('src');$('selImage').alt='';$('selImageCaption').textContent=''}
+    var message=textForSelection();$('contactMessage').value=message;
+    // Public contact: github.com/safal207/safal207 README, Contact section.
+    $('contactMentor').href='mailto:safal0645@gmail.com?subject='+encodeURIComponent('AI PATH — '+p.name)+'&body='+encodeURIComponent(message);
+    syncCards();
+  }
+  function selectProgram(id){
+    if(!programById(id))return;
+    state.selection=captureSelection(id);
+    if(!state.result||state.result.ids.indexOf(id)===-1)closeResults();
+    $('recommendation').textContent='Ты выбрал(а) «'+programById(id).name+'». План открыт ниже. Для нового подбора измени ответы и нажми «Показать мой маршрут».';
+    renderSelection();updateSelectionUrl();focusSection('selTitle');
+  }
+  $('goals').addEventListener('click',function(e){
+    var b=e.target.closest('button[data-goal]');if(!b||!own(groups,b.dataset.goal)||state.goal===b.dataset.goal)return;
+    state.goal=b.dataset.goal;state.interest=groups[state.goal][0];
+    syncButtons('goals','goal',state.goal);renderInterests();invalidateResults();
+  });
+  $('interests').addEventListener('click',function(e){
+    var b=e.target.closest('button[data-interest]');if(!b||groups[state.goal].indexOf(b.dataset.interest)===-1||state.interest===b.dataset.interest)return;
+    state.interest=b.dataset.interest;syncButtons('interests','interest',state.interest);invalidateResults();
+  });
+  $('levels').addEventListener('click',function(e){var b=e.target.closest('button[data-level]');if(!b||!own(levelLabels,b.dataset.level)||state.level===b.dataset.level)return;state.level=b.dataset.level;syncButtons('levels','level',state.level);invalidateResults()});
+  $('paces').addEventListener('click',function(e){var b=e.target.closest('button[data-pace]');if(!b||!own(paceLabels,b.dataset.pace)||state.pace===b.dataset.pace)return;state.pace=b.dataset.pace;syncButtons('paces','pace',state.pace);invalidateResults()});
+  $('showRecommendation').addEventListener('click',function(){
+    state.result=recommendationForAnswers();state.selection=captureSelection(state.result.ids[0]);
+    $('recommendationList').innerHTML=state.result.ids.map(function(id,index){return cardMarkup(programById(id),index===0)}).join('');
+    $('resultTitle').textContent='Три маршрута для твоей идеи';
+    $('resultReason').textContent=state.result.reason;$('results').hidden=false;
+    $('comparison').hidden=true;$('compareToggle').setAttribute('aria-expanded','false');
+    $('recommendation').textContent='Подбор готов: одна программа для старта и две альтернативы. Ниже — объяснение выбора и план.';
+    renderComparison();renderSelection();updateSelectionUrl();focusSection('resultTitle');
+  });
+  $('compareToggle').addEventListener('click',function(){if(!state.result)return;var expanded=$('compareToggle').getAttribute('aria-expanded')==='true';$('compareToggle').setAttribute('aria-expanded',String(!expanded));$('comparison').hidden=expanded});
+  $('catalogFilters').addEventListener('click',function(e){var b=e.target.closest('button[data-filter]');if(!b||!(b.dataset.filter==='all'||own(groups,b.dataset.filter)))return;state.filter=b.dataset.filter;filterCatalog()});
+  ['programList','recommendationList'].forEach(function(id){$(id).addEventListener('click',function(e){var b=e.target.closest('button[data-program]');if(b)selectProgram(b.dataset.program)})});
+  $('chooseAwakening').addEventListener('click',function(){selectProgram('game')});
+  async function copyText(value){
+    if(navigator.clipboard&&navigator.clipboard.writeText){await navigator.clipboard.writeText(value);return}
+    var previous=document.activeElement,x=document.createElement('textarea');x.value=value;x.style.position='fixed';x.style.opacity='0';document.body.appendChild(x);
+    try{x.select();if(!document.execCommand('copy'))throw new Error('copy')}finally{x.remove();if(previous)previous.focus({preventScroll:true})}
+  }
+  $('copyLink').addEventListener('click',async function(){
+    if(!state.selection)return;
+    var value=urlForSelection();
+    try{await copyText(value);toast('Ссылка на выбранную программу скопирована')}
+    catch(e){window.prompt('Скопируйте ссылку:',value)}
+  });
+  $('copyMessage').addEventListener('click',async function(){
+    if(!state.selection)return;
+    try{await copyText(textForSelection());toast('Текст обращения скопирован. Можно отправить его Алексею.')}
+    catch(e){$('contactMessage').focus();$('contactMessage').select();toast('Выделили текст обращения — скопируйте его вручную.')}
+  });
+
+  var notebookFilter='all', notebookExpanded=false;
+  function renderNotebooks(){
+    var filtered=notebookFilter==='all'?notebooks:notebooks.filter(function(n){return n.cat===notebookFilter});
+    var featured=[notebooks[0],notebooks[2],notebooks[7],notebooks[14],notebooks[17],notebooks[23]];
+    var visible=notebookFilter==='all'&&!notebookExpanded?featured:filtered;
+    $('nbGrid').innerHTML=visible.map(function(n){
+      return '<a class="nb-card" role="listitem" href="'+esc(n.url)+'" target="_blank" rel="noopener noreferrer"><span class="nb-type">'+esc(n.group)+'</span><strong>'+esc(n.title)+'</strong><span class="nb-open">Открыть ноутбук на GitHub ↗</span></a>';
+    }).join('');
+    document.querySelectorAll('#nbFilters button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.nbcat===notebookFilter))});
+    $('nbCount').textContent='Показано '+visible.length+' из 24 выбранных · в архиве 66';
+    $('nbSeeAll').hidden=notebookFilter!=='all';
+    $('nbSeeAll').setAttribute('aria-expanded',String(notebookExpanded));
+    $('nbSeeAll').textContent=notebookExpanded?'Свернуть ↑':'Показать все 24 ↓';
+  }
+  $('nbFilters').addEventListener('click',function(e){
+    var b=e.target.closest('button[data-nbcat]');if(!b)return;
+    notebookFilter=b.dataset.nbcat;
+    notebookExpanded=notebookFilter!=='all';
+    renderNotebooks();
+  });
+  $('nbSeeAll').addEventListener('click',function(){notebookExpanded=!notebookExpanded;renderNotebooks()});
+  document.querySelectorAll('[data-start-track]').forEach(function(b){
+    b.addEventListener('click',function(){selectProgram(b.dataset.startTrack)});
+  });
+  renderNotebooks();
+  syncButtons('goals','goal',state.goal);
+  syncButtons('levels','level',state.level);
+  syncButtons('paces','pace',state.pace);
+  renderInterests();quizSummary(false);
+  $('programList').innerHTML=programs.map(function(p){return cardMarkup(p,false)}).join('');
+  filterCatalog();closeResults();renderSelection();
+})();
