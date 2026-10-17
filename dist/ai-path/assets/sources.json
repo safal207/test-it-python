@@ -1,0 +1,79 @@
+{
+  "captured_at_utc": "2026-10-17T20:52:08.683316+00:00",
+  "run_url": "https://github.com/safal207/test-it-python/actions/runs/39068414816",
+  "awakening_ref": "a92bd1560215833a232362ad78de88335e51ac81",
+  "rustclip_source_blob": "41f54a9ef6bca207ea0b1c590b78b23208395e1b",
+  "images": [
+    {
+      "file": "awakening.webp",
+      "description": "Screenshot of the unmodified Awakening desktop game running under Xvfb/Mesa.",
+      "source": "https://github.com/safal207/Awakening/tree/a92bd1560215833a232362ad78de88335e51ac81",
+      "width": 1280,
+      "height": 720,
+      "sha256": "1fd2d9f167ad6be6468cdca22ebc56d94dfa6d59b87c7099f3d21eddc284ae17"
+    },
+    {
+      "file": "rustclip.webp",
+      "description": "Original preview frame from the RustClip Studio demo; not a studio UI screenshot.",
+      "source": "https://github.com/safal207/rustclip-studio/blob/main/examples/demo/preview.jpg",
+      "width": 675,
+      "height": 1200,
+      "sha256": "3fdb686fe02f64287310bfb99454ddcaa2f82787c0c94862307693a9ca63cf62"
+    },
+    {
+      "file": "testit.webp",
+      "description": "Screenshot of the actual Test it Python learning interface.",
+      "source": "https://github.com/safal207/test-it-python/tree/af6589336589b2950a7311b2afb6790adf0ea180",
+      "width": 1440,
+      "height": 960,
+      "sha256": "20b07742b8b0fbf89b42109741ca0eb756f1d9ccf8c803bed4ce3ccdb92b057d"
+    },
+    {
+      "file": "architectural.webp",
+      "description": "Screenshot of the published Architectural AI Lab portfolio interface.",
+      "source": "https://safal207.github.io/Architectural-AI-Lab/",
+      "width": 1440,
+      "height": 960,
+      "sha256": "ec943e22424cdb6e7cef6dbf601cd911e7e0613009b064feb197934849c8ee8c"
+    }
+  ],
+  "browser_checks": [
+    {
+      "viewport": [
+        1440,
+        960
+      ],
+      "cards": 4,
+      "programs": 6,
+      "image_decode": "PASS",
+      "lightbox_keyboard_focus": "PASS",
+      "game_selection": "PASS",
+      "horizontal_overflow": false
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "cards": 4,
+      "programs": 6,
+      "image_decode": "PASS",
+      "lightbox_keyboard_focus": "PASS",
+      "game_selection": "PASS",
+      "horizontal_overflow": false
+    },
+    {
+      "viewport": [
+        320,
+        740
+      ],
+      "cards": 4,
+      "programs": 6,
+      "image_decode": "PASS",
+      "lightbox_keyboard_focus": "PASS",
+      "game_selection": "PASS",
+      "horizontal_overflow": false
+    }
+  ],
+  "page_errors": []
+}
