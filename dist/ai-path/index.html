@@ -101,7 +101,7 @@
 <div class="wrap nav">
 <a aria-label="AI PATH, на главную" class="logo" href="#top"><span class="mark">↗</span><span>AI<b>PATH</b></span></a>
 <nav aria-label="Основное меню" class="navlinks"><a href="#selector">Подобрать программу</a><a href="#programs">Все программы</a><a href="#examples">Примеры работ</a><a href="#mentor">Наставник</a></nav>
-<a class="navcta" href="#selector">Подобрать маршрут ↗</a>
+<a class="navcta" id="headerAction" href="#selector">Подобрать маршрут ↗</a>
 </div>
 </header>
 <main id="top">
@@ -111,12 +111,14 @@
 <div>
 <span class="eyebrow"><span class="dot"></span> Персональное AI-наставничество</span>
 <h1>Твоя идея.<br/>Твой первый<br/><em>проект с ИИ.</em></h1>
-<p class="lead">Создай книгу, комикс, приложение, видео или 3D-проект вместе с наставником. Найдём направление под твои интересы и опыт — и начнём с посильной задачи.</p>
+<p class="lead">Преврати интерес к ИИ в работу, которую можно показать: книгу, комикс, приложение, видео или 3D-проект. Выберем одну посильную идею и пройдём путь от первого шага до презентации результата.</p>
 <div class="buttons">
 <a class="btn primary" href="#selector">Подобрать по 3 вопросам <span aria-hidden="true">↗</span></a>
 <a class="btn ghost" href="#examples">Смотреть работы <span aria-hidden="true">↓</span></a>
 </div>
+<p class="hero-choice-note">После подбора — понятный результат, план работы и первая задача. Без регистрации.</p>
 <div class="hero-foot"><span><strong>1:1</strong> с наставником</span><span><strong>4–12 недель</strong> базовый план</span><span><strong>Свой проект</strong> в портфолио</span></div>
+<div class="hero-mentor"><span class="mentor-mini" aria-hidden="true">АС</span><span><strong>Алексей Сафонов</strong><span>QA-инженер и AI-наставник · <a href="#mentor">Проекты и отзывы ↗</a></span></span></div>
 </div>
 <div>
 <div class="hero-showcase" aria-label="Выбрать направление по примеру работы">
@@ -129,9 +131,9 @@
 </div>
 </div>
 <div aria-label="Преимущества" class="wrap strip">
-<div><strong>01</strong><span>Сначала пробуешь, потом решаешь</span></div>
-<div><strong>02</strong><span>Задачи и разборы каждую неделю</span></div>
-<div><strong>03</strong><span>Результат — собственный проект</span></div>
+<div><strong>01</strong><span>Выбери, что хочешь создать</span></div>
+<div><strong>02</strong><span>Получи маршрут и первую задачу</span></div>
+<div><strong>03</strong><span>Обсуди старт с наставником</span></div>
 </div>
 <section class="section" id="selector">
 <div class="wrap">
@@ -168,17 +170,33 @@
 <div class="wrap"><div class="detail">
 <div class="detail-main">
 <span class="tag">Твоя выбранная программа</span><h3 id="selTitle" tabindex="-1">AI Навигатор</h3><p class="detail-lead" id="selText"></p>
-<figure class="selected-example" id="selPreview" hidden><img id="selImage" alt="" width="800" height="500" loading="lazy" decoding="async"/><figcaption id="selImageCaption"></figcaption></figure>
+<div class="offer-early-action"><a class="btn primary" id="startJump" href="#start">Обсудить мой старт ↗</a><span>Сначала знакомство и условия, затем решение об обучении.</span></div>
 <p class="requirement"><strong>Для старта:</strong> <span id="selRequirement"></span></p>
 <div class="facts"><div class="fact"><strong id="selDuration">4 недели</strong><span>Базовый план</span></div><div class="fact"><strong id="selMeetings">4 встречи</strong><span>1:1 с наставником</span></div><div class="fact"><strong id="selTime">4–6 ч</strong><span>Твоё время в неделю</span></div></div>
 <p class="pace-note" id="selPaceNote"></p>
 <div class="outcome"><strong>Что получится в конце</strong><p id="selOutcome"></p></div>
+<div class="takeaway-box"><h4>Что заберёшь с собой</h4><ul id="selKit" class="takeaways"></ul></div>
+<figure class="selected-example" id="selPreview" hidden><img id="selImage" alt="" width="800" height="500" loading="lazy" decoding="async"/><figcaption id="selImageCaption"></figcaption></figure>
 <div class="first-task"><strong>Первый небольшой шаг</strong><p id="selFirstTask"></p></div>
-<div class="detail-actions"><a class="btn primary" id="contactMentor" href="mailto:safal0645@gmail.com">Обсудить программу с Алексеем ↗</a><button class="btn ghost" id="copyLink" type="button">Сохранить ссылку на план</button><a class="quiet-link" id="backToResults" href="#results" hidden>К сравнению вариантов ↑</a><a class="quiet-link" href="#selector">Подобрать ещё раз</a></div>
-<p class="contact-note">Откроется почта с твоим выбором. Добавь удобное время для связи — обсудим цель, стоимость и расписание до начала занятий.</p>
-<details class="message-fallback"><summary>Почта не открывается?</summary><p>Напиши на <a href="mailto:safal0645@gmail.com">safal0645@gmail.com</a> или <a href="https://solvery.io/ru/mentor/5295" target="_blank" rel="noopener noreferrer">оставь заявку на Solvery ↗</a>.</p><label for="contactMessage">Текст запроса — можно скопировать</label><textarea id="contactMessage" readonly rows="7"></textarea><button class="btn ghost" id="copyMessage" type="button">Скопировать текст</button></details>
+<details class="starter-pack" id="starterPack"><summary>Попробуй сейчас: шаблон первой идеи</summary><p>Заполни три строки своими словами. Эту заготовку можно использовать самостоятельно или принести на знакомство.</p><pre id="starterTemplate"></pre><button class="btn ghost" type="button" id="copyStarter">Скопировать шаблон</button></details>
+<div class="plan-save"><strong>Забери маршрут и вернись, когда удобно</strong><p>В текстовом файле — выбранная программа, этапы, первая задача и шаблон идеи.</p><div class="detail-actions"><button class="btn ghost" id="downloadPlan" type="button">Скачать мой план · TXT ↓</button><button class="btn ghost" id="copyLink" type="button">Скопировать ссылку</button></div></div>
+<div class="selection-navigation"><a class="quiet-link" id="backToResults" href="#results" hidden>К сравнению вариантов ↑</a><a class="quiet-link" href="#selector">Подобрать ещё раз</a></div>
 </div>
-<div class="detail-aside"><h4>План по этапам</h4><ol class="steps" id="selSteps"></ol>
+<div class="detail-aside">
+<div class="start-panel" id="start" role="region" aria-labelledby="startTitle">
+<span class="tag">Следующий шаг</span><h4 id="startTitle" tabindex="-1">Начнём со знакомства</h4>
+<p class="start-intro">Расскажи о своей идее. Обсудим, подходит ли направление, что нужно для старта и какой объём реалистичен.</p>
+<div class="start-summary"><span>Твой выбор</span><strong id="startProgram"></strong><p id="startMeta"></p></div>
+<label for="projectIdea">Что хочешь создать? <span>Необязательно</span></label><textarea id="projectIdea" rows="3" maxlength="240" placeholder="Например: хочу написать короткую книгу или сделать первое приложение" aria-describedby="ideaPrivacy"></textarea>
+<p class="idea-privacy" id="ideaPrivacy">Идея добавится в черновик письма. Сайт её не отправляет и не сохраняет после перезагрузки.</p>
+<a class="btn primary" id="contactMentor" href="mailto:safal0645@gmail.com">Открыть письмо с моим планом ↗</a>
+<p class="contact-note">Откроется почтовое приложение. Проверь текст и отправь письмо, когда будешь готов. Время встречи согласуем в ответе.</p>
+<div class="start-alternative"><a class="btn ghost" id="introSolvery" href="https://solvery.io/ru/mentor/5295" target="_blank" rel="noopener noreferrer">Знакомство 15 минут на Solvery ↗</a><p>Бесплатное знакомство доступно через профиль Solvery. Там же можно прочитать отзывы.</p></div>
+<blockquote class="mentor-quote"><p>«Алексей хорошо объясняет»</p><footer>Александр Матасов · <a href="https://solvery.io/ru/mentor/5295" target="_blank" rel="noopener noreferrer">отзыв о QA-менторстве</a> · июнь 2022</footer></blockquote>
+<details class="message-fallback"><summary>Посмотреть и скопировать запрос</summary><p>Текст можно вставить в заявку на Solvery или отправить на <a href="mailto:safal0645@gmail.com">safal0645@gmail.com</a>.</p><label for="contactMessage">Твой запрос наставнику</label><textarea id="contactMessage" readonly rows="7"></textarea><button class="btn ghost" id="copyMessage" type="button">Скопировать текст</button></details>
+<p class="start-terms"><strong>До начала занятий согласуем:</strong> полную стоимость, длительность встреч, расписание, поддержку и возможные расходы на AI-сервисы.</p>
+</div>
+<h4 class="curriculum-heading">Как будем двигаться</h4><ol class="steps" id="selSteps"></ol>
 <div class="refs"><span class="subhead" style="width:100%">Примеры проектов и работ</span><div id="selRefs" style="display:flex;gap:9px;flex-wrap:wrap"></div></div>
 <dl class="offer-facts"><div><dt>Формат</dt><dd>Персональные встречи, практика на своём проекте и разбор результата.</dd></div><div><dt>Стоимость и график</dt><dd>Согласуем полную стоимость программы, длительность встречи и помощь между занятиями до старта.</dd></div><div><dt>Компьютер и AI-сервисы</dt><dd>Проверим, какие инструменты подойдут твоей задаче и устройству. Возможные расходы на подписки обсудим отдельно.</dd></div></dl>
 <div class="notices"><span aria-hidden="true">ⓘ</span><span>Это учебный маршрут. Итоговый объём зависит от подготовки и практики; трудоустройство и квалификация за несколько недель не гарантируются.</span></div>
@@ -398,10 +416,11 @@
 <div class="wrap">
 <div class="closing">
 <div><span class="tag">Готов пробовать?</span><h2>Начни с одного небольшого проекта.</h2><p>Выбери интересный результат, посмотри свой план и обсуди первый шаг с наставником. Если пока сомневаешься — начни с трёх вопросов.</p></div>
-<a class="btn primary" href="#selector">Подобрать программу ↗</a>
+<a class="btn primary" id="closingAction" href="#selector">Подобрать программу ↗</a>
 </div>
 </div>
 </main>
+<div class="selection-dock" id="selectionDock" role="region" aria-label="Твоя выбранная программа" hidden><div class="dock-copy"><span>Твой маршрут</span><strong id="dockName"></strong></div><div class="dock-actions"><a class="quiet-link" id="dockPlan" href="#selected">Мой план</a><a class="btn primary" id="dockStart" href="#start">Обсудить старт ↗</a></div></div>
 <footer class="wrap footer">
 <div><strong style="color:#e4e9f3">AI PATH</strong> · практическое AI-наставничество · 2026</div>
 <div>Наставник: Алексей Сафонов · <a class="contact-email" href="mailto:safal0645@gmail.com">safal0645@gmail.com</a></div>

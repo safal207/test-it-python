@@ -1,5 +1,5 @@
 import { spawn } from 'node:child_process';
-import { mkdir } from 'node:fs/promises';
+import { mkdir, readFile } from 'node:fs/promises';
 import { chromium } from 'playwright';
 
 const base = 'http://127.0.0.1:4179/ai-path/';
@@ -83,7 +83,7 @@ async function selected(page, id) {
   }
 }
 async function contact(page) {
-  const fallback = page.locator('#selected details.message-fallback');
+  const fallback = page.locator('#start details.message-fallback');
   if (!(await fallback.evaluate(el => el.open))) await fallback.locator('summary').click();
   assert(await page.locator('#contactMessage').isVisible(), 'Alternative contact draft opens from its summary');
   const message = await page.locator('#contactMessage').inputValue();
@@ -106,6 +106,133 @@ async function contact(page) {
   for (const key of ['program', 'level', 'pace']) assert(copied.searchParams.get(key) === current.searchParams.get(key), `Copied route retains ${key}`);
   assert(copied.hash === '#selected', 'Copied route opens the selected program');
   await noOverflow(page, 'contact fallback expanded');
+}
+function canonicalRoute(page) {
+  const current = new URL(page.url());
+  const route = new URL('https://safal207.github.io/test-it-python/ai-path/');
+  for (const key of ['program', 'level', 'pace']) route.searchParams.set(key, current.searchParams.get(key));
+  route.hash = 'selected';
+  return route.toString();
+}
+async function assertUncovered(locator, label) {
+  const report = await locator.evaluate(el => {
+    const rect = el.getBoundingClientRect();
+    const hit = document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2);
+    return { top: rect.top, bottom: rect.bottom, left: rect.left, right: rect.right,
+      width: innerWidth, height: innerHeight, uncovered: hit === el || el.contains(hit) };
+  });
+  assert(report.top >= 0 && report.bottom <= report.height + 1 && report.left >= 0 && report.right <= report.width + 1 && report.uncovered, `${label} is visible and not covered: ${JSON.stringify(report)}`);
+}
+async function contactNavigation(page, width) {
+  assert(await page.locator('#headerAction').getAttribute('href') === '#selected', 'Header returns to the committed program');
+  assert(await page.locator('#closingAction').getAttribute('href') === '#start', 'Closing action keeps the selected next step');
+  await page.locator('#selTitle').focus();
+  await page.locator('#selTitle').evaluate(el => el.scrollIntoView({ block: 'start', behavior: 'instant' }));
+  if (width <= 760) {
+    await page.locator('#selectionDock').waitFor({ state: 'visible' });
+    assert((await page.locator('#dockName').innerText()).trim() === (await page.locator('#selTitle').innerText()).trim(), 'Mobile dock names the committed program');
+    assert(await page.locator('#dockPlan').getAttribute('href') === '#selected', 'Dock preserves access to the program plan');
+    assert(await page.locator('#dockStart').getAttribute('href') === '#start', 'Dock leads to the contact panel');
+    await assertUncovered(page.locator('#dockStart'), 'Mobile next-step button');
+    await noOverflow(page, 'mobile selection dock visible');
+    await page.locator('#dockStart').click();
+  } else {
+    assert(!(await page.locator('#selectionDock').isVisible()), 'Desktop does not show the mobile dock');
+    await page.locator('#startJump').click();
+  }
+  assert(await page.locator('#startTitle').evaluate(el => document.activeElement === el), 'Next-step action focuses the contact heading');
+  await page.locator('#selectionDock').waitFor({ state: 'hidden' });
+  await assertUncovered(page.locator('#startTitle'), 'Focused contact heading');
+  await screenshot(page, width, 'contact', '#start');
+}
+async function downloadPlan(page, width, label) {
+  const current = new URL(page.url());
+  const program = current.searchParams.get('program');
+  const expected = {
+    title: (await page.locator('#selTitle').innerText()).trim(),
+    outcome: (await page.locator('#selOutcome').innerText()).trim(),
+    firstTask: (await page.locator('#selFirstTask').innerText()).trim(),
+    starter: (await page.locator('#starterTemplate').textContent()).trim(),
+    kit: await page.locator('#selKit li').allTextContents(),
+    steps: await page.locator('#selSteps li span:last-child').allTextContents()
+  };
+  assert(expected.kit.length === 3, 'Selected offer has three concrete takeaways');
+  const downloadEvent = page.waitForEvent('download');
+  await page.locator('#downloadPlan').click();
+  const download = await downloadEvent;
+  assert(download.suggestedFilename() === `ai-path-${program}-plan.txt`, 'Download filename identifies the selected program');
+  const path = `${artifacts}/ai-path-${width}-${program}-${label}.txt`;
+  await download.saveAs(path);
+  assert(await download.failure() === null, 'Program plan downloads successfully');
+  const text = await readFile(path, 'utf8');
+  const normal = value => value.replace(/\s+/g, ' ').trim();
+  for (const [key, value] of Object.entries(expected)) {
+    for (const part of Array.isArray(value) ? value : [value]) assert(normal(text).includes(normal(part)), `Downloaded plan contains the committed ${key}`);
+  }
+  const levels = { zero: 'с нуля', basic: 'есть небольшая база', project: 'есть свой проект' };
+  const paces = { light: '2–3 ч', balanced: '4–6 ч', deep: '7+ ч' };
+  assert(text.includes('Мой уровень: ' + levels[current.searchParams.get('level')]), 'Downloaded plan retains the committed level');
+  assert(text.includes('Желаемая нагрузка: ' + paces[current.searchParams.get('pace')]), 'Downloaded plan retains the committed pace');
+  assert(text.includes(canonicalRoute(page)), 'Downloaded plan includes the canonical shared route');
+  assert(!text.includes('127.0.0.1'), 'Downloaded plan never shares the test server address');
+  return text;
+}
+async function assertIdea(page, expected, excluded) {
+  assert(await page.locator('#projectIdea').inputValue() === expected, 'Optional idea belongs to the selected program');
+  const message = await page.locator('#contactMessage').inputValue();
+  const body = new URL(await page.locator('#contactMentor').getAttribute('href')).searchParams.get('body');
+  assert(body === message, 'Contact draft and email remain consistent after idea edits');
+  if (expected) assert(message.includes(expected), 'Contact draft includes the optional idea');
+  if (excluded) assert(!message.includes(excluded), 'Contact draft does not include another program’s idea');
+  const storage = await page.evaluate(() => JSON.stringify({ local: { ...localStorage }, session: { ...sessionStorage } }));
+  for (const idea of [expected, excluded].filter(Boolean)) {
+    assert(!decodeURIComponent(page.url()).includes(idea) && !storage.includes(idea), 'Optional idea is not persisted in the URL or browser storage');
+  }
+}
+async function conversionFlow(page, width) {
+  const furnitureIdea = 'Мой тестовый проект: кресло для чтения у окна, тёплое дерево и мягкая спинка.';
+  const bookIdea = 'Мой тестовый проект: короткая книга о бумажном городе для семейного чтения.';
+  await chooseQuiz(page, { goal: 'visual', interest: 'furniture', level: 'zero', pace: 'light' });
+  await selected(page, 'furniture');
+  await contactNavigation(page, width);
+  assert(await page.locator('#projectIdea').getAttribute('maxlength') === '240', 'Optional idea has a short, explicit limit');
+  const committedURL = page.url();
+  await page.locator('#projectIdea').fill(furnitureIdea);
+  await assertIdea(page, furnitureIdea, bookIdea);
+  assert(page.url() === committedURL, 'Writing an optional idea leaves the shared URL unchanged');
+  const starter = page.locator('#starterPack');
+  if (!(await starter.evaluate(el => el.open))) await starter.locator('summary').click();
+  const template = (await page.locator('#starterTemplate').innerText()).trim();
+  assert((template.match(/^\d+\.\s/gm) || []).length === 3, 'Starter template contains exactly three numbered prompts');
+  await page.evaluate(() => navigator.clipboard.writeText('qa-before-starter'));
+  await page.locator('#copyStarter').click();
+  await page.waitForFunction(async expected => await navigator.clipboard.readText() === expected, template);
+  const furniturePlan = await downloadPlan(page, width, 'committed');
+  assert(furniturePlan.includes(furnitureIdea), 'Plan download includes the optional idea for its program');
+  const committedMessage = await page.locator('#contactMessage').inputValue();
+  await page.locator('#levels [data-level="basic"]').click();
+  await page.locator('#paces [data-pace="deep"]').click();
+  assert(!(await page.locator('#results').isVisible()), 'Draft quiz edits invalidate the old recommendation');
+  assert(page.url() === committedURL && await page.locator('#contactMessage').inputValue() === committedMessage, 'Draft quiz edits do not rewrite the committed contact payload');
+  const draftPlan = await downloadPlan(page, width, 'after-draft');
+  assert(draftPlan === furniturePlan, 'Unsubmitted quiz answers do not alter the downloaded plan');
+  await chooseQuiz(page, { goal: 'visual', interest: 'books', level: 'zero', pace: 'balanced' });
+  await selected(page, 'books');
+  await assertIdea(page, '', furnitureIdea);
+  await page.locator('#projectIdea').fill(bookIdea);
+  await assertIdea(page, bookIdea, furnitureIdea);
+  const bookPlan = await downloadPlan(page, width, 'committed');
+  assert(bookPlan.includes(bookIdea) && !bookPlan.includes(furnitureIdea), 'Book plan includes only its own idea');
+  await screenshot(page, width, 'book-offer', '#selected');
+  await page.locator('#programList [data-program="furniture"]').click();
+  await selected(page, 'furniture');
+  await assertIdea(page, furnitureIdea, bookIdea);
+  await page.locator('#programList [data-program="books"]').click();
+  await selected(page, 'books');
+  await assertIdea(page, bookIdea, furnitureIdea);
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await selected(page, 'books');
+  await assertIdea(page, '', bookIdea);
 }
 async function comparison(page) {
   const cards = page.locator('#recommendationList .program');
@@ -258,7 +385,7 @@ try {
     activeWidth = width;
     const context = await browser.newContext({
       viewport: { width, height }, reducedMotion: 'reduce', deviceScaleFactor: 1,
-      permissions: ['clipboard-read', 'clipboard-write']
+      permissions: ['clipboard-read', 'clipboard-write'], acceptDownloads: true
     });
     const page = await context.newPage();
     activePage = page;
@@ -274,6 +401,8 @@ try {
     for (const [index, id] of programIds.entries()) assert(Number(trackNumbers[id]) === index + 1, `Track number stays stable: ${id}`);
     assert(!(await page.locator('#selected').isVisible()) && !(await page.locator('#results').isVisible()), 'Fresh entry does not claim the visitor already selected a program');
     assert(!new URL(page.url()).searchParams.has('program'), 'Fresh entry does not manufacture a selection in the URL');
+    assert(!(await page.locator('#selectionDock').isVisible()), 'Fresh entry has no sticky selection action');
+    assert(await page.locator('#headerAction').getAttribute('href') === '#selector', 'Fresh header starts the selection quiz');
     await screenshot(page, width, 'hero');
     await screenshot(page, width, 'quiz', '#selector');
 
@@ -309,10 +438,11 @@ try {
     assert(new URL(page.url()).searchParams.get('pace') === 'light', 'Selected route survives reload');
     await preservedContent(page, width === 1440);
     await booksRoute(page, width);
+    await conversionFlow(page, width);
     if (width === 1440) await desktopRegressions(page);
     await noOverflow(page, 'final');
     assert(errors.length === 0, 'No browser JavaScript errors: ' + errors.join('; '));
-    console.log(`PASS ${width}x${height}: guided choice, book route, comparison, contact draft, preserved gallery/notebook/lab content and responsive layout`);
+    console.log(`PASS ${width}x${height}: guided choice, book route, comparison, contact draft, starter/download/idea flow, preserved gallery/notebook/lab content and responsive layout`);
     await context.close();
     activePage = undefined;
   }
