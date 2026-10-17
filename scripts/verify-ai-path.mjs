@@ -85,7 +85,16 @@ try {
           className: typeof el.className === 'string' ? el.className : '',
           left: Math.round(el.getBoundingClientRect().left),
           right: Math.round(el.getBoundingClientRect().right) }))
-        .filter(el => el.right > innerWidth + 1 || el.left < -1).slice(0, 35)
+        .filter(el => el.right > innerWidth + 1 || el.left < -1).slice(0, 35),
+      ownOverflow: [...document.querySelectorAll('body *')].filter(el =>
+        el.scrollWidth > el.clientWidth + 8 && el.scrollWidth > 300
+      ).slice(0, 40).map(el => ({
+        tag: el.tagName, id: el.id,
+        className: typeof el.className === 'string' ? el.className : '',
+        client: el.clientWidth, scroll: el.scrollWidth,
+        overflowX: getComputedStyle(el).overflowX
+      })),
+      bodyScroll: document.body.scrollWidth, bodyClient: document.body.clientWidth
     }));
     if (widthReport.documentWidth > widthReport.windowWidth + 1)
       console.error('AI_PATH_MOBILE_OVERFLOW', JSON.stringify(widthReport));
