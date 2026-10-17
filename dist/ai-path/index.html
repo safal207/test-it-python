@@ -70,7 +70,20 @@
 @media(max-width:850px){.nb-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:760px){.nb-grid,.lab-grid{grid-template-columns:1fr}.ml-summary div{padding:14px}.ml-summary strong{font-size:27px}.ml-summary span{font-size:11px}.lab-card{padding:24px}.nb-buttons,.nb-buttons .btn{width:100%}}
 
-</style></head>
+</style><style id="research-pitch-styles">
+
+.frontier-section{background:radial-gradient(circle at 85% 0%,rgba(215,250,130,.08),transparent 48%),#0d1421;border-top:1px solid var(--line)}
+.frontier-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin-bottom:19px}
+.frontier-summary>div{border-radius:18px;background:#1b2630;border:1px solid rgba(215,250,130,.14);padding:26px;display:flex;flex-direction:column;gap:8px}
+.frontier-summary strong{font-size:19px;letter-spacing:-.03em}.frontier-summary p{color:var(--muted);font-size:13px;margin:0}
+.frontier-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.frontier-card{min-height:280px;display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:27px;border-radius:20px;background:var(--panel);border:1px solid var(--line)}
+.frontier-card h3{font-size:25px;line-height:1.1;letter-spacing:-.045em;margin:0}.frontier-card p{font-size:13px;line-height:1.7;color:#aebdd1;margin:0 0 12px}.frontier-card p strong{color:#dfe9d5}.frontier-card>a{margin-top:auto;color:var(--accent);font-size:13px;font-weight:800;padding:7px 0}
+.frontier-portfolio{border-top:1px solid var(--line);margin-top:27px;padding-top:22px}.frontier-portfolio>strong{font-size:15px}.frontier-portfolio>div{display:flex;flex-wrap:wrap;gap:9px;margin-top:13px}
+.frontier-portfolio a{padding:10px 14px;border-radius:99px;border:1px solid rgba(255,255,255,.18);font-size:12px;color:#d8e5ee}.frontier-portfolio a:hover{border-color:var(--accent);color:var(--accent)}
+@media(max-width:760px){.frontier-grid,.frontier-summary{grid-template-columns:1fr}.frontier-card{min-height:0}}
+
+</style>
+</head>
 <body>
 <header class="header">
 <div class="wrap nav">
@@ -288,6 +301,36 @@
     </div>
     <p class="ml-disclaimer">Приведены примеры конкурсных разработок, подготовленных документов и заявок на рассмотрении, а не доказательства побед или полученных грантов. Участие, допуск и финансирование зависят от требований организаторов. Для новичка сначала рекомендуется базовая программа.</p>
   </div>
+</section>
+
+<section class="section frontier-section" id="frontier">
+<div class="wrap">
+<div class="section-top">
+  <div><span class="tag">08 / Научное портфолио и внешняя экспертиза</span><h2>Проект для <span class="accent">OpenAI, Anthropic</span><br/>и исследовательского сообщества</h2></div>
+  <p>Путь начинается не с массовой рассылки, а с результатов: воспроизводимый эксперимент, тесты, baseline, честные ограничения, короткий memo на английском и релевантный канал.</p>
+</div>
+<div class="frontier-summary">
+<div><span class="tag">НАУЧНЫЙ ПАКЕТ</span><strong>Одна гипотеза — проверяемое доказательство</strong><p>Проблема, тесты, методика, результаты, limitations, демо, GitHub.</p></div>
+<div><span class="tag">НАВЫК</span><strong>Оформление и защита результата</strong><p>Умение объяснить работу внешнему эксперту и ответить на критические вопросы.</p></div>
+</div>
+<div class="frontier-grid">
+<article class="frontier-card"><span class="lab-eyebrow">OPENAI</span><h3>Researcher Access</h3><p>API-кредиты для подходящих исследований по безопасности и влиянию ИИ. Нужны соответствие условиям исследовательской аффилиации и поддерживаемой стране. <strong>Это не форма принятия любых проектов в OpenAI.</strong></p><a href="https://openai.com/form/researcher-access-program/" target="_blank" rel="noopener noreferrer">Проверить официальный маршрут ↗</a></article>
+<article class="frontier-card"><span class="lab-eyebrow">ANTHROPIC</span><h3>AI Safety Fellows</h3><p>Индивидуальная исследовательская fellowship-программа по вопросам контроля, надёжности и безопасности AI-систем. Условия, сроки наборов и региональная доступность меняются; это не гарантия принятия проекта.</p><a href="https://alignment.anthropic.com/2025/anthropic-fellows-program-2026/" target="_blank" rel="noopener noreferrer">Изучить условия fellowship ↗</a></article>
+<article class="frontier-card"><span class="lab-eyebrow">GOOGLE DEEPMIND</span><h3>Student Researcher</h3><p>Исследовательская стажировка для тех, кто уже учится на бакалавриате, магистратуре или PhD. Требуется действующее зачисление и очная работа; не универсальная подача стартап-идеи.</p><a href="https://deepmind.google/student-researcher-program/" target="_blank" rel="noopener noreferrer">Официальные требования ↗</a></article>
+<article class="frontier-card"><span class="lab-eyebrow">HUGGING FACE</span><h3>Spaces и открытые демо</h3><p>Можно самостоятельно представить ML-прототип и исходники для оценки сообществом. Условия хостинга зависят от выбранной технологии. Публикация не означает партнёрства с лабораторией.</p><a href="https://huggingface.co/docs/hub/en/spaces-overview" target="_blank" rel="noopener noreferrer">Как опубликовать демо ↗</a></article>
+</div>
+<div class="frontier-portfolio">
+<strong>Инженерные кейсы из открытого портфолио</strong>
+<div>
+<a href="https://github.com/safal207/Causal-Memory-Layer" target="_blank" rel="noopener noreferrer">Causal Memory Layer · agent memory ↗</a>
+<a href="https://github.com/safal207/LiminalOSAI" target="_blank" rel="noopener noreferrer">LiminalOSAI · контроль AI-агентов ↗</a>
+<a href="https://github.com/safal207/pythiaLabs" target="_blank" rel="noopener noreferrer">PythiaLabs · evidence gates ↗</a>
+<a href="https://github.com/safal207/ContractGraph-QA" target="_blank" rel="noopener noreferrer">ContractGraph-QA · проверка сбоев ↗</a>
+</div>
+</div>
+<p class="ml-disclaimer">Форма поддержки исследований, fellowship, стажировка и публичное демо — <strong>разные типы возможностей</strong>. Не обещаем доступ в ведущие лаборатории, положительный ответ, оплату или грант. Проверяем актуальные требования, права на код и данные. Отправка возможна только после согласования с владельцем проекта и по официальному каналу.</p>
+<button class="btn primary" type="button" data-start-track="frontier">Выбрать «AI Lab Research Pitch» ↗</button>
+</div>
 </section>
 <div class="wrap">
 <div class="closing">
