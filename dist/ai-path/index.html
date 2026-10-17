@@ -6,7 +6,7 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="dark" name="color-scheme"/>
 <meta content="#090c15" name="theme-color"/>
-<meta content="Подбери программу по трём вопросам. Создай приложение, комикс, видео или 3D-проект на индивидуальных занятиях с Алексеем Сафоновым." name="description"/>
+<meta content="Подбери одну из 13 программ по трём вопросам. Создай книгу, комикс, приложение или 3D-проект на индивидуальных занятиях с Алексеем Сафоновым." name="description"/>
 <meta content="AI PATH — выбери свой маршрут в ИИ" property="og:title"/>
 <meta content="От идеи до собственного проекта: подбор по интересам и опыту, реальные примеры работ и персональное AI-наставничество." property="og:description"/>
 <meta content="website" property="og:type"/>
@@ -111,7 +111,7 @@
 <div>
 <span class="eyebrow"><span class="dot"></span> Персональное AI-наставничество</span>
 <h1>Твоя идея.<br/>Твой первый<br/><em>проект с ИИ.</em></h1>
-<p class="lead">Создай приложение, комикс, видео или 3D-проект вместе с наставником. Найдём направление под твои интересы и опыт — и начнём с посильной задачи.</p>
+<p class="lead">Создай книгу, комикс, приложение, видео или 3D-проект вместе с наставником. Найдём направление под твои интересы и опыт — и начнём с посильной задачи.</p>
 <div class="buttons">
 <a class="btn primary" href="#selector">Подобрать по 3 вопросам <span aria-hidden="true">↗</span></a>
 <a class="btn ghost" href="#examples">Смотреть работы <span aria-hidden="true">↓</span></a>
@@ -143,7 +143,7 @@
 <h3><span class="question-no">1</span> Что хочется создать?</h3>
 <div class="goal-options choices" id="goals" role="group" aria-label="Цель обучения">
 <button class="chip goal-option" type="button" data-goal="explore" aria-pressed="true"><span class="goal-glyph" aria-hidden="true">✦</span><b>Хочу попробовать</b><small>Пока ищу своё направление</small></button>
-<button class="chip goal-option" type="button" data-goal="visual" aria-pressed="false"><span class="goal-glyph" aria-hidden="true">◈</span><b>Визуальный проект</b><small>Мебель, пространства, комиксы, видео</small></button>
+<button class="chip goal-option" type="button" data-goal="visual" aria-pressed="false"><span class="goal-glyph" aria-hidden="true">◈</span><b>Творческий проект</b><small>Книги, комиксы, видео, 3D и мебель</small></button>
 <button class="chip goal-option" type="button" data-goal="build" aria-pressed="false"><span class="goal-glyph" aria-hidden="true">⌘</span><b>Программу или игру</b><small>Приложения, Python и GameDev</small></button>
 <button class="chip goal-option" type="button" data-goal="research" aria-pressed="false"><span class="goal-glyph" aria-hidden="true">↗</span><b>Развивать проект</b><small>Нейросети, хакатоны и исследования</small></button>
 </div>
@@ -160,7 +160,7 @@
 <div class="wrap">
 <div class="section-top"><div class="result-summary"><span class="tag">Твоя точка старта</span><h2 id="resultTitle" tabindex="-1">Вот с чего можно начать</h2><p id="resultReason"></p></div><a class="quiet-link" href="#selector">Изменить ответы</a></div>
 <div class="programs" id="recommendationList" role="group" aria-label="Рекомендация и альтернативы"></div>
-<div class="results-actions"><button class="btn ghost" id="compareToggle" type="button" aria-expanded="false" aria-controls="comparison">Сравнить варианты</button><a class="quiet-link" href="#programs">Посмотреть все 12 программ</a></div>
+<div class="results-actions"><button class="btn ghost" id="compareToggle" type="button" aria-expanded="false" aria-controls="comparison">Сравнить варианты</button><a class="quiet-link" href="#programs">Посмотреть все 13 программ</a></div>
 <div class="comparison" id="comparison" hidden><p class="comparison-help">Сравни результат и требования. На небольшом экране таблицу можно сдвигать в сторону.</p><div class="comparison-scroll" tabindex="0" role="region" aria-label="Таблица сравнения программ"><table id="comparisonTable"></table></div></div>
 </div>
 </section>
@@ -186,8 +186,8 @@
 </div></div>
 </section>
 <section class="section catalog-section" id="programs">
-<div class="wrap"><div class="section-top"><div><span class="tag">02 / Выбери свой результат</span><h2>Что ты хочешь<br/><span class="accent">создать?</span></h2></div><p>Можно сразу выбрать программу по примеру работы. Восемь прикладных направлений и четыре трека для развития навыков и проектов.</p></div>
-<div class="catalog-toolbar"><div class="choices" id="catalogFilters" role="group" aria-label="Фильтр программ"><button type="button" class="chip" data-filter="all" aria-pressed="true">Все 12</button><button type="button" class="chip" data-filter="explore" aria-pressed="false">Пробую и выбираю</button><button type="button" class="chip" data-filter="visual" aria-pressed="false">Визуальные проекты</button><button type="button" class="chip" data-filter="build" aria-pressed="false">Программы и игры</button><button type="button" class="chip" data-filter="research" aria-pressed="false">Развитие проекта</button></div><p class="catalog-count" id="catalogCount" role="status" aria-live="polite">12 программ</p></div>
+<div class="wrap"><div class="section-top"><div><span class="tag">02 / Выбери свой результат</span><h2>Что ты хочешь<br/><span class="accent">создать?</span></h2></div><p>Можно сразу выбрать программу по примеру работы. Девять прикладных направлений и четыре трека для развития навыков и проектов.</p></div>
+<div class="catalog-toolbar"><div class="choices" id="catalogFilters" role="group" aria-label="Фильтр программ"><button type="button" class="chip" data-filter="all" aria-pressed="true">Все 13</button><button type="button" class="chip" data-filter="explore" aria-pressed="false">Пробую и выбираю</button><button type="button" class="chip" data-filter="visual" aria-pressed="false">Книги и креатив</button><button type="button" class="chip" data-filter="build" aria-pressed="false">Программы и игры</button><button type="button" class="chip" data-filter="research" aria-pressed="false">Развитие проекта</button></div><p class="catalog-count" id="catalogCount" role="status" aria-live="polite">13 программ</p></div>
 <div class="programs" id="programList" role="group" aria-label="Выбор программы обучения"></div><p class="catalog-note">На карточках — примеры из наших проектов и планируемые учебные результаты. Подробности и авторство работ доступны ниже.</p></div>
 </section>
 <section class="mentor-section" id="mentor" aria-labelledby="mentorTitle"><div class="wrap">
@@ -250,6 +250,36 @@
 </div>
 <p class="comic-credit"><strong>Мир и персонажи — Юра. Продолжения созданы с помощью ИИ как черновики для авторской проверки.</strong> Представлены материалы авторского семейного проекта. Эти примеры показывают процесс создания комикса.</p>
 <div class="comic-actions"><button class="btn primary" type="button" data-start-track="comics">Выбрать программу по комиксам ↗</button><a class="btn ghost" href="https://yin-yanka-comics.safalex.chatgpt.site" target="_blank" rel="noopener noreferrer">Читать выпуски целиком ↗</a></div>
+</div>
+</section>
+
+<section class="section books-section" id="books" aria-labelledby="booksTitle">
+<div class="wrap">
+<div class="section-top"><div><span class="tag">Книга / ИИ / Amazon KDP</span><h2 id="booksTitle">Твоя идея.<br/><span class="accent">Твоя книга.</span></h2></div><p>Помогу пройти путь от замысла и первых глав до оформления книги и подачи на Amazon KDP.</p></div>
+<div class="book-feature">
+<div class="book-process">
+<h3>От «хочу написать» — к готовым файлам</h3>
+<p>Для первой книги, короткого практического руководства или истории. ИИ помогает со структурой, черновиками и вариантами оформления, а ты принимаешь авторские решения и проверяешь результат.</p>
+<ol class="book-stages">
+<li><strong>История и рукопись</strong><span>Определим читателя, соберём план, напишем и отредактируем текст.</span></li>
+<li><strong>Обложка и оформление</strong><span>Подготовим обложку и один формат: EPUB для электронной книги или PDF для печати.</span></li>
+<li><strong>Подготовка к публикации</strong><span>Описание, ключевые слова, категории и предпросмотр. Помогу с подачей через твой аккаунт KDP.</span></li>
+</ol>
+<button class="btn primary" type="button" data-start-track="books">Хочу создать книгу ↗</button>
+</div>
+<aside class="book-example" aria-labelledby="bookExampleTitle">
+<span class="tag">Посмотреть пример</span>
+<h3 id="bookExampleTitle">Книга на Amazon</h3>
+<p>По этой ссылке можно открыть карточку книги в магазине. На занятиях разберём, как связаны рукопись, оформление и описание для читателя.</p>
+<a class="btn ghost" href="https://www.amazon.com/dp/B0HJ3XHBZ2" target="_blank" rel="noopener noreferrer">Открыть пример на Amazon ↗</a>
+<div class="book-deliverables"><strong>Что останется у тебя</strong><p>Отредактированная короткая рукопись, обложка, файл выбранного формата и описание книги для подачи.</p></div>
+</aside>
+</div>
+<div class="book-requirements">
+<p><strong>До старта выберем язык и формат.</strong> Для Amazon нужен поддерживаемый KDP язык, например английский. Русского сейчас нет в официальном списке; для русскоязычной версии обсудим другой канал. Перевод проверяет человек, владеющий языком. Также проверим возможность публикации через твой аккаунт.</p>
+<p>При подаче укажем AI-generated текст, изображения и переводы по правилам KDP. Редактура собственного текста с помощью ИИ относится к AI-assisted и не требует такого раскрытия. Решение и сроки публикации определяет Amazon; продажи не входят в обещанный результат программы.</p>
+<div class="book-source-links"><a href="https://kdp.amazon.com/en_US/help/topic/G200673300" target="_blank" rel="noopener noreferrer">Языки KDP ↗</a><a href="https://kdp.amazon.com/en_US/help/topic/G200672390" target="_blank" rel="noopener noreferrer">Правила AI-контента ↗</a></div>
+</div>
 </div>
 </section>
 

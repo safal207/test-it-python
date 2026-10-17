@@ -4,9 +4,9 @@ import { chromium } from 'playwright';
 
 const base = 'http://127.0.0.1:4179/ai-path/';
 const artifacts = 'artifacts/ai-path-qa';
-const programIds = ['explore', 'build', 'space', 'furniture', 'create', 'comics', 'qa', 'game', 'ml', 'hack', 'grant', 'frontier'];
+const programIds = ['explore', 'build', 'space', 'furniture', 'create', 'comics', 'qa', 'game', 'ml', 'hack', 'grant', 'frontier', 'books'];
 const groups = {
-  explore: ['explore'], visual: ['furniture', 'space', 'comics', 'create'],
+  explore: ['explore'], visual: ['furniture', 'space', 'comics', 'books', 'create'],
   build: ['build', 'qa', 'game'], research: ['ml', 'hack', 'grant', 'frontier']
 };
 const server = spawn('python3', ['-m', 'http.server', '4179', '--bind', '127.0.0.1', '--directory', 'dist'], {
@@ -165,6 +165,25 @@ async function preservedContent(page, complete) {
   }
   await noOverflow(page, 'all images decoded');
 }
+async function booksRoute(page, width) {
+  await chooseQuiz(page, { goal: 'visual', interest: 'books', level: 'zero' });
+  await selected(page, 'books');
+  assert((await page.locator('#selTitle').innerText()).trim() === 'Книга с ИИ и Amazon KDP', 'Book route has the intended program title');
+  assert((await ids(page.locator('#recommendationList .program'))).join('|') === 'books|comics|create', 'Book interest recommends the book route followed by comics and video');
+  assert(!(await page.locator('#selPreview').isVisible()), 'Book route does not reuse the previous furniture image as a book cover');
+  await contact(page);
+  const message = await page.locator('#contactMessage').inputValue();
+  assert(message.includes('Книга с ИИ и Amazon KDP') && message.includes('program=books'), 'Book contact draft preserves the book title and shared route');
+  assert(await page.locator('#books a[href="https://www.amazon.com/dp/B0HJ3XHBZ2"]').count() >= 1, 'Book example links to the provided Amazon listing');
+  for (const [topic, label] of [['G200672390', 'AI content policy'], ['G200673300', 'supported languages']]) {
+    assert(await page.locator(`#books a[href="https://kdp.amazon.com/en_US/help/topic/${topic}"]`).count() >= 1, `Book requirements link to official KDP ${label}`);
+  }
+  assert(await page.locator('#books img').count() === 0, 'Book section does not invent a cover image');
+  await screenshot(page, width, 'books', '#books');
+  await page.locator('#books [data-start-track="books"]').click();
+  await selected(page, 'books');
+  assert(await page.locator('#selTitle').evaluate(el => document.activeElement === el), 'Book quick start focuses the selected program');
+}
 async function desktopRegressions(page) {
   await chooseQuiz(page, { goal: 'research', interest: 'ml', level: 'zero' });
   await selected(page, 'qa');
@@ -250,7 +269,9 @@ try {
     const response = await page.goto(base, { waitUntil: 'domcontentloaded' });
     assert(response?.status() === 200, 'Page returns HTTP 200');
     await page.locator('#programList .program').first().waitFor();
-    assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'All 12 stable programs are available');
+    assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'All 13 stable programs are available');
+    const trackNumbers = await page.locator('#programList .program').evaluateAll(cards => Object.fromEntries(cards.map(card => [card.dataset.program, card.querySelector('.n').textContent.match(/ТРЕК\s*(\d+)/)?.[1]])));
+    for (const [index, id] of programIds.entries()) assert(Number(trackNumbers[id]) === index + 1, `Track number stays stable: ${id}`);
     assert(!(await page.locator('#selected').isVisible()) && !(await page.locator('#results').isVisible()), 'Fresh entry does not claim the visitor already selected a program');
     assert(!new URL(page.url()).searchParams.has('program'), 'Fresh entry does not manufacture a selection in the URL');
     await screenshot(page, width, 'hero');
@@ -287,10 +308,11 @@ try {
     await selected(page, 'furniture');
     assert(new URL(page.url()).searchParams.get('pace') === 'light', 'Selected route survives reload');
     await preservedContent(page, width === 1440);
+    await booksRoute(page, width);
     if (width === 1440) await desktopRegressions(page);
     await noOverflow(page, 'final');
     assert(errors.length === 0, 'No browser JavaScript errors: ' + errors.join('; '));
-    console.log(`PASS ${width}x${height}: guided choice, comparison, contact draft, preserved gallery/notebook/lab content and responsive layout`);
+    console.log(`PASS ${width}x${height}: guided choice, book route, comparison, contact draft, preserved gallery/notebook/lab content and responsive layout`);
     await context.close();
     activePage = undefined;
   }
