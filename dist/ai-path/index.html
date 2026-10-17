@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#090c15">
+  <meta name="description" content="Выбери своё направление: AI-старт, разработка, 3D, видео или Python + QA. Индивидуальные занятия и реальные проекты с наставником.">
+  <meta property="og:title" content="AI PATH — выбери свой маршрут в ИИ">
+  <meta property="og:description" content="5 образовательных треков, практические проекты и персональный план. Начни с интересного.">
+  <meta property="og:type" content="website">
+  <title>AI PATH — выбери свой маршрут</title>
+  <style>
+    :root{--bg:#090c15;--panel:#121725;--panel2:#181d2c;--line:rgba(194,206,231,.13);--light:#f4f6fb;--muted:#9aa6bd;--accent:#d7fa82;--accent2:#a39dff;--shadow:0 32px 90px rgba(0,0,0,.3)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-width:320px;background:var(--bg);color:var(--light);font-family:Inter,"Segoe UI",Arial,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}button,a{-webkit-tap-highlight-color:transparent}button{font:inherit}a{color:inherit;text-decoration:none}a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:4px}::selection{background:var(--accent);color:#0a101b}
+    .wrap{width:min(1160px,calc(100% - 48px));margin:auto}.smallcaps{font-size:12px;letter-spacing:.17em;text-transform:uppercase;font-weight:750}.muted{color:var(--muted)}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:8px;box-shadow:0 0 18px rgba(215,250,130,.4)}.accent{color:var(--accent)}.purple{color:var(--accent2)}
+    .header{position:sticky;top:0;z-index:40;background:rgba(9,12,21,.84);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}.nav{height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}.logo{font-size:18px;letter-spacing:-.06em;font-weight:900;white-space:nowrap;display:flex;align-items:center;gap:9px}.logo b{color:var(--accent)}.mark{display:grid;place-items:center;background:var(--accent);color:#111622;width:32px;height:32px;border-radius:10px;font-size:22px}.navlinks{display:flex;align-items:center;gap:29px;font-size:13px;font-weight:600;color:#b9c4d5}.navlinks a:hover,.footer a:hover{color:var(--accent)}.navcta{display:inline-flex;align-items:center;border:1px solid rgba(215,250,130,.45);padding:9px 17px;border-radius:999px;font-size:13px;font-weight:700;white-space:nowrap}
+    .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);background:radial-gradient(ellipse 55% 70% at 85% 12%,rgba(82,72,159,.19),transparent 75%),radial-gradient(ellipse 60% 55% at 0% 95%,rgba(84,120,101,.11),transparent 70%)}.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:42px;padding-top:97px;padding-bottom:100px}.eyebrow{display:inline-flex;align-items:center;border:1px solid var(--line);padding:9px 15px;border-radius:999px;color:#d9dfeb;background:rgba(255,255,255,.03);font-size:12px;font-weight:700}.hero h1{font-size:clamp(44px,5.5vw,79px);line-height:1.065;letter-spacing:-.072em;margin:28px 0 25px;max-width:780px}.hero h1 em{font-style:normal;color:var(--accent)}.lead{max-width:560px;font-size:clamp(16px,1.9vw,19px);color:#acb9cd;line-height:1.75;margin:0 0 32px}.buttons{display:flex;gap:11px;align-items:center;flex-wrap:wrap}.btn{border:1px solid var(--line);background:#232a3c;color:var(--light);padding:14px 20px;border-radius:13px;font-weight:750;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:10px;transition:transform .15s,background .15s,border-color .15s}.btn:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.35)}.btn.primary{background:var(--accent);color:#11170c;border-color:var(--accent)}.btn.primary:hover{background:#e5ffaa}.btn.ghost{background:transparent}.btn[disabled]{opacity:.5;cursor:wait}.hero-foot{display:flex;gap:30px;flex-wrap:wrap;margin-top:34px;color:#99a5bb;font-size:12px}.hero-foot strong{color:white;font-size:14px}
+    .stage{position:relative;min-height:410px;display:grid;place-items:center}.stage::before{content:"";position:absolute;inset:8% 10%;border-radius:50%;background:radial-gradient(circle,rgba(215,250,130,.1),transparent 65%);filter:blur(18px)}.orbit{position:absolute;border:1px solid rgba(215,250,130,.22);border-radius:50%;width:335px;height:335px;transform:rotate(-23deg)}.orbit.two{width:240px;height:240px;border-color:rgba(163,157,255,.33);transform:rotate(24deg)}.orbit:before{content:"";position:absolute;top:25px;left:49px;width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 25px var(--accent)}.orbit.two:before{background:var(--accent2);top:188px;left:7px;box-shadow:0 0 25px var(--accent2)}.centericon{position:relative;display:grid;place-items:center;width:140px;height:140px;border-radius:35px;background:linear-gradient(135deg,#c3f575,#a3cf71 40%,#879ac8);box-shadow:0 0 0 20px rgba(215,250,130,.07),0 25px 80px rgba(159,218,126,.22);transform:rotate(-10deg)}.centericon span{font-size:75px;color:#151b21;font-weight:900;line-height:1;transform:rotate(10deg)}.float{position:absolute;padding:11px 17px;background:#1a2131;border:1px solid rgba(195,215,232,.2);border-radius:13px;box-shadow:0 18px 35px rgba(0,0,0,.23);font-size:13px;font-weight:750;z-index:1}.float i{font-style:normal;color:var(--accent)}.float.f1{top:22px;left:8px;transform:rotate(-7deg)}.float.f2{top:94px;right:0;transform:rotate(7deg)}.float.f3{bottom:69px;left:0;transform:rotate(5deg)}.float.f4{bottom:15px;right:34px;transform:rotate(-6deg)}
+    .strip{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-bottom:1px solid var(--line)}.strip div{padding:23px 28px;border-right:1px solid var(--line);display:flex;align-items:center;gap:13px}.strip div:first-child{padding-left:0}.strip div:last-child{border:0}.strip strong{font-size:18px;letter-spacing:-.04em}.strip span{font-size:13px;color:var(--muted)}
+    section{scroll-margin-top:100px}.section{padding:90px 0}.section-top{display:flex;justify-content:space-between;align-items:end;gap:25px;margin-bottom:32px}.section h2{font-size:clamp(30px,4.3vw,50px);letter-spacing:-.055em;line-height:1.1;margin:10px 0 13px}.section-top p{max-width:460px;color:var(--muted);font-size:15px}.tag{display:inline-flex;align-items:center;color:var(--accent);letter-spacing:.16em;font-size:12px;font-weight:800;text-transform:uppercase}
+    .quiz{background:linear-gradient(150deg,#161c2b,#121725);border:1px solid var(--line);border-radius:28px;padding:32px;box-shadow:var(--shadow);display:grid;grid-template-columns:1fr 1fr;gap:36px}.quiz h3{font-size:23px;line-height:1.25;letter-spacing:-.025em;margin:5px 0 12px}.quiz p{color:var(--muted);font-size:14px;margin:0 0 20px}.choices{display:flex;flex-wrap:wrap;gap:10px}.chip{background:#20283a;border:1px solid #384257;color:#e6ecf4;border-radius:13px;padding:11px 15px;cursor:pointer;text-align:left;font-size:13px;font-weight:700;transition:.15s}.chip:hover{border-color:#76819a}.chip[aria-pressed="true"]{background:#32402f;border-color:var(--accent);color:var(--accent)}.quiz-side{border-left:1px solid var(--line);padding-left:30px}.subhead{font-weight:800;font-size:13px;letter-spacing:.04em;margin:0 0 12px}.gap-top{margin-top:22px}.quiz-hint{margin-top:22px;border-radius:13px;background:rgba(215,250,130,.08);color:#dceeba;border:1px solid rgba(215,250,130,.15);padding:13px 15px;font-size:13px;min-height:67px}
+    .programs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.program{position:relative;display:flex;flex-direction:column;text-align:left;min-height:280px;padding:25px;border:1px solid var(--line);background:var(--panel);border-radius:20px;color:white;cursor:pointer;transition:background .2s,transform .2s,border-color .2s;overflow:hidden}.program:hover{transform:translateY(-4px);background:#1a2030}.program[aria-pressed="true"]{border-color:var(--accent);background:linear-gradient(150deg,#242f29,#171f29)}.program[aria-pressed="true"]:after{content:"✓";position:absolute;right:22px;top:21px;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#122019;font-weight:900}.program .n{font-size:12px;color:var(--muted);letter-spacing:.1em;font-weight:800;margin-bottom:19px}.program .glyph{font-size:36px;line-height:1;margin-bottom:21px}.program h3{font-size:23px;letter-spacing:-.05em;line-height:1.1;margin:0 0 12px}.program p{color:#a9b5c7;font-size:14px;line-height:1.55;margin:0 0 22px}.program footer{margin-top:auto;display:flex;justify-content:space-between;gap:12px;align-items:center;color:#ced9e9;font-size:12px;font-weight:750}.program footer span:last-child{color:var(--accent)}.program.recommended .n{color:var(--accent)}.pill{font-size:11px;font-weight:800;background:rgba(163,157,255,.17);border:1px solid rgba(163,157,255,.3);color:#c6c1ff;padding:5px 9px;border-radius:100px;margin-left:8px}
+    .detail{margin-top:24px;display:grid;grid-template-columns:1.05fr .95fr;gap:0;background:linear-gradient(125deg,#1a2230,#121823);border:1px solid rgba(215,250,130,.32);border-radius:24px;overflow:hidden;box-shadow:var(--shadow)}.detail-main{padding:38px}.detail h3{font-size:clamp(27px,3vw,38px);letter-spacing:-.06em;margin:9px 0 12px}.detail-lead{max-width:580px;color:#b2c0d0;margin:0 0 20px}.facts{display:flex;gap:22px;margin:25px 0 28px;flex-wrap:wrap}.fact{display:flex;flex-direction:column;gap:0}.fact strong{font-size:21px;letter-spacing:-.03em}.fact span{font-size:11px;color:var(--muted)}.outcome{border-top:1px solid var(--line);padding-top:20px}.outcome strong{color:var(--accent)}.outcome p{margin:8px 0;color:#d1d9e7;font-size:14px}.detail-aside{background:rgba(5,9,15,.37);padding:38px;border-left:1px solid var(--line)}.detail-aside h4{margin:0 0 16px;font-size:16px}.steps{margin:0;padding:0;list-style:none}.steps li{display:flex;gap:14px;align-items:start;padding:0 0 20px;color:#c3cede;font-size:13px}.steps li:last-child{padding-bottom:0}.step-no{flex:none;background:#283448;color:var(--accent);border-radius:8px;width:28px;height:28px;display:grid;place-items:center;font-size:12px;font-weight:850}.refs{border-top:1px solid var(--line);margin-top:24px;padding-top:21px;display:flex;gap:9px;flex-wrap:wrap}.refs a{font-size:12px;border:1px solid rgba(255,255,255,.16);border-radius:100px;padding:9px 12px;color:#dadff0}.refs a:hover{border-color:var(--accent);color:var(--accent)}.detail-actions{margin-top:26px;display:flex;gap:10px;flex-wrap:wrap}.notices{display:flex;gap:10px;align-items:start;margin-top:18px;color:var(--muted);font-size:12px}.notices b{color:#e4ecf9}
+    .how{background:#0e1320;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.howgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}.howbox{padding:26px;background:#171e2b;border:1px solid var(--line);border-radius:20px}.howbox b{display:block;font-size:13px;color:var(--accent);margin-bottom:15px}.howbox h3{margin:0 0 10px;font-size:21px;letter-spacing:-.035em}.howbox p{font-size:14px;color:var(--muted);margin:0}
+    .projects{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.project{border:1px solid var(--line);border-radius:18px;padding:24px;background:var(--panel);display:flex;flex-direction:column;gap:9px;transition:border-color .2s}.project:hover{border-color:var(--accent)}.project .project-icon{color:var(--accent2);font-size:15px;font-weight:800;letter-spacing:.05em}.project h3{font-size:20px;letter-spacing:-.035em;margin:0}.project p{color:var(--muted);font-size:13px;margin:0 0 11px}.project .link{font-size:12px;color:var(--accent);font-weight:700;margin-top:auto}
+    .closing{margin:10px 0 70px;border:1px solid rgba(215,250,130,.2);background:radial-gradient(circle at 85% 50%,rgba(190,241,128,.15),transparent 45%),#161d2a;border-radius:27px;padding:40px;display:flex;justify-content:space-between;gap:30px;align-items:center}.closing h2{margin:8px 0;font-size:clamp(26px,3.6vw,40px);letter-spacing:-.05em;line-height:1.16}.closing p{color:var(--muted);max-width:670px;margin:0;font-size:14px}.footer{border-top:1px solid var(--line);padding:25px 0 40px;display:flex;justify-content:space-between;align-items:center;gap:20px;color:#8d99ae;font-size:12px}.footer a{color:#c9d4e7}
+    .toast{position:fixed;bottom:25px;left:50%;transform:translate(-50%,15px);z-index:80;background:#d7fa82;color:#172114;padding:12px 18px;border-radius:12px;box-shadow:0 16px 45px #0008;font-size:13px;font-weight:800;opacity:0;pointer-events:none;transition:.25s}.toast.show{opacity:1;transform:translate(-50%,0)}.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+    @media(max-width:1020px){.hero-grid{grid-template-columns:1fr .8fr}.programs{grid-template-columns:repeat(2,minmax(0,1fr))}.stage{transform:scale(.86);transform-origin:center}.strip div{padding:20px 15px}.navlinks{gap:18px}}
+    @media(max-width:760px){.wrap{width:min(100% - 32px,560px)}.nav{height:66px}.navlinks{display:none}.hero-grid{grid-template-columns:1fr;padding-top:63px;padding-bottom:42px;gap:9px}.hero h1{font-size:clamp(43px,9.5vw,63px)}.lead{font-size:16px}.stage{min-height:280px;transform:scale(.69);margin:-65px 0 -64px}.strip{grid-template-columns:1fr;padding:9px 0}.strip div{border:0;padding:10px 0!important}.section{padding:66px 0}.section-top{display:block}.section h2{font-size:36px}.quiz{grid-template-columns:1fr;padding:23px;gap:22px;border-radius:20px}.quiz-side{border-left:0;border-top:1px solid var(--line);padding:23px 0 0}.programs{grid-template-columns:1fr}.program{min-height:229px}.detail{grid-template-columns:1fr}.detail-main,.detail-aside{padding:25px}.detail-aside{border-left:0;border-top:1px solid var(--line)}.howgrid,.projects{grid-template-columns:1fr}.closing{display:block;padding:28px}.closing .btn{margin-top:22px}.footer{align-items:start;flex-direction:column}.facts{gap:20px}.btn{width:auto}.hero-foot{gap:17px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="wrap nav">
+      <a class="logo" href="#top" aria-label="AI PATH, на главную"><span class="mark">↗</span><span>AI<b>PATH</b></span></a>
+      <nav class="navlinks" aria-label="Основное меню"><a href="#selector">Подбор</a><a href="#programs">Программы</a><a href="#process">Как учимся</a><a href="#examples">Проекты</a></nav>
+      <a class="navcta" href="#selector">Выбрать трек ↗</a>
+    </div>
+  </header>
+  <main id="top">
+    <div class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow"><span class="dot"></span> Твой первый шаг в технологии</span>
+          <h1>Не решил,<br>куда идти?<br><em>Начни создавать.</em></h1>
+          <p class="lead">ИИ, программирование, 3D, видео и тестирование. Выбери интересное направление, попробуй настоящие инструменты и создай проект, который не стыдно показать.</p>
+          <div class="buttons">
+            <a class="btn primary" href="#selector">Найти свой маршрут <span aria-hidden="true">↗</span></a>
+            <a class="btn ghost" href="#programs">Смотреть 5 программ <span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="hero-foot"><span><strong>01:01</strong> персональные занятия</span><span><strong>4–8</strong> недель</span><span><strong>GitHub</strong> и практические проекты</span></div>
+        </div>
+        <div class="stage" aria-hidden="true">
+          <div class="orbit"></div><div class="orbit two"></div>
+          <div class="float f1">◈ 3D / DESIGN</div>
+          <div class="float f2"><i>●</i> AI / BUILD</div>
+          <div class="float f3">⌘ PYTHON / QA</div>
+          <div class="float f4">▶ VIDEO / CREATOR</div>
+          <div class="centericon"><span>✳</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="wrap strip" aria-label="Преимущества">
+      <div><strong>01</strong><span>Сначала пробуешь, потом решаешь</span></div>
+      <div><strong>02</strong><span>Задачи и разборы каждую неделю</span></div>
+      <div><strong>03</strong><span>Результат — собственный проект</span></div>
+    </div>
+
+    <section class="section" id="selector">
+      <div class="wrap">
+        <div class="section-top">
+          <div><span class="tag">01 / Точка старта</span><h2>Что тебе ближе?</h2></div>
+          <p>Нет неправильного ответа. Можно выбрать одну тему, а потом спокойно сменить направление.</p>
+        </div>
+        <div class="quiz">
+          <div>
+            <h3>Что хочется попробовать?</h3>
+            <p>Выбери тему, и мы подсветим подходящую программу.</p>
+            <div class="choices" id="interests" role="group" aria-label="Интересующее направление">
+              <button class="chip" type="button" data-interest="explore" aria-pressed="true">✦ Пока не определился</button>
+              <button class="chip" type="button" data-interest="build" aria-pressed="false">⌘ Приложения и AI</button>
+              <button class="chip" type="button" data-interest="space" aria-pressed="false">◈ 3D и пространства</button>
+              <button class="chip" type="button" data-interest="create" aria-pressed="false">▶ Видео и креатив</button>
+              <button class="chip" type="button" data-interest="qa" aria-pressed="false">◎ Код и поиск ошибок</button>
+            </div>
+            <div id="recommendation" class="quiz-hint" role="status" aria-live="polite">Если пока не определился, начни с программы «AI Навигатор» — она помогает попробовать несколько профессий без жёсткого выбора.</div>
+          </div>
+          <div class="quiz-side">
+            <h3>Твой уровень</h3>
+            <div class="choices" id="levels" role="group" aria-label="Начальный уровень">
+              <button class="chip" type="button" data-level="zero" aria-pressed="true">С нуля</button>
+              <button class="chip" type="button" data-level="basic" aria-pressed="false">Уже немного пробовал</button>
+            </div>
+            <h3 class="gap-top">Сколько времени есть?</h3>
+            <div class="choices" id="paces" role="group" aria-label="Время на занятия">
+              <button class="chip" type="button" data-pace="light" aria-pressed="false">2–3 ч/нед.</button>
+              <button class="chip" type="button" data-pace="balanced" aria-pressed="true">4–6 ч/нед.</button>
+              <button class="chip" type="button" data-pace="deep" aria-pressed="false">7+ ч/нед.</button>
+            </div>
+            <p style="margin-top:17px;margin-bottom:0">Время включает занятия с наставником и самостоятельную практику.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="programs" style="padding-top:0">
+      <div class="wrap">
+        <div class="section-top">
+          <div><span class="tag">02 / Каталог</span><h2>Пять маршрутов.<br><span class="accent">Твой выбор.</span></h2></div>
+          <p>Нажми на любую карточку, чтобы увидеть программу, проект на выходе и образовательный план.</p>
+        </div>
+        <div class="programs" id="programList" role="group" aria-label="Выбор программы обучения"></div>
+        <div class="detail" id="selected" aria-live="polite" aria-atomic="false">
+          <div class="detail-main">
+            <span class="tag">Твой выбранный маршрут</span>
+            <h3 id="selTitle">AI Навигатор</h3>
+            <p class="detail-lead" id="selText"></p>
+            <div class="facts">
+              <div class="fact"><strong id="selDuration">4 недели</strong><span>Продолжительность</span></div>
+              <div class="fact"><strong id="selMeetings">4 встречи</strong><span>1:1 с наставником</span></div>
+              <div class="fact"><strong id="selTime">4–6 ч</strong><span>Практики в неделю</span></div>
+            </div>
+            <div class="outcome"><strong>Что получится в конце</strong><p id="selOutcome"></p></div>
+            <div class="detail-actions">
+              <button class="btn primary" id="copyLink" type="button">↗ Скопировать ссылку на мой выбор</button>
+              <a class="btn ghost" id="shareWhatsApp" href="https://wa.me/" target="_blank" rel="noopener noreferrer">Отправить через WhatsApp ↗</a>
+            </div>
+            <div class="notices"><span>ⓘ</span><span>Это стартовый учебный маршрут, не гарантия трудоустройства или квалификации за несколько недель. Расписание и стоимость согласуются отдельно.</span></div>
+          </div>
+          <div class="detail-aside">
+            <h4>План по этапам</h4>
+            <ol class="steps" id="selSteps"></ol>
+            <div class="refs"><span class="subhead" style="width:100%">Примеры из реальных учебных репозиториев</span><div id="selRefs" style="display:flex;gap:9px;flex-wrap:wrap"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section how" id="process">
+      <div class="wrap">
+        <span class="tag">03 / Формат</span><h2>Учимся через действие</h2>
+        <div class="howgrid">
+          <div class="howbox"><b>ШАГ 01</b><h3>Знакомство и диагностика</h3><p>Обсудим интересы, уровень, цели и устройство компьютера. Выберем посильную первую задачу.</p></div>
+          <div class="howbox"><b>ШАГ 02</b><h3>Встреча + практика</h3><p>Разбираем инструменты, делаем небольшой шаг в проекте, ищем ошибки и учимся объяснять решения своими словами.</p></div>
+          <div class="howbox"><b>ШАГ 03</b><h3>Проект и следующий путь</h3><p>Собираем демонстрацию, выкладываем учебный результат на GitHub и определяем, что изучать дальше.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="examples">
+      <div class="wrap">
+        <div class="section-top">
+          <div><span class="tag">04 / Основа практики</span><h2>Не теория в вакууме.<br>Реальные примеры.</h2></div>
+          <p>Открытые демонстрационные и учебные проекты Алексея Сафонова. Некоторые проекты экспериментальные; коммерческий статус не подразумевается.</p>
+        </div>
+        <div class="projects">
+          <a class="project" href="https://safal207.github.io/Architectural-AI-Lab/" target="_blank" rel="noopener noreferrer"><span class="project-icon">◈ 3D / ARCHITECTURE</span><h3>Виртуальная вилла</h3><p>Интерактивный 3D-тур, освещение, материалы и визуализация с Blender и Three.js.</p><span class="link">Открыть проект ↗</span></a>
+          <a class="project" href="https://github.com/safal207/rustclip-studio" target="_blank" rel="noopener noreferrer"><span class="project-icon">▶ VIDEO / AI</span><h3>RustClip Studio</h3><p>Локальная студия роликов: сцены, озвучка, субтитры и экспорт видео.</p><span class="link">Посмотреть проект ↗</span></a>
+          <a class="project" href="https://safal207.github.io/test-it-python/" target="_blank" rel="noopener noreferrer"><span class="project-icon">⌘ PYTHON / QA</span><h3>Интерактивный тренажёр</h3><p>Уроки по Python, практические задания, тестирование и первые учебные проекты.</p><span class="link">Попробовать ↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <div class="closing">
+        <div><span class="tag">Готов пробовать?</span><h2>Начни с одного небольшого проекта.</h2><p>Не нужно сегодня выбирать профессию на всю жизнь. Выбери трек, сохрани план и обсуди его с наставником. Его можно изменить после первых занятий.</p></div>
+        <a class="btn primary" href="#selector">Подобрать программу ↗</a>
+      </div>
+    </div>
+  </main>
+  <footer class="wrap footer">
+    <div><strong style="color:#e4e9f3">AI PATH</strong> · практическое AI-наставничество · 2026</div>
+    <div>Наставник: Алексей Сафонов · <a href="https://github.com/safal207" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div>
+  </footer>
+  <div class="toast" id="toast" role="status" aria-live="polite">Ссылка скопирована</div>
+<script>
+(function(){
+  'use strict';
+  var programs=[
+    {id:'explore',num:'01',glyph:'✦',name:'AI Навигатор',short:'Попробуй сразу несколько IT-направлений и найди то, что действительно нравится.',weeks:4,meetings:4,level:'С нуля',outcome:'Мини-портфолио из 3 пробных работ: простая визуализация, короткий ролик и первая программа. Понимание, куда двигаться дальше.',steps:['Неделя 1 — знакомство с ИИ, GitHub и безопасной работой с AI-инструментами.','Неделя 2 — эксперимент с визуализацией или коротким видео.','Неделя 3 — первые шаги в Python и поиске ошибок.','Неделя 4 — презентация результатов и выбор дальнейшей программы.'],refs:[['3D-демо','https://safal207.github.io/Architectural-AI-Lab/'],['Python-практика','https://safal207.github.io/test-it-python/']]},
+    {id:'build',num:'02',glyph:'⌘',name:'AI Разработчик',short:'Создавай простые сайты, инструменты и AI-приложения. Учись управлять кодом, а не просто просить нейросеть сделать всё.',weeks:8,meetings:8,level:'Можно с нуля',outcome:'Рабочее веб-приложение на GitHub Pages с понятным интерфейсом, документацией и ручной проверкой ключевых сценариев.',steps:['Недели 1–2 — основы Python или JavaScript, Git и устройство веб-приложений.','Недели 3–4 — интерфейс, запросы к API, проектирование простого AI-сценария.','Недели 5–6 — сборка прототипа с помощью ИИ и самостоятельная проверка кода.','Недели 7–8 — исправления, публикация и показ работающего проекта.'],refs:[['Кофейня: веб-продукт','https://safal207.github.io/robys-coffee-house-demo/'],['AI-приложения','https://github.com/safal207/ai-cafe-network']]},
+    {id:'space',num:'03',glyph:'◈',name:'AI + 3D / Дизайн',short:'От референса до цифрового пространства: Blender, материалы, визуализация и интерактивные показы.',weeks:6,meetings:6,level:'Можно с нуля',outcome:'Один самостоятельный учебный 3D-кейс: модель комнаты или предмета, несколько ракурсов, визуальная презентация и описание ограничений.',steps:['Неделя 1 — референсы, размеры, базовые принципы 3D.','Недели 2–3 — моделирование и материалы в Blender, поиск неточностей.','Недели 4–5 — освещение, AI-варианты, рендеры или простой 3D-просмотр.','Неделя 6 — портфолио-кейс с исходниками и презентацией.'],refs:[['Вилла и 3D-тур','https://safal207.github.io/Architectural-AI-Lab/'],['Интерьерное портфолио','https://safal207.github.io/safonov-interior-portfolio/']]},
+    {id:'create',num:'04',glyph:'▶',name:'AI Видео / Креатив',short:'От идеи до короткого ролика: сценарий, изображения, звук, монтаж, субтитры и AI-инструменты.',weeks:6,meetings:6,level:'С нуля',outcome:'Один авторский клип или рекламный Shorts до 30 секунд с чистым звуком, титрами и исходным проектом.',steps:['Неделя 1 — сценарий, раскадровка, настроение и права на материалы.','Недели 2–3 — визуальные сцены и создание/обработка звука.','Недели 4–5 — монтаж, ритм, субтитры, ручная проверка кадров.','Неделя 6 — экспорт 9:16 и презентация готового ролика.'],refs:[['Студия видео','https://github.com/safal207/rustclip-studio'],['3D-портфолио','https://safal207.github.io/creative-portfolio/']]},
+    {id:'qa',num:'05',glyph:'◎',name:'Python + QA',short:'Пойми, как работает программа, научись находить ошибки и напиши первые проверки на Python.',weeks:8,meetings:8,level:'С нуля',outcome:'Собственный небольшой Python-проект, набор тест-кейсов, несколько автопроверок и репозиторий с понятной инструкцией.',steps:['Недели 1–2 — основы Python: условия, циклы, функции.','Недели 3–4 — тест-дизайн, баг-репорты, браузерные и API-проверки.','Недели 5–6 — pytest, позитивные и негативные сценарии.','Недели 7–8 — GitHub, запуск проверок и демонстрация результатов.'],refs:[['Тренажёр Python','https://safal207.github.io/test-it-python/'],['Финтех QA-курс','https://github.com/safal207/qa-fintech-api-python-course']]}
+  ];
+  var state={interest:'explore',program:'explore',level:'zero',pace:'balanced'};
+  var paceLabels={light:'2–3 ч',balanced:'4–6 ч',deep:'7+ ч'};
+  var recommendations={explore:'Если пока не определился, начни с программы «AI Навигатор»: пробуешь несколько направлений без жёсткого выбора.',build:'Тебе может понравиться «AI Разработчик»: от простого кода и веб-сайтов до рабочего AI-прототипа.',space:'Обрати внимание на «AI + 3D / Дизайн»: виртуальные пространства, 3D-модели, материалы и свет.',create:'Подойдёт «AI Видео / Креатив»: можно сразу делать короткий авторский видеопроект.',qa:'Посмотри «Python + QA»: программирование через понятные задачи и поиск ошибок.'};
+  var $=function(id){return document.getElementById(id)};
+  var esc=function(str){return String(str).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
+  var params=new URLSearchParams(window.location.search);
+  if(programs.some(function(p){return p.id===params.get('program')})){state.program=params.get('program');state.interest=state.program}
+  if(params.get('level')==='basic')state.level='basic';
+  if(paceLabels[params.get('pace')])state.pace=params.get('pace');
+  function urlForSelection(){var u=new URL(window.location.href);u.searchParams.set('program',state.program);u.searchParams.set('level',state.level);u.searchParams.set('pace',state.pace);u.hash='selected';return u.toString()}
+  function textForSelection(){var p=programs.find(function(x){return x.id===state.program});return 'Я выбрал(а) программу «'+p.name+'» ('+p.weeks+' недель, '+p.meetings+' встреч). Уровень: '+(state.level==='zero'?'с нуля':'есть небольшая база')+'. Темп: '+paceLabels[state.pace]+' в неделю. Посмотреть план: '+urlForSelection()}
+  function toast(s){var e=$('toast');e.textContent=s;e.classList.add('show');window.clearTimeout(toast.t);toast.t=window.setTimeout(function(){e.classList.remove('show')},2700)}
+  function syncButtons(group,key,value){document.querySelectorAll('#'+group+' button').forEach(function(btn){btn.setAttribute('aria-pressed',String(btn.dataset[key]===value))})}
+  function render(){
+    syncButtons('interests','interest',state.interest);
+    syncButtons('levels','level',state.level);
+    syncButtons('paces','pace',state.pace);
+    $('recommendation').textContent=recommendations[state.interest];
+    $('programList').innerHTML=programs.map(function(p){
+      var sel=p.id===state.program;
+      return '<button type="button" class="program'+(p.id===state.interest?' recommended':'')+'" data-program="'+p.id+'" aria-pressed="'+sel+'">'+
+        '<span class="n">ТРЕК '+p.num+(p.id===state.interest?' <span class="pill">Рекомендуем</span>':'')+'</span>'+
+        '<span class="glyph" aria-hidden="true">'+p.glyph+'</span><h3>'+esc(p.name)+'</h3><p>'+esc(p.short)+'</p><footer><span>'+p.weeks+' недель · '+p.meetings+' занятия</span><span>'+(sel?'Выбрано ✓':'Выбрать ↗')+'</span></footer></button>';
+    }).join('');
+    var p=programs.find(function(x){return x.id===state.program});
+    $('selTitle').textContent=p.name;
+    $('selText').textContent=p.short;
+    $('selDuration').textContent=p.weeks+' недель';
+    $('selMeetings').textContent=p.meetings+' встречи';
+    $('selTime').textContent=paceLabels[state.pace];
+    $('selOutcome').textContent=p.outcome;
+    $('selSteps').innerHTML=p.steps.map(function(s,i){return '<li><span class="step-no">'+(i+1)+'</span><span>'+esc(s)+'</span></li>'}).join('');
+    $('selRefs').innerHTML=p.refs.map(function(r){return '<a href="'+esc(r[1])+'" target="_blank" rel="noopener noreferrer">'+esc(r[0])+' ↗</a>'}).join('');
+    $('shareWhatsApp').href='https://wa.me/?text='+encodeURIComponent(textForSelection());
+    var u=new URL(window.location.href);u.searchParams.set('program',state.program);u.searchParams.set('level',state.level);u.searchParams.set('pace',state.pace);window.history.replaceState({},'',u.pathname+u.search+u.hash);
+  }
+  $('interests').addEventListener('click',function(e){var b=e.target.closest('button[data-interest]');if(!b)return;state.interest=b.dataset.interest;state.program=b.dataset.interest;render();$('programs').scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start'})});
+  $('levels').addEventListener('click',function(e){var b=e.target.closest('button[data-level]');if(!b)return;state.level=b.dataset.level;render()});
+  $('paces').addEventListener('click',function(e){var b=e.target.closest('button[data-pace]');if(!b)return;state.pace=b.dataset.pace;render()});
+  $('programList').addEventListener('click',function(e){var b=e.target.closest('button[data-program]');if(!b)return;state.program=b.dataset.program;render();$('selected').scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'center'})});
+  $('copyLink').addEventListener('click',async function(){
+    var value=urlForSelection();
+    try{
+      if(navigator.clipboard && navigator.clipboard.writeText){await navigator.clipboard.writeText(value)}
+      else{var x=document.createElement('textarea');x.value=value;x.style.position='fixed';x.style.opacity='0';document.body.appendChild(x);x.select();if(!document.execCommand('copy'))throw new Error('copy');x.remove()}
+      toast('Ссылка на выбранный маршрут скопирована');
+    }catch(e){window.prompt('Скопируйте ссылку:',value)}
+  });
+  render();
+})();
+</script>
+</body>
+</html>
