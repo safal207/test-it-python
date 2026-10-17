@@ -78,7 +78,18 @@ try {
     assert((await page.locator('#selTitle').innerText()).includes('AI Lab'), 'Frontier CTA selects training');
     await page.locator('#interests [data-interest="game"]').click();
     assert((await page.locator('#selTitle').innerText()).includes('Пробуждение'), 'Game path selectable');
-    assert(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), 'No horizontal overflow');
+    const widthReport = await page.evaluate(() => ({
+      windowWidth: innerWidth, documentWidth: document.documentElement.scrollWidth,
+      offenders: [...document.querySelectorAll('body *')]
+        .map(el => ({ tag: el.tagName, id: el.id,
+          className: typeof el.className === 'string' ? el.className : '',
+          left: Math.round(el.getBoundingClientRect().left),
+          right: Math.round(el.getBoundingClientRect().right) }))
+        .filter(el => el.right > innerWidth + 1 || el.left < -1).slice(0, 35)
+    }));
+    if (widthReport.documentWidth > widthReport.windowWidth + 1)
+      console.error('AI_PATH_MOBILE_OVERFLOW', JSON.stringify(widthReport));
+    assert(widthReport.documentWidth <= widthReport.windowWidth + 1, 'No horizontal overflow');
     assert(errors.length === 0, 'No browser JavaScript errors: ' + errors.join('; '));
     await page.locator('#research').scrollIntoViewIfNeeded();
     await page.screenshot({ path: 'artifacts/ai-path-qa/ai-path-' + width + '.png', animations: 'disabled' });
