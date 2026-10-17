@@ -1,0 +1,51 @@
+{
+  "project": "LUMA 01",
+  "project_url": "https://safal207.github.io/safonov-interior-portfolio/cases/luma-01.html",
+  "repository": "safal207/safonov-interior-portfolio",
+  "source_commit": "d169b69a3902c0ddf73af88b6fc8151c9896b0c3",
+  "retrieved_at": "2026-10-17T22:14:18.849902+00:00",
+  "description": "Educational procedural furniture concept created with code and AI assistance. Three views of one model, not three separate works.",
+  "limitations": "Not a commercial commission; no engineering, ergonomic or manufacturing validation. Model exports have basic colours; procedural textures are not baked into GLB/OBJ.",
+  "source_documentation": [
+    "docs/LUMA01.md",
+    "assets/luma01/source/README.md"
+  ],
+  "images": [
+    {
+      "file": "luma01-hero.webp",
+      "description": "LUMA 01: hero, render of the same procedural chair scene",
+      "source_path": "assets/luma01/hero.webp",
+      "source_url": "https://raw.githubusercontent.com/safal207/safonov-interior-portfolio/d169b69a3902c0ddf73af88b6fc8151c9896b0c3/assets/luma01/hero.webp",
+      "git_blob_sha": "3469430bb35b8d55d35566b55222a44f31a940e5",
+      "sha256": "fe2649b91758dc5c6a159f1812734e83d866ed53cdb66e6145fe4a3bf197cd7b",
+      "width": 1200,
+      "height": 1500,
+      "bytes": 45048,
+      "transformation": "Copied byte-for-byte from existing optimized WebP; no regeneration or retouching."
+    },
+    {
+      "file": "luma01-front.webp",
+      "description": "LUMA 01: front, render of the same procedural chair scene",
+      "source_path": "assets/luma01/front.webp",
+      "source_url": "https://raw.githubusercontent.com/safal207/safonov-interior-portfolio/d169b69a3902c0ddf73af88b6fc8151c9896b0c3/assets/luma01/front.webp",
+      "git_blob_sha": "8eb7f02b8bae200864e5c4d4984eeda29576306c",
+      "sha256": "5d0c3a62c5800b173ac9a6f6d3d21db4a002f624717b57ca220a4021af625bf5",
+      "width": 1200,
+      "height": 1500,
+      "bytes": 36144,
+      "transformation": "Copied byte-for-byte from existing optimized WebP; no regeneration or retouching."
+    },
+    {
+      "file": "luma01-profile.webp",
+      "description": "LUMA 01: profile, render of the same procedural chair scene",
+      "source_path": "assets/luma01/profile.webp",
+      "source_url": "https://raw.githubusercontent.com/safal207/safonov-interior-portfolio/d169b69a3902c0ddf73af88b6fc8151c9896b0c3/assets/luma01/profile.webp",
+      "git_blob_sha": "0db99cde801d90c36d583e7c17e09c22e524cce5",
+      "sha256": "28ebb2197ef3d305c4665397a54e99a69d24cab786ba1a064d268987d8f1056d",
+      "width": 1200,
+      "height": 1500,
+      "bytes": 28774,
+      "transformation": "Copied byte-for-byte from existing optimized WebP; no regeneration or retouching."
+    }
+  ]
+}

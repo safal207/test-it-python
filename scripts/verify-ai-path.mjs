@@ -44,7 +44,7 @@ try {
     assert(response?.status() === 200, 'Page returns HTTP 200');
     await page.locator('#programList .program').first().waitFor();
 
-    assert(await page.locator('#programList .program').count() === 11, '11 selectable learning programs');
+    assert(await page.locator('#programList .program').count() === 12, '12 selectable learning programs');
     assert((await page.locator('#selTitle').innerText()).includes('AI Lab'), 'Frontier program deep link');
     assert(await page.locator('#examples article.project').count() === 6, '6 source-backed project screenshot cards');
     assert(await page.locator('#nbGrid .nb-card').count() === 6, 'Featured ML notebooks visible');
@@ -62,7 +62,8 @@ try {
     assert(links.every(url => url.startsWith('https://github.com/safal207/students/blob/')), 'Notebooks link to source archive');
 
     assert(await page.locator('#comics article.project').count() === 3, '3 existing comic examples');
-    const galleryButtons = page.locator('#examples .project-shot, #comics .project-shot');
+    assert(await page.locator('#furniture article.project').count() === 3, '3 source-backed LUMA 01 views');
+    const galleryButtons = page.locator('#examples .project-shot, #comics .project-shot, #furniture .project-shot');
     for (let i = 0; i < await galleryButtons.count(); i++) {
       const button = galleryButtons.nth(i);
       await button.scrollIntoViewIfNeeded();
@@ -87,6 +88,14 @@ try {
     assert((await page.locator('#selTitle').innerText()).includes('Комиксы'), 'Comic route survives reload');
     await page.locator('#interests [data-interest="comics"]').click();
     assert((await page.locator('#recommendation').innerText()).includes('Комиксы'), 'Comic interest recommends the new program');
+    await page.locator('#furniture [data-start-track="furniture"]').click();
+    assert((await page.locator('#selTitle').innerText()).includes('Мебель'), 'Furniture CTA selects the program');
+    assert(new URL(page.url()).searchParams.get('program') === 'furniture', 'Furniture choice is preserved in URL');
+    assert((await page.locator('#selOutcome').innerText()).includes('3D-модель'), 'Furniture program has a concrete digital deliverable');
+    await page.reload({ waitUntil: 'domcontentloaded' });
+    assert((await page.locator('#selTitle').innerText()).includes('Мебель'), 'Furniture route survives reload');
+    await page.locator('#interests [data-interest="furniture"]').click();
+    assert((await page.locator('#recommendation').innerText()).includes('LUMA 01'), 'Furniture interest recommends the source-backed program');
     const widthReport = await page.evaluate(() => ({
       windowWidth: innerWidth, documentWidth: document.documentElement.scrollWidth,
       offenders: [...document.querySelectorAll('body *')]
@@ -109,9 +118,9 @@ try {
       console.error('AI_PATH_MOBILE_OVERFLOW', JSON.stringify(widthReport));
     assert(widthReport.documentWidth <= widthReport.windowWidth + 1, 'No horizontal overflow');
     assert(errors.length === 0, 'No browser JavaScript errors: ' + errors.join('; '));
-    await page.locator('#comics').scrollIntoViewIfNeeded();
+    await page.locator('#furniture').scrollIntoViewIfNeeded();
     await page.screenshot({ path: 'artifacts/ai-path-qa/ai-path-' + width + '.png', animations: 'disabled' });
-    console.log('PASS ' + width + 'x' + height + ': 11 programs, 6 project screenshots, 3 comic examples, 24 notebook links, 4 lab routes, gallery and keyboard');
+    console.log('PASS ' + width + 'x' + height + ': 12 programs, 6 project screenshots, 3 comic examples, 3 furniture views, 24 notebook links, 4 lab routes, gallery and keyboard');
     await context.close();
   }
 } finally {
