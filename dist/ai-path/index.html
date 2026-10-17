@@ -95,6 +95,26 @@
 @media(max-width:760px){.furniture-grid{grid-template-columns:1fr}.furniture-grid .project{width:100%;max-width:410px;margin-inline:auto}.furniture-section .furniture-actions .btn{width:100%}}
 </style>
 <link href="choice.css" rel="stylesheet"/>
+
+<style id="design-lab-styles">
+.design-lab-section{border-top:1px solid var(--line)}
+.design-lab-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.design-lab-grid .project{min-width:0;display:flex;flex-direction:column}
+.design-lab-visual{position:relative;display:block;aspect-ratio:16/9;overflow:hidden;background:#0b0d10}
+.design-lab-visual img{width:100%;height:100%;object-fit:cover;display:block}
+.design-lab-visual>span{position:absolute;bottom:14px;left:18px;padding:6px 9px;background:rgba(8,11,17,.85);border:1px solid rgba(255,255,255,.15);font-size:10px;letter-spacing:.14em;color:#f4f6fb}
+.design-lab-night img{object-fit:cover}.design-lab-layer{background:#181b21}.design-lab-layer img{object-fit:contain;padding:18px}
+.design-lab-links{display:flex;flex-wrap:wrap;gap:24px;margin-top:18px}
+.design-lab-grid .project-body{display:flex;flex-direction:column;flex:1}
+.design-lab-grid .project-body .shot-caption{margin-top:18px;font-size:12px}
+.design-lab-room{background:radial-gradient(circle at 75% 40%,#dad6bd,#a8ae92);color:#28382c}
+.design-lab-room-art{height:100%;padding:30px;position:relative}
+.design-lab-room-art b{font-size:clamp(28px,4vw,54px);line-height:.95;font-weight:600;letter-spacing:-.055em}
+.design-lab-room-art i{display:block;margin-top:16px;font-size:11px;font-style:normal}
+.design-lab-room-art em{position:absolute;right:30px;top:32px;border:1px solid #74816b;border-radius:50%;width:88px;height:88px;display:grid;place-items:center;font-size:36px;font-style:normal}
+@media(max-width:700px){.design-lab-grid{grid-template-columns:1fr}.design-lab-room-art{padding:22px}.design-lab-room-art b{font-size:42px}}
+</style>
+
 </head>
 <body>
 <header class="header">
@@ -294,6 +314,34 @@
 </div>
 <p class="furniture-note"><strong>LUMA 01 — учебный предметный концепт, созданный с помощью кода и ИИ.</strong> Это цифровая модель и визуализация. Конструкция и эргономика требуют отдельной проверки; производственные чертежи и изготовление в программу не входят.</p>
 <div class="furniture-actions"><button class="btn primary" type="button" data-start-track="furniture">Выбрать программу по мебели ↗</button><a class="btn ghost" href="https://safal207.github.io/safonov-interior-portfolio/cases/luma-01.html" target="_blank" rel="noopener noreferrer">Все ракурсы, анимация и 3D-модель ↗</a></div>
+</div>
+</section>
+
+
+<section class="section design-lab-section" id="design-lab" aria-labelledby="designLabTitle">
+<div class="wrap">
+<div class="section-top">
+<div><span class="tag">Design Lab / 04 интерактивных проекта</span><h2 id="designLabTitle">Форма. Движение.<br/><span class="accent">Живой интерфейс.</span></h2></div>
+<p>Четыре самостоятельных концепта для портфолио: арт-дирекшн, 3D, SVG и управление состоянием. У каждого — своё демо, открытый репозиторий и описание вклада.</p>
+</div>
+<div class="design-lab-grid">
+<article class="project">
+<a class="design-lab-visual" href="https://safal207.github.io/vesper-automotive-concept/" target="_blank" rel="noopener noreferrer" aria-label="Открыть демо VESPER"><img src="https://safal207.github.io/vesper-automotive-concept/assets/vesper-hero.webp" alt="Серебристый концепт-кар VESPER в тёмной студии — авторский AI-рендер" width="1672" height="941" loading="lazy" decoding="async"/><span>01 / AUTOMOTIVE</span></a>
+<div class="project-body"><span class="project-icon">ART DIRECTION / WEB</span><h3>VESPER 01</h3><p>Автомобильная презентация с четырьмя световыми этюдами, просмотром деталей и сохранением выбранного варианта.</p><div class="design-lab-links"><a class="link" href="https://safal207.github.io/vesper-automotive-concept/" target="_blank" rel="noopener noreferrer">Открыть демо ↗</a><a class="link" href="https://github.com/safal207/vesper-automotive-concept" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div><p class="shot-caption">Вымышленный автомобиль, AI-изображение. Световые варианты — художественная цветокоррекция.</p></div>
+</article>
+<article class="project">
+<a class="design-lab-visual design-lab-night" href="https://safal207.github.io/quiet-hours-sanctuary/" target="_blank" rel="noopener noreferrer" aria-label="Открыть 3D-демо Quiet Hours"><img src="https://safal207.github.io/quiet-hours-sanctuary/assets/sanctuary.svg" alt="Графический пролог Quiet Hours: храм и красная луна" width="1200" height="800" loading="lazy" decoding="async"/><span>02 / ATMOSPHERE</span></a>
+<div class="project-body"><span class="project-icon">THREE.JS / INTERACTION</span><h3>Quiet Hours</h3><p>Ночной сад с храмом, дождём и красной луной. Смена ракурсов, настройка света и пауза движения.</p><div class="design-lab-links"><a class="link" href="https://safal207.github.io/quiet-hours-sanctuary/" target="_blank" rel="noopener noreferrer">Открыть демо ↗</a><a class="link" href="https://github.com/safal207/quiet-hours-sanctuary" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div><p class="shot-caption">Сцена адаптирована из ThreeUI Community, MIT. Интерфейс и управление — наша работа. На карточке графический пролог.</p></div>
+</article>
+<article class="project">
+<a class="design-lab-visual design-lab-layer" href="https://safal207.github.io/layer-lab-explainer/" target="_blank" rel="noopener noreferrer" aria-label="Открыть интерактив Layer Lab"><img src="https://safal207.github.io/layer-lab-explainer/assets/composition.svg" alt="Оригинальная SVG-композиция Layer Lab: солнце, горы, вода и растения" width="600" height="700" loading="lazy" decoding="async"/><span>03 / EXPLAINER</span></a>
+<div class="project-body"><span class="project-icon">SVG / CSS 3D / EXPORT</span><h3>Layer Lab</h3><p>Разбор иллюстрации на пять слоёв: разнесение, изоляция, параллакс, три палитры и экспорт видимых слоёв в SVG.</p><div class="design-lab-links"><a class="link" href="https://safal207.github.io/layer-lab-explainer/" target="_blank" rel="noopener noreferrer">Открыть демо ↗</a><a class="link" href="https://github.com/safal207/layer-lab-explainer" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div><p class="shot-caption">Работает с подготовленной авторской иллюстрацией. Автоматического разделения загруженных фотографий нет.</p></div>
+</article>
+<article class="project">
+<a class="design-lab-visual design-lab-room" href="https://safal207.github.io/room-control-studio/" target="_blank" rel="noopener noreferrer" aria-label="Открыть 3D-комнату Room Control"><div class="design-lab-room-art" aria-hidden="true"><b>Room<br/>Control.</b><i>Утро · Вечер · Кино · Вне дома</i><em>22°</em></div><span>04 / SMART HOME</span></a>
+<div class="project-body"><span class="project-icon">THREE.JS / UI / STATE</span><h3>Room Control</h3><p>Изометрическая 3D-комната: свет, яркость, климат и четыре сценария. Настройки сохраняются в браузере и выгружаются в JSON.</p><div class="design-lab-links"><a class="link" href="https://safal207.github.io/room-control-studio/" target="_blank" rel="noopener noreferrer">Открыть демо ↗</a><a class="link" href="https://github.com/safal207/room-control-studio" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div><p class="shot-caption">Интерактивная симуляция. Реальные домашние устройства не подключены; мощность освещения расчётная.</p></div>
+</article>
+</div>
 </div>
 </section>
 
