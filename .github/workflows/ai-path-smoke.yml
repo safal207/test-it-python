@@ -1,0 +1,44 @@
+name: AI PATH interactive smoke
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "dist/ai-path/**"
+      - "scripts/verify-ai-path.mjs"
+      - ".github/workflows/ai-path-smoke.yml"
+  pull_request:
+    paths:
+      - "dist/ai-path/**"
+      - "scripts/verify-ai-path.mjs"
+      - ".github/workflows/ai-path-smoke.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install test browser
+        run: |
+          npm install --no-save --no-audit --no-fund playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Verify site with real browser interactions at desktop and mobile
+        run: node scripts/verify-ai-path.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ai-path-responsive-previews
+          path: artifacts/ai-path-qa/
+          if-no-files-found: warn
+          retention-days: 14
