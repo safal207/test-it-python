@@ -18,13 +18,33 @@
 
 | Organization | Actual pathway | What it is / is not |
 | --- | --- | --- |
-| **OpenAI** | [Researcher Access Program](https://openai.com/form/researcher-access-program/) and [FAQ](https://help.openai.com/en/articles/10139500-researcher-access-program-faq) | Opportunity to request subsidized **API credits** for qualifying research, not a general submission portal for any GitHub project. Current FAQ requires eligible research affiliation and an API-supported country. Do not assume eligibility based on a personal repo. |
-| **Anthropic** | [AI Safety Fellows](https://alignment.anthropic.com/2025/anthropic-fellows-program-2026/) | Individual research fellowship with selective admission, focused on AI safety, control and evaluation. Current announcement describes rolling applications with cohort-specific cutoffs. A public memo is not an application. |
+| **OpenAI** | [Researcher Access Program](https://openai.com/form/researcher-access-program/) and [FAQ](https://help.openai.com/en/articles/10139500-researcher-access-program-faq) | Up to **$1,000 of API credits** for qualifying research, not a general submission portal. Requires an active eligible academic/research/nonprofit affiliation and a country on the current [OpenAI API list](https://developers.openai.com/api/docs/supported-countries). Do not infer eligibility merely from a personal repo or account. |
+| **Anthropic** | [AI Safety Fellows](https://alignment.anthropic.com/2025/anthropic-fellows-program-2026/) / [Fellows job requirements](https://job-boards.greenhouse.io/anthropic/jobs/5183044008) | Research fellowship in AI safety/control; applications rolling, January-cohort cutoff **October 18, 2026**. **Eligibility gate:** reside and hold full-time work authorization in the **US, UK or Canada**; no Fellows visa sponsorship. A public memo is not an application. |
+| **OpenAI** | [Safety Fellowship 2026](https://alignment.openai.com/safety-fellowship/) | **Closed for the 2026 pilot**: application deadline May 3, 2026. A draft saved in GitHub is not proof that an application was submitted. Check for a fresh call instead of presenting the old form as open. |
+| **OpenAI** | [Cybersecurity Grant Program](https://openai.com/form/cybersecurity-grant-program/) | Defensive security research grants and/or credits. For the CAEP proposal below, a form submission was already recorded on July 23, 2026: do not send an identical second application. The official form permits a full *revised* proposal that is explicitly marked as a revision. |
 | **Anthropic** | [Economic Futures](https://www.anthropic.com/economic-futures/program) | Economics-focused research/policy track; an older awards page explicitly says it is **not currently accepting** applications. Confirm new calls before preparing a targeted empirical labor-market proposal. |
 | **Google DeepMind** | [Student Researcher Program](https://deepmind.google/student-researcher-program/) | Paid research internships for those **already enrolled** in Bachelor's, Master's or PhD programs, with in-person work. Not an open mailbox for unsolicited product proposals. |
 | **Hugging Face** | [Spaces](https://huggingface.co/docs/hub/en/spaces-overview) | Public (or restricted) open-source demonstration/discovery channel, not a grant or lab endorsement. Check the current plan limits, licensing and data policy. |
 
 **Submission-time verification is mandatory:** as of October 2026, individual openings, dates, forms and country restrictions may change; current requirements should be checked again on the organization's own site. Never route a sensitive security report through a general public discussion or expose private test data.
+
+## Submission history and deduplication — reviewer-facing internal note
+
+The following statuses are based on repository notes, **not evidence of selection, endorsement or funding**. Verify correspondence before any follow-up.
+
+| Project / opportunity | Evidence | Status / next action |
+| --- | --- | --- |
+| **CAEP-OpenAI** · Cybersecurity Grant | [GitHub issue #248 and owner's July 23 note](https://github.com/safal207/pythiaLabs/issues/248#issuecomment-5057425053) | **Submitted (reported by applicant), July 23, 2026.** Follow up in the existing thread if an official reply arrives; no duplicate submission. Submission confirmation is not an award. |
+| **PythiaLabs** · NLnet NGI Commons | [Reviewer path, application 2026-06-133](https://github.com/safal207/pythiaLabs/blob/main/docs/NGI_COMMONS_REVIEWER_PATH.md) | Acknowledged/reviewer-ready in last documented status, not approved or funded. Keep one canonical proposal. |
+| **LiminalDB** · NLnet Fediversity | [Reviewer path, application 2026-08-00c](https://github.com/safal207/LiminalDB/blob/main/docs/FEDIVERSITY_REVIEWER_PATH.md) | Documented as submitted; not a grant award. |
+| **OpenAI Safety Fellowship pilot** | [Public draft only](https://github.com/safal207/pythiaLabs/blob/main/docs/fellowship_openai_safety_2026_application.md) | Draft does not prove submission. **Deadline May 3, 2026 passed.** |
+| **Previous OpenAI/Anthropic/DeepMind outreach** | Prior communications referenced in working history | **Not reverified here.** Check Sent folder and the original conversation thread, recipients, subject, dates and replies before contacting again. Do not create parallel cold-email threads. |
+
+For projects with private correspondence, avoid publishing personal names, applicant details, emails or credentials in repository status trackers.
+
+## Next strongest research packet
+
+The [PythiaLabs external agent evaluation one-pager](https://github.com/safal207/pythiaLabs/blob/main/docs/EXTERNAL_AGENT_EVAL_ONE_PAGER_2026.md) explicitly distinguishes existing evidence-gate prototypes and CAEP validation tools from a **proposed but unmeasured** baseline comparison. It is suitable as a public methodology discussion draft, not as evidence of acceptance by any lab.
 
 ## From repository to reviewer-ready packet
 
