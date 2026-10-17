@@ -45,6 +45,167 @@
     grant:{headline:'Собери черновик заявки для своего проекта',first:'Сопоставить идею проекта с критериями одной реальной грантовой программы.'},
     frontier:{headline:'Подготовь исследовательский проект к экспертизе',first:'Сформулировать один проверяемый вопрос и определить, с чем сравнивать результат.'}
   };
+  var starterKits={
+  "explore": {
+    "takeaways": [
+      "Пробная визуализация или короткий ролик.",
+      "Первая небольшая программа.",
+      "Мини-портфолио и выбранное направление для следующего проекта."
+    ],
+    "prompts": [
+      "Мне интересно попробовать: ____.",
+      "Моя маленькая идея для первой работы: ____.",
+      "Я пойму, что хочу продолжать, если: ____."
+    ]
+  },
+  "build": {
+    "takeaways": [
+      "Работающее веб-приложение на GitHub Pages.",
+      "Документация, объясняющая устройство и запуск проекта.",
+      "Ручная проверка главных пользовательских сценариев."
+    ],
+    "prompts": [
+      "Моё приложение поможет [кому] решить [какую задачу]: ____.",
+      "На первом экране человек сможет сделать одно действие: ____.",
+      "Проверю, что это работает, на таком примере: ____."
+    ]
+  },
+  "space": {
+    "takeaways": [
+      "3D-модель комнаты или небольшого пространства.",
+      "Несколько ракурсов одной сцены.",
+      "Презентация учебного кейса с описанием ограничений."
+    ],
+    "prompts": [
+      "Хочу создать комнату или пространство для: ____.",
+      "Главное настроение и три важных предмета: ____.",
+      "Примерные размеры и референс, с которого начну: ____."
+    ]
+  },
+  "furniture": {
+    "takeaways": [
+      "Цифровая 3D-модель одного предмета мебели.",
+      "3–4 согласованных ракурса модели.",
+      "Презентация замысла и ограничений цифрового концепта."
+    ],
+    "prompts": [
+      "Мой предмет нужен [кому] для [какой задачи]: ____.",
+      "Примерные размеры и главная особенность формы: ____.",
+      "Материал и референс, которые хочу исследовать: ____."
+    ]
+  },
+  "create": {
+    "takeaways": [
+      "Авторский клип или рекламный Shorts до 30 секунд.",
+      "Готовый ролик с обработанным звуком и титрами.",
+      "Исходный проект для дальнейшего редактирования."
+    ],
+    "prompts": [
+      "После ролика зритель должен понять или почувствовать: ____.",
+      "Три сцены: начало — ____; действие — ____; финал — ____.",
+      "Какие свои или разрешённые материалы могу использовать: ____."
+    ]
+  },
+  "comics": {
+    "takeaways": [
+      "Сценарий и раскадровка короткой истории.",
+      "Комикс на 3–5 страниц с обложкой.",
+      "PDF для чтения и показа."
+    ],
+    "prompts": [
+      "Мой герой хочет ____, но ему мешает ____.",
+      "Три события законченной сцены: ____ → ____ → ____.",
+      "Настроение истории и важная реплика героя: ____."
+    ]
+  },
+  "qa": {
+    "takeaways": [
+      "Собственный небольшой Python-проект.",
+      "Набор тест-кейсов и несколько автопроверок.",
+      "Репозиторий с понятной инструкцией."
+    ],
+    "prompts": [
+      "Моя функция получает ____ и возвращает ____.",
+      "Обычный пример: вход ____; ожидаемый результат ____.",
+      "Необычный или ошибочный ввод, который надо проверить: ____."
+    ]
+  },
+  "game": {
+    "takeaways": [
+      "Собственная доработка игры: блок или небольшая механика.",
+      "Проверка работы изменения в игре.",
+      "GitHub-описание и видеодемонстрация."
+    ],
+    "prompts": [
+      "Хочу изменить в игре одну вещь: ____.",
+      "Игрок будет делать ____, а игра в ответ будет ____.",
+      "Проверю механику в трёх ситуациях: ____."
+    ]
+  },
+  "ml": {
+    "takeaways": [
+      "Один воспроизведённый учебный эксперимент.",
+      "Объяснение данных и ключевых частей кода.",
+      "Разбор полученных метрик и ограничений результата."
+    ],
+    "prompts": [
+      "Хочу исследовать задачу с изображениями, текстом или звуком: ____.",
+      "Какие данные использую и что должна предсказывать модель: ____.",
+      "С чем сравню результат и какую метрику проверю: ____."
+    ]
+  },
+  "hack": {
+    "takeaways": [
+      "Работающий прототип и GitHub-репозиторий.",
+      "Короткая демонстрация проекта.",
+      "Черновик заявки для выбранного хакатона."
+    ],
+    "prompts": [
+      "Событие и важное требование из его правил: ____.",
+      "Проблема участника или пользователя: ____.",
+      "Самая маленькая версия решения, которую сможем показать: ____."
+    ]
+  },
+  "grant": {
+    "takeaways": [
+      "Черновик краткого описания проекта — one-pager.",
+      "План этапов и учебный бюджет.",
+      "Пакет доказательств и матрица соответствия требованиям."
+    ],
+    "prompts": [
+      "Мой проект решает проблему ____ для ____.",
+      "Уже имеющиеся результаты или подтверждения: ____.",
+      "Грантовая программа и критерий, которому соответствует проект: ____."
+    ]
+  },
+  "frontier": {
+    "takeaways": [
+      "One-pager и черновик обращения к выбранной лаборатории.",
+      "Пакет доказательств и сравнение с исходным решением.",
+      "Демонстрация проекта для экспертной проверки."
+    ],
+    "prompts": [
+      "Мой проверяемый исследовательский вопрос: ____.",
+      "Исходное решение для сравнения и отличия моего подхода: ____.",
+      "Эксперимент, который сможет повторить другой человек: ____."
+    ]
+  },
+  "books": {
+    "takeaways": [
+      "Отредактированная короткая рукопись.",
+      "Обложка книги с проверкой прав на материалы.",
+      "Один формат EPUB или печатный PDF, описание и материалы к публикации."
+    ],
+    "prompts": [
+      "Моя книга для [кого] и о [чём]: ____.",
+      "План из трёх частей или глав: ____.",
+      "Язык и формат публикации, которые проверю в KDP: ____."
+    ]
+  }
+};
+  // Optional ideas live only in this page session, separately for each programme.
+  var projectIdeas=Object.create(null);
+  var downloadUrls=[];
   var alternatives={explore:['build','create'],furniture:['space','create'],space:['furniture','game'],comics:['books','create'],books:['comics','create'],create:['comics','space'],build:['qa','game'],qa:['build','ml'],game:['build','qa'],ml:['qa','frontier'],hack:['build','grant'],grant:['hack','frontier'],frontier:['ml','grant']};
   var $=function(id){return document.getElementById(id)};
   var esc=function(str){return String(str).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
@@ -80,8 +241,71 @@
       'Ориентир плана: '+weekLabel(p.weeks)+', '+meetingLabel(p.meetings)+'.\n'+
       'Мой уровень: '+levelLabels[selected.level]+'.\n'+
       'Желаемая нагрузка: '+paceLabels[selected.pace]+' в неделю, включая встречи и самостоятельную работу.\n'+
+      (ideaForSelection()?'Моя идея: '+ideaForSelection()+'\n':'')+
       'План программы: '+urlForSelection()+'\n\n'+
       'Подскажите, подходит ли мне программа, какова полная стоимость, длительность встреч и доступное расписание? Какая поддержка есть между встречами и нужны ли платные сервисы?';
+  }
+  function ideaForSelection(){return state.selection?(projectIdeas[state.selection.program]||'').trim():''}
+  function starterTextForSelection(){
+    if(!state.selection)return '';
+    var p=programById(state.selection.program);
+    return 'Мой первый шаг — '+p.name+'\n\n'+starterKits[p.id].prompts.map(function(prompt,index){return (index+1)+'. '+prompt}).join('\n');
+  }
+  function planTextForSelection(){
+    if(!state.selection)return '';
+    var selected=state.selection,p=programById(selected.program),kit=starterKits[p.id];
+    var lines=[
+      'AI PATH — мой план',
+      'Программа: '+p.name,
+      'Мой уровень: '+levelLabels[selected.level],
+      'Желаемая нагрузка: '+paceLabels[selected.pace]+' в неделю, включая встречи и самостоятельную работу.',
+      'Ориентир плана: '+weekLabel(p.weeks)+' · '+meetingLabel(p.meetings)+'. Итоговый график согласуем до начала.',
+      '',
+      'Результат',p.outcome,
+      '',
+      'Что будет на руках',kit.takeaways.map(function(item,index){return (index+1)+'. '+item}).join('\n'),
+      '',
+      'Первый шаг',presentation[p.id].first,
+      '',
+      'Шаблон для старта',starterTextForSelection(),
+      '',
+      'План по этапам',p.steps.map(function(step,index){return (index+1)+'. '+step}).join('\n'),
+      '',
+      'Для старта',p.level,
+      paceNotes[selected.pace],
+      '',
+      'До начала обучения',
+      'Полная стоимость, длительность встреч, расписание, поддержка между встречами и возможные расходы на сервисы пока не согласованы. Обсудим их с Алексеем до начала обучения.'
+    ];
+    if(ideaForSelection())lines.push('','Моя идея: '+ideaForSelection());
+    lines.push('','Ссылка на программу',urlForSelection(),'','Контакт: safal0645@gmail.com');
+    return lines.join('\n')+'\n';
+  }
+  function renderContact(){
+    if(!state.selection)return;
+    var p=programById(state.selection.program),message=textForSelection();
+    $('contactMessage').value=message;
+    // Public contact: github.com/safal207/safal207 README, Contact section.
+    // A mailto link opens a draft; this page does not send it.
+    $('contactMentor').href='mailto:safal0645@gmail.com?subject='+encodeURIComponent('AI PATH — '+p.name)+'&body='+encodeURIComponent(message);
+  }
+  function updateSelectionDock(){
+    var active=document.activeElement;
+    var editing=Boolean(active&&(active.matches('input,textarea,select')||active.isContentEditable));
+    var panel=$('start'),rect=panel.getBoundingClientRect();
+    var inView=rect.width>0&&rect.height>0&&rect.top<window.innerHeight&&rect.bottom>0&&rect.left<window.innerWidth&&rect.right>0;
+    $('selectionDock').hidden=!state.selection||inView||editing||Boolean(document.querySelector('dialog[open]'));
+  }
+  function renderSelectionNavigation(){
+    var hasSelection=Boolean(state.selection);
+    document.body.classList.toggle('has-selection',hasSelection);
+    $('headerAction').href=hasSelection?'#selected':'#selector';
+    $('headerAction').textContent=hasSelection?'Мой план ↗':'Подобрать маршрут';
+    $('closingAction').href=hasSelection?'#start':'#selector';
+    $('closingAction').textContent=hasSelection?'Обсудить мой старт':'Подобрать маршрут';
+    $('dockPlan').href='#selected';$('dockStart').href='#start';$('startJump').href='#start';
+    $('dockName').textContent=hasSelection?programById(state.selection.program).name:'';
+    updateSelectionDock();
   }
   function toast(s){var e=$('toast');e.textContent=s;e.classList.add('show');window.clearTimeout(toast.t);toast.t=window.setTimeout(function(){e.classList.remove('show')},3500)}
   function focusSection(id){var el=$(id);el.focus({preventScroll:true});el.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start'})}
@@ -158,22 +382,25 @@
     $('comparisonTable').innerHTML='<caption>Сравнение подходящих программ</caption><thead><tr><th scope="col">Что сравниваем</th>'+candidates.map(function(p){return '<th scope="col">'+esc(p.name)+'</th>'}).join('')+'</tr></thead><tbody>'+rows.map(function(row){return '<tr><th scope="row">'+esc(row[0])+'</th>'+candidates.map(function(p){return '<td>'+esc(row[1](p))+'</td>'}).join('')+'</tr>'}).join('')+'</tbody>';
   }
   function renderSelection(){
-    $('selected').hidden=!state.selection;$('backToResults').hidden=!state.result;if(!state.selection)return;
+    $('selected').hidden=!state.selection;$('backToResults').hidden=!state.result;
+    renderSelectionNavigation();if(!state.selection)return;
     var selected=state.selection,p=programById(selected.program),m=presentation[p.id];
     $('selTitle').textContent=p.name;$('selText').textContent=p.short;
     $('selDuration').textContent=weekLabel(p.weeks);$('selMeetings').textContent=meetingLabel(p.meetings);$('selTime').textContent=paceLabels[selected.pace];
     $('selOutcome').textContent=p.outcome;$('selRequirement').textContent=p.level;
     $('selPaceNote').textContent=paceNotes[selected.pace]+' План на '+weekLabel(p.weeks)+' — ориентир; итоговый график определим вместе.';
     $('selFirstTask').textContent=m.first;
+    $('selKit').innerHTML=starterKits[p.id].takeaways.map(function(item){return '<li>'+esc(item)+'</li>'}).join('');
+    $('starterTemplate').textContent=starterTextForSelection();
+    $('startProgram').textContent=p.name;
+    $('startMeta').textContent='Ориентир: '+weekLabel(p.weeks)+' · '+meetingLabel(p.meetings)+'. Уровень: '+levelLabels[selected.level]+'. Желаемая нагрузка: '+paceLabels[selected.pace]+' в неделю.';
+    $('projectIdea').value=projectIdeas[p.id]||'';
     $('selSteps').innerHTML=p.steps.map(function(s,i){return '<li><span class="step-no">'+(i+1)+'</span><span>'+esc(s)+'</span></li>'}).join('');
     $('selRefs').innerHTML=p.refs.map(function(r){return '<a href="'+esc(r[1])+'"'+(r[1].charAt(0)==='#'?'':' target="_blank" rel="noopener noreferrer"')+'>'+esc(r[0])+' ↗</a>'}).join('');
     $('selPreview').hidden=!m.image;
     if(m.image){$('selImage').src=m.image;$('selImage').alt=m.caption;$('selImage').width=m.width;$('selImage').height=m.height;$('selImageCaption').textContent=m.caption}
     else{$('selImage').removeAttribute('src');$('selImage').alt='';$('selImageCaption').textContent=''}
-    var message=textForSelection();$('contactMessage').value=message;
-    // Public contact: github.com/safal207/safal207 README, Contact section.
-    $('contactMentor').href='mailto:safal0645@gmail.com?subject='+encodeURIComponent('AI PATH — '+p.name)+'&body='+encodeURIComponent(message);
-    syncCards();
+    renderContact();syncCards();updateSelectionDock();
   }
   function selectProgram(id){
     if(!programById(id))return;
@@ -222,6 +449,58 @@
     try{await copyText(textForSelection());toast('Текст обращения скопирован. Можно отправить его Алексею.')}
     catch(e){$('contactMessage').focus();$('contactMessage').select();toast('Выделили текст обращения — скопируйте его вручную.')}
   });
+
+  $('projectIdea').addEventListener('input',function(){
+    if(!state.selection)return;
+    var idea=$('projectIdea').value.slice(0,240);
+    if($('projectIdea').value!==idea)$('projectIdea').value=idea;
+    projectIdeas[state.selection.program]=idea;
+    renderContact();
+  });
+  $('copyStarter').addEventListener('click',async function(){
+    if(!state.selection)return;
+    var value=starterTextForSelection();
+    try{await copyText(value);toast('Шаблон скопирован. Заполни его своей идеей.')}
+    catch(e){window.prompt('Скопируй шаблон для старта:',value)}
+  });
+  function releaseDownloadUrl(url){
+    URL.revokeObjectURL(url);
+    var index=downloadUrls.indexOf(url);if(index!==-1)downloadUrls.splice(index,1);
+  }
+  $('downloadPlan').addEventListener('click',function(){
+    if(!state.selection)return;
+    var link=document.createElement('a'),url;
+    try{
+      var file=new Blob(['\ufeff',planTextForSelection()],{type:'text/plain;charset=utf-8'});
+      url=URL.createObjectURL(file);downloadUrls.push(url);
+      link.href=url;link.download='ai-path-'+state.selection.program+'-plan.txt';
+      link.hidden=true;document.body.appendChild(link);link.click();
+      toast('План подготовлен для скачивания.');
+    }catch(e){toast('Не удалось скачать план. Скопируй ссылку на программу и попробуй ещё раз.')}
+    finally{
+      link.remove();
+      // Give the browser time to start the local download before releasing it.
+      if(url)window.setTimeout(function(){releaseDownloadUrl(url)},1000);
+    }
+  });
+  window.addEventListener('pagehide',function(){downloadUrls.slice().forEach(releaseDownloadUrl)});
+  ['startJump','dockStart','closingAction'].forEach(function(id){
+    $(id).addEventListener('click',function(e){if(!state.selection)return;e.preventDefault();focusSection('startTitle')});
+  });
+  ['headerAction','dockPlan'].forEach(function(id){
+    $(id).addEventListener('click',function(e){if(!state.selection)return;e.preventDefault();focusSection('selTitle')});
+  });
+  document.addEventListener('focusin',updateSelectionDock);
+  document.addEventListener('focusout',function(){window.requestAnimationFrame(updateSelectionDock)});
+  if('IntersectionObserver' in window){
+    var startObserver=new IntersectionObserver(updateSelectionDock,{threshold:0});startObserver.observe($('start'));
+  }else{
+    // Older browsers still hide the dock when the contact panel comes into view.
+    var dockFrame=0;
+    function queueDockUpdate(){if(dockFrame)return;dockFrame=window.requestAnimationFrame(function(){dockFrame=0;updateSelectionDock()})}
+    window.addEventListener('scroll',queueDockUpdate,{passive:true});
+    window.addEventListener('resize',queueDockUpdate,{passive:true});
+  }
 
   var notebookFilter='all', notebookExpanded=false;
   function renderNotebooks(){
