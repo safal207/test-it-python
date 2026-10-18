@@ -142,9 +142,20 @@ async function iframeContract(page, width) {
   if (width <= 760) assert((await panel.locator('#program3dStage').boundingBox()).height >= 380, 'Mobile live-preview stage leaves space for its controls');
   await page.evaluate(() => {
     const iframeWindow = document.querySelector('#program3dFrame iframe').contentWindow;
+    // Firefox's MessageEvent initializer rejects a cross-origin WindowProxy
+    // during WebIDL conversion. These negative handler fixtures use own event
+    // properties instead; valid readiness/error below still use native child
+    // postMessage, and actualEmbedContract exercises the complete real protocol.
+    const dispatchFixture = (origin, source, data) => {
+      const event = new Event('message');
+      Object.defineProperties(event, {
+        origin: { value: origin }, source: { value: source }, data: { value: data }
+      });
+      window.dispatchEvent(event);
+    };
     for (const type of ['designlab:preview-ready', 'designlab:preview-error']) {
-      window.dispatchEvent(new MessageEvent('message', { origin: 'https://untrusted.example', source: iframeWindow, data: { type } }));
-      window.dispatchEvent(new MessageEvent('message', { origin: 'https://safal207.github.io', source: window, data: { type } }));
+      dispatchFixture('https://untrusted.example', iframeWindow, { type });
+      dispatchFixture('https://safal207.github.io', window, { type });
     }
   });
   assert(await panel.locator('#program3dStage').getAttribute('aria-busy') === 'true' && await panel.locator('iframe').count() === 1, 'Wrong message origin or source cannot mark ready or remove a preview');
