@@ -90,7 +90,7 @@ if(data.length>=100){feedback('Учебная CRM ограничена 100 сд�
 const id=data.reduce((a,z)=>Math.max(a,z.id),0)+1;
 data.push({id,label,source:$('leadSource').value,stage:$('leadStage').value,value,next});
 if(!isValid(data.at(-1))){data.pop();feedback('Недопустимые учебные данные');return}
-save();render();feedback('Учебная сделка добавлена');form.reset();$('leadLabel').focus();
+save();render();feedback('Учебная сделка добавлена');HTMLFormElement.prototype.reset.call(form);$('leadLabel').focus();
 });
 $('reset').addEventListener('click',()=>{data=structuredClone(seed);save();render();feedback('Демо восстановлено')});
 function spreadsheetSafe(text){const val=String(text);return /^[=+\-@\t\r]/.test(val)?"'"+val:val}
