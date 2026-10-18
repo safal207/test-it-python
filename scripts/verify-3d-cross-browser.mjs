@@ -139,7 +139,13 @@ async function iframeContract(page, width) {
   const child = await startFrame(page);
   assert(await panel.locator('iframe').getAttribute('referrerpolicy') === 'strict-origin', 'Preview receives the parent origin through its referrer policy');
   assert(await panel.locator('iframe').getAttribute('sandbox') === 'allow-scripts allow-same-origin', 'Iframe has the intended restricted capabilities');
-  if (width <= 760) assert((await panel.locator('#program3dStage').boundingBox()).height >= 380, 'Mobile live-preview stage leaves space for its controls');
+  if (width <= 760) {
+    const geometry = await panel.locator('#program3dStage').evaluate(el => ({height:el.getBoundingClientRect().height,minHeight:parseFloat(getComputedStyle(el).minHeight),width:el.getBoundingClientRect().width}));
+    report.checks.push({width, name:'Mobile live-preview geometry', status:'observed', geometry});
+    // CSS geometry may differ by a subpixel between layout engines. The declared
+    // minimum must remain 380px and the measured box must be within one CSS pixel.
+    assert(geometry.minHeight >= 380 && geometry.height >= 379, 'Mobile live-preview stage reserves 380px within 1px geometry tolerance: '+JSON.stringify(geometry));
+  }
   await page.evaluate(() => {
     const iframeWindow = document.querySelector('#program3dFrame iframe').contentWindow;
     // Firefox's MessageEvent initializer rejects a cross-origin WindowProxy
