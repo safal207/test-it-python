@@ -6,13 +6,13 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="dark" name="color-scheme"/>
 <meta content="#090c15" name="theme-color"/>
-<meta content="Подбери одну из 15 программ по трём вопросам. Создай книгу, комикс, приложение или 3D-проект на индивидуальных занятиях с Алексеем Сафоновым." name="description"/>
-<meta content="AI PATH — выбери свой маршрут в ИИ" property="og:title"/>
+<meta content="Онлайн-школа ИИ и цифрового творчества AI PATH. Выбери одну из 15 программ и создай свой сайт, книгу, комикс или 3D-проект с индивидуальным наставником." name="description"/>
+<meta content="AI PATH — онлайн-школа ИИ и цифрового творчества" property="og:title"/>
 <meta content="От идеи до собственного проекта: подбор по интересам и опыту, реальные примеры работ и персональное AI-наставничество." property="og:description"/>
 <link rel="canonical" href="https://safal207.github.io/test-it-python/ai-path/"/>
 <link rel="sitemap" type="application/xml" href="sitemap.xml"/>
 <meta content="website" property="og:type"/>
-<title>AI PATH — выбери свой маршрут</title>
+<title>AI PATH — онлайн-школа ИИ и цифрового творчества</title>
 <style>
     :root{--bg:#090c15;--panel:#121725;--panel2:#181d2c;--line:rgba(194,206,231,.13);--light:#f4f6fb;--muted:#9aa6bd;--accent:#d7fa82;--accent2:#a39dff;--shadow:0 32px 90px rgba(0,0,0,.3)}
     *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-width:320px;background:var(--bg);color:var(--light);font-family:Inter,"Segoe UI",Arial,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}button,a{-webkit-tap-highlight-color:transparent}button{font:inherit}a{color:inherit;text-decoration:none}a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:4px}::selection{background:var(--accent);color:#0a101b}
@@ -100,6 +100,7 @@
 <link href="program-cards.css?v=1" rel="stylesheet"/>
 <link href="program-plan.css?v=1" rel="stylesheet"/>
 <link href="parent-gallery.css?v=1" rel="stylesheet"/>
+<link href="web-studio.css?v=1" rel="stylesheet"/>
 <link href="program-3d.css?v=2" rel="stylesheet"/>
 <link href="mentor-demo.css" rel="stylesheet"/>
 
@@ -130,7 +131,7 @@
 <header class="header">
 <div class="wrap nav">
 <a aria-label="AI PATH, на главную" class="logo" href="#top"><span class="mark">↗</span><span>AI<b>PATH</b></span></a>
-<nav aria-label="Основное меню" class="navlinks"><a href="#selector">Подобрать программу</a><a href="#programs">Все программы</a><a href="#examples">Примеры работ</a><a href="#vibe">Вайбкодинг</a><a href="#mentor">Наставник</a></nav>
+<nav aria-label="Основное меню" class="navlinks"><a href="#selector">Подобрать программу</a><a href="#programs">Все программы</a><a href="studio.html">Портфолио школы</a><a href="#vibe">Вайбкодинг</a><a href="#mentor">Наставник</a></nav>
 <a class="navcta" id="headerAction" href="#selector">Подобрать маршрут ↗</a>
 </div>
 </header>
@@ -139,14 +140,14 @@
 <div class="hero">
 <div class="wrap hero-grid">
 <div>
-<span class="eyebrow"><span class="dot"></span> Персональное AI-наставничество</span>
+<span class="eyebrow"><span class="dot"></span> Онлайн-школа ИИ · личный наставник</span>
 <h1>Твоя идея.<br/>Твой первый<br/><em>проект с ИИ.</em></h1>
 <p class="lead">Создай проект с ИИ, который ты понимаешь и можешь показать. На личных встречах выберем посильную задачу, разберём ответы нейросети, найдём ошибки и подготовим работу к демонстрации.</p>
 <div class="buttons">
 <a class="btn primary" href="#selector">Подобрать по 3 вопросам <span aria-hidden="true">↗</span></a>
 <a class="btn ghost" href="#result-gallery">Посмотреть результаты <span aria-hidden="true">↓</span></a>
 </div>
-<p class="hero-choice-note">После подбора — понятный результат, план работы и первая задача. Без регистрации.</p>
+<p class="hero-choice-note">После подбора — план работы и первая задача. Или сначала <a href="studio.html">попробуй проекты нашей школы ↗</a>.</p>
 <div class="hero-foot"><span><strong>1:1</strong> с наставником</span><span><strong>4–16 недель</strong> базовый план</span><span><strong>Свой проект</strong> в портфолио</span></div>
 <div class="hero-mentor"><span class="mentor-mini" aria-hidden="true">АС</span><span><strong>Алексей Сафонов</strong><span>QA-инженер и AI-наставник · <a href="#mentor">Проекты и отзывы ↗</a></span></span></div>
 </div>
@@ -511,9 +512,17 @@
 <section class="section design-lab-section" id="design-lab" aria-labelledby="designLabTitle">
 <div class="wrap">
 <div class="section-top">
-<div><span class="tag">Design Lab / 04 интерактивных проекта</span><h2 id="designLabTitle">Форма. Движение.<br/><span class="accent">Живой интерфейс.</span></h2></div>
+<div><span class="tag">Design Lab / сайты, образы и интерактив</span><h2 id="designLabTitle">Форма. Движение.<br/><span class="accent">Живой интерфейс.</span></h2></div>
 <p>Учебные примеры для программы Design Lab. Разбираем визуальный стиль, SVG, 3D и состояние интерфейса — затем собираем один собственный интерактивный сайт ученика.</p>
 </div>
+<section class="web-studio" id="web-studio" aria-labelledby="webStudioTitle">
+<div class="web-studio-head"><div><span class="tag">Новое в портфолио школы</span><h3 id="webStudioTitle">Такие проекты мы тоже создаём.<br/>Поможем сделать свой.</h3></div><p>Сайт бренда, мир персонажа или атмосферная презентация. Открой демо, попробуй действия и выбери близкое направление.</p></div>
+<div class="web-studio-grid">
+<a class="web-studio-card" href="examples/flora.html"><img src="assets/web-studio/flora.webp" alt="AI-иллюстрация из учебного проекта FLORA: ботаническая композиция" width="1122" height="1402" loading="lazy" decoding="async"/><span><strong>FLORA</strong><small>Бренд · палитра · визуальный бриф</small><em>Попробовать конструктор ↗</em></span></a>
+<a class="web-studio-card" href="examples/mori.html"><img src="assets/web-studio/mori.webp" alt="AI-иллюстрация из учебного проекта Мори: пушистый лесной персонаж" width="1536" height="1024" loading="lazy" decoding="async"/><span><strong>Мори</strong><small>Персонаж · история · твой выбор</small><em>Пройти историю ↗</em></span></a>
+<a class="web-studio-card" href="examples/dal.html"><img src="assets/web-studio/dal.webp" alt="AI-иллюстрация из учебного проекта ДАЛЬ: туманное горное озеро" width="1672" height="941" loading="lazy" decoding="async"/><span><strong>ДАЛЬ</strong><small>Атмосфера · маршруты · сохранение</small><em>Выбрать маршрут ↗</em></span></a>
+</div><div class="web-studio-foot"><p>Оригинальные учебные демопроекты наставника. Иллюстрации созданы с ИИ; бренды и истории вымышлены. Объём своего сайта согласуем до старта.</p><a href="studio.html">Всё о проектах и обучении →</a></div>
+</section>
 <section class="transformation-lab" id="transformation-lab" aria-labelledby="transformationTitle" data-step="0">
 <span class="tag">Попробуй здесь · без установки и 3D</span><h3 id="transformationTitle">Как картинка становится интерактивной</h3><p>Нажимай шаги по порядку. Исходник остаётся для сравнения, а справа меняется результат. Это подготовленная иллюстрация из пяти SVG-слоёв: мы показываем её устройство и пересборку.</p>
 <div class="lesson-step-buttons" role="group" aria-label="Шаги преобразования"><button type="button" data-lesson-step="0" aria-pressed="true">01 · Исходная картинка</button><button type="button" data-lesson-step="1" aria-pressed="false">02 · Разделить на слои</button><button type="button" data-lesson-step="2" aria-pressed="false">03 · Пересобрать по-своему</button></div>
@@ -541,7 +550,7 @@
 </div>
 
 <div class="design-lab-learning" aria-labelledby="designLabLearningTitle">
-<div><span class="tag">6 недель · 6 встреч · можно с нуля</span><h3 id="designLabLearningTitle">Твой сайт. Твоя идея. Работающие кнопки.</h3><p>На выходе — один собственный проект с 2–3 сценариями, мобильной версией, исходниками и ссылкой на демо. Выбираем посильный вариант: презентацию, интерактивное объяснение или простую 3D-сцену.</p><p class="muted">Нужен компьютер с современным браузером. Сложность, темп и возможные расходы на AI-сервисы согласуем до старта. Четыре демо выше — примеры наставника.</p></div>
+<div><span class="tag">6 недель · 6 встреч · можно с нуля</span><h3 id="designLabLearningTitle">Твой сайт. Твоя идея. Работающие кнопки.</h3><p>На выходе — один собственный проект с 2–3 сценариями, мобильной версией, исходниками и ссылкой на демо. Выбираем посильный вариант: презентацию, интерактивное объяснение или простую 3D-сцену.</p><p class="muted">Нужен компьютер с современным браузером. Сложность, темп и возможные расходы на AI-сервисы согласуем до старта. Все демо в этом разделе — учебные примеры наставника.</p></div>
 <ol class="design-lab-steps"><li><strong>Идея и задача</strong><span>Для кого сайт и что на нём можно сделать.</span></li><li><strong>Первый экран</strong><span>Композиция, изображения и адаптация на примере VESPER.</span></li><li><strong>Слои и движение</strong><span>SVG, палитры и интеракция на примере Layer Lab.</span></li><li><strong>Объём и свет</strong><span>Камера, качество и запуск сцены на примере Quiet Hours.</span></li><li><strong>Управление</strong><span>Состояние, сценарии и сохранение на примере Room Control.</span></li><li><strong>Проверка и публикация</strong><span>Телефон, ошибки загрузки, GitHub и оформление своего кейса.</span></li></ol>
 <button class="btn primary" type="button" data-start-track="designlab">Выбрать Design Lab и посмотреть мой план ↗</button>
 </div>
@@ -655,7 +664,7 @@
 </main>
 <div class="selection-dock" id="selectionDock" role="region" aria-label="Твоя выбранная программа" hidden><div class="dock-copy"><span>Твой маршрут</span><strong id="dockName"></strong></div><div class="dock-actions"><a class="quiet-link" id="dockPlan" href="#selected">Мой план</a><a class="btn primary" id="dockStart" href="#start">Обсудить старт ↗</a></div></div>
 <footer class="wrap footer">
-<div><strong style="color:#e4e9f3">AI PATH</strong> · практическое AI-наставничество · 2026</div>
+<div><strong style="color:#e4e9f3">AI PATH</strong> · онлайн-школа ИИ и цифрового творчества · 2026</div>
 <div>Наставник: Алексей Сафонов · <a class="contact-email" href="mailto:safal0645@gmail.com">safal0645@gmail.com</a></div>
 </footer>
 <div aria-live="polite" class="toast" id="toast" role="status">Ссылка скопирована</div>

@@ -820,6 +820,203 @@ async function cosmosExample(page, width) {
   assert(new URL(page.url()).searchParams.get('level') === 'zero' && new URL(page.url()).searchParams.get('pace') === 'balanced', 'Example program link restores the intended beginner route');
 }
 
+async function studioImages(page, label) {
+  const images = await page.locator('img').evaluateAll(elements => Promise.all(elements.map(async image => {
+    try {
+      image.loading = 'eager';
+      await image.decode();
+      return { source: image.getAttribute('src'), decoded: image.naturalWidth > 0 && image.naturalHeight > 0, alt: image.hasAttribute('alt') };
+    } catch {
+      return { source: image.getAttribute('src'), decoded: false, alt: image.hasAttribute('alt') };
+    }
+  })));
+  assert(images.length > 0 && images.every(image => image.decoded && image.alt), `Studio imagery decodes and has explicit alternative text: ${label} ${JSON.stringify(images.filter(image => !image.decoded || !image.alt))}`);
+}
+
+async function studioVectorDownload(page, selector, filename, expectedText) {
+  const event = page.waitForEvent('download');
+  await page.locator(selector).click();
+  const download = await event;
+  assert(download.suggestedFilename() === filename, 'Studio export names the current interactive choices: ' + filename);
+  const path = `${artifacts}/${filename}`;
+  await download.saveAs(path);
+  assert(await download.failure() === null, 'Studio vector export downloads successfully: ' + filename);
+  const contents = await readFile(path, 'utf8');
+  const vector = await page.evaluate(source => {
+    const doc = new DOMParser().parseFromString(source, 'image/svg+xml');
+    return { valid: doc.documentElement.localName === 'svg' && !doc.querySelector('parsererror'),
+      shapes: doc.querySelectorAll('path, circle, rect, polyline').length,
+      text: doc.documentElement.textContent.replace(/\s+/g, ' ').trim() };
+  }, contents);
+  assert(vector.valid && vector.shapes >= 2, 'Studio download is an actual SVG graphic: ' + filename);
+  for (const text of expectedText) assert(vector.text.includes(text), `Studio export preserves the visible selection "${text}": ${filename}`);
+}
+
+async function floraInteraction(page, width) {
+  const backgrounds = new Set();
+  const palettes = new Set();
+  const briefs = new Set();
+  for (const mood of ['calm', 'bold', 'sunny']) {
+    const button = page.locator(`#flora-mood-${mood}`);
+    await button.focus();
+    await page.keyboard.press(mood === 'sunny' ? 'Space' : 'Enter');
+    assert(await page.locator('body').getAttribute('data-mood') === mood && await button.getAttribute('aria-pressed') === 'true', `FLORA exposes the mood selected by keyboard: ${mood}`);
+    assert(await page.locator('#flora-moods button[aria-pressed="true"]').count() === 1, 'FLORA exposes exactly one selected mood');
+    backgrounds.add(await page.locator('body').evaluate(el => getComputedStyle(el).backgroundColor));
+    palettes.add(await page.locator('#flora-live-swatches i').evaluateAll(elements => elements.map(el => getComputedStyle(el).backgroundColor).join('|')));
+    briefs.add((await page.locator('#flora-brief').innerText()).trim());
+    await noOverflow(page, 'FLORA mood ' + mood + ' ' + width);
+  }
+  assert(backgrounds.size === 3 && palettes.size === 3 && briefs.size === 3, 'FLORA moods change the rendered page, palette and written visual brief');
+  const before = await page.locator('.botanical-drawing').evaluate(el => getComputedStyle(el).transform);
+  await page.locator('#flora-size-space').focus();
+  await page.keyboard.press('Enter');
+  assert(await page.locator('#flora-moodboard').getAttribute('data-size') === 'space' && await page.locator('#flora-size-space').getAttribute('aria-pressed') === 'true', 'FLORA scale choice updates the board and accessible state');
+  assert(await page.locator('#flora-sizes button[aria-pressed="true"]').count() === 1, 'FLORA exposes exactly one selected scale');
+  assert(await page.locator('.botanical-drawing').evaluate(el => getComputedStyle(el).transform) !== before && (await page.locator('#flora-brief').innerText()).includes('больше воздуха'), 'FLORA scale changes actual artwork and composition instructions');
+  await studioVectorDownload(page, '#flora-download', 'flora-sunny-space-moodboard.svg', ['Тёплый полдень', 'Композиция для пространства / 02', 'Учебный проект AI PATH']);
+  assert((await page.locator('#flora-download-status').innerText()).includes('Тёплый полдень'), 'FLORA announces the exported visual brief');
+  await noOverflow(page, 'FLORA completed moodboard ' + width);
+  await page.locator('#flora-builder').screenshot({ path: `${artifacts}/ai-path-${width}-studio-flora-interaction.png`, animations: 'disabled' });
+}
+
+async function dalInteraction(page, width) {
+  const paths = new Set();
+  const stops = new Set();
+  const routes = { shore: ['Наедине с озером', '1 день', '6 км'], forest: ['Там, где пахнет хвоей', '2 дня', '14 км'], height: ['Чуть ближе к небу', '3 дня', '24 км'] };
+  for (const [id, expected] of Object.entries(routes)) {
+    const button = page.locator(`#dal-route-picker button[data-route="${id}"]`);
+    await button.focus();
+    await page.keyboard.press(id === 'forest' ? 'Space' : 'Enter');
+    assert(await button.getAttribute('aria-pressed') === 'true' && await page.locator('#dal-route-picker button[aria-pressed="true"]').count() === 1, `ДАЛЬ exposes one route selected by keyboard: ${id}`);
+    assert(await page.locator('#dal-route-detail').getAttribute('data-active-route') === id, `ДАЛЬ displays the selected route detail: ${id}`);
+    for (const [index, selector] of ['#dal-route-title', '#dal-route-days', '#dal-route-distance'].entries()) {
+      assert((await page.locator(selector).innerText()).trim() === expected[index], `ДАЛЬ updates the actual itinerary fact ${selector}: ${id}`);
+    }
+    paths.add(await page.locator('#dal-route-path').getAttribute('d'));
+    assert(await page.locator('#dal-route-points circle').count() === 3 && await page.locator('#dal-route-stops li').count() === 3, `ДАЛЬ renders the route's three map points and narrative stops: ${id}`);
+    stops.add((await page.locator('#dal-route-stops').innerText()).trim());
+    await noOverflow(page, 'ДАЛЬ route ' + id + ' ' + width);
+  }
+  assert(paths.size === 3 && stops.size === 3, 'ДАЛЬ choices change the actual drawn route and its stops');
+  await studioVectorDownload(page, '#dal-export', 'dal-height.svg', ['Чуть ближе к небу', '24 км']);
+  assert((await page.locator('#dal-export-status').innerText()).includes('Чуть ближе к небу'), 'ДАЛЬ announces the exported current route');
+  await noOverflow(page, 'ДАЛЬ exported route ' + width);
+  await page.locator('#dal-routes').screenshot({ path: `${artifacts}/ai-path-${width}-studio-dal-interaction.png`, animations: 'disabled' });
+}
+
+async function moriInteraction(page, width) {
+  const panel = page.locator('#mori-story');
+  const initialDescription = (await page.locator('#story-description').innerText()).trim();
+  const initialBackground = await page.locator('#story-visual').evaluate(el => getComputedStyle(el).backgroundImage);
+  await page.locator('#mori-start').focus();
+  await page.keyboard.press('Enter');
+  assert(await page.locator('#story-title').evaluate(el => document.activeElement === el), 'MORI start gives keyboard focus to the actual story');
+  const paths = [
+    { choices: [1, 0, 0], route: 'river', companion: 'светлячок', ending: 'grove', title: 'Сад маленьких огней' },
+    { choices: [0, 1, 1], route: 'roots', companion: 'листом', ending: 'beacon', title: 'Маяк для тех, кто заблудился' }
+  ];
+  const backgrounds = new Set([initialBackground]);
+  const endings = new Set();
+  for (const story of paths) {
+    assert(await panel.getAttribute('data-chapter') === '1' && await panel.getAttribute('data-ending') === '', 'MORI starts each path from a clear first chapter');
+    for (const [index, choice] of story.choices.entries()) {
+      const descriptionBefore = (await page.locator('#story-description').innerText()).trim();
+      await page.locator(`#story-choices button[data-choice="${choice}"]`).focus();
+      await page.keyboard.press(index === 1 ? 'Space' : 'Enter');
+      assert(await page.locator('#story-title').evaluate(el => document.activeElement === el), 'MORI choice focuses the newly displayed chapter');
+      assert((await page.locator('#story-description').innerText()).trim() !== descriptionBefore, 'MORI choice changes the actual story text');
+      if (index === 0) {
+        assert(await panel.getAttribute('data-chapter') === '2' && await page.locator('#story-visual').getAttribute('data-scene') === story.route, `MORI keeps the chosen ${story.route} path in its second chapter`);
+        backgrounds.add(await page.locator('#story-visual').evaluate(el => getComputedStyle(el).backgroundImage));
+      } else if (index === 1) {
+        assert(await panel.getAttribute('data-chapter') === '3' && (await page.locator('#story-description').innerText()).toLowerCase().includes(story.companion), 'MORI carries the companion or protective leaf into its final choice');
+      }
+      await noOverflow(page, 'MORI chapter ' + index + ' ' + story.ending + ' ' + width);
+    }
+    assert(await panel.getAttribute('data-ending') === story.ending && await page.locator('#story-ending').isVisible() && await page.locator('#story-choices').isHidden(), `MORI reaches a finished, distinct ending: ${story.ending}`);
+    assert((await page.locator('#ending-title').innerText()).trim() === story.title && await page.locator('#story-visual').getAttribute('data-scene') === story.ending, 'MORI ending updates the visible conclusion and scene');
+    endings.add((await page.locator('#ending-description').innerText()).trim());
+    await panel.screenshot({ path: `${artifacts}/ai-path-${width}-studio-mori-${story.ending}.png`, animations: 'disabled' });
+    await page.locator('#story-restart').focus();
+    await page.keyboard.press('Enter');
+    assert(await panel.getAttribute('data-chapter') === '1' && await panel.getAttribute('data-ending') === '' && await page.locator('#story-ending').isHidden() && await page.locator('#story-choices').isVisible(), 'MORI restart clears the old ending and restores both choices');
+    assert(await page.locator('#story-title').evaluate(el => document.activeElement === el) && (await page.locator('#story-description').innerText()).trim() === initialDescription, 'MORI restart restores the original story and accessible focus');
+    assert(await page.locator('#story-visual').evaluate(el => getComputedStyle(el).backgroundImage) === initialBackground, 'MORI restart restores the original scene');
+  }
+  assert(backgrounds.size === 3 && endings.size === 2, 'MORI supports two genuinely different routes and conclusions');
+}
+
+async function studioPortfolio(page, width) {
+  const previous = page.url();
+  const teaser = page.locator('#web-studio');
+  assert(await teaser.count() === 1, 'Design Lab has one web-studio portfolio entrance');
+  const portfolioLink = teaser.locator('a[href="studio.html"]');
+  assert(await portfolioLink.count() === 1, 'School teaser links directly to the portfolio');
+  const projects = ['flora', 'mori', 'dal'];
+  for (const id of projects) {
+    const example = teaser.locator(`a[href="examples/${id}.html"]`);
+    assert(await example.count() === 1 && await example.locator('img').count() === 1, `School teaser has a visual link to its ${id} example`);
+    await example.locator('img').evaluate(async image => { image.loading = 'eager'; await image.decode(); });
+    assert(await example.locator('img').evaluate(image => image.naturalWidth > 0), `School teaser preview decodes: ${id}`);
+  }
+  await noOverflow(page, 'web studio teaser ' + width);
+  await teaser.screenshot({ path: `${artifacts}/ai-path-${width}-web-studio-teaser.png`, animations: 'disabled',
+    style: '.header, .selection-dock, .toast { visibility: hidden !important; }' });
+  await portfolioLink.focus();
+  await page.keyboard.press('Enter');
+  await page.waitForURL(new URL('studio.html', base).href);
+  const provenance = page.locator('#studio-provenance');
+  assert(await provenance.isVisible() && /учебн/i.test(await provenance.innerText()) && /ИИ|AI[- ](?:концепц|иллюстрац|натюрморт|визуал|generated)/i.test(await provenance.innerText()), 'Portfolio visibly identifies teaching examples and AI imagery');
+  assert(await page.locator('article[data-studio-project]').count() === projects.length, 'Portfolio contains three distinct worked examples');
+  for (const id of projects) {
+    const card = page.locator(`article[data-studio-project="${id}"]`);
+    assert(await card.count() === 1, `Portfolio has one project card: ${id}`);
+    assert(await card.locator('a[data-studio-demo]').getAttribute('href') === `examples/${id}.html`, `Portfolio opens the corresponding actual demo: ${id}`);
+    assert(await card.locator('a[data-studio-program]').getAttribute('href') === './?program=designlab&level=zero&pace=balanced#selected', `Portfolio connects the project to its beginner learning program: ${id}`);
+  }
+  await studioImages(page, 'portfolio ' + width);
+  await noOverflow(page, 'studio portfolio ' + width);
+  await page.screenshot({ path: `${artifacts}/ai-path-${width}-web-studio-portfolio.png`, fullPage: true, animations: 'disabled' });
+  assert(await page.locator('#studio-start').getAttribute('href') === './?program=designlab&level=zero&pace=balanced#selected', 'Portfolio closing action opens the school program instead of its own page');
+  if (width === 390) {
+    for (const action of ['article[data-studio-project="flora"] a[data-studio-program]', '#studio-start']) {
+      await page.locator(action).click();
+      await selected(page, 'designlab');
+      assert(new URL(page.url()).pathname === new URL(base).pathname, 'Portfolio program action actually returns to the school chooser');
+      await page.goto(base + 'studio.html', { waitUntil: 'domcontentloaded' });
+    }
+  }
+  for (const id of projects) {
+    const response = await page.goto(base + `examples/${id}.html`, { waitUntil: 'domcontentloaded' });
+    assert(response?.status() === 200, `Portfolio example is available locally: ${id}`);
+    const note = page.locator('#demo-provenance');
+    assert(await note.isVisible() && /учебн/i.test(await note.innerText()) && /ИИ|AI[- ](?:концепц|иллюстрац|натюрморт|визуал|generated)/i.test(await note.innerText()), `Example visibly states teaching and imagery provenance: ${id}`);
+    assert(await page.locator('a[data-demo-back]').getAttribute('href') === '../studio.html', `Example offers a direct portfolio return: ${id}`);
+    assert(await page.locator('a[data-demo-program]').getAttribute('href') === '../?program=designlab&level=zero&pace=balanced#selected', `Example links to the matching beginner program: ${id}`);
+    await studioImages(page, id + ' ' + width);
+    await noOverflow(page, 'studio demo ' + id + ' ' + width);
+    await page.screenshot({ path: `${artifacts}/ai-path-${width}-studio-${id}.png`, fullPage: true, animations: 'disabled' });
+    if (width === 390) {
+      if (id === 'flora') await floraInteraction(page, width);
+      if (id === 'mori') await moriInteraction(page, width);
+      if (id === 'dal') await dalInteraction(page, width);
+      await page.locator('a[data-demo-program]').click();
+      await selected(page, 'designlab');
+      const programURL = new URL(page.url());
+      assert(programURL.searchParams.get('level') === 'zero' && programURL.searchParams.get('pace') === 'balanced', `Example opens the intended beginner program in the school: ${id}`);
+      await page.goto(base + `examples/${id}.html`, { waitUntil: 'domcontentloaded' });
+      await page.locator('a[data-demo-back]').focus();
+      await page.keyboard.press('Enter');
+      await page.waitForURL(new URL('studio.html', base).href);
+      assert(await page.locator('#studio-provenance').isVisible(), `Keyboard return restores the real portfolio: ${id}`);
+    }
+  }
+  await page.goto(previous, { waitUntil: 'domcontentloaded' });
+  const program = new URL(previous).searchParams.get('program');
+  if (program) await selected(page, program);
+}
+
 async function desktopRegressions(page) {
   await chooseQuiz(page, { goal: 'research', interest: 'ml', level: 'zero' });
   await selected(page, 'qa');
@@ -967,6 +1164,7 @@ try {
     await mentorExample(page, width);
     await parentResultGallery(page, width);
     if (width === 390) await cosmosExample(page, width);
+    await studioPortfolio(page, width);
     if (width === 1440) {
       await desktopRegressions(page);
       await pdfLoadingAndRetry(context, width);
@@ -985,7 +1183,7 @@ try {
     await page.locator('#statusFilter').selectOption('all');
     await screenshot(page, width, '3d-check-matrix');
     assert(errors.length === 0, 'No browser JavaScript errors: ' + errors.join('; '));
-    console.log(`PASS ${width}x${height}: guided choice, vibe course/CRM, book route, comparison, navigator offer, mentor verification example, parent result gallery${width === 390 ? ' and interactive space website' : ''}, contact draft, real PDF contents/links and idea isolation, preserved gallery/notebook/lab content and responsive layout`);
+    console.log(`PASS ${width}x${height}: guided choice, vibe course/CRM, book route, comparison, navigator offer, mentor verification example, parent result gallery${width === 390 ? ' and interactive space website' : ''}, web-studio portfolio and three examples, contact draft, real PDF contents/links and idea isolation, preserved gallery/notebook/lab content and responsive layout`);
     await context.close();
     activePage = undefined;
   }
