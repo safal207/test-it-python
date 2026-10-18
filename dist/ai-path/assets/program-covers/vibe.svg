@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="440" viewBox="0 0 720 440" role="img" aria-labelledby="title"><title id="title">Modular application and kanban board</title>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#182836"/><stop offset="1" stop-color="#0b1522"/></linearGradient>
+  <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#27394a"/><stop offset="1" stop-color="#172735"/></linearGradient>
+  <linearGradient id="lime" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e8ffb5"/><stop offset="1" stop-color="#b6dc6c"/></linearGradient>
+  <linearGradient id="lavender" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e1d5ff"/><stop offset="1" stop-color="#a392e5"/></linearGradient>
+  <linearGradient id="cyan" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b9f4ec"/><stop offset="1" stop-color="#6cb9bc"/></linearGradient>
+  <radialGradient id="glow"><stop stop-color="#a2bec5" stop-opacity=".1"/><stop offset="1" stop-color="#a2bec5" stop-opacity="0"/></radialGradient>
+  <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0V36" fill="none" stroke="#9eb8bd" stroke-opacity=".045"/></pattern>
+  <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%"><feDropShadow dx="0" dy="13" stdDeviation="13" flood-color="#02080f" flood-opacity=".32"/></filter>
+</defs>
+<path fill="url(#bg)" d="M0 0h720v440H0z"/>
+<path fill="url(#grid)" d="M0 0h720v440H0z"/>
+<ellipse cx="390" cy="190" rx="330" ry="240" fill="url(#glow)"/>
+<path d="M36 62V36h26M658 36h26v26M36 378v26h26M658 404h26v-26" fill="none" stroke="#859b9f" stroke-opacity=".22" stroke-width="1.5"/>
+
+<g filter="url(#shadow)"><rect x="110" y="70" width="512" height="300" rx="24" fill="url(#panel)" stroke="#526a76"/><path d="M110 119h512" stroke="#4b606d"/><rect x="129" y="86" width="20" height="20" rx="6" fill="#d7fa82"/><path d="M162 96h84" stroke="#9aafb1" stroke-width="6" stroke-linecap="round"/><rect x="538" y="85" width="63" height="23" rx="11" fill="#d7fa82"/>
+<rect x="130" y="138" width="139" height="211" rx="13" fill="#172936"/><rect x="285" y="138" width="139" height="211" rx="13" fill="#172936"/><rect x="440" y="138" width="160" height="211" rx="13" fill="#172936"/>
+<path d="M148 158h72M303 158h72M458 158h79" stroke="#788f99" stroke-width="5" stroke-linecap="round"/>
+<rect x="142" y="179" width="115" height="68" rx="10" fill="#314554"/><rect x="142" y="259" width="115" height="68" rx="10" fill="#314554"/>
+<rect x="297" y="179" width="115" height="94" rx="10" fill="#514f6b"/><rect x="297" y="285" width="115" height="42" rx="10" fill="#314554"/>
+<rect x="452" y="179" width="136" height="68" rx="10" fill="#3c5145"/><rect x="452" y="259" width="136" height="68" rx="10" fill="#3c5145"/>
+<path d="M156 196h68M156 209h45M156 276h65M156 289h49M311 196h70M311 210h50M466 196h62M466 209h81M466 276h83M466 289h52" stroke="#a1b4b8" stroke-width="4" stroke-linecap="round"/>
+<rect x="311" y="238" width="39" height="18" rx="9" fill="#b9a8eb"/>
+<circle cx="568" cy="229" r="9" fill="#d7fa82"/><path d="m564 229 3 3 5-6" fill="none" stroke="#3d5641" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="568" cy="309" r="9" fill="#d7fa82"/><path d="m564 309 3 3 5-6" fill="none" stroke="#3d5641" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g transform="rotate(-9 119 301)" filter="url(#shadow)"><rect x="67" y="231" width="83" height="135" rx="17" fill="#b6e6df"/><rect x="75" y="246" width="67" height="105" rx="10" fill="#243b43"/><rect x="94" y="238" width="28" height="3" rx="1.5" fill="#648f91"/><rect x="84" y="256" width="49" height="35" rx="6" fill="#d7fa82"/><path d="M85 304h45M85 316h30M85 329h39" stroke="#9dc0bf" stroke-width="4" stroke-linecap="round"/></g>
+<path d="m397 244 10 35 7-13 15-2z" fill="#eef3de" stroke="#253443" stroke-width="2"/>
+</svg>

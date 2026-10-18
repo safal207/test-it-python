@@ -58,6 +58,37 @@ async function screenshot(page, width, stage, selector) {
   await noOverflow(page, stage);
   await page.screenshot({ path: `${artifacts}/ai-path-${width}-${stage}.png`, animations: 'disabled' });
 }
+async function catalogPresentation(page, width) {
+  const report = await page.locator('#programList .program').evaluateAll(cards => cards.map(card => {
+    const body = card.querySelector('.program-body');
+    const covers = [...card.querySelectorAll('.program-media img')];
+    const clipped = [];
+    if (body) {
+      const bounds = body.getBoundingClientRect();
+      const walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT);
+      while (walker.nextNode()) {
+        if (!walker.currentNode.textContent.trim()) continue;
+        const range = document.createRange();
+        range.selectNodeContents(walker.currentNode);
+        if ([...range.getClientRects()].some(rect => rect.width && rect.height &&
+          (rect.left < bounds.left - 1 || rect.right > bounds.right + 1 || rect.top < bounds.top - 1 || rect.bottom > bounds.bottom + 1))) {
+          clipped.push(walker.currentNode.textContent.trim());
+        }
+      }
+    }
+    return { id: card.dataset.program, covers: covers.length, alt: covers.every(img => img.hasAttribute('alt')),
+      body: Boolean(body), clipped, nestedActions: card.querySelectorAll('button, a, input, select, textarea, [tabindex]').length };
+  }));
+  for (const card of report) {
+    assert(card.covers === 1 && card.alt, `Program has one cover with an explicit alternative-text decision: ${card.id}`);
+    assert(card.body && card.clipped.length === 0, `Program text fits its card at ${width}px: ${card.id} ${JSON.stringify(card.clipped)}`);
+    assert(card.nestedActions === 0, `Program remains one keyboard action without nested controls: ${card.id}`);
+  }
+  await noOverflow(page, 'visual catalog ' + width);
+  // Images were decoded by preservedContent; omit sticky chrome from the tall catalog capture.
+  await page.locator('#programList').screenshot({ path: `${artifacts}/ai-path-${width}-catalog.png`, animations: 'disabled',
+    style: '.header, .selection-dock, .toast { visibility: hidden !important; }' });
+}
 async function clickWithoutJump(page, selector, label) {
   const button = page.locator(selector);
   await button.scrollIntoViewIfNeeded();
@@ -652,12 +683,25 @@ try {
     assert((await page.locator('#selOutcome').innerText()).includes('3D-модель'), 'Furniture program preserves its digital model deliverable');
     await screenshot(page, width, 'result', '#results');
     await comparison(page);
+    const candidates = await ids(page.locator('#recommendationList .program'));
+    const keyboardProgram = candidates[1];
+    await page.locator(`#programList [data-program="${keyboardProgram}"]`).focus();
+    await page.keyboard.press('Space');
+    await selected(page, keyboardProgram);
+    assert(await page.locator('#selTitle').evaluate(el => document.activeElement === el), 'Keyboard card activation focuses the selected plan');
+    for (const list of ['programList', 'recommendationList']) {
+      assert((await ids(page.locator(`#${list} .program[aria-pressed="true"]`))).join('|') === keyboardProgram, `Keyboard choice updates the selected card in ${list}`);
+    }
+    assert(await page.locator('#results').isVisible() && (await ids(page.locator('#recommendationList .program'))).join('|') === candidates.join('|'), 'Keyboard choice preserves recommended alternatives');
+    await page.locator('#recommendationList [data-program="furniture"]').click();
+    await selected(page, 'furniture');
     await screenshot(page, width, 'selected', '#selected');
     await contact(page);
     await page.reload({ waitUntil: 'domcontentloaded' });
     await selected(page, 'furniture');
     assert(new URL(page.url()).searchParams.get('pace') === 'light', 'Selected route survives reload');
     await preservedContent(page, width === 1440);
+    await catalogPresentation(page, width);
     await booksRoute(page, width);
     await designLabRoute(page, width);
     await conversionFlow(page, width);

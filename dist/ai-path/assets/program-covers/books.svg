@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="440" viewBox="0 0 720 440" role="img" aria-labelledby="title"><title id="title">Book, manuscript and editorial pages</title>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#182836"/><stop offset="1" stop-color="#0b1522"/></linearGradient>
+  <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#27394a"/><stop offset="1" stop-color="#172735"/></linearGradient>
+  <linearGradient id="lime" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e8ffb5"/><stop offset="1" stop-color="#b6dc6c"/></linearGradient>
+  <linearGradient id="lavender" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e1d5ff"/><stop offset="1" stop-color="#a392e5"/></linearGradient>
+  <linearGradient id="cyan" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b9f4ec"/><stop offset="1" stop-color="#6cb9bc"/></linearGradient>
+  <radialGradient id="glow"><stop stop-color="#a2bec5" stop-opacity=".1"/><stop offset="1" stop-color="#a2bec5" stop-opacity="0"/></radialGradient>
+  <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0V36" fill="none" stroke="#9eb8bd" stroke-opacity=".045"/></pattern>
+  <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%"><feDropShadow dx="0" dy="13" stdDeviation="13" flood-color="#02080f" flood-opacity=".32"/></filter>
+</defs>
+<path fill="url(#bg)" d="M0 0h720v440H0z"/>
+<path fill="url(#grid)" d="M0 0h720v440H0z"/>
+<ellipse cx="390" cy="190" rx="330" ry="240" fill="url(#glow)"/>
+<path d="M36 62V36h26M658 36h26v26M36 378v26h26M658 404h26v-26" fill="none" stroke="#859b9f" stroke-opacity=".22" stroke-width="1.5"/>
+
+<path d="M137 332c69 37 351 38 443-3" fill="none" stroke="#7b908f" stroke-opacity=".14" stroke-width="2"/>
+<g transform="rotate(-13 224 225)" filter="url(#shadow)"><rect x="122" y="102" width="186" height="240" rx="12" fill="#667679"/><rect x="131" y="94" width="186" height="240" rx="12" fill="#d9ded0"/><path d="M157 125h105M157 143h129M157 161h104M157 249h129M157 266h129M157 283h83" stroke="#879592" stroke-width="5" stroke-linecap="round"/><rect x="155" y="181" width="134" height="45" rx="7" fill="#b4c2b5"/></g>
+<g transform="rotate(7 399 222)" filter="url(#shadow)"><path d="M310 82h174q24 0 24 24v240q0 18-19 18H314q-19 0-19-19V103q0-21 15-21z" fill="#8c9e75"/><path d="M306 98h182v245H306z" fill="#e7ecdc"/><path d="M314 94h176v237H314z" fill="#f0f1e7"/><path d="M320 337h166M320 346h166" stroke="#b3bca6" stroke-width="2"/><path d="M311 75h176q21 0 21 23v228H312q-17 0-17 18V95q0-20 16-20z" fill="url(#lime)"/><path d="M316 76v249" stroke="#a5be77" stroke-width="3"/><circle cx="409" cy="185" r="53" fill="#344c39"/><path d="M379 167q17-5 30 8 14-13 30-8v37q-17-5-30 8-13-13-30-8z" fill="#e3fac3"/><path d="M409 175v37" stroke="#344c39" stroke-width="2"/><path d="M354 266h110M374 283h70" stroke="#638353" stroke-width="6" stroke-linecap="round"/></g>
+<g transform="rotate(-5 563 168)"><rect x="527" y="115" width="74" height="105" rx="13" fill="url(#lavender)"/><path d="M548 141h31M548 155h23M548 170h30M548 184h18" stroke="#6b5d98" stroke-width="4" stroke-linecap="round"/></g>
+<path d="m576 274 6 18 18 6-18 6-6 18-6-18-18-6 18-6z" fill="#d7fa82" opacity=".8"/>
+</svg>
