@@ -1,0 +1,32 @@
+[
+  {
+    "program": "space",
+    "asset": "space.webp",
+    "source_sha256": "20c47b6d02735ef21b3c4d64d75000edcd6ce34f972cee96b426a4a9bfaec5f2",
+    "sha256": "dc9d8bfa3282097ddde3b16cfe55a4cf8d7da982731e456a958cba257523259a",
+    "width": 1122,
+    "height": 1402,
+    "bytes": 137268,
+    "provenance": "AI-generated visual concept, October 18 2026; original pixels encoded as WebP without compositional edits; not a student result or runtime screenshot."
+  },
+  {
+    "program": "comics",
+    "asset": "comics.webp",
+    "source_sha256": "dab93b72f4b24418e48e5f6aa4ffc5ad689e65a30f2b8467fe0bc29b3e13c3a9",
+    "sha256": "e02f07f10a3f9c4b11b72ee0b62cfe5b736041d5e261890e7e838e32d9604d8c",
+    "width": 1122,
+    "height": 1402,
+    "bytes": 189542,
+    "provenance": "AI-generated visual concept, October 18 2026; original pixels encoded as WebP without compositional edits; not a student result or runtime screenshot."
+  },
+  {
+    "program": "build",
+    "asset": "build.webp",
+    "source_sha256": "0fbf2207d773c2462cb2b216e8061a66efcd3a647ce2cad2d0947ed320a52f16",
+    "sha256": "a29003a30b01b6e531f5f9931e30dc19ca4d5b880d4065e676a1468a22245c1b",
+    "width": 1122,
+    "height": 1402,
+    "bytes": 139918,
+    "provenance": "AI-generated visual concept, October 18 2026; original pixels encoded as WebP without compositional edits; not a student result or runtime screenshot."
+  }
+]

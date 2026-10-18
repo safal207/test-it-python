@@ -99,6 +99,7 @@
 <link href="choice.css" rel="stylesheet"/>
 <link href="program-cards.css?v=1" rel="stylesheet"/>
 <link href="program-plan.css?v=1" rel="stylesheet"/>
+<link href="parent-gallery.css?v=1" rel="stylesheet"/>
 <link href="program-3d.css?v=2" rel="stylesheet"/>
 <link href="mentor-demo.css" rel="stylesheet"/>
 
@@ -143,7 +144,7 @@
 <p class="lead">Создай проект с ИИ, который ты понимаешь и можешь показать. На личных встречах выберем посильную задачу, разберём ответы нейросети, найдём ошибки и подготовим работу к демонстрации.</p>
 <div class="buttons">
 <a class="btn primary" href="#selector">Подобрать по 3 вопросам <span aria-hidden="true">↗</span></a>
-<a class="btn ghost" href="#first-project">Как помогает наставник <span aria-hidden="true">↓</span></a>
+<a class="btn ghost" href="#result-gallery">Посмотреть результаты <span aria-hidden="true">↓</span></a>
 </div>
 <p class="hero-choice-note">После подбора — понятный результат, план работы и первая задача. Без регистрации.</p>
 <div class="hero-foot"><span><strong>1:1</strong> с наставником</span><span><strong>4–16 недель</strong> базовый план</span><span><strong>Свой проект</strong> в портфолио</span></div>
@@ -164,6 +165,39 @@
 <div><strong>02</strong><span>Получи маршрут и первую задачу</span></div>
 <div><strong>03</strong><span>Обсуди старт с наставником</span></div>
 </div>
+<section class="section parent-gallery" id="result-gallery" aria-labelledby="parentGalleryTitle">
+<div class="wrap">
+<div class="section-top"><div><span class="tag">Для родителей и детей</span><h2 id="parentGalleryTitle">Первый проект,<br/><span>которым хочется поделиться</span></h2></div><p>Поможем придать идее ребёнка форму: придумать историю, создать комнату или собрать свой сайт. Выберем посильную задачу и доведём её до понятного результата.</p></div>
+<p class="parent-gallery-note" id="parentGalleryNote">На обложках — AI-концепции возможных проектов. Ссылки в карточках открывают указанные примеры для разбора. Объём и базовый срок первого проекта уточним с учётом подготовки.</p>
+<div class="parent-results">
+<article class="parent-result" data-result="space" aria-labelledby="parentRoomTitle">
+<figure class="parent-result-cover"><img src="assets/parent-gallery/space.webp" alt="AI-концепция: уютная комната в виде объёмной модели, рядом план и модель без материалов" width="1122" height="1402" loading="lazy" decoding="async"/><span class="parent-concept-badge">AI-концепция</span></figure>
+<div class="parent-result-body"><p class="parent-result-meta">3D-дизайн · 6 недель</p><h3 id="parentRoomTitle">Комната, которую придумал сам</h3><p class="parent-result-copy">Один учебный 3D-проект: от первого плана до модели с материалами, светом и несколькими ракурсами.</p>
+<ul class="parent-deliverables"><li>Цифровая модель своей комнаты</li><li>Ракурсы и визуальная презентация</li><li>Объяснение формы, материалов и света</li></ul>
+<a class="parent-example" href="https://safal207.github.io/room-control-studio/" target="_blank" rel="noopener noreferrer">3D-пример наставника: Room Control ↗</a>
+<details class="parent-process"><summary>Как создадим такой проект</summary><ol><li>Выберем небольшую комнату, соберём идеи и набросаем план.</li><li>Соберём модель, подберём материалы и настроим свет.</li><li>Проверим ракурсы и оформим учебный кейс с исходниками.</li></ol></details>
+<button class="btn primary" type="button" data-start-track="space">Посмотреть план программы ↗</button></div>
+</article>
+<article class="parent-result" data-result="comics" aria-labelledby="parentComicTitle">
+<figure class="parent-result-cover"><img src="assets/parent-gallery/comics.webp" alt="AI-концепция: обложка и страницы комикса «Лунный маяк», планшет и набросок раскадровки" width="1122" height="1402" loading="lazy" decoding="async"/><span class="parent-concept-badge">AI-концепция</span></figure>
+<div class="parent-result-body"><p class="parent-result-meta">Комикс · 6 недель</p><h3 id="parentComicTitle">Своя история. Настоящий комикс.</h3><p class="parent-result-copy">Придумать героев и собрать короткую законченную историю, которую можно читать и показывать семье.</p>
+<ul class="parent-deliverables"><li>Обложка и 3–5 страниц</li><li>Сценарий и раскадровка</li><li>PDF для чтения и показа</li></ul>
+<a class="parent-example" href="#comics">Посмотреть пример «Инь и Янка» ↓</a>
+<details class="parent-process"><summary>Как создадим такой проект</summary><ol><li>Придумаем героя, его цель и одну законченную историю.</li><li>Соберём раскадровку, страницы и диалоги; проверим постоянство персонажей.</li><li>Оформим обложку и проверим читаемость готового PDF.</li></ol></details>
+<button class="btn primary" type="button" data-start-track="comics">Посмотреть план программы ↗</button></div>
+</article>
+<article class="parent-result" data-result="build" aria-labelledby="parentSiteTitle">
+<figure class="parent-result-cover"><img src="assets/parent-gallery/build.webp" alt="AI-концепция: сайт «Мой космос» на ноутбуке и телефоне, рядом эскиз страницы" width="1122" height="1402" loading="lazy" decoding="async"/><span class="parent-concept-badge">AI-концепция</span></figure>
+<div class="parent-result-body"><p class="parent-result-meta">Свой сайт · 8 недель</p><h3 id="parentSiteTitle">Свой сайт. Настоящая ссылка.</h3><p class="parent-result-copy">Небольшой сайт или веб-приложение: своя идея, работающие кнопки, проверка на телефоне и публикация.</p>
+<ul class="parent-deliverables"><li>Один работающий веб-проект</li><li>Исходники и ссылка на результат</li><li>Проверка основных действий</li></ul>
+<a class="parent-example" href="examples/my-cosmos.html">Открыть сайт-пример «Мой космос» →</a>
+<details class="parent-process"><summary>Как создадим такой проект</summary><ol><li>Выберем тему и одно полезное действие для посетителя.</li><li>Соберём экран и кнопки с помощью ИИ; разберём, как они работают.</li><li>Проверим сайт на компьютере и телефоне и опубликуем проект.</li></ol></details>
+<button class="btn primary" type="button" data-start-track="build">Посмотреть план программы ↗</button></div>
+</article>
+</div>
+<div class="parent-gallery-footer"><p>Пока сложно выбрать? Начнём с интересов и опыта ребёнка. На знакомстве обсудим компьютер, время на практику, стоимость и подходящий первый проект.</p><a href="#selector">Подобрать направление →</a></div>
+</div>
+</section>
 <section class="section first-project-section" id="first-project" aria-labelledby="firstProjectTitle">
 <div class="wrap">
 <div class="section-top">

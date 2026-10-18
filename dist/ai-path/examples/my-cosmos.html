@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0c142a">
+  <meta name="description" content="Мой Космос — работающий учебный сайт AI PATH. Выбери планету, узнай интересный факт и посмотри, из чего складывается первый веб-проект.">
+  <title>Мой Космос · Учебный пример AI PATH</title>
+  <style>
+    :root { color-scheme: dark; --bg: #0c142a; --surface: #121f39; --ink: #f3f6ff; --muted: #b3c0da; --line: #34415e; --blue: #a5d4ff; --lime: #d7fa82; --soft: #1d2b48; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body[data-theme="light"] { color-scheme: light; --bg: #f1f5ff; --surface: #fff; --ink: #17253e; --muted: #4d5f7a; --line: #c6d1e5; --blue: #245582; --lime: #d7fa82; --soft: #e3ebf8; }
+    a { color: inherit; text-underline-offset: .22em; }
+    button { font: inherit; cursor: pointer; }
+    a, button { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 3px solid var(--blue); outline-offset: 5px; }
+    .wrap { width: min(1120px, calc(100% - 48px)); margin-inline: auto; }
+    .skip { position: absolute; left: 16px; top: -100px; z-index: 5; padding: 12px 20px; background: var(--lime); color: #17253e; }
+    .skip:focus { top: 12px; }
+    header { padding-block: 24px; }
+    .header-row, .header-links { display: flex; align-items: center; gap: 24px; }
+    .header-row { justify-content: space-between; }
+    .brand { font-size: 17px; font-weight: 800; letter-spacing: .13em; text-decoration: none; white-space: nowrap; }
+    .brand span { display: inline-block; width: 10px; height: 10px; margin-right: 8px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 22px #d7fa8255; }
+    .header-links { font-size: 13px; }
+    .header-links a { color: var(--muted); }
+    #cosmos-theme { min-height: 44px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 99px; background: var(--surface); color: var(--ink); font-size: 13px; }
+    .intro { padding-block: 38px 30px; }
+    .eyebrow { margin: 0 0 14px; color: var(--blue); font-size: 11px; font-weight: 750; letter-spacing: .15em; text-transform: uppercase; }
+    .intro-row { display: grid; grid-template-columns: 1.2fr 1fr; align-items: end; gap: 40px; }
+    h1 { margin: 0; font-size: clamp(44px, 7vw, 80px); line-height: 1.03; letter-spacing: -.055em; font-weight: 700; }
+    h1 span { color: var(--blue); }
+    .intro-copy { max-width: 370px; margin: 0 0 3px; color: var(--muted); font-size: 15px; }
+    .explorer { display: grid; grid-template-columns: 1.12fr 1fr; border: 1px solid var(--line); border-radius: 28px; overflow: hidden; background: var(--surface); }
+    .space { position: relative; min-height: 460px; isolation: isolate; display: grid; place-items: center; overflow: hidden; color: #c7d6f7; background: radial-gradient(ellipse at 45% 45%, #263263 0, #121b37 45%, #080e20 100%); }
+    .space::before { position: absolute; inset: 0; z-index: -1; content: ""; opacity: .8; background-image: radial-gradient(circle, #bcd5ff 1px, transparent 1.5px), radial-gradient(circle, #bcd5ff99 1px, transparent 1.5px); background-size: 89px 103px, 137px 127px; background-position: 15px 17px, 61px 37px; }
+    .orbital { position: absolute; width: 90%; aspect-ratio: 1; border: 1px solid #7185b52b; border-radius: 50%; transform: rotate(-22deg) scaleY(.68); }
+    .orbital::before { position: absolute; content: ""; width: 8px; height: 8px; background: #a5d4ff; border-radius: 50%; left: 13%; top: 11%; box-shadow: 0 0 20px #a5d4ff80; }
+    .orbital.outer { width: 125%; opacity: .5; transform: rotate(-22deg) scaleY(.76); }
+    .space-label { position: absolute; left: 24px; top: 20px; margin: 0; color: #b5c5e7; font-size: 10px; letter-spacing: .15em; text-transform: uppercase; }
+    .space-caption { position: absolute; bottom: 19px; left: 24px; right: 24px; font-size: 11px; color: #b5c5e7; }
+    #planet-visual { position: relative; display: grid; place-items: center; width: min(66%, 320px); aspect-ratio: 1; }
+    .planet { position: relative; width: 100%; aspect-ratio: 1; border-radius: 50%; box-shadow: inset -32px -20px 50px #030814bc, 0 0 60px #a5d4ff15; }
+    [data-planet="mars"] .planet, .mini.mars { background: radial-gradient(ellipse at 33% 29%, #e59c72 0 5%, transparent 6%), radial-gradient(ellipse at 64% 64%, #7b3f37 0 7%, transparent 8%), radial-gradient(ellipse at 26% 55%, #b95c43 0 12%, transparent 13%), radial-gradient(circle at 30% 30%, #ffc994, #cc7351 45%, #7b3431); }
+    [data-planet="jupiter"] .planet, .mini.jupiter { background: radial-gradient(ellipse at 68% 63%, #a6513a 0 7%, #e5a37b 8% 10%, transparent 11%), repeating-linear-gradient(173deg, #dec09d 0 9%, #b67854 10% 15%, #f2d5b2 17% 22%, #c79b78 24% 31%); }
+    [data-planet="saturn"] .planet, .mini.saturn { background: repeating-linear-gradient(174deg, #d2b99b 0 7%, #e9d4b2 9% 15%, #b8a287 17% 22%, #e4cfad 24% 30%); }
+    [data-planet="neptune"] .planet, .mini.neptune { background: radial-gradient(ellipse at 66% 64%, #325c9f 0 7%, transparent 8%), repeating-linear-gradient(174deg, #94c9e1 0 8%, #6da6d0 10% 15%, #8bbfda 18% 25%); }
+    .rings { display: none; position: absolute; z-index: 1; width: 160%; height: 48%; border: 21px solid #d8c9b395; border-radius: 50%; transform: rotate(-23deg); box-shadow: 0 0 0 4px #a19d9955, 0 0 0 12px #d3c4b330, inset 0 0 0 4px #9f9e9d55; }
+    [data-planet="saturn"] .rings { display: block; }
+    [data-planet="saturn"] .planet { width: 78%; }
+    .planet-info { padding: 34px 32px 28px; min-width: 0; }
+    .section-label { margin: 0 0 12px; color: var(--muted); font-size: 12px; }
+    #planet-picker { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-bottom: 30px; }
+    .planet-choice { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; min-height: 86px; padding: 9px 3px; border: 1px solid var(--line); border-radius: 14px; background: transparent; color: var(--muted); font-size: 11px; }
+    .planet-choice:hover { background: var(--soft); }
+    .planet-choice[aria-pressed="true"] { color: var(--ink); border: 2px solid var(--blue); background: var(--soft); padding: 8px 2px; }
+    .mini { width: 24px; aspect-ratio: 1; border-radius: 50%; box-shadow: inset -5px -3px 7px #03081477; }
+    #planet-order { margin: 0 0 5px; color: var(--blue); font-size: 11px; font-weight: 650; letter-spacing: .12em; text-transform: uppercase; }
+    h2 { margin: 0; font-size: 42px; line-height: 1.15; letter-spacing: -.035em; }
+    #planet-description { margin: 14px 0 21px; min-height: 77px; color: var(--muted); font-size: 14px; }
+    .fact { display: flex; align-items: center; gap: 14px; padding-block: 16px; border-block: 1px solid var(--line); }
+    #planet-fact-value { flex-shrink: 0; color: var(--blue); font-size: 30px; font-weight: 650; line-height: 1.2; letter-spacing: -.03em; }
+    #planet-fact-label { max-width: 180px; color: var(--muted); font-size: 11px; line-height: 1.5; }
+    #planet-source { display: inline-block; margin-top: 17px; color: var(--muted); font-size: 11px; }
+    .project-note { display: flex; flex-wrap: wrap; gap: 10px 22px; justify-content: space-between; padding: 17px 4px 0; color: var(--muted); font-size: 11px; }
+    .project-note strong { color: var(--ink); font-weight: 500; }
+    .process { padding-block: 64px; }
+    .process h2 { max-width: 570px; font-size: clamp(26px, 4vw, 38px); }
+    .process-intro { max-width: 660px; margin: 15px 0 25px; color: var(--muted); font-size: 14px; }
+    .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
+    .steps li { padding: 24px; border: 1px solid var(--line); border-radius: 20px; background: var(--surface); }
+    .step-num { color: var(--blue); font-size: 11px; letter-spacing: .12em; }
+    h3 { margin: 14px 0 8px; font-size: 17px; line-height: 1.35; }
+    .steps p { margin: 0; color: var(--muted); font-size: 13px; }
+    .next { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px 32px; border: 1px solid var(--line); border-radius: 22px; background: var(--surface); }
+    .next p { margin: 0; font-size: 17px; font-weight: 600; }
+    .next small { display: block; margin-top: 5px; color: var(--muted); font-size: 12px; font-weight: 400; }
+    .cta { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 48px; padding: 12px 20px; border-radius: 99px; background: var(--lime); color: #142538; font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+    footer { padding-block: 34px; color: var(--muted); font-size: 11px; }
+    footer p { margin: 5px 0; }
+    noscript p { padding: 12px; border: 1px solid var(--line); }
+    @media (max-width: 780px) {
+      .intro-row { grid-template-columns: 1fr; gap: 20px; }
+      .intro-copy { max-width: 500px; }
+      .explorer { grid-template-columns: 1fr; }
+      .space { min-height: 380px; }
+      #planet-visual { width: 240px; }
+      .planet-info { padding: 26px; }
+      #planet-description { min-height: 0; }
+      .steps { grid-template-columns: 1fr; }
+      .steps li { padding: 21px 24px; }
+      .next { flex-direction: column; align-items: start; padding: 24px; }
+      .header-links { gap: 14px; }
+    }
+    @media (max-width: 420px) {
+      .wrap { width: calc(100% - 32px); }
+      header { padding-block: 16px; }
+      .header-row { gap: 14px; align-items: start; }
+      .brand { padding-top: 9px; font-size: 14px; }
+      .header-links { flex-direction: column-reverse; align-items: end; gap: 7px; font-size: 11px; }
+      #cosmos-theme { font-size: 11px; min-height: 44px; padding: 7px 12px; }
+      .intro { padding-top: 25px; }
+      .eyebrow { font-size: 9px; letter-spacing: .1em; }
+      .intro-copy { font-size: 13px; }
+      .explorer { border-radius: 23px; }
+      .space { min-height: 300px; }
+      #planet-visual { width: 180px; }
+      .rings { border-width: 14px; }
+      .space-label, .space-caption { left: 18px; right: 18px; font-size: 9px; }
+      .planet-info { padding: 23px 18px; }
+      #planet-picker { gap: 5px; margin-bottom: 24px; }
+      .planet-choice { min-height: 78px; font-size: 9px; }
+      h2 { font-size: 36px; }
+      #planet-description { font-size: 13px; }
+      #planet-fact-value { font-size: 27px; }
+      .process { padding-block: 44px; }
+      .cta { white-space: normal; text-align: center; width: 100%; padding-inline: 14px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body data-theme="dark">
+  <a class="skip" href="#main">Перейти к планетам</a>
+  <header class="wrap">
+    <div class="header-row">
+      <a class="brand" href="../" aria-label="AI PATH — главная"><span aria-hidden="true"></span>AI PATH</a>
+      <nav class="header-links" aria-label="Навигация примера">
+        <a id="cosmos-gallery-link" href="../#result-gallery">← Галерея проектов</a>
+        <button id="cosmos-theme" type="button" aria-pressed="false">Светлая тема</button>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="wrap">
+    <section class="intro" aria-labelledby="cosmos-title">
+      <p class="eyebrow">Учебный пример наставника · Сайт с работающими кнопками</p>
+      <div class="intro-row">
+        <h1 id="cosmos-title">Мой <span>Космос.</span></h1>
+        <p class="intro-copy">Большая Вселенная. Четыре маленьких открытия. Выбери планету и начни своё путешествие.</p>
+      </div>
+    </section>
+    <section class="explorer" aria-label="Исследуй планеты">
+      <div class="space">
+        <p class="space-label">Солнечная система / атлас любопытства</p>
+        <div class="orbital outer" aria-hidden="true"></div><div class="orbital" aria-hidden="true"></div>
+        <div id="planet-visual" data-planet="saturn" role="img" aria-label="Условная иллюстрация Сатурна с кольцами"><div class="planet" aria-hidden="true"></div><div class="rings" aria-hidden="true"></div></div>
+        <span class="space-caption">Авторская иллюстрация · Цвета и размеры условны</span>
+      </div>
+      <div class="planet-info">
+        <p class="section-label">Куда отправимся?</p>
+        <div id="planet-picker" role="group" aria-label="Выбор планеты">
+          <button class="planet-choice" data-planet="mars" type="button" aria-pressed="false"><span class="mini mars" aria-hidden="true"></span>Марс</button>
+          <button class="planet-choice" data-planet="jupiter" type="button" aria-pressed="false"><span class="mini jupiter" aria-hidden="true"></span>Юпитер</button>
+          <button class="planet-choice" data-planet="saturn" type="button" aria-pressed="true"><span class="mini saturn" aria-hidden="true"></span>Сатурн</button>
+          <button class="planet-choice" data-planet="neptune" type="button" aria-pressed="false"><span class="mini neptune" aria-hidden="true"></span>Нептун</button>
+        </div>
+        <div id="planet-content" aria-live="polite" aria-atomic="true">
+          <p id="planet-order">06 / от Солнца</p>
+          <h2 id="planet-title">Сатурн</h2>
+          <p id="planet-description">Газовый гигант с удивительными кольцами. Они состоят из множества кусочков льда и камня — от пылинок до огромных глыб.</p>
+          <div class="fact"><span id="planet-fact-value">29,4 года</span><span id="planet-fact-label">на Земле проходит за один год на Сатурне</span></div>
+        </div>
+        <a id="planet-source" href="https://science.nasa.gov/saturn/facts/">Источник фактов: NASA Science ↗</a>
+      </div>
+    </section>
+    <noscript><p>Сейчас показан Сатурн. Для переключения планет и темы включи JavaScript в браузере.</p></noscript>
+    <div class="project-note"><span><strong>Демо, которое разбираем на занятиях</strong></span><span>Работает на компьютере и телефоне</span></div>
+    <section class="process" aria-labelledby="process-title">
+      <p class="eyebrow">От интереса к своему проекту</p>
+      <h2 id="process-title">Один сайт. Много собственных решений.</h2>
+      <p class="process-intro">Это пример наставника: он показывает возможный масштаб первого сайта. На занятиях выбираем свою тему, собираем страницу и учимся объяснять, почему она работает.</p>
+      <ol class="steps">
+        <li><span class="step-num">01 / ПРИДУМАТЬ</span><h3>Тема, которая увлекает</h3><p>Набросать экран, выбрать четыре объекта и проверить факты. Здесь отправной точкой стал интерес к космосу.</p></li>
+        <li><span class="step-num">02 / СОБРАТЬ И ПРОВЕРИТЬ</span><h3>Кнопка делает то, что обещает</h3><p>Связать выбор с картинкой и текстом. Проверить все планеты, клавиатуру, светлую тему и узкий экран.</p></li>
+        <li><span class="step-num">03 / ПОКАЗАТЬ</span><h3>Страница с настоящей ссылкой</h3><p>Опубликовать сайт и открыть его на другом устройстве. Объяснить семье, что сделал сам и где помог ИИ.</p></li>
+      </ol>
+    </section>
+    <aside class="next" aria-label="Выбрать программу">
+      <p>А какой сайт хочется сделать тебе?<small>Начнём с идеи и посильного первого проекта.</small></p>
+      <a class="cta" id="cosmos-program-link" href="../?program=build&amp;level=zero&amp;pace=balanced#selected">Посмотреть программу <span aria-hidden="true">↗</span></a>
+    </aside>
+  </main>
+  <footer class="wrap">
+    <p>AI PATH · «Мой Космос» · Учебный пример наставника.</p>
+    <p>Иллюстрации созданы средствами страницы; это условные изображения, не фотографии планет. Факты: NASA Science. Проверено 18 октября 2026.</p>
+  </footer>
+  <script>
+    (() => {
+      'use strict';
+      // Educational facts checked against each official NASA Science page on 2026-10-18.
+      // Illustrations are authored CSS, intentionally not presented as NASA imagery.
+      const planets = {
+        mars: {
+          title: 'Марс', order: '04', visual: 'Условная иллюстрация красноватого Марса',
+          description: 'Холодный каменистый мир. Его красноватый цвет связан с окислением железа в породах и пыли. Вокруг Марса обращаются два спутника — Фобос и Деймос.',
+          value: '687 дней', label: 'на Земле проходит за один год на Марсе', source: 'https://science.nasa.gov/mars/facts/'
+        },
+        jupiter: {
+          title: 'Юпитер', order: '05', visual: 'Условная иллюстрация полосатого Юпитера с Большим красным пятном',
+          description: 'Самая большая планета Солнечной системы. Светлые и тёмные полосы — облака в его атмосфере, а Большое красное пятно — гигантский шторм.',
+          value: '9,9 часа', label: 'длится один оборот Юпитера вокруг своей оси', source: 'https://science.nasa.gov/jupiter/jupiter-facts/'
+        },
+        saturn: {
+          title: 'Сатурн', order: '06', visual: 'Условная иллюстрация Сатурна с кольцами',
+          description: 'Газовый гигант с удивительными кольцами. Они состоят из множества кусочков льда и камня — от пылинок до огромных глыб.',
+          value: '29,4 года', label: 'на Земле проходит за один год на Сатурне', source: 'https://science.nasa.gov/saturn/facts/'
+        },
+        neptune: {
+          title: 'Нептун', order: '08', visual: 'Условная иллюстрация голубого Нептуна',
+          description: 'Ледяной гигант и восьмая планета от Солнца. Он так далеко, что солнечному свету нужно около четырёх часов, чтобы добраться до него.',
+          value: '165 лет', label: 'на Земле проходит за один год на Нептуне', source: 'https://science.nasa.gov/neptune/neptune-facts/'
+        }
+      };
+      const controls = Array.from(document.querySelectorAll('#planet-picker button'));
+      controls.forEach(button => button.addEventListener('click', () => {
+        const key = button.dataset.planet;
+        const planet = planets[key];
+        if (!planet) return;
+        controls.forEach(control => control.setAttribute('aria-pressed', String(control === button)));
+        document.getElementById('planet-visual').dataset.planet = key;
+        document.getElementById('planet-visual').setAttribute('aria-label', planet.visual);
+        document.getElementById('planet-order').textContent = planet.order + ' / от Солнца';
+        document.getElementById('planet-title').textContent = planet.title;
+        document.getElementById('planet-description').textContent = planet.description;
+        document.getElementById('planet-fact-value').textContent = planet.value;
+        document.getElementById('planet-fact-label').textContent = planet.label;
+        document.getElementById('planet-source').href = planet.source;
+      }));
+      const themeButton = document.getElementById('cosmos-theme');
+      themeButton.addEventListener('click', () => {
+        const light = document.body.dataset.theme !== 'light';
+        document.body.dataset.theme = light ? 'light' : 'dark';
+        themeButton.setAttribute('aria-pressed', String(light));
+        themeButton.textContent = light ? 'Тёмная тема' : 'Светлая тема';
+        document.querySelector('meta[name="theme-color"]').content = light ? '#f1f5ff' : '#0c142a';
+      });
+    })();
+  </script>
+</body>
+</html>
