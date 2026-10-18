@@ -1,0 +1,38 @@
+{
+  "purpose": "Educational cafe landing-page example in AI PATH, requested by the user",
+  "materials": "User-provided Pocitel menu pages and food images; not claimed as commissioned customer work or measured sales results",
+  "original_image_creation_method": "not independently verified",
+  "prices_source": "1000025368.png: BEST PAIRINGS; displayed base and special prices copied from that page",
+  "files": [
+    {
+      "path": "cilbir.jpg",
+      "source_upload": "1000025357.jpg",
+      "sha256": "56c1b84737793f1a9e627f8f89831e62c1ce9ed1cffa45e5dcbcab1ae8aa03ae",
+      "dimensions": [
+        1031,
+        1536
+      ],
+      "processing": "byte-for-byte copy; display crops use CSS object-fit only"
+    },
+    {
+      "path": "granola.jpg",
+      "source_upload": "1000025356.jpg",
+      "sha256": "73d0d92ca656435050f6031498ab2a10d924632eb6f3ae899baf15782b0228db",
+      "dimensions": [
+        1031,
+        1536
+      ],
+      "processing": "byte-for-byte copy; display crops use CSS object-fit only"
+    },
+    {
+      "path": "pairings.png",
+      "source_upload": "1000025368.png",
+      "sha256": "2a73d883ad77f79a007411278a90de50e16f799eccdfebe1cf97280b6e523043",
+      "dimensions": [
+        1087,
+        1536
+      ],
+      "processing": "byte-for-byte copy; display crops use CSS object-fit only"
+    }
+  ]
+}
