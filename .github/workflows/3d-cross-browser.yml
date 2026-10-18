@@ -1,0 +1,64 @@
+name: Design Lab Firefox and WebKit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'dist/ai-path/**'
+      - 'scripts/verify-3d-cross-browser.mjs'
+      - '.github/workflows/3d-cross-browser.yml'
+  pull_request:
+    paths:
+      - 'dist/ai-path/**'
+      - 'scripts/verify-3d-cross-browser.mjs'
+      - '.github/workflows/3d-cross-browser.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  program:
+    name: School 3D program · ${{ matrix.engine }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        engine: [firefox, webkit]
+    env:
+      BROWSER_ENGINE: ${{ matrix.engine }}
+      HEADED: '1'
+      LIBGL_ALWAYS_SOFTWARE: '1'
+      GDK_BACKEND: x11
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned browser test tools
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund playwright@1.55.0
+          npx playwright install --with-deps ${{ matrix.engine }}
+          sudo apt-get update
+          sudo apt-get install -y xvfb libgl1-mesa-dri libglx-mesa0 mesa-utils
+          python -m pip install --disable-pip-version-check pypdf==6.1.3
+      - name: Check focused acceptance script syntax
+        run: node --check scripts/verify-3d-cross-browser.mjs
+      - name: Verify school UI and iframe protocol at three widths
+        run: |
+          mkdir -p "artifacts/qa-3d-program-$BROWSER_ENGINE"
+          xvfb-run -a -s '-screen 0 1600x1200x24' sh -c '
+            glxinfo -B > "artifacts/qa-3d-program-$BROWSER_ENGINE/mesa-info.txt" 2>&1
+            node scripts/verify-3d-cross-browser.mjs
+          '
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qa-3d-program-${{ matrix.engine }}
+          path: artifacts/qa-3d-program-${{ matrix.engine }}/
+          if-no-files-found: warn
+          retention-days: 14
