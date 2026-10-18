@@ -8,16 +8,16 @@
       "action": "Открыть карточку Design Lab",
       "expected": "В карточке есть декодируемый кадр 3D-комнаты. В выбранной программе показана панель модели и плана.",
       "method": "Chromium: карточки, image.decode(), видимость панели; 1440 / 390 / 320.",
-      "status": "pending",
+      "status": "passed",
       "steps": [
         "Открыть каталог программ и найти Design Lab.",
         "Проверить декодирование постера и выбор этой программы."
       ],
-      "result": "Ожидает школьного CI. PNG получены из рендера сцены; это не результат проверки всей карточки.",
+      "result": "PASS на 1440/390/320 px: карточки, изображения и выбранная панель модели проверены браузером.",
       "evidence": [
         {
-          "label": "Школьный workflow · результат ожидается",
-          "url": "https://github.com/safal207/test-it-python/actions/workflows/ai-path-smoke.yml"
+          "label": "Школьный Chromium · 3 размера · PASS",
+          "url": "https://github.com/safal207/test-it-python/actions/runs/39109173255"
         }
       ]
     },
@@ -27,17 +27,17 @@
       "action": "Выбрать программу и открыть план",
       "expected": "В плане шесть этапов, задания ведут к существующим неделям, PDF содержит программу и четыре учебных примера.",
       "method": "Chromium + разбор PDF; 1440 / 390 / 320.",
-      "status": "pending",
+      "status": "passed",
       "steps": [
         "Выбрать Design Lab и открыть план.",
         "Перейти от заданий превью к неделям 4–6.",
         "Скачать PDF и проверить его текст и ссылку маршрута."
       ],
-      "result": "Ожидает школьного CI; сохранение плана и PDF не помечены как проверенные заранее.",
+      "result": "PASS на 1440/390/320 px: шесть этапов, переходы к неделям 4–6 и содержимое PDF с четырьмя примерами сохранены.",
       "evidence": [
         {
-          "label": "Школьный workflow · результат ожидается",
-          "url": "https://github.com/safal207/test-it-python/actions/workflows/ai-path-smoke.yml"
+          "label": "Школьный Chromium · 3 размера · PASS",
+          "url": "https://github.com/safal207/test-it-python/actions/runs/39109173255"
         }
       ]
     },
@@ -47,17 +47,17 @@
       "action": "Переключить Комната → Храм → Комната",
       "expected": "При выборе меняется постер; выбор вкладки сам по себе не загружает WebGL. iframe появляется после запуска.",
       "method": "Chromium; состояние панели и адрес iframe; дочерний документ заменён fixture.",
-      "status": "pending",
+      "status": "passed",
       "steps": [
         "В выбранной программе открыть вкладку «Храм».",
         "Вернуться к «Комнате».",
         "Проверить постеры и запуск выбранного превью."
       ],
-      "result": "Ожидает школьного CI. Реальный рендер этих сцен проверен отдельно.",
+      "result": "PASS: переключения меняют постер; выбор вкладки не запускает WebGL. После клика создаётся iframe нужной сцены.",
       "evidence": [
         {
-          "label": "Школьный workflow · результат ожидается",
-          "url": "https://github.com/safal207/test-it-python/actions/workflows/ai-path-smoke.yml"
+          "label": "Школьный Chromium · 3 размера · PASS",
+          "url": "https://github.com/safal207/test-it-python/actions/runs/39109173255"
         }
       ]
     },
@@ -67,17 +67,17 @@
       "action": "Запустить 3D и сменить программу",
       "expected": "Одновременно существует не больше одного iframe; остановка и смена программы удаляют предыдущий.",
       "method": "Chromium; контроль DOM iframe с тестовым дочерним документом.",
-      "status": "pending",
+      "status": "passed",
       "steps": [
         "Запустить модель и проверить количество iframe.",
         "Остановить, повторно запустить, сменить модель.",
         "Выбрать другую учебную программу."
       ],
-      "result": "Ожидает школьного CI.",
+      "result": "PASS: запуск и повтор создают один iframe; остановка, смена сцены и программы удаляют его.",
       "evidence": [
         {
-          "label": "Школьный workflow · результат ожидается",
-          "url": "https://github.com/safal207/test-it-python/actions/workflows/ai-path-smoke.yml"
+          "label": "Школьный Chromium · 3 размера · PASS",
+          "url": "https://github.com/safal207/test-it-python/actions/runs/39109173255"
         }
       ]
     },
@@ -87,17 +87,17 @@
       "action": "Увести превью за экран и вернуть его",
       "expected": "Дочерний документ получает active:false вне экрана и active:true при возвращении.",
       "method": "Chromium + контракт postMessage. Фоновая вкладка проверяется отдельно в T06.",
-      "status": "pending",
+      "status": "passed",
       "steps": [
         "Запустить превью с тестовым дочерним документом.",
         "Прокрутить панель за экран.",
         "Вернуть панель в видимую область."
       ],
-      "result": "Ожидает школьного CI. Этот тест проверяет сообщение управления, а не FPS модели.",
+      "result": "PASS: школьный iframe-fixture получает active=false вне экрана и active=true после возврата. Часы реальных сцен проверены отдельно.",
       "evidence": [
         {
-          "label": "Школьный workflow · результат ожидается",
-          "url": "https://github.com/safal207/test-it-python/actions/workflows/ai-path-smoke.yml"
+          "label": "Школьный Chromium · 3 размера · PASS",
+          "url": "https://github.com/safal207/test-it-python/actions/runs/39109173255"
         }
       ]
     },
@@ -107,17 +107,17 @@
       "action": "Ошибка загрузки модели / постороннее сообщение",
       "expected": "Чужие сообщения не открывают сцену; ошибка возвращает постер и кнопку повтора, повтор создаёт один iframe.",
       "method": "Chromium; управляемые сообщения из тестового iframe.",
-      "status": "pending",
+      "status": "passed",
       "steps": [
         "Послать preview-ready с чужим origin и неверным source.",
         "Послать допустимый preview-ready, затем preview-error.",
         "Проверить восстановленный постер и повторный запуск."
       ],
-      "result": "Ожидает школьного CI; реальный сетевой обрыв в этом сценарии не моделируется.",
+      "result": "PASS: сообщения с чужими origin/source игнорируются; ошибка от выбранного iframe возвращает постер и кнопку повторного запуска.",
       "evidence": [
         {
-          "label": "Школьный workflow · результат ожидается",
-          "url": "https://github.com/safal207/test-it-python/actions/workflows/ai-path-smoke.yml"
+          "label": "Школьный Chromium · 3 размера · PASS",
+          "url": "https://github.com/safal207/test-it-python/actions/runs/39109173255"
         }
       ]
     },
@@ -548,11 +548,11 @@
     },
     "school": {
       "repo": "safal207/test-it-python",
-      "commit": null,
-      "run_id": null,
-      "url": "https://github.com/safal207/test-it-python/actions/workflows/ai-path-smoke.yml",
-      "status": "pending",
-      "artifact": "Скриншоты и PDF из AI PATH smoke"
+      "commit": "3b98415e5d6ea87d17548f29337782e695469893",
+      "run_id": 39109173255,
+      "url": "https://github.com/safal207/test-it-python/actions/runs/39109173255",
+      "status": "passed",
+      "artifact": "ai-path-responsive-previews: скриншоты и PDF"
     }
   }
 }

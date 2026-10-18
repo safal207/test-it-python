@@ -564,12 +564,11 @@ async function program3dContract(page, width) {
     assert(await panel.locator('#program3dWeek').getAttribute('href') === '#designlab-week-' + week, 'Preview task connects to the correct curriculum week');
     assert(await page.locator('#designlab-week-' + week).count() === 1, 'Preview week has a real plan destination');
   }
+  const frameNavigation = page.waitForEvent('framenavigated', {predicate: candidate => pattern.test(candidate.url()), timeout:15000});
   await panel.locator('#program3dPlay').click();
   assert(await panel.locator('iframe').count() === 1, 'Only one frame is created');
   assert(await panel.locator('iframe').getAttribute('referrerpolicy') === 'strict-origin', 'Preview can identify its parent origin for readiness');
-  await page.waitForFunction(() => document.querySelector('#program3dFrame iframe')?.contentWindow);
-  let child = page.frames().find(f => f.url().includes('/preview.html'));
-  if (!child) { await page.waitForTimeout(150); child = page.frames().find(f => f.url().includes('/preview.html')); }
+  const child = await frameNavigation;
   assert(Boolean(child), 'Preview frame loaded');
   await child.waitForLoadState('domcontentloaded');
   await page.evaluate(() => {
@@ -875,6 +874,16 @@ try {
     await vibeRoute(page, width);
     if (width === 320) await selectedBreakpointChecks(page);
     await noOverflow(page, 'final');
+    await page.goto(new URL('3d-checks.html', base).href, {waitUntil:'domcontentloaded'});
+    assert(await page.locator('.matrix tbody tr').count() === 22, '3D verification matrix includes all 22 checks');
+    await page.locator('#areaFilter').selectOption('Программа');
+    assert(await page.locator('.matrix tbody tr:visible').count() === 6, 'Matrix filters by learning program');
+    await page.locator('#statusFilter').selectOption('not_run');
+    assert(await page.locator('#empty').isVisible(), 'Empty matrix filter explains the result');
+    await page.locator('#areaFilter').selectOption('all');
+    assert(await page.locator('.matrix tbody tr:visible').count() === 2, 'Physical-device and other-browser checks remain explicitly unrun');
+    await page.locator('#statusFilter').selectOption('all');
+    await screenshot(page, width, '3d-check-matrix');
     assert(errors.length === 0, 'No browser JavaScript errors: ' + errors.join('; '));
     console.log(`PASS ${width}x${height}: guided choice, vibe course/CRM, book route, comparison, navigator offer, mentor verification example, contact draft, real PDF contents/links and idea isolation, preserved gallery/notebook/lab content and responsive layout`);
     await context.close();
