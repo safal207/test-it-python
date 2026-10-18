@@ -65,6 +65,22 @@ async function screenshot(page, width, stage, selector) {
   await noOverflow(page, stage);
   await page.screenshot({ path: `${artifacts}/ai-path-${width}-${stage}.png`, animations: 'disabled' });
 }
+async function responsivePageBounds(page) {
+  const original = page.viewportSize();
+  try {
+    // Include narrow text pressure and both sides of the main layout boundaries.
+    for (const width of [320, 359, 360, 361, 379, 380, 381, 759, 760, 761, 1019, 1020, 1021, 1049, 1050, 1051, 1099, 1100, 1101]) {
+      await page.setViewportSize({ width, height: 844 });
+      await page.evaluate(async () => {
+        await document.fonts.ready;
+        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      });
+      await noOverflow(page, 'fresh page breakpoint ' + width);
+    }
+  } finally {
+    await page.setViewportSize(original);
+  }
+}
 async function schoolEntry(context, width) {
   const page = await context.newPage();
   try {
@@ -137,6 +153,7 @@ async function chooseQuiz(page, { goal, interest, level = 'zero', pace = 'balanc
   await page.locator('#showRecommendation').click();
 }
 async function selected(page, id) {
+  await page.locator('#selected').waitFor({ state: 'visible' });
   assert(await page.locator('#selected').isVisible(), `Selected route is visible: ${id}`);
   assert(new URL(page.url()).searchParams.get('program') === id, `URL preserves explicit selection: ${id}`);
   assert((await page.locator('#selTitle').innerText()).trim().length > 0, 'Selected program has a title');
@@ -1135,6 +1152,7 @@ try {
     assert(!new URL(page.url()).searchParams.has('program'), 'Fresh entry does not manufacture a selection in the URL');
     assert(!(await page.locator('#selectionDock').isVisible()), 'Fresh entry has no sticky selection action');
     assert(await page.locator('#headerAction').getAttribute('href') === '#selector', 'Fresh header starts the selection quiz');
+    if (width === 1440) await responsivePageBounds(page);
     await screenshot(page, width, 'hero');
     await screenshot(page, width, 'quiz', '#selector');
 
