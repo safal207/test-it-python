@@ -322,6 +322,32 @@ async function designLabRoute(page, width) {
   const demos = await page.locator('#design-lab .design-lab-visual').evaluateAll(items => items.map(a => a.href));
   assert(demos.length === 4 && new Set(demos).size === 4, 'Teaching demo links are distinct');
   assert(await page.locator('#design-lab .design-lab-skill').count() === 4, 'Every example explains the skill taught');
+  const lesson = page.locator('#transformation-lab');
+  await lesson.scrollIntoViewIfNeeded();
+  await lesson.locator('[data-lesson-step="1"]').click();
+  assert(await lesson.getAttribute('data-step') === '1', 'The lesson visibly separates the same image layers');
+  assert((await lesson.locator('#lesson-summary').innerText()).includes('слои раздвинуты'), 'The separation is explained');
+  await lesson.locator('[data-lesson-step="2"]').click();
+  assert(await lesson.locator('[data-lesson-layer="0"]').getAttribute('src') === 'assets/design-lab/mist-0.svg', 'Reassembly actually changes artwork palette');
+  await lesson.locator('#lesson-foreground').click();
+  assert(await lesson.locator('[data-lesson-layer="4"]').isHidden(), 'Removing foreground changes the result');
+  assert((await lesson.locator('#lesson-summary').innerText()).includes('4 из 5'), 'Layer count tracks actual visibility');
+  assert(await lesson.locator('.lesson-original img').getAttribute('src') === 'assets/design-lab/composition.svg', 'Original reference stays unchanged');
+  const lessonImages = await lesson.locator('img').evaluateAll(images => Promise.all(images.map(async image => {
+    try { image.loading = 'eager'; await image.decode(); return image.naturalWidth > 0; } catch { return false; }
+  })));
+  assert(lessonImages.every(Boolean), 'Every original and transformed lesson image decodes');
+  await lesson.locator('[data-lesson-palette="sunset"]').click();
+  assert(await lesson.locator('[data-lesson-layer="0"]').getAttribute('src') === 'assets/design-lab/sunset-0.svg', 'Student palette control affects the image');
+  await lesson.locator('#lesson-reset').click();
+  assert(await lesson.getAttribute('data-step') === '0', 'Reset returns to the source');
+  assert(!await lesson.locator('[data-lesson-layer="4"]').isHidden(), 'Reset restores all layers');
+  assert(await page.locator('#design-lab .design-lab-process').count() === 4, 'All four examples describe their transformation');
+  const cardImages = await page.locator('#design-lab .design-lab-visual img').evaluateAll(images => Promise.all(images.map(async image => {
+    try { image.loading = 'eager'; await image.decode(); return image.naturalWidth > 0; } catch { return false; }
+  })));
+  assert(cardImages.length === 4 && cardImages.every(Boolean), 'All four project cards have actual decodable images');
+  await noOverflow(page, 'Transformation lab ' + width);
   await contact(page);
   const message = await page.locator('#contactMessage').inputValue();
   assert(message.includes('Design Lab') && message.includes('program=designlab'), 'Contact draft keeps the new route');
@@ -479,3 +505,4 @@ try {
   if (browser) await browser.close();
   server.kill('SIGTERM');
 }
+

@@ -32,7 +32,7 @@
     deep:'Ты планируешь уделять 7 и более часов в неделю. Обсудим дополнительную практику и глубину проекта с учётом твоей подготовки.'
   };
   var presentation={
-    designlab:{"headline": "Создай сайт, с которым можно взаимодействовать", "image": "https://safal207.github.io/layer-lab-explainer/assets/composition.svg", "width": 600, "height": 700, "caption": "Учебный пример Layer Lab: авторская SVG-композиция.", "first": "Выбрать тему своего сайта, описать посетителя и одно действие, которое он сможет выполнить."},
+    designlab:{"headline": "Создай сайт, с которым можно взаимодействовать", "image": "assets/design-lab/composition.svg", "width": 600, "height": 700, "caption": "Учебный пример Layer Lab: авторская SVG-композиция.", "first": "Выбрать тему своего сайта, описать посетителя и одно действие, которое он сможет выполнить."},
     explore:{headline:'Попробуй два проекта и выбери своё направление',first:'Выбрать одну небольшую идею и составить понятное задание для ИИ.'},
     build:{headline:'Собери и опубликуй своё веб-приложение',image:'assets/testit.webp',width:1440,height:960,caption:'Пример веб-интерфейса — тренажёр Test it Python.',first:'Описать одну полезную функцию приложения и собрать первый экран с работающей кнопкой.'},
     space:{headline:'Создай 3D-комнату и покажи её с разных сторон',image:'assets/architectural.webp',width:1440,height:960,caption:'Пример портфолио пространств — Architectural AI Lab.',first:'Выбрать небольшую комнату, собрать референсы и набросать её простую объёмную схему.'},
@@ -537,3 +537,4 @@
   $('programList').innerHTML=programs.map(function(p){return cardMarkup(p,false)}).join('');
   filterCatalog();closeResults();renderSelection();
 })();
+
