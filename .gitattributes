@@ -1,0 +1,3 @@
+# Keep upstream vendored bytes intact, including trailing spaces in license comments.
+dist/ai-path/vendor/jspdf.umd.min.js whitespace=-blank-at-eol
+dist/ai-path/vendor/DejaVu-LICENSE.txt whitespace=-blank-at-eol
