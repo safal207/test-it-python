@@ -5,6 +5,7 @@ on:
   pull_request:
     paths:
       - "dist/ai-path/**"
+      - "scripts/verify-ai-path.mjs"
       - "lighthouserc.cjs"
       - ".github/workflows/ai-path-lighthouse.yml"
   workflow_dispatch:

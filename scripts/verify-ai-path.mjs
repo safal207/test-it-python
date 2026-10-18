@@ -47,7 +47,9 @@ async function noOverflow(page, stage) {
     viewport: innerWidth, document: document.documentElement.scrollWidth,
     offenders: [...document.querySelectorAll('body *')]
       .filter(el => el.getClientRects().length && getComputedStyle(el).position !== 'fixed')
-      .map(el => ({ tag: el.tagName, id: el.id, left: Math.round(el.getBoundingClientRect().left), right: Math.round(el.getBoundingClientRect().right) }))
+      .map(el => ({ tag: el.tagName, id: el.id, class: el.getAttribute('class') || '',
+        closestId: el.parentElement?.closest('[id]')?.id || '', text: el.textContent.replace(/\s+/g, ' ').trim().slice(0, 120),
+        left: Math.round(el.getBoundingClientRect().left), right: Math.round(el.getBoundingClientRect().right) }))
       .filter(el => el.right > innerWidth + 1 || el.left < -1).slice(0, 30)
   }));
   if (report.document > report.viewport + 1) console.error('AI_PATH_OVERFLOW', stage, JSON.stringify(report));
@@ -163,11 +165,34 @@ async function curriculumPresentation(page, width, id) {
   await page.locator('#selected-curriculum').screenshot({ path: `${artifacts}/ai-path-${width}-${id}-curriculum.png`, animations: 'disabled',
     style: '.header, .selection-dock, .toast { visibility: hidden !important; }' });
 }
+async function resizeSelectedViewport(page, width, height) {
+  await page.setViewportSize({ width, height });
+  const snapshot = await page.evaluate(() => {
+    const columns = selector => getComputedStyle(document.querySelector(selector)).gridTemplateColumns.trim().split(/\s+/).length;
+    return { innerWidth, clientWidth: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth,
+      media760: matchMedia('(max-width: 760px)').matches, media360: matchMedia('(max-width: 360px)').matches,
+      heroColumns: columns('.selection-hero'), stepsColumns: columns('#selSteps') };
+  });
+  if (snapshot.scrollWidth > snapshot.innerWidth + 1) console.log('AI_PATH_RESIZE_SNAPSHOT', JSON.stringify({ targetWidth: width, ...snapshot }));
+  // The viewport command may resolve before its media-query layout reaches a rendering frame.
+  // Readiness deliberately does not depend on scrollWidth: real overflow must still fail below.
+  await page.waitForFunction(({ width, expected }) => {
+    const columns = selector => {
+      const style = getComputedStyle(document.querySelector(selector));
+      return style.display === 'grid' ? style.gridTemplateColumns.trim().split(/\s+/).length : 0;
+    };
+    return innerWidth === width && document.documentElement.clientWidth === width &&
+      matchMedia('(max-width: 760px)').matches === (width <= 760) &&
+      matchMedia('(max-width: 360px)').matches === (width <= 360) &&
+      columns('.selection-hero') === expected && columns('#selSteps') === expected;
+  }, { width, expected: width <= 760 ? 1 : 2 });
+  await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => resolve())));
+}
 async function selectedBreakpointChecks(page) {
   await page.goto(base + '?program=vibe&level=project&pace=deep#selected', { waitUntil: 'domcontentloaded' });
   await selected(page, 'vibe');
   for (const width of [759, 760, 761, 1019, 1020, 1021]) {
-    await page.setViewportSize({ width, height: 900 });
+    await resizeSelectedViewport(page, width, 900);
     const columns = await page.evaluate(() => ['.selection-hero', '#selSteps'].map(selector => {
       const style = getComputedStyle(document.querySelector(selector));
       return style.display === 'grid' ? style.gridTemplateColumns.trim().split(/\s+/).length : 0;
@@ -177,7 +202,9 @@ async function selectedBreakpointChecks(page) {
     await noOverflow(page, 'selected breakpoint ' + width);
     if (width === 760 || width === 761) await screenshot(page, width, 'selected-boundary', '#selected');
   }
-  await page.setViewportSize({ width: 320, height: 740 });
+  await resizeSelectedViewport(page, 320, 740);
+  await noOverflow(page, 'selected restored 320');
+  await page.screenshot({ path: `${artifacts}/ai-path-320-selected-restored.png`, fullPage: true, animations: 'disabled' });
 }
 async function contact(page) {
   const fallback = page.locator('#start details.message-fallback');
