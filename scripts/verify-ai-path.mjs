@@ -424,6 +424,8 @@ async function firstProjectOffer(page, width) {
 }
 async function mentorExample(page, width) {
   const demo = page.locator('#mentorExample');
+  // Keep sticky page chrome out of tall component captures; viewport captures retain it.
+  const componentStyle = '.header, .selection-dock, .toast { visibility: hidden !important; }';
   const routeBefore = page.url();
   const messageBefore = await page.locator('#contactMessage').inputValue();
   if (!(await demo.evaluate(el => el.open))) {
@@ -445,7 +447,7 @@ async function mentorExample(page, width) {
   assert(await demo.locator('#mentor-demo-results').isVisible(), 'Checking the first version reveals the measured result');
   assert(await demo.locator('#mentor-demo-label-result').getAttribute('data-passed') === 'true' && await demo.locator('#mentor-demo-color-result').getAttribute('data-passed') === 'false', 'First check reports the real label/color mismatch');
   await noOverflow(page, 'mentor mismatch ' + width);
-  await demo.screenshot({ path: `${artifacts}/ai-path-${width}-mentor-mismatch.png`, animations: 'disabled' });
+  await demo.screenshot({ path: `${artifacts}/ai-path-${width}-mentor-mismatch.png`, animations: 'disabled', style: componentStyle });
   await demo.locator('[data-mentor-demo-step="3"]').click();
   assert(await demo.getAttribute('data-mentor-demo-stage') === '3', 'Fix step opens the corrected version');
   assert(JSON.stringify(await paint()) === JSON.stringify(initialPaint), 'Corrected version resets to the same initial conditions');
@@ -457,7 +459,7 @@ async function mentorExample(page, width) {
   await demo.locator('#mentor-demo-check').click();
   assert(await demo.locator('#mentor-demo-label-result').getAttribute('data-passed') === 'true' && await demo.locator('#mentor-demo-color-result').getAttribute('data-passed') === 'true', 'Repeating the same check confirms both corrected behaviors');
   await noOverflow(page, 'mentor corrected ' + width);
-  await demo.screenshot({ path: `${artifacts}/ai-path-${width}-mentor-corrected.png`, animations: 'disabled' });
+  await demo.screenshot({ path: `${artifacts}/ai-path-${width}-mentor-corrected.png`, animations: 'disabled', style: componentStyle });
   await demo.locator('#mentor-demo-reset').click();
   assert(await demo.getAttribute('data-mentor-demo-stage') === '1' && JSON.stringify(await paint()) === JSON.stringify(initialPaint), 'Reset restores the initial teaching example');
   assert(!(await demo.locator('#mentor-demo-results').isVisible()) && await demo.locator('#mentor-demo-color-result').getAttribute('data-passed') === null, 'Reset clears stale verification results');

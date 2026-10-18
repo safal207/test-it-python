@@ -36,4 +36,5 @@
 .mentor-demo-bottom button{flex:none}
 .mentor-demo [hidden]{display:none!important}
 @media(max-width:760px){.mentor-demo-body{padding:18px}.mentor-demo>summary{padding:15px 18px;font-size:13px}.mentor-demo-steps{gap:6px}.mentor-demo-steps button{font-size:11px;padding:10px 6px}.mentor-demo-workspace{grid-template-columns:1fr;gap:18px}.mentor-demo h3{font-size:21px}.mentor-demo-bottom{align-items:stretch;flex-direction:column;gap:14px}.mentor-demo-bottom button{align-self:flex-start}.mentor-demo-results{padding:15px}}
+@media(max-width:420px){.mentor-demo-steps{grid-template-columns:1fr}.mentor-demo-steps button{font-size:12px;padding:11px 13px;text-align:left}}
 @media(prefers-reduced-motion:reduce){.mentor-demo *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
