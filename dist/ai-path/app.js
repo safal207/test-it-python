@@ -411,6 +411,8 @@
     renderSelectionNavigation();if(!state.selection)return;
     var selected=state.selection,p=programById(selected.program),m=presentation[p.id];
     $('selTitle').textContent=p.name;$('selText').textContent=p.short;
+    $('selected').dataset.family=cardArt[p.id].family;
+    $('curriculumSummary').textContent=weekLabel(p.weeks)+' · '+meetingLabel(p.meetings)+' с наставником. Это базовый план: темп и объём согласуем до старта.';
     $('selDuration').textContent=weekLabel(p.weeks);$('selMeetings').textContent=meetingLabel(p.meetings);$('selTime').textContent=paceLabels[selected.pace];
     $('selOutcome').textContent=p.outcome;$('selRequirement').textContent=p.level;
     $('selPaceNote').textContent=paceNotes[selected.pace]+' План на '+weekLabel(p.weeks)+' — ориентир; итоговый график определим вместе.';
@@ -425,6 +427,9 @@
     $('selPreview').hidden=!m.image;
     if(m.image){$('selImage').src=m.image;$('selImage').alt=m.caption;$('selImage').width=m.width;$('selImage').height=m.height;$('selImageCaption').textContent=m.caption}
     else{$('selImage').removeAttribute('src');$('selImage').alt='';$('selImageCaption').textContent=''}
+    $('selConcept').hidden=Boolean(m.image);
+    if(!m.image){$('selConceptImage').src='assets/program-covers/'+p.id+'.svg'}
+    else{$('selConceptImage').removeAttribute('src')}
     renderContact();syncCards();updateSelectionDock();
   }
   function selectProgram(id){

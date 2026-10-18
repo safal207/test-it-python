@@ -5,6 +5,11 @@ import { chromium } from 'playwright';
 const base = 'http://127.0.0.1:4179/ai-path/';
 const artifacts = 'artifacts/ai-path-qa';
 const programIds = ['explore', 'build', 'space', 'furniture', 'create', 'comics', 'qa', 'game', 'ml', 'hack', 'grant', 'frontier', 'books', 'designlab', 'vibe'];
+const projectPreviewSources = {
+  build: 'assets/testit.webp', space: 'assets/architectural.webp', furniture: 'assets/furniture/luma01-hero.webp',
+  create: 'assets/rustclip.webp', comics: 'assets/comics/issue-02-cover.webp', qa: 'assets/testit.webp',
+  game: 'assets/awakening.webp', designlab: 'assets/design-lab/composition.svg'
+};
 const groups = {
   explore: ['explore'], visual: ['furniture', 'space', 'designlab', 'comics', 'books', 'create'],
   build: ['build', 'qa', 'game', 'vibe'], research: ['ml', 'hack', 'grant', 'frontier']
@@ -112,6 +117,67 @@ async function selected(page, id) {
   for (const selector of ['#selPaceNote', '#selFirstTask', '#selOutcome']) {
     assert((await page.locator(selector).innerText()).trim().length > 12, `Selected route explains ${selector}`);
   }
+  const visual = await page.locator('.selection-visual').evaluate(el => ({
+    visible: [...el.querySelectorAll('figure')].filter(figure => figure.getClientRects().length).map(figure => figure.id),
+    projectSrc: el.querySelector('#selImage').getAttribute('src'), projectAlt: el.querySelector('#selImage').alt,
+    projectCaption: el.querySelector('#selImageCaption').textContent.trim(),
+    conceptSrc: el.querySelector('#selConceptImage').getAttribute('src'), conceptAlt: el.querySelector('#selConceptImage').alt,
+    conceptCaption: el.querySelector('#selConcept figcaption').textContent.trim()
+  }));
+  if (projectPreviewSources[id]) {
+    assert(visual.visible.join('|') === 'selPreview' && visual.projectSrc === projectPreviewSources[id], `Selected program preserves its source-backed project preview: ${id}`);
+    assert(visual.projectAlt.length > 12 && visual.projectCaption === visual.projectAlt, `Selected project preview retains its attribution: ${id}`);
+    assert(visual.conceptSrc === null, `Project preview clears a previous conceptual illustration: ${id}`);
+  } else {
+    assert(visual.visible.join('|') === 'selConcept' && visual.conceptSrc === `assets/program-covers/${id}.svg`, `Selected program shows its own conceptual illustration: ${id}`);
+    assert(visual.conceptAlt === '' && visual.conceptCaption.includes('Иллюстрация'), `Conceptual art is explicitly distinguished from a project result: ${id}`);
+    assert(visual.projectSrc === null && visual.projectAlt === '' && visual.projectCaption === '', `Conceptual route clears previous project imagery and attribution: ${id}`);
+  }
+  const summary = await page.locator('#curriculumSummary').innerText();
+  for (const selector of ['#selDuration', '#selMeetings']) {
+    assert(summary.includes((await page.locator(selector).innerText()).trim()), `Curriculum summary retains the selected ${selector}: ${id}`);
+  }
+}
+async function curriculumPresentation(page, width, id) {
+  const links = await page.locator('nav.plan-nav a').evaluateAll(elements => elements.map(el => el.getAttribute('href')));
+  assert(links.join('|') === '#selected-result|#selected-curriculum|#start', 'Plan navigation exposes result, curriculum and contact in order');
+  for (const target of links) assert(await page.locator(target).count() === 1 && await page.locator(target).isVisible(), `Plan navigation has one visible destination: ${target}`);
+  assert(await page.locator('#selected-result #selOutcome').count() === 1, 'Result link leads to the current learning outcome');
+  assert(await page.locator('#selected-curriculum #selSteps li').count() > 0, 'Curriculum link leads to the complete selected step list');
+  const clipped = await page.locator('#selSteps li').evaluateAll(steps => steps.flatMap(step => {
+    const bounds = step.getBoundingClientRect();
+    const range = document.createRange();
+    range.selectNodeContents(step.lastElementChild);
+    return [...range.getClientRects()].some(rect => rect.width && rect.height &&
+      (rect.left < bounds.left - 1 || rect.right > bounds.right + 1 || rect.top < bounds.top - 1 || rect.bottom > bounds.bottom + 1))
+      ? [step.textContent.trim()] : [];
+  }));
+  assert(clipped.length === 0, `All selected curriculum text fits at ${width}px: ${id} ${JSON.stringify(clipped)}`);
+  const routeBefore = new URL(page.url());
+  await page.locator('nav.plan-nav a[href="#selected-curriculum"]').click();
+  const routeAfter = new URL(page.url());
+  assert(routeAfter.search === routeBefore.search && routeAfter.hash === '#selected-curriculum', 'Curriculum navigation preserves the program URL and opens its section');
+  assert(await page.locator('#selected-curriculum').evaluate(el => document.activeElement === el), 'Curriculum navigation moves keyboard focus to its destination');
+  await assertUncovered(page.locator('#curriculumTitle'), 'Curriculum heading after plan navigation');
+  await noOverflow(page, 'selected curriculum ' + id + ' ' + width);
+  await page.locator('#selected-curriculum').screenshot({ path: `${artifacts}/ai-path-${width}-${id}-curriculum.png`, animations: 'disabled',
+    style: '.header, .selection-dock, .toast { visibility: hidden !important; }' });
+}
+async function selectedBreakpointChecks(page) {
+  await page.goto(base + '?program=vibe&level=project&pace=deep#selected', { waitUntil: 'domcontentloaded' });
+  await selected(page, 'vibe');
+  for (const width of [759, 760, 761, 1019, 1020, 1021]) {
+    await page.setViewportSize({ width, height: 900 });
+    const columns = await page.evaluate(() => ['.selection-hero', '#selSteps'].map(selector => {
+      const style = getComputedStyle(document.querySelector(selector));
+      return style.display === 'grid' ? style.gridTemplateColumns.trim().split(/\s+/).length : 0;
+    }));
+    const expected = width <= 760 ? 1 : 2;
+    assert(columns.every(count => count === expected), `Selected hero and curriculum keep ${expected} readable columns at ${width}px: ${columns.join(', ')}`);
+    await noOverflow(page, 'selected breakpoint ' + width);
+    if (width === 760 || width === 761) await screenshot(page, width, 'selected-boundary', '#selected');
+  }
+  await page.setViewportSize({ width: 320, height: 740 });
 }
 async function contact(page) {
   const fallback = page.locator('#start details.message-fallback');
@@ -409,6 +475,7 @@ async function vibeRoute(page, width) {
   await page.goto(base + '?program=vibe&level=project&pace=deep#selected', { waitUntil: 'domcontentloaded' });
   await selected(page, 'vibe');
   assert(await page.locator('#selSteps li').count() === 16, 'Vibe Coding has sixteen steps');
+  await curriculumPresentation(page, width, 'vibe');
   if (width === 1440) await downloadPlan(page, width, 'sixteen-modules', { minPages: 2 });
   assert(await page.locator('#vibe a[href="vibe-coding/"]').count() === 1, 'Course linked from home');
   await noOverflow(page, 'vibe-deep-link-' + width);
@@ -696,6 +763,7 @@ try {
     await page.locator('#recommendationList [data-program="furniture"]').click();
     await selected(page, 'furniture');
     await screenshot(page, width, 'selected', '#selected');
+    await curriculumPresentation(page, width, 'furniture');
     await contact(page);
     await page.reload({ waitUntil: 'domcontentloaded' });
     await selected(page, 'furniture');
@@ -712,6 +780,7 @@ try {
       await pdfLoadingAndRetry(context, width);
     }
     await vibeRoute(page, width);
+    if (width === 320) await selectedBreakpointChecks(page);
     await noOverflow(page, 'final');
     assert(errors.length === 0, 'No browser JavaScript errors: ' + errors.join('; '));
     console.log(`PASS ${width}x${height}: guided choice, vibe course/CRM, book route, comparison, navigator offer, mentor verification example, contact draft, real PDF contents/links and idea isolation, preserved gallery/notebook/lab content and responsive layout`);

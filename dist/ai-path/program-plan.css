@@ -1,0 +1,69 @@
+/* Continue the visual programme cards into a readable, personal study plan. */
+#selected{scroll-margin-top:100px}
+.selection-hero{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);align-items:stretch;border:1px solid #46563e;border-radius:24px;background:linear-gradient(125deg,#202c29,#171f2e 64%);box-shadow:0 18px 50px #03081033}
+.selection-heading{min-width:0;padding:38px 36px}
+.selection-heading>.tag{color:#d7fa82;font-size:10px;letter-spacing:.13em;line-height:1.6}
+.selection-heading #selTitle{font-size:clamp(30px,3.2vw,43px);font-weight:750;line-height:1.13;letter-spacing:-.045em;margin:15px 0 18px;overflow-wrap:anywhere}
+.selection-heading .detail-lead{font-size:15px;line-height:1.8;max-width:570px;color:#c2cee0;margin:0}
+.selection-heading .offer-early-action{align-items:flex-start;gap:11px;margin:26px 0 0}
+.selection-heading .offer-early-action .btn{width:auto;max-width:100%;min-height:48px;text-align:center}
+.selection-heading .offer-early-action>span{max-width:350px;font-size:11px;line-height:1.7;color:#bac9b0}
+.selection-visual{min-width:0;display:grid;align-items:stretch;margin:16px 16px 16px 0;border:1px solid #ffffff15;border-radius:18px;background:radial-gradient(ellipse at 55% 28%,#3d3b5d88,transparent 75%),#111a28}
+.selection-visual .selected-example,.selection-visual .selected-concept{display:flex;flex-direction:column;justify-content:center;width:100%;min-width:0;margin:0;padding:0}
+.selection-visual #selImage,.selection-visual #selConceptImage{display:block;width:100%;height:286px;min-width:0;padding:20px;object-fit:contain;border:0;border-radius:0;background:transparent}
+.selection-visual figcaption{margin:0;padding:12px 17px;border-top:1px solid #ffffff12;color:#bdc9dc;font-size:12px;line-height:1.65;overflow-wrap:anywhere}
+.selection-visual .selected-concept figcaption{color:#abb8cf;text-align:center}
+.plan-nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:15px 0 24px}
+.plan-nav a{display:flex;align-items:center;justify-content:center;gap:8px;min-width:0;min-height:49px;padding:12px 15px;border:1px solid #354355;border-radius:12px;background:#141e2c;color:#d3deee;font-size:12px;font-weight:650;line-height:1.5;text-align:center;overflow-wrap:anywhere;transition:background .15s,border-color .15s,color .15s}
+.plan-nav a:hover{border-color:#8aa263;background:#223023;color:#e0f6bc}
+.plan-nav a:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+#selected .detail,#selected .detail2cols{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:0;margin:0;border:1px solid #354153;border-radius:24px;background:#141d2b;overflow:hidden;box-shadow:none}
+#selected .detail-main{padding:32px;min-width:0}
+#selected .detail-aside{padding:28px;min-width:0;border-left:1px solid #354153;background:#0e1724}
+#selected .requirement{font-size:13px;line-height:1.75;margin-bottom:21px;overflow-wrap:anywhere}
+#selected .facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 22px}
+#selected .fact{min-width:0;gap:5px;padding:14px 12px;border:1px solid #364154;border-radius:12px;background:#1b2637}
+#selected .fact strong{font-size:19px;line-height:1.4;color:#eff3fa;overflow-wrap:anywhere}
+#selected .fact span{font-size:10px;line-height:1.6;color:#aebbd0}
+#selected .pace-note{margin:0 0 24px;font-size:12px;line-height:1.75}
+#selected-result,#selected-curriculum,#start{scroll-margin-top:110px}
+#selected .outcome{padding-top:23px}
+#selected .outcome>strong{font-size:14px;line-height:1.6}
+#selected .outcome p{font-size:14px;line-height:1.8;margin:10px 0 0;overflow-wrap:anywhere}
+#selected .plan-save .detail-actions{gap:9px}
+#selected .plan-save .btn{max-width:100%;min-height:44px;text-align:center;overflow-wrap:anywhere}
+#selected .start-panel{min-width:0}
+#selected .start-panel .btn{max-width:100%;overflow-wrap:anywhere}
+#selected .start-panel h4{overflow-wrap:anywhere}
+.program-curriculum{margin-top:24px;padding:32px;border:1px solid #3b435c;border-radius:24px;background:linear-gradient(135deg,#1b2034,#121c2a 76%)}
+.curriculum-top{max-width:800px}
+.curriculum-top>.tag{font-size:10px;line-height:1.6;color:#c7beff;letter-spacing:.13em}
+.curriculum-top h4{font-size:clamp(25px,2.6vw,33px);line-height:1.2;letter-spacing:-.035em;margin:11px 0 13px;overflow-wrap:anywhere}
+.curriculum-top p{font-size:14px;line-height:1.75;color:#b7c5db;margin:0;overflow-wrap:anywhere}
+.program-curriculum .steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:27px 0 0;padding:0;list-style:none}
+.program-curriculum .steps li{display:flex;align-items:flex-start;gap:14px;min-width:0;min-height:106px;padding:20px;border:1px solid #384359;border-radius:14px;background:#192436;color:#d3dded;font-size:13px;line-height:1.75}
+.program-curriculum .step-no{flex:none;width:32px;height:32px;border:1px solid #655e8b;border-radius:10px;background:#36314f;color:#e0d9ff;font-size:12px;line-height:1;font-weight:750}
+.program-curriculum .steps li>span:last-child{min-width:0;overflow-wrap:anywhere}
+.program-curriculum .refs{display:block;border-top-color:#384359;margin-top:26px;padding-top:23px}
+.program-curriculum .refs>.subhead{display:block;margin-bottom:13px;color:#c6d3e6;font-size:11px;line-height:1.6;letter-spacing:.08em}
+.program-curriculum #selRefs{min-width:0;gap:9px}
+.program-curriculum .refs a{display:inline-flex;align-items:center;max-width:100%;min-height:44px;padding:10px 13px;border:1px solid #46506a;border-radius:11px;background:#1b2739;color:#d5deef;font-size:12px;line-height:1.6;overflow-wrap:anywhere}
+.program-curriculum .refs a:hover{border-color:#c9bfff;background:#2b2a43;color:#e1d9ff}
+@media(max-width:1020px){
+ .selection-heading{padding:30px 26px}.selection-heading #selTitle{font-size:34px}.selection-heading .detail-lead{font-size:14px}.selection-visual #selImage,.selection-visual #selConceptImage{height:270px;padding:17px}
+ #selected .detail-main,#selected .detail-aside{padding:24px}#selected .facts{gap:7px}#selected .fact{padding:12px 9px}#selected .fact strong{font-size:17px}.program-curriculum{padding:27px}.program-curriculum .steps li{padding:17px;gap:12px}
+}
+@media(max-width:760px){
+ .selection-hero{grid-template-columns:1fr;border-radius:21px}.selection-heading{padding:26px 24px}.selection-heading #selTitle{font-size:clamp(30px,7.6vw,37px);margin:13px 0 16px}.selection-heading .detail-lead{font-size:14px;line-height:1.75}.selection-heading .offer-early-action{align-items:stretch;margin-top:23px}.selection-heading .offer-early-action .btn{width:100%;font-size:13px}.selection-heading .offer-early-action>span{max-width:none;font-size:11px}
+ .selection-visual{margin:0 16px 16px;border-radius:15px}.selection-visual #selImage,.selection-visual #selConceptImage{height:248px;padding:16px}.selection-visual figcaption{padding:12px 14px;font-size:11px}
+ .plan-nav{gap:7px;margin:12px 0 19px}.plan-nav a{min-height:54px;padding:10px 8px;font-size:11px;border-radius:10px}
+ #selected .detail,#selected .detail2cols{grid-template-columns:1fr;border-radius:21px}#selected .detail-main{padding:24px}#selected .detail-aside{padding:24px;border-left:0;border-top:1px solid #354153}
+ #selected .requirement{font-size:12px;margin-bottom:19px}#selected .facts{grid-template-columns:1fr;gap:0;border:1px solid #364154;border-radius:12px;overflow:hidden;background:#1b2637}#selected .fact{flex-direction:row;align-items:center;justify-content:space-between;gap:13px;padding:13px 15px;border:0;border-radius:0;background:none}#selected .fact:not(:last-child){border-bottom:1px solid #364154}#selected .fact strong{font-size:18px}#selected .fact span{max-width:48%;font-size:11px;text-align:right}
+ #selected .pace-note{font-size:12px;margin-bottom:22px}#selected .outcome p{font-size:13px;line-height:1.8}#selected .start-panel{padding:0;border:0;background:transparent}#selected .plan-save .btn{width:100%}
+ .program-curriculum{margin-top:20px;padding:24px;border-radius:21px}.curriculum-top h4{font-size:28px}.curriculum-top p{font-size:13px}.program-curriculum .steps{grid-template-columns:1fr;gap:10px;margin-top:22px}.program-curriculum .steps li{min-height:0;padding:17px 15px;gap:12px;font-size:13px}.program-curriculum .step-no{width:30px;height:30px;border-radius:9px}.program-curriculum .refs{margin-top:22px;padding-top:21px}.program-curriculum .refs a{font-size:11px}
+}
+@media(max-width:360px){
+ .selection-heading{padding:23px 20px}.selection-heading #selTitle{font-size:29px}.selection-heading>.tag{font-size:9px;letter-spacing:.1em}.selection-visual{margin:0 12px 12px}.selection-visual #selImage,.selection-visual #selConceptImage{height:224px;padding:13px}.plan-nav{gap:5px}.plan-nav a{padding:9px 6px;font-size:10px}
+ #selected .detail-main,#selected .detail-aside{padding:20px}#selected .fact{padding:12px}#selected .fact strong{font-size:17px}#selected .fact span{font-size:10px}.program-curriculum{padding:20px}.curriculum-top h4{font-size:26px}.program-curriculum .steps li{padding:15px 12px;font-size:12px;gap:10px}
+}
+@media(prefers-reduced-motion:reduce){.plan-nav a{transition:none}}
