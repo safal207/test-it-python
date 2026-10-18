@@ -1,0 +1,22 @@
+{
+  "project": "ДАЛЬ — маршруты тишины",
+  "type": "original-educational-demo",
+  "created_on": "2026-10-18",
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "photorealistic-natural",
+  "asset": "dal.webp",
+  "width": 1672,
+  "height": 941,
+  "bytes": 128414,
+  "sha256": "03da8e2f54627c96cece9ff34d29f72f915e61532eb8af3c469ee3d99f530f54",
+  "source": {
+    "filename": "exec-b90b16f8-6117-4316-bb04-aa18dfbc5d85.png",
+    "sha256": "e49290f4122b9b242044890c4d295c964b917b5bea29c35dae92861012707b7d",
+    "width": 1672,
+    "height": 941
+  },
+  "transform": "Format conversion to WebP, quality 82, method 6. Full original frame and dimensions preserved; no compositing or content edits.",
+  "prompt": "Use case: photorealistic-natural. Asset type: full-bleed landscape hero photograph for an original premium Russian fictional slow-travel editorial demo called ДАЛЬ.\nPrimary request: cinematic remote northern lake at early dawn, deep pine forest framing a perfectly still dark teal lake, layered blue-grey mountain ridges fading into morning mist, a small pale granite shoreline in the lower right foreground. No buildings, boats or people.\nStyle: extraordinary but believable editorial travel photography, authentic natural textures, medium-format clarity, atmospheric restraint, quiet and expansive, not fantasy.\nComposition: wide landscape 16:9. The central lake and soft open overcast sky occupy the middle and upper half, with a broad uncluttered area that can support enormous cream HTML typography. Mountains occupy mid-right and distant horizon, pine silhouettes to far edges, foreground shoreline in bottom right. Leave upper and middle left a darker quiet area for readable page overlay.\nLighting and mood: blue hour just before sunrise, subtle warm pale gold rim of morning light on the horizon, cool jade/pine/charcoal palette, very soft mist and gentle water reflection.\nText: absolutely no text, letters, logos, signage, maps, interface or watermark.\nConstraints: original invented natural location; must not imitate any identifiable copyrighted website or named photographer. No faux UI, no border. Fine cinematic grain, excellent edge detail, no oversaturation.",
+  "provenance": "Original AI-generated imagined lake landscape, not a real destination photograph. No student work, client project, booking availability, prices or testimonials are claimed. All itinerary names, distances, durations and route diagrams are fictional educational examples. SVG route card is a real generated download, not for navigation.",
+  "runtime": "Original HTML/CSS/JavaScript, no external runtime dependencies. Native SVG line art is a schematic illustration, not geography."
+}

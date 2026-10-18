@@ -1,0 +1,23 @@
+{
+  "title": "Мори и потерянный свет",
+  "kind": "original AI-assisted educational story demo",
+  "created": "2026-10-18",
+  "illustration": {
+    "method": "OpenAI built-in image_gen",
+    "prompt": "Use case: stylized-concept. Asset type: original premium illustrated web-story hero artwork, no interface. Create a cinematic, exquisitely polished stylized 3D scene for an original gentle forest tale titled in code later MORI. Subject: a wholly original small round fluffy forest spirit, soft blue-teal fur, tiny amber leaflike ears, short little paws, two warm expressive dark eyes, a small cream muzzle and a subtle luminous amber tuft, not a monkey, no primate anatomy and no resemblance to a known character. It holds a small glowing lime firefly lantern seed with wonder. Scene: velvety dream forest at twilight, rounded purple mushrooms, lilac ferns, deep plum moss, sculpted tiny forest hills, a few floating golden light spores. High-end tactile character rendering, carefully groomed fur, soft clay-like botanical surfaces, warm subsurface light, gorgeous volumetric lavender mist, golden rim light. Composition: wide landscape 3:2, the spirit sits large in the right half, full body visible, facing slightly left, its head on the upper right third; the left half is largely calm dark purple forest haze and sparse low foliage for separately coded headline. Avoid dense detail behind the future left headline. Color palette ink purple, lavender, teal, small acid-lime highlights, warm amber. A dreamy, believable miniature world, premium editorial art direction. Absolutely no text, letters, labels, logos, UI, borders, watermark, screenshot or title. This is an original AI-created concept illustration, not a photograph of student work.",
+    "source_filename": "exec-5b459b89-d8c9-4f60-add8-80f3a2398cf5.png",
+    "source_sha256": "5a6b61c00b3d67864ea6088920c8fb874d78a7cda926cec6738da75ff6e74456",
+    "asset": "mori.webp",
+    "asset_sha256": "f3b633810d211cb970fa9d66bb1019390fde003c51da51f63e42debc3aa8138c",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 169946,
+    "processing": "Full-frame WebP quality 82 encoding only. No cropping, recoloring, compositing, or character editing.",
+    "attribution": "Оригинальная AI-иллюстрация для учебного проекта AI PATH. Вымышленный персонаж и вымышленная история. Не работа ученика, не клиентский кейс и не фотография."
+  },
+  "implementation": {
+    "story": "Original short fiction with three chapters, two native choices per chapter, branching state and endings.",
+    "runtime": "Self-contained HTML/CSS/JavaScript with one local illustration, no external runtime requests.",
+    "course": "designlab"
+  }
+}

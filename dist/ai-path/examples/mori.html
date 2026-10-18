@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#211433">
+  <meta name="description" content="Мори и потерянный свет — оригинальная интерактивная история AI PATH. Выберите путь лесного духа и попробуйте, каким может стать ваш собственный веб-проект.">
+  <title>Мори и потерянный свет · AI PATH</title>
+  <style>
+    :root{color-scheme:dark;--ink:#211433;--deep:#150d24;--paper:#f8f1e8;--muted:#c7b9d6;--lavender:#d5c1ff;--lime:#dcf873;--line:rgba(232,216,255,.21);font-family:Arial,Helvetica,sans-serif;background:var(--ink);color:var(--paper)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:22px}body{margin:0}button,a{-webkit-tap-highlight-color:transparent}button{font:inherit}button,a{touch-action:manipulation}a{color:inherit;text-underline-offset:5px}button{cursor:pointer}a:focus-visible,button:focus-visible{outline:3px solid var(--lime);outline-offset:5px}button:disabled{cursor:default}button:focus:not(:focus-visible){outline:none}h1,h2,h3,p,figure{margin:0}button{color:inherit}::selection{background:var(--lime);color:var(--ink)}[hidden]{display:none!important}.wrap{width:min(1160px,calc(100% - 72px));margin-inline:auto}.skip{position:absolute;top:8px;left:20px;transform:translateY(-160%);z-index:20;padding:12px;background:var(--lime);color:var(--ink)}.skip:focus{transform:none}
+    .site-header{height:90px;display:flex;align-items:center;justify-content:space-between;gap:22px}.brand{display:inline-flex;align-items:center;gap:10px;font-size:18px;font-weight:800;letter-spacing:-.6px;text-decoration:none}.brand-mark{width:24px;height:24px;display:inline-grid;place-items:center;border:1px solid var(--lavender);border-radius:50%;font-size:13px;color:var(--lime)}.header-note{font-size:11px;text-transform:uppercase;letter-spacing:1.8px;line-height:1.6;color:var(--muted)}.back{font-size:13px;text-decoration:none;border-bottom:1px solid var(--line);padding-block:6px;white-space:nowrap}
+    .hero{position:relative;isolation:isolate;overflow:hidden;min-height:680px;border-block:1px solid var(--line);background:#372449}.hero-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 55%;z-index:-2}.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(25,14,41,.91) 0%,rgba(25,14,41,.61) 29%,rgba(25,14,41,.04) 63%),linear-gradient(0deg,rgba(25,14,41,.36),transparent 30%)}.hero-inner{position:relative;min-height:680px;padding-block:58px 44px;display:flex;align-items:flex-start;justify-content:space-between;flex-direction:column}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:2.3px;font-weight:700;line-height:1.7;display:flex;align-items:center;gap:11px}.eyebrow::before{content:"";width:7px;height:7px;background:var(--lime);border-radius:50%;box-shadow:0 0 20px #dcf87377}.hero-copy{max-width:510px;padding-block:30px 34px}h1{font-weight:600;letter-spacing:-10px;font-size:clamp(100px,12.8vw,174px);line-height:.85}.hero-subtitle{display:block;font-family:Georgia,'Times New Roman',serif;font-size:clamp(35px,4.8vw,61px);font-weight:400;line-height:1.06;letter-spacing:-2px;margin-top:24px}.hero-lead{font-size:16px;line-height:1.7;color:#ece1f7;max-width:330px;margin-top:24px}.hero-bottom{display:flex;align-items:center;gap:23px}.start{display:grid;place-items:center;position:relative;width:103px;height:103px;border:0;border-radius:50%;background:var(--lime);color:var(--ink);font-size:12px;font-weight:700;line-height:1.2;text-align:center;box-shadow:0 0 0 8px #dcf87316;transition:transform .2s,background .2s}.start:hover{transform:rotate(-5deg);background:#eaff9b}.start span{display:block;font-size:25px;line-height:.7;margin-top:0}.hero-meta{font-size:12px;line-height:1.8;color:#e9dbf5}.hero-meta strong{font-size:14px;color:var(--paper);font-weight:400}.art-credit{position:absolute;right:26px;bottom:24px;color:#fff4ff;font-size:10px;line-height:1.6;letter-spacing:.6px;background:#20112ba8;padding:6px 10px;border:1px solid #ffffff25;border-radius:30px}
+    .story{padding-block:86px 88px;background:radial-gradient(ellipse at 83% 15%,#6b438d2b,transparent 50%),var(--ink)}.section-intro{display:flex;justify-content:space-between;gap:44px;margin-bottom:35px;align-items:flex-end}.section-number{color:var(--lavender);font-size:11px;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:16px}h2{font-family:Georgia,'Times New Roman',serif;font-weight:400;font-size:clamp(33px,4.2vw,52px);line-height:1.1;letter-spacing:-1.5px}.section-intro>p{font-size:14px;line-height:1.8;color:var(--muted);max-width:302px}.story-panel{display:grid;grid-template-columns:minmax(0,1.13fr) minmax(0,.87fr);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 25px 80px #10071c55}.story-copy{padding:38px 38px 32px;background:#281a3d;display:flex;flex-direction:column;min-height:436px}.chapter-top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:29px}.chapter-label{color:var(--lavender);text-transform:uppercase;font-size:10px;letter-spacing:1.6px}.chapter-dots{display:flex;gap:7px;list-style:none;margin:0;padding:0}.chapter-dots li{height:5px;width:25px;background:#4b3b60;border-radius:4px}.chapter-dots li.is-active{background:var(--lime)}#story-title{font-family:Georgia,'Times New Roman',serif;font-size:31px;line-height:1.15;font-weight:400;letter-spacing:-.6px;margin-bottom:18px}#story-title:focus{outline:0}#story-description{font-size:15px;line-height:1.85;color:#dfd1eb;max-width:485px}.story-question{font-size:13px;margin-block:25px 13px;color:var(--paper);font-weight:700}.choices{display:grid;gap:9px;margin-top:auto}.choice{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;text-align:left;padding:15px 17px;font-size:13px;line-height:1.45;border:1px solid #89719e70;border-radius:9px;background:#342446;transition:background .18s,border-color .18s}.choice span:last-child{font-size:19px;color:var(--lime)}.choice:hover{background:#48305f;border-color:var(--lavender)}.story-visual{position:relative;isolation:isolate;padding:30px;display:flex;justify-content:space-between;flex-direction:column;overflow:hidden;background:radial-gradient(ellipse at 50% 70%,#57427d 0%,#322146 50%,#241630 100%);transition:background .5s;min-height:436px}.story-visual[data-scene="river"]{background:radial-gradient(ellipse at 50% 68%,#327e8e 0%,#253b60 47%,#181936 100%)}.story-visual[data-scene="roots"]{background:radial-gradient(ellipse at 50% 68%,#8a6b3f 0%,#514047 48%,#261c38 100%)}.story-visual[data-scene="grove"]{background:radial-gradient(ellipse at 50% 68%,#8d7e4e 0%,#4e5b5b 47%,#302a4b 100%)}.story-visual[data-scene="beacon"]{background:radial-gradient(ellipse at 50% 68%,#a98a57 0%,#766183 47%,#3d2a58 100%)}.scene-label{color:#e4d4ee;font-size:10px;text-transform:uppercase;letter-spacing:1.7px;position:relative;z-index:2}.seed-scene{height:235px;display:grid;place-items:center;position:relative}.seed-scene::after{content:"";position:absolute;bottom:20px;left:10%;width:80%;height:1px;background:#e4d5ff38;box-shadow:0 14px 35px 14px #13122230}.orbit{width:214px;height:214px;border:1px solid #e4d5ff25;border-radius:50%;position:absolute}.orbit::before,.orbit::after{content:"";position:absolute;width:7px;height:7px;border-radius:50%;background:#f7e4bc;box-shadow:0 0 15px #ffe3a2;left:31px;top:26px}.orbit::after{left:auto;right:5px;top:133px;width:4px;height:4px}.orbit-two{width:147px;height:147px;transform:rotate(30deg);border-style:dashed;border-color:#e4d5ff24}.seed{width:83px;height:117px;border-radius:55% 45% 53% 47%/67% 61% 39% 33%;background:linear-gradient(125deg,#fbffcb 5%,#d8ef8a 44%,#9daf3a);box-shadow:inset -9px -7px 20px #5e742962,inset 8px 4px 12px #ffffff93,0 0 50px #e7f78877,0 25px 70px #d1f46d36;position:relative;transform:rotate(12deg);transition:box-shadow .4s,transform .4s}.seed::before{content:"";position:absolute;width:2px;height:110px;background:#4c632a56;left:48%;top:6%;transform:rotate(5deg)}.seed::after{content:"";position:absolute;width:27px;height:12px;left:29px;top:-9px;background:#acc354;border-radius:100% 0 100% 0;transform:rotate(-20deg)}.story-visual[data-scene="river"] .seed{transform:rotate(-12deg);box-shadow:inset -9px -7px 20px #5e742962,inset 8px 4px 12px #ffffff93,0 0 75px #a6f8e6aa,0 25px 70px #7cdddf44}.story-visual[data-scene="grove"] .seed{box-shadow:inset -9px -7px 20px #5e742962,inset 8px 4px 12px #ffffff93,0 0 95px #e7f788cc,55px 5px 45px #d1f46d55,-55px 5px 45px #d1f46d55}.story-visual[data-scene="beacon"] .seed{transform:translateY(-17px) rotate(12deg);box-shadow:inset -9px -7px 20px #5e742962,inset 8px 4px 12px #ffffff93,0 0 120px 20px #ffe8a7aa,0 -50px 70px 8px #fff4b477}.scene-status{position:relative;z-index:2;border-top:1px solid #e4d5ff33;padding-top:18px}.scene-status span{font-size:10px;color:#e0cfea;text-transform:uppercase;letter-spacing:1.3px}.scene-status strong{display:block;font-family:Georgia,'Times New Roman',serif;font-size:25px;font-weight:400;margin-top:6px}.ending{margin-top:24px}.ending-tag{display:inline-block;font-size:10px;text-transform:uppercase;letter-spacing:1.4px;background:var(--lime);color:var(--ink);padding:6px 9px;border-radius:20px;margin-bottom:13px}.ending h4{font:400 24px/1.2 Georgia,'Times New Roman',serif;margin:0 0 12px}.ending p{font-size:14px;line-height:1.8;color:#dfd1eb}.restart{background:none;color:var(--lime);border:0;border-bottom:1px solid #dcf87370;padding:9px 0;margin-top:17px;text-align:left;font-size:13px}.story-note{font-size:11px;line-height:1.8;max-width:650px;margin-top:18px;color:#b7a5c8}
+    .make{background:var(--paper);color:var(--ink);padding-block:70px}.make-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:80px}.make .section-number{color:#69567c}.make p{font-size:14px;line-height:1.8;color:#675b70;margin-top:20px;max-width:350px}.steps{padding:0;margin:0;list-style:none}.steps li{display:grid;grid-template-columns:34px 1fr;gap:16px;padding:20px 0;border-bottom:1px solid #d9cfe0}.steps li:first-child{padding-top:0}.step-n{font-size:11px;color:#7b688c;padding-top:6px}.steps h3{font-size:17px;line-height:1.5;font-weight:600}.steps p{margin-top:5px;max-width:none;font-size:13px}.school-cta{margin-top:31px;display:inline-flex;align-items:center;justify-content:space-between;gap:30px;border-radius:35px;padding:17px 23px;background:var(--ink);color:var(--paper);font-size:13px;text-decoration:none;font-weight:700;line-height:1.5;min-height:52px}.school-cta:hover{background:#4d3368}.make a:focus-visible{outline-color:#61458a}.site-footer{padding-block:28px 34px;display:flex;justify-content:space-between;align-items:flex-start;gap:40px;color:var(--muted);font-size:11px;line-height:1.9}.site-footer p{max-width:740px}.footer-back{white-space:nowrap;font-size:12px}
+    @media(min-width:1450px){.hero-art{object-position:center 52%}.hero-inner{min-height:740px}.hero{min-height:740px}}
+    @media(max-width:900px){.wrap{width:calc(100% - 48px)}.header-note{display:none}.hero-copy{max-width:420px}h1{font-size:130px;letter-spacing:-8px}.hero-subtitle{font-size:46px}.hero::after{background:linear-gradient(90deg,rgba(25,14,41,.91),rgba(25,14,41,.5) 41%,rgba(25,14,41,.02) 80%)}.story-copy{padding:28px}.story-visual{padding:25px}.make-grid{gap:40px}.section-intro{gap:30px}.orbit{width:190px;height:190px}.orbit-two{width:135px;height:135px}}
+    @media(max-width:640px){.wrap{width:calc(100% - 36px)}.site-header{height:74px;gap:14px}.brand{font-size:16px}.brand-mark{width:21px;height:21px}.back{font-size:11px}.hero{min-height:0;display:flex;flex-direction:column;background:#2d1d40;overflow:hidden}.hero-inner{min-height:0;display:block;order:0;padding-block:30px 27px}.hero-art{position:relative;inset:auto;z-index:0;order:1;height:auto;aspect-ratio:1.13;object-fit:cover;object-position:75% center;min-height:285px;max-height:440px}.hero::after{display:none}.hero-copy{max-width:none;padding-block:27px 23px}.eyebrow{font-size:9px;letter-spacing:1.65px}h1{font-size:clamp(91px,26vw,142px);letter-spacing:-6px}.hero-subtitle{font-size:clamp(33px,8vw,43px);line-height:1.04;letter-spacing:-1.3px;margin-top:18px}.hero-lead{font-size:14px;line-height:1.7;max-width:335px;margin-top:20px}.hero-bottom{gap:22px}.start{width:83px;height:83px;flex-shrink:0;font-size:10px;box-shadow:0 0 0 5px #dcf87316}.start span{font-size:22px}.hero-meta{font-size:10px}.hero-meta strong{font-size:12px}.art-credit{z-index:2;right:12px;bottom:12px;font-size:9px}.story{padding-block:52px 54px}.section-intro{display:block;margin-bottom:25px}.section-intro>p{max-width:none;margin-top:19px;font-size:13px;line-height:1.7}.section-number{font-size:9px;margin-bottom:13px;letter-spacing:1.5px}h2{font-size:36px;line-height:1.1;letter-spacing:-1px}.story-panel{grid-template-columns:1fr;border-radius:15px}.story-copy{padding:25px 22px;min-height:0}.chapter-top{margin-bottom:24px}.chapter-label{font-size:9px;letter-spacing:1.1px}.chapter-dots li{width:19px}#story-title{font-size:29px}#story-description{font-size:14px;line-height:1.8}.choice{font-size:12px;padding:14px;min-height:52px}.story-question{font-size:12px;margin-top:22px}.story-visual{min-height:275px;padding:23px}.seed-scene{height:166px}.seed{width:65px;height:90px}.seed::before{height:84px}.seed::after{left:20px}.orbit{width:153px;height:153px}.orbit-two{width:110px;height:110px}.orbit::before{left:19px;top:22px}.orbit::after{right:0;top:94px}.seed-scene::after{bottom:0}.scene-status{padding-top:14px}.scene-status strong{font-size:23px}.scene-label{font-size:9px;letter-spacing:1.3px}.scene-status span{font-size:9px}.story-note{font-size:10px}.make{padding-block:47px}.make-grid{grid-template-columns:1fr;gap:31px}.make p{font-size:13px;margin-top:16px}.steps li{padding-block:16px;gap:9px;grid-template-columns:28px 1fr}.steps h3{font-size:16px}.steps p{font-size:12px;margin-top:4px}.school-cta{width:100%;font-size:12px;gap:15px;padding:15px 20px}.site-footer{padding-block:25px 28px;flex-direction:column;gap:20px;font-size:10px}.footer-back{font-size:11px}}
+    @media(max-width:350px){.wrap{width:calc(100% - 28px)}.brand{font-size:14px}.back{font-size:10px}.hero-subtitle{font-size:31px}.hero-lead{font-size:13px}.hero-meta{font-size:9px}.hero-meta strong{font-size:11px}.hero-bottom{gap:17px}.story-copy{padding:23px 17px}h2{font-size:32px}#story-title{font-size:27px}.chapter-dots{gap:5px}.chapter-dots li{width:16px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#story">К истории</a>
+  <header class="site-header wrap">
+    <a class="brand" href="../studio.html" aria-label="AI PATH — галерея веб-проектов"><span class="brand-mark" aria-hidden="true">✦</span> AI PATH</a>
+    <span class="header-note">Учебный проект AI PATH</span>
+    <a class="back" id="mori-gallery-link" data-demo-back href="../studio.html">Все проекты ↗</a>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="mori-title">
+      <img class="hero-art" src="../assets/web-studio/mori.webp" width="1536" height="1024" fetchpriority="high" alt="Оригинальная AI-иллюстрация: пушистый лесной дух Мори держит светящееся семечко среди лиловых папоротников.">
+      <div class="hero-inner wrap">
+        <p class="eyebrow">Маленькая интерактивная история</p>
+        <div class="hero-copy">
+          <h1 id="mori-title">МОРИ<span class="hero-subtitle">и потерянный свет</span></h1>
+          <p class="hero-lead">В лесу погас последний фонарь. У Мори осталось одно светящееся семечко. Куда его приведёт ваш выбор?</p>
+        </div>
+        <div class="hero-bottom">
+          <button class="start" id="mori-start" type="button" aria-controls="story"><span aria-hidden="true">↗</span>Начать<br>историю</button>
+          <p class="hero-meta"><strong>Один герой. Три решения.</strong><br>Примерно 2 минуты · можно пройти заново</p>
+        </div>
+      </div>
+      <p class="art-credit">Оригинальная AI-иллюстрация</p>
+    </section>
+    <section class="story" id="story" aria-labelledby="story-section-title">
+      <div class="wrap">
+        <div class="section-intro">
+          <div><p class="section-number">01 / История в ваших руках</p><h2 id="story-section-title">Свет начинается<br>с маленького шага.</h2></div>
+          <p>Читайте, выбирайте и наблюдайте, как меняется путь. Здесь нет правильного ответа — есть ваша история.</p>
+        </div>
+        <div class="story-panel" id="mori-story" data-chapter="1" data-ending="">
+          <div class="story-copy">
+            <div class="chapter-top"><p class="chapter-label" id="story-chapter">Глава 01 / 03</p><ol class="chapter-dots" aria-label="Прогресс истории"><li class="is-active" aria-label="Глава 1, текущая"></li><li aria-label="Глава 2"></li><li aria-label="Глава 3"></li></ol></div>
+            <div id="story-narrative" aria-live="polite" aria-atomic="true">
+              <h3 id="story-title" tabindex="-1">Тропа, которой ещё нет</h3>
+              <p id="story-description">Мори нашёл семечко под старым пнём. Слева шуршит сухая тропа, справа тихо поёт ручей. Лес ждёт, пока кто-нибудь сделает первый шаг.</p>
+            </div>
+            <p class="story-question" id="story-question">Куда отправится Мори?</p>
+            <div class="choices" id="story-choices" aria-labelledby="story-question">
+              <button class="choice" type="button" data-choice="0"><span>Пойти по сухой тропе</span><span aria-hidden="true">↗</span></button>
+              <button class="choice" type="button" data-choice="1"><span>Прислушаться к ручью</span><span aria-hidden="true">↗</span></button>
+            </div>
+            <div class="ending" id="story-ending" hidden>
+              <span class="ending-tag">Ваш финал</span>
+              <h4 id="ending-title"></h4>
+              <p id="ending-description"></p>
+              <button class="restart" id="story-restart" type="button">Пройти другую историю ↺</button>
+            </div>
+          </div>
+          <div class="story-visual" id="story-visual" data-scene="forest" role="img" aria-label="Одно светящееся семечко в тихом лесу">
+            <p class="scene-label" id="scene-label">Сумеречный лес</p>
+            <div class="seed-scene" aria-hidden="true"><span class="orbit"></span><span class="orbit orbit-two"></span><span class="seed"></span></div>
+            <p class="scene-status"><span id="scene-caption">Всё ещё впереди</span><strong id="scene-status">Одно семечко света</strong></p>
+          </div>
+        </div>
+        <p class="story-note">Это готовая короткая история с заранее написанными развилками. Иллюстрация создана с ИИ, светящееся семечко — средствами CSS. История не генерируется во время прохождения.</p>
+      </div>
+    </section>
+    <section class="make" aria-labelledby="make-title">
+      <div class="make-grid wrap">
+        <div><p class="section-number">02 / А теперь — ваш мир</p><h2 id="make-title">Такой проект<br>можно создать самому.</h2><p>На направлении Design Lab поможем превратить вашу идею в выразительный сайт: с собственным персонажем, историей и работающими взаимодействиями.</p><a class="school-cta" id="mori-program-link" data-demo-program href="../?program=designlab&amp;level=zero&amp;pace=balanced#selected">Хочу создать свой мир <span aria-hidden="true">↗</span></a></div>
+        <ol class="steps"><li><span class="step-n" aria-hidden="true">01</span><div><h3>Придумаем героя и историю</h3><p>Соберём настроение, характер и короткий сюжет. Результат — понятная идея собственного проекта.</p></div></li><li><span class="step-n" aria-hidden="true">02</span><div><h3>Создадим визуальный мир</h3><p>Подготовим AI-иллюстрацию, выберем шрифты, цвета и композицию. Проверим читаемость на телефоне.</p></div></li><li><span class="step-n" aria-hidden="true">03</span><div><h3>Оживим и опубликуем</h3><p>Добавим выборы, проверим состояния и клавиатуру. Получим работающую ссылку и исходный код.</p></div></li></ol>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer wrap"><p id="demo-provenance">Учебный проект AI PATH · 2026. Мори — вымышленный персонаж, история написана для этого демо. AI-иллюстрация и код показывают возможный формат проекта; это не работа ученика и не клиентский кейс. Объём вашего проекта обсудим перед стартом.</p><a class="footer-back" href="../studio.html">Вернуться в галерею ↗</a></footer>
+  <script>
+  (() => {
+    'use strict';
+    const panel = document.getElementById('mori-story');
+    const title = document.getElementById('story-title');
+    const description = document.getElementById('story-description');
+    const chapter = document.getElementById('story-chapter');
+    const question = document.getElementById('story-question');
+    const choices = document.getElementById('story-choices');
+    const buttons = Array.from(choices.querySelectorAll('button'));
+    const dots = Array.from(document.querySelectorAll('.chapter-dots li'));
+    const visual = document.getElementById('story-visual');
+    const ending = document.getElementById('story-ending');
+    const start = document.getElementById('mori-start');
+    const state = {chapter: 1, route: '', companion: false, shelter: false, ending: ''};
+    const scenes = {
+      forest: ['Сумеречный лес', 'Всё ещё впереди', 'Одно семечко света', 'Одно светящееся семечко в тихом лесу'],
+      roots: ['Тропа старых корней', 'Мори нашёл сухую дорогу', 'Свет согревает лапы', 'Тёплое семечко над тропой старых корней'],
+      river: ['Серебряный ручей', 'Вода подсказала путь', 'Свет отражается в воде', 'Семечко в прохладном голубом сиянии ручья'],
+      grove: ['Сад маленьких огней', 'Светом можно поделиться', 'Целая поляна света', 'Семечко окружено множеством мягких отблесков'],
+      beacon: ['Маяк у старого дуба', 'Теперь видна дорога домой', 'Огонёк над лесом', 'Семечко поднялось и сияет тёплым золотистым светом']
+    };
+    function setScene(name, caption) {
+      const scene = scenes[name];
+      visual.dataset.scene = name;
+      visual.setAttribute('aria-label', scene[3]);
+      document.getElementById('scene-label').textContent = scene[0];
+      document.getElementById('scene-caption').textContent = caption || scene[1];
+      document.getElementById('scene-status').textContent = scene[2];
+    }
+    function render(options = {}) {
+      panel.dataset.chapter = String(state.chapter);
+      panel.dataset.ending = state.ending;
+      chapter.textContent = state.ending ? 'История завершена / 03' : `Глава 0${state.chapter} / 03`;
+      dots.forEach((dot, index) => {
+        const active = state.ending || index < state.chapter;
+        dot.classList.toggle('is-active', Boolean(active));
+        dot.setAttribute('aria-label', `Глава ${index + 1}${!state.ending && index + 1 === state.chapter ? ', текущая' : ''}`);
+      });
+      choices.hidden = Boolean(state.ending);
+      question.hidden = Boolean(state.ending);
+      ending.hidden = !state.ending;
+      if (state.ending) {
+        title.textContent = 'Лес больше не один';
+        description.textContent = state.route === 'river' ? 'Ручей донёс отражение света до самых дальних корней.' : 'По знакомой тропе к дубу потянулись ночные жители леса.';
+        const companion = state.companion ? 'Светлячок прилетел с друзьями, и вместе они ' : 'Мори вспомнил свой путь и ';
+        if (state.ending === 'grove') {
+          document.getElementById('ending-title').textContent = 'Сад маленьких огней';
+          document.getElementById('ending-description').textContent = companion + (state.companion ? 'помогли' : 'помог') + ' посадить семечко. К утру вокруг дуба выросли крошечные фонарики. Мори понял: иногда, чтобы света стало больше, нужно им поделиться.';
+          setScene('grove', state.companion ? 'Светлячки помогли разнести свет' : 'Одно семечко стало целым садом');
+        } else {
+          document.getElementById('ending-title').textContent = 'Маяк для тех, кто заблудился';
+          document.getElementById('ending-description').textContent = state.shelter ? 'Защитный лист укрыл семечко от ветра. Мори поднял фонарик на дуб: теперь даже в тумане каждый видел дорогу домой. Иногда самый нужный свет — тот, который помогает найти путь.' : 'Мори поднял семечко на ветку дуба. ' + (state.companion ? 'Светлячок показал, где огонёк будет виден дальше всего. ' : 'Тихий ветер разнёс его сияние по лесу. ') + 'Теперь у каждого, кто заблудился, был свой ориентир.';
+          setScene('beacon', state.shelter ? 'Лист бережёт огонёк от ветра' : 'Фонарик помогает найти дорогу');
+        }
+        start.innerHTML = '<span aria-hidden="true">↺</span>Сыграть<br>ещё раз';
+        start.setAttribute('aria-label', 'Начать историю заново');
+      } else if (state.chapter === 1) {
+        title.textContent = 'Тропа, которой ещё нет';
+        description.textContent = 'Мори нашёл семечко под старым пнём. Слева шуршит сухая тропа, справа тихо поёт ручей. Лес ждёт, пока кто-нибудь сделает первый шаг.';
+        question.textContent = 'Куда отправится Мори?';
+        setChoices(['Пойти по сухой тропе', 'Прислушаться к ручью']);
+        setScene('forest');
+        start.innerHTML = '<span aria-hidden="true">↗</span>Начать<br>историю';
+        start.removeAttribute('aria-label');
+      } else if (state.chapter === 2) {
+        title.textContent = 'Кто-то совсем рядом';
+        description.textContent = state.route === 'river' ? 'Ручей вывел Мори к плоскому камню. Под ним дрожал маленький светлячок: его крыло намокло. Семечко могло согреть его, но тогда пришлось бы задержаться.' : 'На сухой тропе Мори услышал тихий писк. В траве сидел светлячок с замёрзшими крыльями. Можно согреть его семечком — или укрыть свой огонёк от ветра и идти дальше.';
+        question.textContent = 'Как распорядиться маленьким светом?';
+        setChoices(['Остаться и согреть светлячка', 'Укрыть семечко листом и продолжить']);
+        setScene(state.route === 'river' ? 'river' : 'roots');
+      } else {
+        title.textContent = 'Один свет — много возможностей';
+        description.textContent = (state.companion ? 'Отогревшийся светлячок полетел рядом и показал Мори старый дуб. ' : 'Семечко под листом осталось тёплым. Мори дошёл до старого дуба. ') + 'У корней есть мягкая земля, а на верхней ветке — пустой фонарь. Здесь можно оставить свет для всего леса.';
+        question.textContent = 'Каким станет этот свет?';
+        setChoices(['Посадить семечко у корней', 'Зажечь фонарь на верхней ветке']);
+        setScene(state.route === 'river' ? 'river' : 'roots', state.companion ? 'У Мори появился попутчик' : 'Огонёк защищён от ветра');
+      }
+      if (options.focus) title.focus({preventScroll: true});
+    }
+    function setChoices(labels) {buttons.forEach((button, index) => {button.firstElementChild.textContent = labels[index];});}
+    function restart() {Object.assign(state, {chapter: 1, route: '', companion: false, shelter: false, ending: ''});render({focus:true});}
+    choices.addEventListener('click', event => {
+      const button = event.target.closest('button[data-choice]');
+      if (!button || state.ending) return;
+      const choice = Number(button.dataset.choice);
+      if (state.chapter === 1) {state.route = choice === 0 ? 'roots' : 'river';state.chapter = 2;}
+      else if (state.chapter === 2) {state.companion = choice === 0;state.shelter = choice === 1;state.chapter = 3;}
+      else {state.ending = choice === 0 ? 'grove' : 'beacon';}
+      render({focus:true});
+    });
+    start.addEventListener('click', () => {
+      if (state.ending) restart();
+      document.getElementById('story').scrollIntoView({behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',block:'start'});
+      title.focus({preventScroll:true});
+    });
+    document.getElementById('story-restart').addEventListener('click', restart);
+  })();
+  </script>
+</body>
+</html>

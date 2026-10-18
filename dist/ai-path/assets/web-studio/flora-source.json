@@ -1,0 +1,17 @@
+{
+  "project": "FLORA — fictional botanical studio educational website",
+  "date": "2026-10-18",
+  "creator": "AI PATH / AI-generated asset",
+  "tool": "built-in image_gen.imagegen",
+  "prompt": "Use case: photorealistic-natural. Asset type: original hero photograph for a premium fictional botanical design studio educational website, NOT a screenshot and NO text. Primary request: an extraordinary sculptural floral still-life, tactile editorial luxury and art-direction quality. Subject: a single low sculptural matte coral-red ceramic vase with an asymmetric ikebana arrangement of coral pink anthurium, small warm pink cosmos, burgundy calla lilies and two thin arching leafy branches, sculptural and airy rather than a dense commercial bouquet. Scene: entire pale peach-cream studio background with soft tonal light and subtle shadow, vase sits on a sand-colored textured plinth/table. Composition: portrait 4:5, centered flower sculpture fully visible with breathing room at all sides, flower stems rising and curving through the middle, no objects clipped, suitable as the complete photographic hero inside a webpage. Style: sophisticated contemporary botanical editorial, plausible organic plant detail, natural material texture, photographic camera rendering, quiet warm directional side light, warm cream and deep plum and coral palette, striking but gentle. Constraints: absolutely no text, letters, UI, frames, labels, logos, watermarks, people or third-party branding. New original composition, do not imitate any named artist or existing site.",
+  "original_file": "exec-6a7a7851-e24c-475a-87fc-ebde529b0668.png",
+  "original_sha256": "e52629af78a4956e5fb275d91799cd5ddefb29f7a3c612213446cecbb0d19c33",
+  "delivered_file": "flora.webp",
+  "delivered_sha256": "49971edcfccea2f58fbe81aa0de898b0d1e3e9bb71b88629176c3be38410d7f2",
+  "width": 1122,
+  "height": 1402,
+  "bytes": 148262,
+  "processing": "Format conversion PNG to WebP quality84 method6 only; original composition and dimensions preserved. No cropping or compositing.",
+  "disclosure": "AI-created conceptual botanical still-life. Fictional studio, not a photographed client order or student achievement.",
+  "provenance": "Original generated composition; no third-party brand, UI, customer data, or reference-site artwork copied."
+}
