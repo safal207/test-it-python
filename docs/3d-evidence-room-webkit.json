@@ -1,0 +1,381 @@
+{
+  "scene": "room",
+  "browser": "webkit",
+  "browserVersion": "26.0",
+  "engine": "Playwright WebKit / Linux Mesa software WebGL (headed Xvfb; not Safari)",
+  "date": "2026-10-18T08:21:13.875Z",
+  "commit": "0753c78c8a00f62257457680780f609c9577e2b8",
+  "status": "passed",
+  "stage": "complete",
+  "graphics": {
+    "contexts": {
+      "webgl": {
+        "version": "WebGL 1.0",
+        "vendor": "Apple Inc.",
+        "renderer": "Apple GPU",
+        "shadingLanguage": "WebGL GLSL ES 1.0 (1.0)",
+        "maxTextureSize": 16384,
+        "maxRenderbufferSize": 16384
+      },
+      "webgl2": {
+        "version": "WebGL 2.0",
+        "vendor": "Apple Inc.",
+        "renderer": "Apple GPU",
+        "shadingLanguage": "WebGL GLSL ES 3.00",
+        "maxTextureSize": 16384,
+        "maxRenderbufferSize": 16384
+      }
+    },
+    "errors": []
+  },
+  "cases": [
+    {
+      "id": "low-1200-webgl-startup",
+      "status": "pass",
+      "viewport": {
+        "width": 1200,
+        "height": 800
+      },
+      "gl": {
+        "version": "WebGL 2.0",
+        "renderer": "Apple GPU"
+      }
+    },
+    {
+      "id": "low-1200-controls-fit",
+      "status": "pass"
+    },
+    {
+      "id": "room-daylight-preview",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 173.37226847394015,
+        "std": 42.3831732045124,
+        "min": 0,
+        "max": 249.20059999999998,
+        "clippedFraction": 0,
+        "blackFraction": 4.5833333333333334e-05
+      },
+      "image": "room-daylight-preview.png",
+      "poster": false
+    },
+    {
+      "id": "room-evening-75",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 56.09908451462541,
+        "std": 18.239204818410713,
+        "min": 0,
+        "max": 252.27679999999998,
+        "clippedFraction": 0,
+        "blackFraction": 0.0033229166666666667
+      },
+      "image": "room-evening-75.png",
+      "poster": false
+    },
+    {
+      "id": "room-evening-0",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 52.62461868720312,
+        "std": 14.823799754216502,
+        "min": 0,
+        "max": 90.1806,
+        "clippedFraction": 0,
+        "blackFraction": 0.00825
+      },
+      "image": "room-evening-0.png",
+      "poster": false
+    },
+    {
+      "id": "room-evening-100",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 56.876117806693706,
+        "std": 19.824545771537306,
+        "min": 0,
+        "max": 253.9238,
+        "clippedFraction": 1.0416666666666667e-06,
+        "blackFraction": 0.0029739583333333332
+      },
+      "image": "room-evening-100.png",
+      "poster": false
+    },
+    {
+      "id": "room-light-monotonic",
+      "status": "pass",
+      "low": 52.62461868720312,
+      "high": 56.876117806693706
+    },
+    {
+      "id": "room-away-0",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 52.62038925116273,
+        "std": 14.839127899361674,
+        "min": 0,
+        "max": 90.1806,
+        "clippedFraction": 0,
+        "blackFraction": 0.00825
+      },
+      "image": "room-away-0.png",
+      "poster": false
+    },
+    {
+      "id": "room-away-100",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 52.62038925116273,
+        "std": 14.839127899361674,
+        "min": 0,
+        "max": 90.1806,
+        "clippedFraction": 0,
+        "blackFraction": 0.00825
+      },
+      "image": "room-away-100.png",
+      "poster": false
+    },
+    {
+      "id": "room-off-slider-stable",
+      "status": "pass"
+    },
+    {
+      "id": "room-custom-off",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 52.624740223661426,
+        "std": 14.823808180865171,
+        "min": 0,
+        "max": 90.1806,
+        "clippedFraction": 0,
+        "blackFraction": 0.00825
+      },
+      "image": "room-custom-off.png",
+      "poster": false
+    },
+    {
+      "id": "room-pendant-only",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 55.629828173816264,
+        "std": 18.163834889326495,
+        "min": 0,
+        "max": 195.279,
+        "clippedFraction": 0,
+        "blackFraction": 0.0082125
+      },
+      "image": "room-pendant-only.png",
+      "poster": false
+    },
+    {
+      "id": "room-pendant-light-visible",
+      "status": "pass",
+      "off": 52.624740223661426,
+      "on": 55.629828173816264
+    },
+    {
+      "id": "room-floor-only",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 53.60026213279076,
+        "std": 16.709997143813816,
+        "min": 0,
+        "max": 212.1326,
+        "clippedFraction": 0,
+        "blackFraction": 0.008248958333333334
+      },
+      "image": "room-floor-only.png",
+      "poster": false
+    },
+    {
+      "id": "room-floor-light-visible",
+      "status": "pass",
+      "off": 52.624740223661426,
+      "on": 53.60026213279076
+    },
+    {
+      "id": "room-accent-only",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 52.902489347401534,
+        "std": 15.164294429082874,
+        "min": 0,
+        "max": 253.9238,
+        "clippedFraction": 1.0416666666666667e-06,
+        "blackFraction": 0.0030125
+      },
+      "image": "room-accent-only.png",
+      "poster": false
+    },
+    {
+      "id": "room-accent-light-visible",
+      "status": "pass",
+      "off": 52.624740223661426,
+      "on": 52.902489347401534
+    },
+    {
+      "id": "room-plan",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 54.44417925312156,
+        "std": 14.082359718265057,
+        "min": 0,
+        "max": 224.28499999999997,
+        "clippedFraction": 0,
+        "blackFraction": 0.0012197916666666668
+      },
+      "image": "room-plan.png",
+      "poster": false
+    },
+    {
+      "id": "room-model",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 52.902489347401534,
+        "std": 15.164294429082874,
+        "min": 0,
+        "max": 253.9238,
+        "clippedFraction": 1.0416666666666667e-06,
+        "blackFraction": 0.0030125
+      },
+      "image": "room-model.png",
+      "poster": false
+    },
+    {
+      "id": "room-plan-model-camera",
+      "status": "pass"
+    },
+    {
+      "id": "low-390-webgl-startup",
+      "status": "pass",
+      "viewport": {
+        "width": 390,
+        "height": 520
+      },
+      "gl": {
+        "version": "WebGL 2.0",
+        "renderer": "Apple GPU"
+      }
+    },
+    {
+      "id": "low-390-controls-fit",
+      "status": "pass"
+    },
+    {
+      "id": "room-mobile-390",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "390×520",
+      "metrics": {
+        "width": 390,
+        "height": 520,
+        "mean": 180.88752987864183,
+        "std": 36.86930303908182,
+        "min": 1,
+        "max": 248.2688,
+        "clippedFraction": 0,
+        "blackFraction": 9.861932938856015e-06
+      },
+      "image": "room-mobile-390.png",
+      "poster": false
+    },
+    {
+      "id": "room-mobile-390-visibility-origin",
+      "status": "pass"
+    },
+    {
+      "id": "low-320-webgl-startup",
+      "status": "pass",
+      "viewport": {
+        "width": 320,
+        "height": 520
+      },
+      "gl": {
+        "version": "WebGL 2.0",
+        "renderer": "Apple GPU"
+      }
+    },
+    {
+      "id": "low-320-controls-fit",
+      "status": "pass"
+    },
+    {
+      "id": "room-mobile-320",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "320×520",
+      "metrics": {
+        "width": 320,
+        "height": 520,
+        "mean": 186.54860420174398,
+        "std": 30.422550091007352,
+        "min": 22.9278,
+        "max": 245.20059999999998,
+        "clippedFraction": 0,
+        "blackFraction": 0
+      },
+      "image": "room-mobile-320.png",
+      "poster": false
+    },
+    {
+      "id": "room-mobile-320-visibility-origin",
+      "status": "pass"
+    }
+  ],
+  "errors": [],
+  "limits": [
+    "Software WebGL does not certify an Android/iOS device GPU.",
+    "Playwright WebKit on Linux is not Safari or an iPhone/iPad browser.",
+    "Pixel luminance checks detect blank scenes and lighting regressions; aesthetic review of screenshots remains separate."
+  ],
+  "runnerGraphicsDiagnostic": "name of display: :99\ndisplay: :99  screen: 0\ndirect rendering: Yes\nExtended renderer info (GLX_MESA_query_renderer):\n    Vendor: Mesa (0xffffffff)\n    Device: llvmpipe (LLVM 20.1.2, 256 bits) (0xffffffff)\n    Version: 25.2.8\n    Accelerated: no\n    Video memory: 15989MB\n    Unified memory: yes\n    Preferred profile: core (0x1)\n    Max core profile version: 4.5\n    Max compat profile version: 4.5\n    Max GLES1 profile version: 1.1\n    Max GLES[23] profile version: 3.2\nMemory info (GL_ATI_meminfo):\n    VBO free memory - total: 1069136 MB, largest block: 1069136 MB\n    VBO free aux. memory - total: 14823 MB, largest block: 14823 MB\n    Texture free memory - total: 1069136 MB, largest block: 1069136 MB\n    Texture free aux. memory - total: 14823 MB, largest block: 14823 MB\n    Renderbuffer free memory - total: 1069136 MB, largest block: 1069136 MB\n    Renderbuffer free aux. memory - total: 14823 MB, largest block: 14823 MB\nMemory info (GL_NVX_gpu_memory_info):\n    Dedicated video memory: 1069136 MB\n    Total available memory: 1085126 MB\n    Currently available dedicated video memory: 1069136 MB\nOpenGL vendor string: Mesa\nOpenGL renderer string: llvmpipe (LLVM 20.1.2, 256 bits)\nOpenGL core profile version string: 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.4\nOpenGL core profile shading language version string: 4.50\nOpenGL core profile context flags: (none)\nOpenGL core profile profile mask: core profile\n\nOpenGL version string: 4.5 (Compatibility Profile) Mesa 25.2.8-0ubuntu0.24.04.4\nOpenGL shading language version string: 4.50\nOpenGL context flags: (none)\nOpenGL profile mask: compatibility profile\n\nOpenGL ES profile version string: OpenGL ES 3.2 Mesa 25.2.8-0ubuntu0.24.04.4\nOpenGL ES profile shading language version string: OpenGL ES GLSL ES 3.20\n\n",
+  "rendererLabelNote": "Browser renderer labels can be masked (for example Apple GPU on Linux WebKit). They do not identify physical hardware. The runner diagnostic records software llvmpipe."
+}

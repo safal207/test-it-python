@@ -730,6 +730,96 @@ async function mentorExample(page, width) {
   await demo.locator('summary').click();
 }
 
+async function parentResultGallery(page, width) {
+  const gallery = page.locator('#result-gallery');
+  const cards = gallery.locator('article.parent-result');
+  assert(await cards.count() === 3, 'Parent gallery offers three concrete project results');
+  const note = (await page.locator('#parentGalleryNote').innerText()).trim();
+  assert(/AI-концепц/i.test(note) && /возможн.{0,20}проект/i.test(note) && /примеры для разбора/i.test(note), 'Gallery identifies future-project concept covers and the separate teaching examples');
+  const examples = {
+    space: 'https://safal207.github.io/room-control-studio/',
+    comics: '#comics', build: 'examples/my-cosmos.html'
+  };
+  const previous = new URL(page.url());
+  for (const [id, href] of Object.entries(examples)) {
+    const card = gallery.locator(`article.parent-result[data-result="${id}"]`);
+    assert(await card.count() === 1, `Parent gallery has one result for ${id}`);
+    const cover = card.locator('.parent-result-cover img');
+    assert(await cover.count() === 1 && await cover.getAttribute('src') === `assets/parent-gallery/${id}.webp`, `Parent result has its own cover: ${id}`);
+    await cover.scrollIntoViewIfNeeded();
+    await cover.evaluate(img => img.decode());
+    assert(await cover.evaluate(img => img.naturalWidth > 0 && img.naturalHeight > 0), `Parent result cover actually decodes: ${id}`);
+    const badge = card.locator('.parent-concept-badge');
+    assert(await badge.isVisible() && /AI-концепц/i.test(await badge.innerText()) && /AI-концепц/i.test(await cover.getAttribute('alt')), `Illustrative cover carries visible and accessible provenance: ${id}`);
+    assert(await card.locator('a.parent-example').getAttribute('href') === href, `Parent result links to its real example: ${id}`);
+    const process = card.locator('details.parent-process');
+    const summary = process.locator('summary');
+    assert(await process.locator('ol > li').count() === 3, `Parent result explains three planned project steps: ${id}`);
+    if (await process.evaluate(el => el.open)) await summary.click();
+    await summary.focus();
+    await page.keyboard.press('Enter');
+    assert(await process.evaluate(el => el.open), `Parent project process opens by keyboard: ${id}`);
+    assert(await process.locator('ol').isVisible(), `Parent can read the project process: ${id}`);
+    await noOverflow(page, 'parent process expanded ' + id + ' ' + width);
+    await page.keyboard.press('Space');
+    assert(!(await process.evaluate(el => el.open)) && await summary.evaluate(el => document.activeElement === el), `Parent process closes while retaining keyboard focus: ${id}`);
+  }
+  await noOverflow(page, 'parent result gallery ' + width);
+  await gallery.screenshot({ path: `${artifacts}/ai-path-${width}-parent-results.png`, animations: 'disabled',
+    style: '.header, .selection-dock, .toast { visibility: hidden !important; }' });
+  for (const id of Object.keys(examples)) {
+    const button = gallery.locator(`article.parent-result[data-result="${id}"] button[data-start-track="${id}"]`);
+    assert(await button.count() === 1, `Parent result has a native program action: ${id}`);
+    await button.click();
+    await selected(page, id);
+    assert(await page.locator('#selTitle').evaluate(el => document.activeElement === el), `Parent result selection focuses its plan: ${id}`);
+    for (const key of ['level', 'pace']) assert(new URL(page.url()).searchParams.get(key) === previous.searchParams.get(key), `Parent result choice retains the chosen ${key}: ${id}`);
+  }
+}
+
+async function cosmosExample(page, width) {
+  const response = await page.goto(base + 'examples/my-cosmos.html', { waitUntil: 'domcontentloaded' });
+  assert(response?.status() === 200, 'Interactive website example is available locally');
+  assert(await page.locator('#planet-picker button[data-planet]').count() === 4, 'Space website offers four planet choices');
+  const descriptions = new Set();
+  const facts = new Set();
+  const graphics = new Set();
+  const names = { mars: 'Марс', jupiter: 'Юпитер', saturn: 'Сатурн', neptune: 'Нептун' };
+  for (const [id, name] of Object.entries(names)) {
+    const button = page.locator(`#planet-picker button[data-planet="${id}"]`);
+    await button.focus();
+    await page.keyboard.press('Enter');
+    assert(await button.getAttribute('aria-pressed') === 'true' && await page.locator('#planet-picker button[aria-pressed="true"]').count() === 1, `One planet is selected by keyboard: ${id}`);
+    assert((await page.locator('#planet-title').innerText()).trim() === name, `Planet choice changes the displayed title: ${id}`);
+    assert(await page.locator('#planet-visual').getAttribute('data-planet') === id && (await page.locator('#planet-visual').getAttribute('aria-label')).includes(name), `Planet visual and accessible name match its choice: ${id}`);
+    const description = (await page.locator('#planet-description').innerText()).trim();
+    const fact = `${(await page.locator('#planet-fact-value').innerText()).trim()} ${(await page.locator('#planet-fact-label').innerText()).trim()}`;
+    assert(description.length > 25 && fact.length > 5, `Planet choice has readable explanation and a concrete fact: ${id}`);
+    descriptions.add(description);
+    facts.add(fact);
+    graphics.add(await page.locator('#planet-visual .planet').evaluate(el => getComputedStyle(el).backgroundImage));
+    assert(await page.locator('#planet-visual .rings').evaluate(el => getComputedStyle(el).display !== 'none') === (id === 'saturn'), `Only Saturn has visible rings: ${id}`);
+    const source = new URL(await page.locator('#planet-source').getAttribute('href'));
+    assert(source.protocol === 'https:' && source.hostname.endsWith('.nasa.gov') && source.pathname.includes(id), `Planet facts link to the matching primary NASA source: ${id}`);
+    await noOverflow(page, 'space website ' + id + ' ' + width);
+  }
+  assert(descriptions.size === 4 && facts.size === 4 && graphics.size === 4, 'All four planet choices change the actual graphic, explanation and fact');
+  const theme = page.locator('#cosmos-theme');
+  const before = await page.locator('body').evaluate(el => getComputedStyle(el).backgroundColor);
+  const previousPressed = await theme.getAttribute('aria-pressed');
+  await theme.click();
+  assert(await theme.getAttribute('aria-pressed') !== previousPressed, 'Theme button exposes its changed state');
+  assert(await page.locator('body').evaluate(el => getComputedStyle(el).backgroundColor) !== before, 'Theme button changes the actual page background');
+  await noOverflow(page, 'space website changed theme ' + width);
+  await page.screenshot({ path: `${artifacts}/ai-path-${width}-cosmos-example.png`, fullPage: true, animations: 'disabled' });
+  assert(await page.locator('#cosmos-gallery-link').getAttribute('href') === '../#result-gallery', 'Example offers a direct return to the result gallery');
+  const program = page.locator('#cosmos-program-link');
+  assert(await program.getAttribute('href') === '../?program=build&level=zero&pace=balanced#selected', 'Example returns to its corresponding beginner program');
+  await program.click();
+  await selected(page, 'build');
+  assert(new URL(page.url()).searchParams.get('level') === 'zero' && new URL(page.url()).searchParams.get('pace') === 'balanced', 'Example program link restores the intended beginner route');
+}
+
 async function desktopRegressions(page) {
   await chooseQuiz(page, { goal: 'research', interest: 'ml', level: 'zero' });
   await selected(page, 'qa');
@@ -875,6 +965,8 @@ try {
     await conversionFlow(page, width);
     await firstProjectOffer(page, width);
     await mentorExample(page, width);
+    await parentResultGallery(page, width);
+    if (width === 390) await cosmosExample(page, width);
     if (width === 1440) {
       await desktopRegressions(page);
       await pdfLoadingAndRetry(context, width);
@@ -883,7 +975,7 @@ try {
     if (width === 320) await selectedBreakpointChecks(page);
     await noOverflow(page, 'final');
     await page.goto(new URL('3d-checks.html', base).href, {waitUntil:'domcontentloaded'});
-    assert(await page.locator('.matrix tbody tr').count() === 22, '3D verification matrix includes all 22 checks');
+    assert(await page.locator('.matrix tbody tr').count() === 26, '3D verification matrix includes all 26 checks');
     await page.locator('#areaFilter').selectOption('Программа');
     assert(await page.locator('.matrix tbody tr:visible').count() === 6, 'Matrix filters by learning program');
     await page.locator('#statusFilter').selectOption('not_run');
@@ -893,7 +985,7 @@ try {
     await page.locator('#statusFilter').selectOption('all');
     await screenshot(page, width, '3d-check-matrix');
     assert(errors.length === 0, 'No browser JavaScript errors: ' + errors.join('; '));
-    console.log(`PASS ${width}x${height}: guided choice, vibe course/CRM, book route, comparison, navigator offer, mentor verification example, contact draft, real PDF contents/links and idea isolation, preserved gallery/notebook/lab content and responsive layout`);
+    console.log(`PASS ${width}x${height}: guided choice, vibe course/CRM, book route, comparison, navigator offer, mentor verification example, parent result gallery${width === 390 ? ' and interactive space website' : ''}, contact draft, real PDF contents/links and idea isolation, preserved gallery/notebook/lab content and responsive layout`);
     await context.close();
     activePage = undefined;
   }

@@ -482,17 +482,105 @@
     {
       "id": "D02",
       "scene": "Другие браузеры",
-      "action": "Safari/iOS, Firefox и аппаратные GPU",
-      "expected": "Проверить визуальное совпадение, WebGL-совместимость и производительность.",
-      "method": "Отдельный прогон на целевых платформах",
+      "action": "Safari/iOS и аппаратные GPU",
+      "expected": "Проверить работу на Safari/iOS и видеодрайверах реальных устройств.",
+      "method": "Отдельный прогон на физических устройствах",
       "status": "not_run",
       "steps": [
-        "Повторить ключевые сценарии на Safari/iOS и Firefox.",
+        "Повторить ключевые сценарии на Safari/iOS.",
         "Проверить аппаратные GPU и драйверы целевых устройств.",
         "Сравнить тени, цвет и производительность."
       ],
-      "result": "Не выполнялось в этой итерации. Результаты Chromium/SwiftShader не перенесены на эти платформы.",
+      "result": "Пока не выполнялось. Linux WebKit и Firefox проверяются отдельно и не заменяют испытание Safari/iOS и аппаратных GPU.",
       "evidence": []
+    },
+    {
+      "id": "B01",
+      "scene": "Firefox",
+      "action": "Firefox: настоящий рендер комнаты и храма",
+      "expected": "Непустая 3D-модель, изменение света и камер, читаемое управление на 1200/390/320 px.",
+      "method": "Playwright Firefox, Ubuntu, Xvfb и программная графика Mesa; реальная геометрия и шейдеры.",
+      "status": "passed",
+      "steps": [
+        "Запустить комнату и храм, включая полное свечение храма.",
+        "Сравнить яркость и ракурсы, включить лампы по отдельности.",
+        "Повторить мобильный размер и паузу/возобновление."
+      ],
+      "result": "PASS: комната 28 и храм 20 проверок; реальные WebGL-кадры и свет на 1200/390/320 px. Версия движка: Firefox 141.0.",
+      "evidence": [
+        {
+          "label": "Комната · firefox · PASS",
+          "url": "https://github.com/safal207/room-control-studio/actions/runs/39111051812"
+        },
+        {
+          "label": "Храм · firefox · PASS",
+          "url": "https://github.com/safal207/quiet-hours-sanctuary/actions/runs/39111054622"
+        }
+      ]
+    },
+    {
+      "id": "B02",
+      "scene": "WebKit",
+      "action": "WebKit: настоящий рендер комнаты и храма",
+      "expected": "Непустая 3D-модель, изменение света и камер, читаемое управление на 1200/390/320 px.",
+      "method": "Playwright WebKit, Ubuntu, Xvfb и программная графика Mesa; реальная геометрия и шейдеры.",
+      "status": "passed",
+      "steps": [
+        "Запустить комнату и храм, включая полное свечение храма.",
+        "Сравнить яркость и ракурсы, включить лампы по отдельности.",
+        "Повторить мобильный размер и паузу/возобновление."
+      ],
+      "result": "PASS: комната 28 и храм 20 проверок; реальные WebGL-кадры и свет на 1200/390/320 px. Версия движка: WebKit 26.0 на Linux; это не Safari/iOS.",
+      "evidence": [
+        {
+          "label": "Комната · webkit · PASS",
+          "url": "https://github.com/safal207/room-control-studio/actions/runs/39111051812"
+        },
+        {
+          "label": "Храм · webkit · PASS",
+          "url": "https://github.com/safal207/quiet-hours-sanctuary/actions/runs/39111054622"
+        }
+      ]
+    },
+    {
+      "id": "B03",
+      "scene": "Firefox",
+      "action": "Firefox: превью внутри программы и учебный план",
+      "expected": "Карточка и план читаются, 3D запускается и останавливается, ошибки сохраняют постер; переходы ведут к реальным неделям обучения.",
+      "method": "Playwright Firefox, Ubuntu; 1440/390/320 px; контракт родительского iframe и отдельное реальное встраивание.",
+      "status": "passed",
+      "steps": [
+        "Выбрать Design Lab и проверить кадры моделей.",
+        "Проверить переключение сцены, паузу вне экрана и повторный запуск после ошибки.",
+        "Проверить недели 4–6, PDF и фильтры матрицы."
+      ],
+      "result": "PASS: 246 проверок карточек, плана, PDF и iframe на 1440/390/320 px. Отдельно обе опубликованные модели запущены внутри программы на 390 px: реальный WebGL, свет, пауза/возобновление и остановка.",
+      "evidence": [
+        {
+          "label": "firefox · программа + настоящее 3D · PASS",
+          "url": "https://github.com/safal207/test-it-python/actions/runs/39111564684"
+        }
+      ]
+    },
+    {
+      "id": "B04",
+      "scene": "WebKit",
+      "action": "WebKit: превью внутри программы и учебный план",
+      "expected": "Карточка и план читаются, 3D запускается и останавливается, ошибки сохраняют постер; переходы ведут к реальным неделям обучения.",
+      "method": "Playwright WebKit, Ubuntu; 1440/390/320 px; контракт родительского iframe и отдельное реальное встраивание.",
+      "status": "passed",
+      "steps": [
+        "Выбрать Design Lab и проверить кадры моделей.",
+        "Проверить переключение сцены, паузу вне экрана и повторный запуск после ошибки.",
+        "Проверить недели 4–6, PDF и фильтры матрицы."
+      ],
+      "result": "PASS: 246 проверок карточек, плана, PDF и iframe на 1440/390/320 px. Отдельно обе опубликованные модели запущены внутри программы на 390 px: реальный WebGL, свет, пауза/возобновление и остановка.",
+      "evidence": [
+        {
+          "label": "webkit · программа + настоящее 3D · PASS",
+          "url": "https://github.com/safal207/test-it-python/actions/runs/39111564684"
+        }
+      ]
     }
   ],
   "schema_version": 1,
@@ -500,7 +588,9 @@
   "status_labels": {
     "passed": "Подтверждено",
     "pending": "Ожидает CI",
-    "not_run": "Не запускали"
+    "not_run": "Не запускали",
+    "failed": "Найдена ошибка",
+    "unsupported": "Недоступно в этой среде"
   },
   "environments": [
     {
@@ -517,13 +607,24 @@
       "id": "school_fixture",
       "name": "Программа обучения",
       "details": "Chromium 1440×960, 390×844, 320×740. В проверках iframe используется тестовый дочерний документ. Пиксели 3D проверяются отдельно в репозиториях сцен."
+    },
+    {
+      "id": "cross_browser",
+      "name": "Firefox и WebKit на Linux",
+      "details": "Firefox 141.0 и Playwright WebKit 26.0 на Ubuntu, Xvfb, Mesa llvmpipe. Каждый движок исполнил 48 проверок рендера двух сцен. В отчётах сохранены версии и GL-диагностика; маскированное имя GPU браузера не считается подтверждением аппаратуры."
+    },
+    {
+      "id": "cross_browser_school",
+      "name": "Программа и живое встраивание",
+      "details": "Firefox 141.0 и Playwright WebKit 26.0: карточки, PDF и iframe-контракт на 1440/390/320 px. На 390 px отдельно загружены опубликованные реальные сцены внутри школьного iframe. В этой композиции школьные файлы текущего checkout обслуживаются под её production origin; страницы сцен не подменяются."
     }
   ],
   "limits": [
     "SwiftShader исполняет настоящие WebGL-шейдеры программно. Это не испытание GPU физического телефона.",
     "Проверки яркости и различия кадров обнаруживают пустые сцены и ошибки освещения. Они не подтверждают художественное качество всех теней и материалов.",
     "Школьный тест проверяет карточку, план, PDF и взаимодействие с iframe через тестовый документ; он не дублирует рендер модели.",
-    "Плавность, FPS, нагрев, расход батареи, Safari/iOS, Firefox и встроенные мобильные браузеры в эту итерацию не входят."
+    "Плавность, FPS, нагрев, расход батареи и встроенные браузеры физических телефонов здесь не измеряются. Проверки Firefox и WebKit относятся к Linux и указанным версиям движков; Safari/iOS и аппаратные GPU требуют отдельного прогона.",
+    "Название GPU, сообщаемое браузером, может быть маскировано. В Linux WebKit строка Apple GPU не означает проверку устройства Apple; реальная среда CI записана отдельно в Mesa-диагностике."
   ],
   "runs": {
     "temple": {
@@ -548,11 +649,71 @@
     },
     "school": {
       "repo": "safal207/test-it-python",
-      "commit": "3b98415e5d6ea87d17548f29337782e695469893",
-      "run_id": 39109173255,
-      "url": "https://github.com/safal207/test-it-python/actions/runs/39109173255",
+      "commit": "dffe8418fb050b16b663a618974e988bd18446ba",
+      "run_id": 39109455288,
+      "url": "https://github.com/safal207/test-it-python/actions/runs/39109455288",
       "status": "passed",
       "artifact": "ai-path-responsive-previews: скриншоты и PDF"
+    },
+    "room_firefox": {
+      "repo": "safal207/room-control-studio · firefox",
+      "commit": "0753c78c8a00f62257457680780f609c9577e2b8",
+      "run_id": 39111051812,
+      "url": "https://github.com/safal207/room-control-studio/actions/runs/39111051812",
+      "status": "passed",
+      "artifact": "qa-webgl-room-firefox",
+      "report_path": "docs/3d-evidence-room-firefox.json",
+      "case_count": 28
+    },
+    "temple_firefox": {
+      "repo": "safal207/quiet-hours-sanctuary · firefox",
+      "commit": "23dd1f81a38bd6026f7a45b3fbd302bdb9191832",
+      "run_id": 39111054622,
+      "url": "https://github.com/safal207/quiet-hours-sanctuary/actions/runs/39111054622",
+      "status": "passed",
+      "artifact": "qa-webgl-temple-firefox",
+      "report_path": "docs/3d-evidence-temple-firefox.json",
+      "case_count": 20
+    },
+    "room_webkit": {
+      "repo": "safal207/room-control-studio · webkit",
+      "commit": "0753c78c8a00f62257457680780f609c9577e2b8",
+      "run_id": 39111051812,
+      "url": "https://github.com/safal207/room-control-studio/actions/runs/39111051812",
+      "status": "passed",
+      "artifact": "qa-webgl-room-webkit",
+      "report_path": "docs/3d-evidence-room-webkit.json",
+      "case_count": 28
+    },
+    "temple_webkit": {
+      "repo": "safal207/quiet-hours-sanctuary · webkit",
+      "commit": "23dd1f81a38bd6026f7a45b3fbd302bdb9191832",
+      "run_id": 39111054622,
+      "url": "https://github.com/safal207/quiet-hours-sanctuary/actions/runs/39111054622",
+      "status": "passed",
+      "artifact": "qa-webgl-temple-webkit",
+      "report_path": "docs/3d-evidence-temple-webkit.json",
+      "case_count": 20
+    },
+    "school_firefox": {
+      "repo": "safal207/test-it-python · firefox",
+      "commit": "93b7dfca0dc0ceffb75e1bb121ebb28d12b3a4cd",
+      "run_id": 39111564684,
+      "url": "https://github.com/safal207/test-it-python/actions/runs/39111564684",
+      "status": "passed",
+      "artifact": "qa-3d-program-firefox",
+      "report_path": "docs/3d-evidence-school-firefox.json",
+      "case_count": 246
+    },
+    "school_webkit": {
+      "repo": "safal207/test-it-python · webkit",
+      "commit": "93b7dfca0dc0ceffb75e1bb121ebb28d12b3a4cd",
+      "run_id": 39111564684,
+      "url": "https://github.com/safal207/test-it-python/actions/runs/39111564684",
+      "status": "passed",
+      "artifact": "qa-3d-program-webkit",
+      "report_path": "docs/3d-evidence-school-webkit.json",
+      "case_count": 246
     }
   }
 }

@@ -1,0 +1,269 @@
+{
+  "scene": "temple",
+  "browser": "firefox",
+  "browserVersion": "141.0",
+  "engine": "Firefox / Linux Mesa software WebGL (headed Xvfb)",
+  "date": "2026-10-18T08:20:50.262Z",
+  "commit": "23dd1f81a38bd6026f7a45b3fbd302bdb9191832",
+  "status": "passed",
+  "stage": "complete",
+  "graphics": {
+    "contexts": {
+      "webgl": {
+        "version": "WebGL 1.0",
+        "vendor": "Mesa",
+        "renderer": "llvmpipe, or similar",
+        "shadingLanguage": "WebGL GLSL ES 1.0",
+        "maxTextureSize": 16384,
+        "maxRenderbufferSize": 16384
+      },
+      "webgl2": {
+        "version": "WebGL 2.0",
+        "vendor": "Mesa",
+        "renderer": "llvmpipe, or similar",
+        "shadingLanguage": "WebGL GLSL ES 3.00",
+        "maxTextureSize": 16384,
+        "maxRenderbufferSize": 16384
+      }
+    },
+    "errors": []
+  },
+  "cases": [
+    {
+      "id": "low-1200-webgl-startup",
+      "status": "pass",
+      "viewport": {
+        "width": 1200,
+        "height": 800
+      },
+      "gl": {
+        "version": "WebGL 2.0",
+        "renderer": "llvmpipe, or similar"
+      }
+    },
+    {
+      "id": "low-1200-controls-fit",
+      "status": "pass"
+    },
+    {
+      "id": "temple-low-default",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 28.986005804388974,
+        "std": 33.60547399627698,
+        "min": 1,
+        "max": 217.4392,
+        "clippedFraction": 0,
+        "blackFraction": 0.0019145833333333332
+      },
+      "image": "temple-low-default.png",
+      "poster": false
+    },
+    {
+      "id": "temple-low-light-60",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 19.907578217510782,
+        "std": 25.853577163994434,
+        "min": 0.9318,
+        "max": 179.362,
+        "clippedFraction": 0,
+        "blackFraction": 0.06223854166666667
+      },
+      "image": "temple-low-light-60.png",
+      "poster": false
+    },
+    {
+      "id": "temple-low-light-140",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 36.62298437374165,
+        "std": 38.84827900041553,
+        "min": 1,
+        "max": 238.9878,
+        "clippedFraction": 0,
+        "blackFraction": 0.00164375
+      },
+      "image": "temple-low-light-140.png",
+      "poster": false
+    },
+    {
+      "id": "temple-low-light-monotonic",
+      "status": "pass",
+      "low": 19.907578217510782,
+      "high": 36.62298437374165
+    },
+    {
+      "id": "temple-close-view",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 30.9046364279401,
+        "std": 36.64753595559709,
+        "min": 0.0722,
+        "max": 244.78339999999997,
+        "clippedFraction": 0,
+        "blackFraction": 0.001790625
+      },
+      "image": "temple-close-view.png",
+      "poster": false
+    },
+    {
+      "id": "temple-camera-change",
+      "status": "pass"
+    },
+    {
+      "id": "high-1200-webgl-startup",
+      "status": "pass",
+      "viewport": {
+        "width": 1200,
+        "height": 800
+      },
+      "gl": {
+        "version": "WebGL 2.0",
+        "renderer": "llvmpipe, or similar"
+      }
+    },
+    {
+      "id": "temple-bloom-light-60",
+      "status": "pass",
+      "quality": "high",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 23.26150800478113,
+        "std": 20.851192014785372,
+        "min": 0,
+        "max": 128.90679999999998,
+        "clippedFraction": 0,
+        "blackFraction": 0.238790625
+      },
+      "image": "temple-bloom-light-60.png",
+      "poster": false
+    },
+    {
+      "id": "temple-bloom-light-140",
+      "status": "pass",
+      "quality": "high",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 40.2395356131195,
+        "std": 30.78045404914923,
+        "min": 0,
+        "max": 186.3634,
+        "clippedFraction": 0,
+        "blackFraction": 0.113715625
+      },
+      "image": "temple-bloom-light-140.png",
+      "poster": false
+    },
+    {
+      "id": "temple-bloom-real-shaders-and-light",
+      "status": "pass",
+      "low": 23.26150800478113,
+      "high": 40.2395356131195
+    },
+    {
+      "id": "low-390-webgl-startup",
+      "status": "pass",
+      "viewport": {
+        "width": 390,
+        "height": 520
+      },
+      "gl": {
+        "version": "WebGL 2.0",
+        "renderer": "llvmpipe, or similar"
+      }
+    },
+    {
+      "id": "low-390-controls-fit",
+      "status": "pass"
+    },
+    {
+      "id": "temple-mobile-390",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "390×520",
+      "metrics": {
+        "width": 390,
+        "height": 520,
+        "mean": 22.848364757396105,
+        "std": 29.998731786579295,
+        "min": 0.7874,
+        "max": 201.59439999999998,
+        "clippedFraction": 0,
+        "blackFraction": 0.03643491124260355
+      },
+      "image": "temple-mobile-390.png",
+      "poster": false
+    },
+    {
+      "id": "temple-mobile-390-visibility-origin",
+      "status": "pass"
+    },
+    {
+      "id": "low-320-webgl-startup",
+      "status": "pass",
+      "viewport": {
+        "width": 320,
+        "height": 520
+      },
+      "gl": {
+        "version": "WebGL 2.0",
+        "renderer": "llvmpipe, or similar"
+      }
+    },
+    {
+      "id": "low-320-controls-fit",
+      "status": "pass"
+    },
+    {
+      "id": "temple-mobile-320",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "320×520",
+      "metrics": {
+        "width": 320,
+        "height": 520,
+        "mean": 23.003641868991906,
+        "std": 30.09507187999727,
+        "min": 0.7874,
+        "max": 200.807,
+        "clippedFraction": 0,
+        "blackFraction": 0.030096153846153845
+      },
+      "image": "temple-mobile-320.png",
+      "poster": false
+    },
+    {
+      "id": "temple-mobile-320-visibility-origin",
+      "status": "pass"
+    }
+  ],
+  "errors": [],
+  "limits": [
+    "Software WebGL does not certify an Android/iOS device GPU.",
+    "Playwright WebKit on Linux is not Safari or an iPhone/iPad browser.",
+    "Pixel luminance checks detect blank scenes and lighting regressions; aesthetic review of screenshots remains separate."
+  ],
+  "runnerGraphicsDiagnostic": "name of display: :99\ndisplay: :99  screen: 0\ndirect rendering: Yes\nExtended renderer info (GLX_MESA_query_renderer):\n    Vendor: Mesa (0xffffffff)\n    Device: llvmpipe (LLVM 20.1.2, 256 bits) (0xffffffff)\n    Version: 25.2.8\n    Accelerated: no\n    Video memory: 15989MB\n    Unified memory: yes\n    Preferred profile: core (0x1)\n    Max core profile version: 4.5\n    Max compat profile version: 4.5\n    Max GLES1 profile version: 1.1\n    Max GLES[23] profile version: 3.2\nMemory info (GL_ATI_meminfo):\n    VBO free memory - total: 0 MB, largest block: 0 MB\n    VBO free aux. memory - total: 14731 MB, largest block: 14731 MB\n    Texture free memory - total: 0 MB, largest block: 0 MB\n    Texture free aux. memory - total: 14731 MB, largest block: 14731 MB\n    Renderbuffer free memory - total: 0 MB, largest block: 0 MB\n    Renderbuffer free aux. memory - total: 14731 MB, largest block: 14731 MB\nMemory info (GL_NVX_gpu_memory_info):\n    Dedicated video memory: 0 MB\n    Total available memory: 15989 MB\n    Currently available dedicated video memory: 0 MB\nOpenGL vendor string: Mesa\nOpenGL renderer string: llvmpipe (LLVM 20.1.2, 256 bits)\nOpenGL core profile version string: 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.4\nOpenGL core profile shading language version string: 4.50\nOpenGL core profile context flags: (none)\nOpenGL core profile profile mask: core profile\n\nOpenGL version string: 4.5 (Compatibility Profile) Mesa 25.2.8-0ubuntu0.24.04.4\nOpenGL shading language version string: 4.50\nOpenGL context flags: (none)\nOpenGL profile mask: compatibility profile\n\nOpenGL ES profile version string: OpenGL ES 3.2 Mesa 25.2.8-0ubuntu0.24.04.4\nOpenGL ES profile shading language version string: OpenGL ES GLSL ES 3.20\n\n",
+  "rendererLabelNote": "Browser renderer labels can be masked (for example Apple GPU on Linux WebKit). They do not identify physical hardware. The runner diagnostic records software llvmpipe."
+}

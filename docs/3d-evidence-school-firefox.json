@@ -1,0 +1,1355 @@
+{
+  "engine": "firefox",
+  "browserVersion": "141.0",
+  "platform": "linux",
+  "arch": "x64",
+  "revision": "93b7dfca0dc0ceffb75e1bb121ebb28d12b3a4cd",
+  "runId": "39111564684",
+  "startedAt": "2026-10-18T08:28:51.914Z",
+  "status": "passed",
+  "checks": [
+    {
+      "width": 1440,
+      "name": "Direct Design Lab route exposes the model beside the learning plan",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Program selection does not create an iframe before launch",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Catalog contains one Design Lab card",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Catalog uses an actual rendered-model poster",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Source-backed model image decodes",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Scene tab selects its own model poster",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Source-backed model image decodes",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Changing the poster does not load a renderer",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Selected scene tab is announced",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Scene tab selects its own model poster",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Source-backed model image decodes",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Changing the poster does not load a renderer",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Selected scene tab is announced",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Selected plan retains six learning stages",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Model task links to the correct curriculum week",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Linked curriculum week exists once",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Week action navigates to its real learning stage",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Week navigation preserves the selected program",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Model task links to the correct curriculum week",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Linked curriculum week exists once",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Week action navigates to its real learning stage",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Week navigation preserves the selected program",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Model task links to the correct curriculum week",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Linked curriculum week exists once",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Week action navigates to its real learning stage",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Week navigation preserves the selected program",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Source-backed model image decodes",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "poster-and-plan: document fits the viewport (1440/1440)",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Explicit launch creates exactly one preview iframe",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Preview receives the parent origin through its referrer policy",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Iframe has the intended restricted capabilities",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Wrong message origin or source cannot mark ready or remove a preview",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Verified readiness reveals the iframe",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Ready preview clears the loading state",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Offscreen preview receives a pause instruction",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Visible preview receives a resume instruction",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Failed preview restores the rendered-model poster",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Failed preview exposes an actionable retry",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Explicit launch creates exactly one preview iframe",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Switching scenes disposes the previous iframe",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Explicit launch creates exactly one preview iframe",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Cancel removes the loading iframe and clears busy state",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Explicit launch creates exactly one preview iframe",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Another program disposes 3D and hides its panel",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Another program restores its regular result preview",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Returning to Design Lab starts with an idle poster",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Source-backed model image decodes",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Model and plan after all transitions: document fits the viewport (1440/1440)",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "PDF filename identifies the chosen program",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "PDF downloads successfully",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Downloaded file has the PDF signature",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "PDF pages contain readable text",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "PDF contains the selected Design Lab title",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "PDF retains a selected learning stage",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "PDF retains a selected learning stage",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "PDF retains a selected learning stage",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "PDF retains a selected learning stage",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "PDF retains a selected learning stage",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "PDF retains a selected learning stage",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "PDF includes a clickable canonical route to this plan",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "PDF never shares the local test address",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "PDF action returns to its ready state",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Verification matrix retains all original checks and any added browser checks",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Physical-phone validation remains explicitly unrun",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Unverified target-platform row remains explicitly unrun",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Matrix can filter to the school program checks",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Matrix explains an empty combined filter",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Matrix exposes unrun checks without presenting them as passed",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Matrix result count follows the active filter",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Clearing filters restores the complete matrix",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "Verification matrix: document fits the viewport (1440/1440)",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "name": "No unhandled browser JavaScript errors: ",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Direct Design Lab route exposes the model beside the learning plan",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Program selection does not create an iframe before launch",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Catalog contains one Design Lab card",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Catalog uses an actual rendered-model poster",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Source-backed model image decodes",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Scene tab selects its own model poster",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Source-backed model image decodes",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Changing the poster does not load a renderer",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Selected scene tab is announced",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Scene tab selects its own model poster",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Source-backed model image decodes",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Changing the poster does not load a renderer",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Selected scene tab is announced",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Selected plan retains six learning stages",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Model task links to the correct curriculum week",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Linked curriculum week exists once",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Week action navigates to its real learning stage",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Week navigation preserves the selected program",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Model task links to the correct curriculum week",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Linked curriculum week exists once",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Week action navigates to its real learning stage",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Week navigation preserves the selected program",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Model task links to the correct curriculum week",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Linked curriculum week exists once",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Week action navigates to its real learning stage",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Week navigation preserves the selected program",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Source-backed model image decodes",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "poster-and-plan: document fits the viewport (390/390)",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Explicit launch creates exactly one preview iframe",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Preview receives the parent origin through its referrer policy",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Iframe has the intended restricted capabilities",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Mobile live-preview geometry",
+      "status": "observed",
+      "geometry": {
+        "height": 380,
+        "minHeight": 380,
+        "width": 324
+      }
+    },
+    {
+      "width": 390,
+      "name": "Mobile live-preview stage reserves 380px within 1px geometry tolerance: {\"height\":380,\"minHeight\":380,\"width\":324}",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Wrong message origin or source cannot mark ready or remove a preview",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Verified readiness reveals the iframe",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Ready preview clears the loading state",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Offscreen preview receives a pause instruction",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Visible preview receives a resume instruction",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Failed preview restores the rendered-model poster",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Failed preview exposes an actionable retry",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Explicit launch creates exactly one preview iframe",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Switching scenes disposes the previous iframe",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Explicit launch creates exactly one preview iframe",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Cancel removes the loading iframe and clears busy state",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Explicit launch creates exactly one preview iframe",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Another program disposes 3D and hides its panel",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Another program restores its regular result preview",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Returning to Design Lab starts with an idle poster",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Source-backed model image decodes",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Model and plan after all transitions: document fits the viewport (390/390)",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "PDF filename identifies the chosen program",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "PDF downloads successfully",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Downloaded file has the PDF signature",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "PDF pages contain readable text",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "PDF contains the selected Design Lab title",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "PDF retains a selected learning stage",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "PDF retains a selected learning stage",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "PDF retains a selected learning stage",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "PDF retains a selected learning stage",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "PDF retains a selected learning stage",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "PDF retains a selected learning stage",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "PDF includes a clickable canonical route to this plan",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "PDF never shares the local test address",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "PDF action returns to its ready state",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Verification matrix retains all original checks and any added browser checks",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Physical-phone validation remains explicitly unrun",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Unverified target-platform row remains explicitly unrun",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Matrix can filter to the school program checks",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Matrix explains an empty combined filter",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Matrix exposes unrun checks without presenting them as passed",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Matrix result count follows the active filter",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Clearing filters restores the complete matrix",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Verification matrix: document fits the viewport (390/390)",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "No unhandled browser JavaScript errors: ",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Direct Design Lab route exposes the model beside the learning plan",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Program selection does not create an iframe before launch",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Catalog contains one Design Lab card",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Catalog uses an actual rendered-model poster",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Source-backed model image decodes",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Scene tab selects its own model poster",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Source-backed model image decodes",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Changing the poster does not load a renderer",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Selected scene tab is announced",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Scene tab selects its own model poster",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Source-backed model image decodes",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Changing the poster does not load a renderer",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Selected scene tab is announced",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Selected plan retains six learning stages",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Model task links to the correct curriculum week",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Linked curriculum week exists once",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Week action navigates to its real learning stage",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Week navigation preserves the selected program",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Model task links to the correct curriculum week",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Linked curriculum week exists once",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Week action navigates to its real learning stage",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Week navigation preserves the selected program",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Model task links to the correct curriculum week",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Linked curriculum week exists once",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Week action navigates to its real learning stage",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Week navigation preserves the selected program",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Source-backed model image decodes",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "poster-and-plan: document fits the viewport (320/320)",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Explicit launch creates exactly one preview iframe",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Preview receives the parent origin through its referrer policy",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Iframe has the intended restricted capabilities",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Mobile live-preview geometry",
+      "status": "observed",
+      "geometry": {
+        "height": 380,
+        "minHeight": 380,
+        "width": 262
+      }
+    },
+    {
+      "width": 320,
+      "name": "Mobile live-preview stage reserves 380px within 1px geometry tolerance: {\"height\":380,\"minHeight\":380,\"width\":262}",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Wrong message origin or source cannot mark ready or remove a preview",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Verified readiness reveals the iframe",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Ready preview clears the loading state",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Offscreen preview receives a pause instruction",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Visible preview receives a resume instruction",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Failed preview restores the rendered-model poster",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Failed preview exposes an actionable retry",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Explicit launch creates exactly one preview iframe",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Switching scenes disposes the previous iframe",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Explicit launch creates exactly one preview iframe",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Cancel removes the loading iframe and clears busy state",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Explicit launch creates exactly one preview iframe",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Another program disposes 3D and hides its panel",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Another program restores its regular result preview",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Returning to Design Lab starts with an idle poster",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Source-backed model image decodes",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Model and plan after all transitions: document fits the viewport (320/320)",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "PDF filename identifies the chosen program",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "PDF downloads successfully",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Downloaded file has the PDF signature",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "PDF pages contain readable text",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "PDF contains the selected Design Lab title",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "PDF retains a selected learning stage",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "PDF retains a selected learning stage",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "PDF retains a selected learning stage",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "PDF retains a selected learning stage",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "PDF retains a selected learning stage",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "PDF retains a selected learning stage",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "PDF includes a clickable canonical route to this plan",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "PDF never shares the local test address",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "PDF action returns to its ready state",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Verification matrix retains all original checks and any added browser checks",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Physical-phone validation remains explicitly unrun",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Unverified target-platform row remains explicitly unrun",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Matrix can filter to the school program checks",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Matrix explains an empty combined filter",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Matrix exposes unrun checks without presenting them as passed",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Matrix result count follows the active filter",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Clearing filters restores the complete matrix",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "Verification matrix: document fits the viewport (320/320)",
+      "status": "passed"
+    },
+    {
+      "width": 320,
+      "name": "No unhandled browser JavaScript errors: ",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Actual embed: school runs under its production origin",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Explicit launch creates exactly one preview iframe",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Actual room renderer initializes without a caught error: null",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Actual room readiness reaches the school through the sandbox/referrer protocol",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Actual room child receives the expected strict-origin referrer",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Actual room canvas has an initialized WebGL context",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Actual room light control displays its min value",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Actual room light control displays its max value",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Actual room light change alters the rendered canvas capture",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Actual room light interaction renders a new frame",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Actual room renderer pauses when its school panel is offscreen",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Actual room renderer resumes when its school panel is visible",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "actual-room-and-plan: document fits the viewport (390/390)",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Actual room stop disposes its iframe",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Explicit launch creates exactly one preview iframe",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Actual temple renderer initializes without a caught error: null",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Actual temple readiness reaches the school through the sandbox/referrer protocol",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Actual temple child receives the expected strict-origin referrer",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Actual temple canvas has an initialized WebGL context",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Actual temple light control displays its min value",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Actual temple light control displays its max value",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Actual temple light change alters the rendered canvas capture",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Actual temple light interaction renders a new frame",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Actual temple renderer pauses when its school panel is offscreen",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Actual temple renderer resumes when its school panel is visible",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "actual-temple-and-plan: document fits the viewport (390/390)",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Actual temple stop disposes its iframe",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "name": "Actual scene composition has no unhandled browser errors: ",
+      "status": "passed"
+    }
+  ],
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 1000,
+      "status": "passed",
+      "browserErrors": []
+    },
+    {
+      "width": 390,
+      "height": 840,
+      "status": "passed",
+      "browserErrors": []
+    },
+    {
+      "width": 320,
+      "height": 840,
+      "status": "passed",
+      "browserErrors": []
+    }
+  ],
+  "actualEmbeds": [
+    {
+      "scene": "room",
+      "width": 390,
+      "height": 840,
+      "status": "passed",
+      "origin": "https://safal207.github.io",
+      "source": "Published scene, current school checkout",
+      "url": "https://safal207.github.io/room-control-studio/preview.html?v=program-3d-1",
+      "previewError": null,
+      "referrer": "https://safal207.github.io/",
+      "webgl": {
+        "version": "WebGL 2.0",
+        "renderer": "llvmpipe, or similar",
+        "width": 322,
+        "height": 378
+      },
+      "lightScreenshotHashes": [
+        "209cd6e9e7296affc744f79c4ccb5a0ac9257aa7f7a41491377c92d70d36a806",
+        "87407b781977646bbcb5153b3d1c1b0dc99c520f1d34c565df9f25f06b634498"
+      ]
+    },
+    {
+      "scene": "temple",
+      "width": 390,
+      "height": 840,
+      "status": "passed",
+      "origin": "https://safal207.github.io",
+      "source": "Published scene, current school checkout",
+      "url": "https://safal207.github.io/quiet-hours-sanctuary/preview.html?v=program-3d-1",
+      "previewError": null,
+      "referrer": "https://safal207.github.io/",
+      "webgl": {
+        "version": "WebGL 2.0",
+        "renderer": "llvmpipe, or similar",
+        "width": 322,
+        "height": 378
+      },
+      "lightScreenshotHashes": [
+        "86231ef047c211323c50a3c7d851e215fa0a080b4cf4b2d0ffc24a79a58b8aac",
+        "3b8b6881f1568742926427fd717a59c8824b66a2c71f6fe31be31532c9d1ffe5"
+      ]
+    }
+  ],
+  "scope": "School program cards, real-model posters, learning plan, PDF, matrix filters and iframe lifecycle",
+  "iframe": "Three-width lifecycle uses a cross-origin HTML message fixture. A separate 390px composition uses the published real scene in the school iframe.",
+  "limitations": [
+    "Linux Playwright engines, not branded Safari or a physical phone",
+    "Viewport dimensions do not emulate a device GPU, touch behavior or performance"
+  ],
+  "actualEmbedDiagnostics": {
+    "consoleErrors": [],
+    "failedRequests": [],
+    "sceneDocuments": [
+      {
+        "url": "https://safal207.github.io/room-control-studio/preview.html?v=program-3d-1",
+        "status": 200,
+        "etag": "W/\"6ad48175-68a\""
+      },
+      {
+        "url": "https://safal207.github.io/quiet-hours-sanctuary/preview.html?v=program-3d-1",
+        "status": 200,
+        "etag": "W/\"6ad481c0-589\""
+      }
+    ]
+  },
+  "finishedAt": "2026-10-18T08:29:15.110Z",
+  "totals": {
+    "passed": 246,
+    "failed": 0
+  },
+  "runnerGraphicsDiagnostic": "name of display: :99\ndisplay: :99  screen: 0\ndirect rendering: Yes\nExtended renderer info (GLX_MESA_query_renderer):\n    Vendor: Mesa (0xffffffff)\n    Device: llvmpipe (LLVM 20.1.2, 256 bits) (0xffffffff)\n    Version: 25.2.8\n    Accelerated: no\n    Video memory: 15989MB\n    Unified memory: yes\n    Preferred profile: core (0x1)\n    Max core profile version: 4.5\n    Max compat profile version: 4.5\n    Max GLES1 profile version: 1.1\n    Max GLES[23] profile version: 3.2\nMemory info (GL_ATI_meminfo):\n    VBO free memory - total: 0 MB, largest block: 0 MB\n    VBO free aux. memory - total: 14891 MB, largest block: 14891 MB\n    Texture free memory - total: 0 MB, largest block: 0 MB\n    Texture free aux. memory - total: 14891 MB, largest block: 14891 MB\n    Renderbuffer free memory - total: 0 MB, largest block: 0 MB\n    Renderbuffer free aux. memory - total: 14891 MB, largest block: 14891 MB\nMemory info (GL_NVX_gpu_memory_info):\n    Dedicated video memory: 0 MB\n    Total available memory: 15989 MB\n    Currently available dedicated video memory: 0 MB\nOpenGL vendor string: Mesa\nOpenGL renderer string: llvmpipe (LLVM 20.1.2, 256 bits)\nOpenGL core profile version string: 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.4\nOpenGL core profile shading language version string: 4.50\nOpenGL core profile context flags: (none)\nOpenGL core profile profile mask: core profile\n\nOpenGL version string: 4.5 (Compatibility Profile) Mesa 25.2.8-0ubuntu0.24.04.4\nOpenGL shading language version string: 4.50\nOpenGL context flags: (none)\nOpenGL profile mask: compatibility profile\n\nOpenGL ES profile version string: OpenGL ES 3.2 Mesa 25.2.8-0ubuntu0.24.04.4\nOpenGL ES profile shading language version string: OpenGL ES GLSL ES 3.20\n\n",
+  "rendererLabelNote": "Browser-provided GPU labels may be masked. This run used Linux software graphics; it is not physical Apple/Android hardware."
+}
