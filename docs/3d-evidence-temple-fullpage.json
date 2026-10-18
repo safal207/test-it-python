@@ -1,0 +1,694 @@
+{
+  "entry": "dist/index.html",
+  "browser": "chromium",
+  "browserVersion": "140.0.7339.16",
+  "engine": "Chromium / ANGLE SwiftShader software WebGL",
+  "date": "2026-10-18T09:22:28.488Z",
+  "commit": "d8cd29e4cde05a306dd1791c78abad9124c2311d",
+  "status": "passed",
+  "stage": "complete",
+  "cases": [
+    {
+      "id": "1200-raster-poster-before-webgl",
+      "status": "pass",
+      "src": "http://127.0.0.1:41671/assets/scene-preview.png",
+      "width": 1200,
+      "height": 800
+    },
+    {
+      "id": "1200-poster-layout",
+      "status": "pass",
+      "viewport": 1200,
+      "scene": {
+        "x": 370.96875,
+        "y": 172,
+        "width": 771.4375,
+        "height": 514.28125,
+        "right": 1142.40625,
+        "bottom": 686.28125
+      },
+      "overflow": 0,
+      "controlsBelowScene": true
+    },
+    {
+      "id": "1200-poster-original",
+      "status": "pass",
+      "image": "1200-poster-original.png",
+      "metrics": {
+        "width": 771,
+        "height": 513,
+        "mean": 27.94672835713511,
+        "std": 31.712469778024786,
+        "min": 1,
+        "max": 216.724,
+        "clippedFraction": 0,
+        "blackFraction": 0.003585126528672163
+      }
+    },
+    {
+      "id": "1200-poster-light-60",
+      "status": "pass",
+      "image": "1200-poster-light-60.png",
+      "metrics": {
+        "width": 771,
+        "height": 513,
+        "mean": 17.09880037570356,
+        "std": 19.5514260482064,
+        "min": 1,
+        "max": 215.03779999999998,
+        "clippedFraction": 0,
+        "blackFraction": 0.016954766220927734
+      }
+    },
+    {
+      "id": "1200-poster-light-140",
+      "status": "pass",
+      "image": "1200-poster-light-140.png",
+      "metrics": {
+        "width": 771,
+        "height": 513,
+        "mean": 38.302157274295006,
+        "std": 42.200463078555295,
+        "min": 1,
+        "max": 249.80159999999998,
+        "clippedFraction": 0,
+        "blackFraction": 0.003329768433188462
+      }
+    },
+    {
+      "id": "1200-poster-close",
+      "status": "pass",
+      "image": "1200-poster-close.png",
+      "metrics": {
+        "width": 771,
+        "height": 513,
+        "mean": 39.11377142417939,
+        "std": 36.27775841734343,
+        "min": 2.357,
+        "max": 249.22399999999996,
+        "clippedFraction": 0,
+        "blackFraction": 0
+      }
+    },
+    {
+      "id": "1200-poster-light-framing-weather-reset",
+      "status": "pass"
+    },
+    {
+      "id": "1200-primary-3d-first-draw",
+      "status": "pass",
+      "gl": {
+        "width": 769,
+        "height": 512,
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      }
+    },
+    {
+      "id": "1200-3d-layout",
+      "status": "pass",
+      "viewport": 1200,
+      "scene": {
+        "x": 370.96875,
+        "y": 172,
+        "width": 771.4375,
+        "height": 514.28125,
+        "right": 1142.40625,
+        "bottom": 686.28125
+      },
+      "overflow": 0,
+      "controlsBelowScene": true
+    },
+    {
+      "id": "1200-full-page-3d",
+      "status": "pass",
+      "image": "1200-full-page-3d.png",
+      "metrics": {
+        "width": 771,
+        "height": 513,
+        "mean": 27.997101839839633,
+        "std": 31.793522953901142,
+        "min": 1,
+        "max": 216.724,
+        "clippedFraction": 0,
+        "blackFraction": 0.0040832012297641355
+      }
+    },
+    {
+      "id": "1200-3d-light-60",
+      "status": "pass",
+      "image": "1200-3d-light-60.png",
+      "metrics": {
+        "width": 771,
+        "height": 513,
+        "mean": 19.514016851606442,
+        "std": 24.673477176441367,
+        "min": 0.9318,
+        "max": 213.10999999999999,
+        "clippedFraction": 0,
+        "blackFraction": 0.055218027775881556
+      }
+    },
+    {
+      "id": "1200-3d-light-140",
+      "status": "pass",
+      "image": "1200-3d-light-140.png",
+      "metrics": {
+        "width": 771,
+        "height": 513,
+        "mean": 35.14080916002802,
+        "std": 36.67042087226909,
+        "min": 1,
+        "max": 237.5574,
+        "clippedFraction": 0,
+        "blackFraction": 0.003102221615430708
+      }
+    },
+    {
+      "id": "1200-3d-close",
+      "status": "pass",
+      "image": "1200-3d-close.png",
+      "metrics": {
+        "width": 771,
+        "height": 513,
+        "mean": 45.9286824371854,
+        "std": 47.38450572493636,
+        "min": 1.7873999999999999,
+        "max": 230.92279999999997,
+        "clippedFraction": 0,
+        "blackFraction": 0.00959236251747686
+      }
+    },
+    {
+      "id": "1200-full-page-light-camera-return-preserves-state",
+      "status": "pass",
+      "low": 19.514016851606442,
+      "high": 35.14080916002802
+    },
+    {
+      "id": "390-raster-poster-before-webgl",
+      "status": "pass",
+      "src": "http://127.0.0.1:41671/assets/scene-preview.png",
+      "width": 1200,
+      "height": 800
+    },
+    {
+      "id": "390-poster-layout",
+      "status": "pass",
+      "viewport": 390,
+      "scene": {
+        "x": 19.5,
+        "y": 260.484375,
+        "width": 351,
+        "height": 234,
+        "right": 370.5,
+        "bottom": 494.484375
+      },
+      "overflow": 0,
+      "controlsBelowScene": true
+    },
+    {
+      "id": "390-poster-original",
+      "status": "pass",
+      "image": "390-poster-original.png",
+      "metrics": {
+        "width": 350,
+        "height": 233,
+        "mean": 28.64107680932138,
+        "std": 32.23804007339589,
+        "min": 1,
+        "max": 212.8252,
+        "clippedFraction": 0,
+        "blackFraction": 0.0032618025751072963
+      }
+    },
+    {
+      "id": "390-poster-light-60",
+      "status": "pass",
+      "image": "390-poster-light-60.png",
+      "metrics": {
+        "width": 350,
+        "height": 233,
+        "mean": 18.16118972654786,
+        "std": 21.675990152080722,
+        "min": 1,
+        "max": 212.8252,
+        "clippedFraction": 0,
+        "blackFraction": 0.014494175352544452
+      }
+    },
+    {
+      "id": "390-poster-light-140",
+      "status": "pass",
+      "image": "390-poster-light-140.png",
+      "metrics": {
+        "width": 350,
+        "height": 233,
+        "mean": 38.63776424525014,
+        "std": 41.883009329555826,
+        "min": 1,
+        "max": 249.15179999999998,
+        "clippedFraction": 0,
+        "blackFraction": 0.003102391171060699
+      }
+    },
+    {
+      "id": "390-poster-close",
+      "status": "pass",
+      "image": "390-poster-close.png",
+      "metrics": {
+        "width": 350,
+        "height": 233,
+        "mean": 38.89685966891678,
+        "std": 35.7987612066391,
+        "min": 2.42,
+        "max": 248.64639999999997,
+        "clippedFraction": 0,
+        "blackFraction": 0
+      }
+    },
+    {
+      "id": "390-poster-light-framing-weather-reset",
+      "status": "pass"
+    },
+    {
+      "id": "390-primary-3d-first-draw",
+      "status": "pass",
+      "gl": {
+        "width": 349,
+        "height": 232,
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      }
+    },
+    {
+      "id": "390-3d-layout",
+      "status": "pass",
+      "viewport": 390,
+      "scene": {
+        "x": 19.5,
+        "y": 260.484375,
+        "width": 351,
+        "height": 234,
+        "right": 370.5,
+        "bottom": 494.484375
+      },
+      "overflow": 0,
+      "controlsBelowScene": true
+    },
+    {
+      "id": "390-full-page-3d",
+      "status": "pass",
+      "image": "390-full-page-3d.png",
+      "metrics": {
+        "width": 350,
+        "height": 233,
+        "mean": 29.21477235561122,
+        "std": 32.24094895188264,
+        "min": 1,
+        "max": 215.03779999999998,
+        "clippedFraction": 0,
+        "blackFraction": 0.00345800122624157
+      }
+    },
+    {
+      "id": "390-3d-light-60",
+      "status": "pass",
+      "image": "390-3d-light-60.png",
+      "metrics": {
+        "width": 350,
+        "height": 233,
+        "mean": 20.86964508890331,
+        "std": 25.913305019366856,
+        "min": 0.9318,
+        "max": 215.03779999999998,
+        "clippedFraction": 0,
+        "blackFraction": 0.03806253832004905
+      }
+    },
+    {
+      "id": "390-3d-light-140",
+      "status": "pass",
+      "image": "390-3d-light-140.png",
+      "metrics": {
+        "width": 350,
+        "height": 233,
+        "mean": 36.176897152667316,
+        "std": 36.67900183302303,
+        "min": 1,
+        "max": 226.32399999999998,
+        "clippedFraction": 0,
+        "blackFraction": 0.0026118945432250153
+      }
+    },
+    {
+      "id": "390-3d-close",
+      "status": "pass",
+      "image": "390-3d-close.png",
+      "metrics": {
+        "width": 350,
+        "height": 233,
+        "mean": 46.86128507173845,
+        "std": 47.354355637100255,
+        "min": 1.7873999999999999,
+        "max": 228.7824,
+        "clippedFraction": 0,
+        "blackFraction": 0.0082158185162477
+      }
+    },
+    {
+      "id": "390-full-page-light-camera-return-preserves-state",
+      "status": "pass",
+      "low": 20.86964508890331,
+      "high": 36.176897152667316
+    },
+    {
+      "id": "320-raster-poster-before-webgl",
+      "status": "pass",
+      "src": "http://127.0.0.1:41671/assets/scene-preview.png",
+      "width": 1200,
+      "height": 800
+    },
+    {
+      "id": "320-poster-layout",
+      "status": "pass",
+      "viewport": 320,
+      "scene": {
+        "x": 16,
+        "y": 238.9375,
+        "width": 288,
+        "height": 192,
+        "right": 304,
+        "bottom": 430.9375
+      },
+      "overflow": 0,
+      "controlsBelowScene": true
+    },
+    {
+      "id": "320-poster-original",
+      "status": "pass",
+      "image": "320-poster-original.png",
+      "metrics": {
+        "width": 286,
+        "height": 191,
+        "mean": 28.803832907408406,
+        "std": 32.66258067011059,
+        "min": 1,
+        "max": 215.03779999999998,
+        "clippedFraction": 0,
+        "blackFraction": 0.0031486837769560284
+      }
+    },
+    {
+      "id": "320-poster-light-60",
+      "status": "pass",
+      "image": "320-poster-light-60.png",
+      "metrics": {
+        "width": 286,
+        "height": 191,
+        "mean": 18.64452274740969,
+        "std": 23.00844955330093,
+        "min": 1,
+        "max": 215.03779999999998,
+        "clippedFraction": 0,
+        "blackFraction": 0.013949401383956358
+      }
+    },
+    {
+      "id": "320-poster-light-140",
+      "status": "pass",
+      "image": "320-poster-light-140.png",
+      "metrics": {
+        "width": 286,
+        "height": 191,
+        "mean": 38.48142063120243,
+        "std": 41.769499152661766,
+        "min": 1,
+        "max": 248.64639999999997,
+        "clippedFraction": 0,
+        "blackFraction": 0.002983927067696701
+      }
+    },
+    {
+      "id": "320-poster-close",
+      "status": "pass",
+      "image": "320-poster-close.png",
+      "metrics": {
+        "width": 286,
+        "height": 191,
+        "mean": 38.98248359755442,
+        "std": 35.7484077550031,
+        "min": 2.7192,
+        "max": 248.64639999999997,
+        "clippedFraction": 0,
+        "blackFraction": 0
+      }
+    },
+    {
+      "id": "320-poster-light-framing-weather-reset",
+      "status": "pass"
+    },
+    {
+      "id": "320-primary-3d-first-draw",
+      "status": "pass",
+      "gl": {
+        "width": 286,
+        "height": 190,
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      }
+    },
+    {
+      "id": "320-3d-layout",
+      "status": "pass",
+      "viewport": 320,
+      "scene": {
+        "x": 16,
+        "y": 238.9375,
+        "width": 288,
+        "height": 192,
+        "right": 304,
+        "bottom": 430.9375
+      },
+      "overflow": 0,
+      "controlsBelowScene": true
+    },
+    {
+      "id": "320-full-page-3d",
+      "status": "pass",
+      "image": "320-full-page-3d.png",
+      "metrics": {
+        "width": 286,
+        "height": 191,
+        "mean": 29.6607332149542,
+        "std": 32.90896906189442,
+        "min": 1,
+        "max": 213.10999999999999,
+        "clippedFraction": 0,
+        "blackFraction": 0.003404971991359426
+      }
+    },
+    {
+      "id": "320-3d-light-60",
+      "status": "pass",
+      "image": "320-3d-light-60.png",
+      "metrics": {
+        "width": 286,
+        "height": 191,
+        "mean": 21.510882528466563,
+        "std": 26.973215589922,
+        "min": 0.9318,
+        "max": 213.10999999999999,
+        "clippedFraction": 0,
+        "blackFraction": 0.03128546845824333
+      }
+    },
+    {
+      "id": "320-3d-light-140",
+      "status": "pass",
+      "image": "320-3d-light-140.png",
+      "metrics": {
+        "width": 286,
+        "height": 191,
+        "mean": 36.43596703401468,
+        "std": 37.091962277388355,
+        "min": 1,
+        "max": 215.8832,
+        "clippedFraction": 0,
+        "blackFraction": 0.002379819133745835
+      }
+    },
+    {
+      "id": "320-3d-close",
+      "status": "pass",
+      "image": "320-3d-close.png",
+      "metrics": {
+        "width": 286,
+        "height": 191,
+        "mean": 47.24383268041029,
+        "std": 47.51604080335619,
+        "min": 1.7873999999999999,
+        "max": 226.7142,
+        "clippedFraction": 0,
+        "blackFraction": 0.007670340131073115
+      }
+    },
+    {
+      "id": "320-full-page-light-camera-return-preserves-state",
+      "status": "pass",
+      "low": 21.510882528466563,
+      "high": 36.43596703401468
+    },
+    {
+      "id": "delayed-import-cancel-usable-poster",
+      "status": "pass",
+      "image": "delayed-import-cancel-usable-poster.png",
+      "metrics": {
+        "width": 350,
+        "height": 233,
+        "mean": 38.89685966891678,
+        "std": 35.7987612066391,
+        "min": 2.42,
+        "max": 248.64639999999997,
+        "clippedFraction": 0,
+        "blackFraction": 0
+      }
+    },
+    {
+      "id": "390-primary-3d-first-draw",
+      "status": "pass",
+      "gl": {
+        "width": 349,
+        "height": 232,
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      }
+    },
+    {
+      "id": "delayed-import-cancel-retry-3d",
+      "status": "pass",
+      "image": "delayed-import-cancel-retry-3d.png",
+      "metrics": {
+        "width": 350,
+        "height": 233,
+        "mean": 46.86128507173845,
+        "std": 47.354355637100255,
+        "min": 1.7873999999999999,
+        "max": 228.7824,
+        "clippedFraction": 0,
+        "blackFraction": 0.0082158185162477
+      }
+    },
+    {
+      "id": "delayed-import-cancel-late-result-ignored-and-retry",
+      "status": "pass",
+      "deadlineMilliseconds": null
+    },
+    {
+      "id": "failed-import-usable-poster",
+      "status": "pass",
+      "image": "failed-import-usable-poster.png",
+      "metrics": {
+        "width": 350,
+        "height": 233,
+        "mean": 36.279808561620115,
+        "std": 39.509450238947124,
+        "min": 1,
+        "max": 248.21319999999997,
+        "clippedFraction": 0,
+        "blackFraction": 0.003102391171060699
+      }
+    },
+    {
+      "id": "first-import-network-failure-recoverable",
+      "status": "pass",
+      "requested": "http://127.0.0.1:41671/temple-renderer.js?v=polish3&attempt=1",
+      "expectedErrors": [
+        "GET http://127.0.0.1:41671/temple-renderer.js?v=polish3&attempt=1 net::ERR_FAILED",
+        "Failed to load resource: net::ERR_FAILED",
+        "Quiet Hours: scene stopped TypeError: Failed to fetch dynamically imported module: http://127.0.0.1:41671/temple-renderer.js?v=polish3&attempt=1"
+      ]
+    },
+    {
+      "id": "390-primary-3d-first-draw",
+      "status": "pass",
+      "gl": {
+        "width": 349,
+        "height": 232,
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      }
+    },
+    {
+      "id": "failed-import-retry-actual-3d",
+      "status": "pass",
+      "image": "failed-import-retry-actual-3d.png",
+      "metrics": {
+        "width": 350,
+        "height": 233,
+        "mean": 34.52767969098716,
+        "std": 35.67642306604288,
+        "min": 1,
+        "max": 222.24259999999998,
+        "clippedFraction": 0,
+        "blackFraction": 0.0027467811158798285
+      }
+    },
+    {
+      "id": "network-restored-real-module-retry-preserves-state",
+      "status": "pass"
+    },
+    {
+      "id": "delayed-import-timeout-usable-poster",
+      "status": "pass",
+      "image": "delayed-import-timeout-usable-poster.png",
+      "metrics": {
+        "width": 350,
+        "height": 233,
+        "mean": 38.89685966891678,
+        "std": 35.7987612066391,
+        "min": 2.42,
+        "max": 248.64639999999997,
+        "clippedFraction": 0,
+        "blackFraction": 0
+      }
+    },
+    {
+      "id": "390-primary-3d-first-draw",
+      "status": "pass",
+      "gl": {
+        "width": 349,
+        "height": 232,
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      }
+    },
+    {
+      "id": "delayed-import-timeout-retry-3d",
+      "status": "pass",
+      "image": "delayed-import-timeout-retry-3d.png",
+      "metrics": {
+        "width": 350,
+        "height": 233,
+        "mean": 46.86128507173845,
+        "std": 47.354355637100255,
+        "min": 1.7873999999999999,
+        "max": 228.7824,
+        "clippedFraction": 0,
+        "blackFraction": 0.0082158185162477
+      }
+    },
+    {
+      "id": "delayed-import-timeout-late-result-ignored-and-retry",
+      "status": "pass",
+      "deadlineMilliseconds": 12000
+    }
+  ],
+  "errors": [],
+  "limits": [
+    "Linux software WebGL does not certify a physical Android/iOS device GPU.",
+    "Playwright WebKit on Linux is not Safari.",
+    "Nonblank and layout checks are bounded regression guards; they do not score artistic quality.",
+    "Screenshots show the visitor page, its scene and its controls; preview.html is checked separately."
+  ]
+}

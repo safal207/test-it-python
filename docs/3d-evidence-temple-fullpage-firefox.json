@@ -1,0 +1,648 @@
+{
+  "entry": "dist/index.html",
+  "browser": "firefox",
+  "browserVersion": "141.0",
+  "engine": "Firefox / Linux Mesa software WebGL (headed Xvfb)",
+  "date": "2026-10-18T09:20:28.899Z",
+  "commit": "d8cd29e4cde05a306dd1791c78abad9124c2311d",
+  "status": "passed",
+  "stage": "complete",
+  "cases": [
+    {
+      "id": "1200-raster-poster-before-webgl",
+      "status": "pass",
+      "src": "http://127.0.0.1:42593/assets/scene-preview.png",
+      "width": 1200,
+      "height": 800
+    },
+    {
+      "id": "1200-poster-layout",
+      "status": "pass",
+      "viewport": 1200,
+      "scene": {
+        "x": 370.98333740234375,
+        "y": 172,
+        "width": 771.4166259765625,
+        "height": 514.2833251953125,
+        "right": 1142.3999633789062,
+        "bottom": 686.2833251953125
+      },
+      "overflow": 0,
+      "controlsBelowScene": true
+    },
+    {
+      "id": "1200-poster-original",
+      "status": "pass",
+      "image": "1200-poster-original.png",
+      "metrics": {
+        "width": 771,
+        "height": 513,
+        "mean": 27.314783676295637,
+        "std": 31.731713925710356,
+        "min": 0,
+        "max": 222.09139999999996,
+        "clippedFraction": 0,
+        "blackFraction": 0.01099809619162476
+      }
+    },
+    {
+      "id": "1200-poster-light-60",
+      "status": "pass",
+      "image": "1200-poster-light-60.png",
+      "metrics": {
+        "width": 771,
+        "height": 513,
+        "mean": 16.752594314867423,
+        "std": 19.520236985410012,
+        "min": 0,
+        "max": 207.8252,
+        "clippedFraction": 0,
+        "blackFraction": 0.02567739423497496
+      }
+    },
+    {
+      "id": "1200-poster-light-140",
+      "status": "pass",
+      "image": "1200-poster-light-140.png",
+      "metrics": {
+        "width": 771,
+        "height": 513,
+        "mean": 37.37923925081723,
+        "std": 42.286408520277234,
+        "min": 0,
+        "max": 250.8396,
+        "clippedFraction": 0,
+        "blackFraction": 0.009400211871370313
+      }
+    },
+    {
+      "id": "1200-poster-close",
+      "status": "pass",
+      "image": "1200-poster-close.png",
+      "metrics": {
+        "width": 771,
+        "height": 513,
+        "mean": 38.46632122381033,
+        "std": 35.797244597109895,
+        "min": 2.2074000000000003,
+        "max": 248.64639999999997,
+        "clippedFraction": 0,
+        "blackFraction": 0
+      }
+    },
+    {
+      "id": "1200-poster-light-framing-weather-reset",
+      "status": "pass"
+    },
+    {
+      "id": "1200-primary-3d-first-draw",
+      "status": "pass",
+      "gl": {
+        "width": 769,
+        "height": 512,
+        "version": "WebGL 2.0",
+        "renderer": "llvmpipe, or similar"
+      }
+    },
+    {
+      "id": "1200-3d-layout",
+      "status": "pass",
+      "viewport": 1200,
+      "scene": {
+        "x": 370.98333740234375,
+        "y": 172,
+        "width": 771.4166259765625,
+        "height": 514.2833251953125,
+        "right": 1142.3999633789062,
+        "bottom": 686.2833251953125
+      },
+      "overflow": 0,
+      "controlsBelowScene": true
+    },
+    {
+      "id": "1200-full-page-3d",
+      "status": "pass",
+      "image": "1200-full-page-3d.png",
+      "metrics": {
+        "width": 771,
+        "height": 513,
+        "mean": 28.41776018385556,
+        "std": 31.838168472973827,
+        "min": 1,
+        "max": 216.724,
+        "clippedFraction": 0,
+        "blackFraction": 0.0018254311380122015
+      }
+    },
+    {
+      "id": "1200-3d-light-60",
+      "status": "pass",
+      "image": "1200-3d-light-60.png",
+      "metrics": {
+        "width": 771,
+        "height": 513,
+        "mean": 19.82167728955745,
+        "std": 24.679582610321283,
+        "min": 1,
+        "max": 213.0378,
+        "clippedFraction": 0,
+        "blackFraction": 0.03212455407144464
+      }
+    },
+    {
+      "id": "1200-3d-light-140",
+      "status": "pass",
+      "image": "1200-3d-light-140.png",
+      "metrics": {
+        "width": 771,
+        "height": 513,
+        "mean": 35.604246590973496,
+        "std": 36.74124545401564,
+        "min": 1,
+        "max": 238.27259999999998,
+        "clippedFraction": 0,
+        "blackFraction": 0.0015422617648025525
+      }
+    },
+    {
+      "id": "1200-3d-close",
+      "status": "pass",
+      "image": "1200-3d-close.png",
+      "metrics": {
+        "width": 771,
+        "height": 513,
+        "mean": 46.15408611586135,
+        "std": 47.25193774064266,
+        "min": 1.7873999999999999,
+        "max": 230.77839999999998,
+        "clippedFraction": 0,
+        "blackFraction": 0.009814852739284442
+      }
+    },
+    {
+      "id": "1200-full-page-light-camera-return-preserves-state",
+      "status": "pass",
+      "low": 19.82167728955745,
+      "high": 35.604246590973496
+    },
+    {
+      "id": "390-raster-poster-before-webgl",
+      "status": "pass",
+      "src": "http://127.0.0.1:42593/assets/scene-preview.png",
+      "width": 1200,
+      "height": 800
+    },
+    {
+      "id": "390-poster-layout",
+      "status": "pass",
+      "viewport": 390,
+      "scene": {
+        "x": 19.5,
+        "y": 260.5,
+        "width": 351,
+        "height": 234,
+        "right": 370.5,
+        "bottom": 494.5
+      },
+      "overflow": 0,
+      "controlsBelowScene": true
+    },
+    {
+      "id": "390-poster-original",
+      "status": "pass",
+      "image": "390-poster-original.png",
+      "metrics": {
+        "width": 350,
+        "height": 233,
+        "mean": 28.084797971797315,
+        "std": 32.37511356646383,
+        "min": 0,
+        "max": 232.111,
+        "clippedFraction": 0,
+        "blackFraction": 0.011943592887798896
+      }
+    },
+    {
+      "id": "390-poster-light-60",
+      "status": "pass",
+      "image": "390-poster-light-60.png",
+      "metrics": {
+        "width": 350,
+        "height": 233,
+        "mean": 17.844321574493957,
+        "std": 21.531030450091226,
+        "min": 0,
+        "max": 210.10999999999999,
+        "clippedFraction": 0,
+        "blackFraction": 0.029221336603310853
+      }
+    },
+    {
+      "id": "390-poster-light-140",
+      "status": "pass",
+      "image": "390-poster-light-140.png",
+      "metrics": {
+        "width": 350,
+        "height": 233,
+        "mean": 37.82541194114133,
+        "std": 42.19900355833007,
+        "min": 0,
+        "max": 251.31779999999998,
+        "clippedFraction": 0,
+        "blackFraction": 0.010177805027590435
+      }
+    },
+    {
+      "id": "390-poster-close",
+      "status": "pass",
+      "image": "390-poster-close.png",
+      "metrics": {
+        "width": 350,
+        "height": 233,
+        "mean": 37.41091660331229,
+        "std": 35.236604327163526,
+        "min": 1,
+        "max": 248.86299999999997,
+        "clippedFraction": 0,
+        "blackFraction": 6.131207847946045e-05
+      }
+    },
+    {
+      "id": "390-poster-light-framing-weather-reset",
+      "status": "pass"
+    },
+    {
+      "id": "390-primary-3d-first-draw",
+      "status": "pass",
+      "gl": {
+        "width": 349,
+        "height": 232,
+        "version": "WebGL 2.0",
+        "renderer": "llvmpipe, or similar"
+      }
+    },
+    {
+      "id": "390-3d-layout",
+      "status": "pass",
+      "viewport": 390,
+      "scene": {
+        "x": 19.5,
+        "y": 260.5,
+        "width": 351,
+        "height": 234,
+        "right": 370.5,
+        "bottom": 494.5
+      },
+      "overflow": 0,
+      "controlsBelowScene": true
+    },
+    {
+      "id": "390-full-page-3d",
+      "status": "pass",
+      "image": "390-full-page-3d.png",
+      "metrics": {
+        "width": 350,
+        "height": 233,
+        "mean": 29.550639855305253,
+        "std": 32.22180146332746,
+        "min": 1,
+        "max": 207.7806,
+        "clippedFraction": 0,
+        "blackFraction": 0.0014469650521152667
+      }
+    },
+    {
+      "id": "390-3d-light-60",
+      "status": "pass",
+      "image": "390-3d-light-60.png",
+      "metrics": {
+        "width": 350,
+        "height": 233,
+        "mean": 21.098757366034544,
+        "std": 25.754836006560843,
+        "min": 1,
+        "max": 206.10999999999999,
+        "clippedFraction": 0,
+        "blackFraction": 0.02052728387492336
+      }
+    },
+    {
+      "id": "390-3d-light-140",
+      "status": "pass",
+      "image": "390-3d-light-140.png",
+      "metrics": {
+        "width": 350,
+        "height": 233,
+        "mean": 36.53970833108684,
+        "std": 36.754303850274006,
+        "min": 1,
+        "max": 226.32399999999998,
+        "clippedFraction": 0,
+        "blackFraction": 0.0012752912323727775
+      }
+    },
+    {
+      "id": "390-3d-close",
+      "status": "pass",
+      "image": "390-3d-close.png",
+      "metrics": {
+        "width": 350,
+        "height": 233,
+        "mean": 46.956644853465534,
+        "std": 47.23799032372301,
+        "min": 1.7873999999999999,
+        "max": 228.06719999999999,
+        "clippedFraction": 0,
+        "blackFraction": 0.008240343347639486
+      }
+    },
+    {
+      "id": "390-full-page-light-camera-return-preserves-state",
+      "status": "pass",
+      "low": 21.098757366034544,
+      "high": 36.53970833108684
+    },
+    {
+      "id": "320-raster-poster-before-webgl",
+      "status": "pass",
+      "src": "http://127.0.0.1:42593/assets/scene-preview.png",
+      "width": 1200,
+      "height": 800
+    },
+    {
+      "id": "320-poster-layout",
+      "status": "pass",
+      "viewport": 320,
+      "scene": {
+        "x": 16,
+        "y": 239.96665954589844,
+        "width": 288,
+        "height": 192,
+        "right": 304,
+        "bottom": 431.96665954589844
+      },
+      "overflow": 0,
+      "controlsBelowScene": true
+    },
+    {
+      "id": "320-poster-original",
+      "status": "pass",
+      "image": "320-poster-original.png",
+      "metrics": {
+        "width": 286,
+        "height": 191,
+        "mean": 28.18051214073914,
+        "std": 32.75893115335864,
+        "min": 0,
+        "max": 229.1058,
+        "clippedFraction": 0,
+        "blackFraction": 0.012191996485190202
+      }
+    },
+    {
+      "id": "320-poster-light-60",
+      "status": "pass",
+      "image": "320-poster-light-60.png",
+      "metrics": {
+        "width": 286,
+        "height": 191,
+        "mean": 18.275525515322762,
+        "std": 22.720898260979023,
+        "min": 0,
+        "max": 207.8252,
+        "clippedFraction": 0,
+        "blackFraction": 0.02835646029363307
+      }
+    },
+    {
+      "id": "320-poster-light-140",
+      "status": "pass",
+      "image": "320-poster-light-140.png",
+      "metrics": {
+        "width": 286,
+        "height": 191,
+        "mean": 37.58989155347281,
+        "std": 42.06407440197503,
+        "min": 0,
+        "max": 251.17339999999996,
+        "clippedFraction": 0,
+        "blackFraction": 0.01036136638230879
+      }
+    },
+    {
+      "id": "320-poster-close",
+      "status": "pass",
+      "image": "320-poster-close.png",
+      "metrics": {
+        "width": 286,
+        "height": 191,
+        "mean": 37.48002934500223,
+        "std": 34.69106577963765,
+        "min": 1,
+        "max": 248.79079999999996,
+        "clippedFraction": 0,
+        "blackFraction": 3.6612602057628233e-05
+      }
+    },
+    {
+      "id": "320-poster-light-framing-weather-reset",
+      "status": "pass"
+    },
+    {
+      "id": "320-primary-3d-first-draw",
+      "status": "pass",
+      "gl": {
+        "width": 286,
+        "height": 190,
+        "version": "WebGL 2.0",
+        "renderer": "llvmpipe, or similar"
+      }
+    },
+    {
+      "id": "320-3d-layout",
+      "status": "pass",
+      "viewport": 320,
+      "scene": {
+        "x": 16,
+        "y": 239.96665954589844,
+        "width": 288,
+        "height": 192,
+        "right": 304,
+        "bottom": 431.96665954589844
+      },
+      "overflow": 0,
+      "controlsBelowScene": true
+    },
+    {
+      "id": "320-full-page-3d",
+      "status": "pass",
+      "image": "320-full-page-3d.png",
+      "metrics": {
+        "width": 286,
+        "height": 191,
+        "mean": 29.918869659137204,
+        "std": 32.81555583198947,
+        "min": 1,
+        "max": 213.0378,
+        "clippedFraction": 0,
+        "blackFraction": 0.0015194229853915718
+      }
+    },
+    {
+      "id": "320-3d-light-60",
+      "status": "pass",
+      "image": "320-3d-light-60.png",
+      "metrics": {
+        "width": 286,
+        "height": 191,
+        "mean": 21.693320334639665,
+        "std": 26.703184838064484,
+        "min": 1,
+        "max": 213.0378,
+        "clippedFraction": 0,
+        "blackFraction": 0.013638194266466518
+      }
+    },
+    {
+      "id": "320-3d-light-140",
+      "status": "pass",
+      "image": "320-3d-light-140.png",
+      "metrics": {
+        "width": 286,
+        "height": 191,
+        "mean": 36.71016964815375,
+        "std": 37.10846213922582,
+        "min": 1,
+        "max": 215.6706,
+        "clippedFraction": 0,
+        "blackFraction": 0.0012997473730458023
+      }
+    },
+    {
+      "id": "320-3d-close",
+      "status": "pass",
+      "image": "320-3d-close.png",
+      "metrics": {
+        "width": 286,
+        "height": 191,
+        "mean": 47.158435301871684,
+        "std": 47.41843692110338,
+        "min": 1.7873999999999999,
+        "max": 226.999,
+        "clippedFraction": 0,
+        "blackFraction": 0.008823637095888405
+      }
+    },
+    {
+      "id": "320-full-page-light-camera-return-preserves-state",
+      "status": "pass",
+      "low": 21.693320334639665,
+      "high": 36.71016964815375
+    },
+    {
+      "id": "delayed-import-cancel-usable-poster",
+      "status": "pass",
+      "image": "delayed-import-cancel-usable-poster.png",
+      "metrics": {
+        "width": 350,
+        "height": 233,
+        "mean": 37.41091660331229,
+        "std": 35.236604327163526,
+        "min": 1,
+        "max": 248.86299999999997,
+        "clippedFraction": 0,
+        "blackFraction": 6.131207847946045e-05
+      }
+    },
+    {
+      "id": "390-primary-3d-first-draw",
+      "status": "pass",
+      "gl": {
+        "width": 349,
+        "height": 232,
+        "version": "WebGL 2.0",
+        "renderer": "llvmpipe, or similar"
+      }
+    },
+    {
+      "id": "delayed-import-cancel-retry-3d",
+      "status": "pass",
+      "image": "delayed-import-cancel-retry-3d.png",
+      "metrics": {
+        "width": 350,
+        "height": 233,
+        "mean": 46.956644853465534,
+        "std": 47.23799032372301,
+        "min": 1.7873999999999999,
+        "max": 228.06719999999999,
+        "clippedFraction": 0,
+        "blackFraction": 0.008240343347639486
+      }
+    },
+    {
+      "id": "delayed-import-cancel-late-result-ignored-and-retry",
+      "status": "pass",
+      "deadlineMilliseconds": null
+    },
+    {
+      "id": "failed-import-usable-poster",
+      "status": "pass",
+      "image": "failed-import-usable-poster.png",
+      "metrics": {
+        "width": 350,
+        "height": 233,
+        "mean": 35.58247349601653,
+        "std": 39.78610480058791,
+        "min": 0,
+        "max": 250.30699999999996,
+        "clippedFraction": 0,
+        "blackFraction": 0.010288166768853465
+      }
+    },
+    {
+      "id": "first-import-network-failure-recoverable",
+      "status": "pass",
+      "requested": "http://127.0.0.1:42593/temple-renderer.js?v=polish3&attempt=1",
+      "expectedErrors": [
+        "GET http://127.0.0.1:42593/temple-renderer.js?v=polish3&attempt=1 NS_ERROR_FAILURE",
+        "Quiet Hours: scene stopped Error"
+      ]
+    },
+    {
+      "id": "390-primary-3d-first-draw",
+      "status": "pass",
+      "gl": {
+        "width": 349,
+        "height": 232,
+        "version": "WebGL 2.0",
+        "renderer": "llvmpipe, or similar"
+      }
+    },
+    {
+      "id": "failed-import-retry-actual-3d",
+      "status": "pass",
+      "image": "failed-import-retry-actual-3d.png",
+      "metrics": {
+        "width": 350,
+        "height": 233,
+        "mean": 34.88272540036988,
+        "std": 35.74250315487893,
+        "min": 1,
+        "max": 222.24259999999998,
+        "clippedFraction": 0,
+        "blackFraction": 0.0013366033108522378
+      }
+    },
+    {
+      "id": "network-restored-real-module-retry-preserves-state",
+      "status": "pass"
+    }
+  ],
+  "errors": [],
+  "limits": [
+    "Linux software WebGL does not certify a physical Android/iOS device GPU.",
+    "Playwright WebKit on Linux is not Safari.",
+    "Nonblank and layout checks are bounded regression guards; they do not score artistic quality.",
+    "Screenshots show the visitor page, its scene and its controls; preview.html is checked separately."
+  ]
+}

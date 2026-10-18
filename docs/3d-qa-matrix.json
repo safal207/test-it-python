@@ -411,24 +411,42 @@
     {
       "id": "T07",
       "scene": "Храм",
-      "action": "Сбой 3D / потеря WebGL → облегчённый повтор",
-      "expected": "После сбоя 2D остаётся управляемой, повтор создаёт renderer заново. Изменения во время загрузки и возврат к 2D сохраняют свет, дождь и ракурс.",
-      "method": "verify-startup.mjs: контроллер с моделью DOM и сбоями renderer; отдельно политика low/half-float.",
+      "action": "Страница храма: кадр модели → настоящее 3D → восстановление после сбоя",
+      "expected": "До WebGL виден растровый кадр настоящей модели. На 1200/390/320 px сцена читаема, управление расположено под ней. Свет и ракурс меняют настоящий 3D-кадр. Отмена, сбой сети и тайм-аут возвращают управляемый постер; поздний импорт не запускает отменённую сцену, повтор сохраняет настройки.",
+      "method": "verify-startup.mjs: модель DOM и ошибки renderer, включая сохранение успешного первого кадра после 26 секунд синхронной инициализации. verify-fullpage.mjs: настоящая dist/index.html, растровый постер, декодирование, геометрия элементов и PNG-разности в Chromium/SwiftShader, Firefox и Playwright WebKit на Linux/Mesa. Полная страница: 1200×900, 390×900, 320×900. Отмена и сбой сети — на 390 px во всех трёх движках; истечение реальных 12 секунд ожидания асинхронного модуля — только Chromium.",
       "status": "passed",
       "steps": [
-        "Внести сбой первого и следующего кадра; смоделировать потерю WebGL.",
-        "Продолжить изменение параметров в 2D.",
-        "Повторить запуск и проверить готовность после первого успешного кадра."
+        "Открыть основную страницу на 1200/390/320 px: проверить растровый кадр модели, управление без перекрытий, свет, кадрирование и сброс до запуска WebGL.",
+        "Запустить настоящее 3D; сравнить яркость 60/140% и изменение камеры по PNG; вернуться к постеру и проверить сохранение состояния.",
+        "Задержать импорт модуля, изменить настройки и отменить запуск; дождаться позднего модуля и убедиться, что отменённая сцена не появилась; запустить заново.",
+        "Прервать первый сетевой импорт; после восстановления сети повторить настоящий импорт с новым URL и проверить сохранённые параметры.",
+        "В Chromium задержать асинхронный импорт более 12 секунд, дождаться позднего результата и повторно запустить настоящее 3D; отдельно в модели DOM проверить сбои кадров/контекста и сохранение уже готового первого кадра после 26 секунд синхронной инициализации."
       ],
-      "result": "Контракты восстановления и облегчённого режима пройдены. Реальный аппаратный сбой не моделировался.",
+      "result": "PASS на точном commit d8cd29e4cde05a306dd1791c78abad9124c2311d: Chromium 140.0.7339.16 — 55 full-page проверок; Firefox 141.0 и Playwright WebKit 26.0 — по 51. Все три отчёта без ошибок. На 1200/390/320 px подтверждены растровый кадр модели до WebGL, размещение управления, настоящий 3D-свет и камера. Во всех движках пройдены отмена с поздним импортом и повтор после сетевого сбоя; в Chromium дополнительно пройден реальный 12-секундный тайм-аут асинхронного импорта и повтор. Контроллер отдельно сохраняет успешный первый кадр после 26 секунд синхронной инициализации. Физический аппаратный сбой WebGL не воспроизводился.",
       "evidence": [
         {
-          "label": "CI храма",
-          "url": "https://github.com/safal207/quiet-hours-sanctuary/actions/runs/39108319680"
+          "label": "Chromium · основная страница + контракты · PASS",
+          "url": "https://github.com/safal207/quiet-hours-sanctuary/actions/runs/39114861867"
         },
         {
-          "label": "Сохранённый JSON храма",
-          "url": "https://github.com/safal207/test-it-python/blob/main/docs/3d-evidence-temple.json"
+          "label": "Firefox/WebKit · основная страница · PASS",
+          "url": "https://github.com/safal207/quiet-hours-sanctuary/actions/runs/39114861858"
+        },
+        {
+          "label": "Full-page сценарий · точный d8cd29e",
+          "url": "https://github.com/safal207/quiet-hours-sanctuary/blob/d8cd29e4cde05a306dd1791c78abad9124c2311d/scripts/verify-fullpage.mjs"
+        },
+        {
+          "label": "chromium · 55 PASS · JSON",
+          "url": "https://github.com/safal207/test-it-python/blob/main/docs/3d-evidence-temple-fullpage.json"
+        },
+        {
+          "label": "firefox · 51 PASS · JSON",
+          "url": "https://github.com/safal207/test-it-python/blob/main/docs/3d-evidence-temple-fullpage-firefox.json"
+        },
+        {
+          "label": "webkit · 51 PASS · JSON",
+          "url": "https://github.com/safal207/test-it-python/blob/main/docs/3d-evidence-temple-fullpage-webkit.json"
         }
       ]
     },
@@ -714,6 +732,36 @@
       "artifact": "qa-3d-program-webkit",
       "report_path": "docs/3d-evidence-school-webkit.json",
       "case_count": 246
+    },
+    "temple_fullpage": {
+      "repo": "safal207/quiet-hours-sanctuary · основная страница · chromium",
+      "commit": "d8cd29e4cde05a306dd1791c78abad9124c2311d",
+      "run_id": 39114861867,
+      "url": "https://github.com/safal207/quiet-hours-sanctuary/actions/runs/39114861867",
+      "status": "passed",
+      "artifact": "qa-webgl-temple / qa-fullpage/report.json",
+      "case_count": 55,
+      "report_path": "docs/3d-evidence-temple-fullpage.json"
+    },
+    "temple_fullpage_firefox": {
+      "repo": "safal207/quiet-hours-sanctuary · основная страница · firefox",
+      "commit": "d8cd29e4cde05a306dd1791c78abad9124c2311d",
+      "run_id": 39114861858,
+      "url": "https://github.com/safal207/quiet-hours-sanctuary/actions/runs/39114861858",
+      "status": "passed",
+      "artifact": "qa-webgl-temple-firefox / qa-fullpage-firefox/report.json",
+      "case_count": 51,
+      "report_path": "docs/3d-evidence-temple-fullpage-firefox.json"
+    },
+    "temple_fullpage_webkit": {
+      "repo": "safal207/quiet-hours-sanctuary · основная страница · webkit",
+      "commit": "d8cd29e4cde05a306dd1791c78abad9124c2311d",
+      "run_id": 39114861858,
+      "url": "https://github.com/safal207/quiet-hours-sanctuary/actions/runs/39114861858",
+      "status": "passed",
+      "artifact": "qa-webgl-temple-webkit / qa-fullpage-webkit/report.json",
+      "case_count": 51,
+      "report_path": "docs/3d-evidence-temple-fullpage-webkit.json"
     }
   }
 }
