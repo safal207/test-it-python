@@ -1,4 +1,4 @@
-import { spawn } from 'node:child_process';
+import { execFileSync, spawn } from 'node:child_process';
 import { mkdir, readFile } from 'node:fs/promises';
 import { chromium } from 'playwright';
 
@@ -145,14 +145,33 @@ async function contactNavigation(page, width) {
   await assertUncovered(page.locator('#startTitle'), 'Focused contact heading');
   await screenshot(page, width, 'contact', '#start');
 }
-async function downloadPlan(page, width, label) {
+function normalizePdfText(value) {
+  return value.normalize('NFC').replace(/[\u2010-\u2015\u2212]/g, '-').replace(/\s+/g, ' ').trim();
+}
+function inspectPdf(path) {
+  return JSON.parse(execFileSync('python3', ['-c', `
+import json, sys
+from pypdf import PdfReader
+reader = PdfReader(sys.argv[1])
+pages = [page.extract_text() or "" for page in reader.pages]
+links = []
+for page in reader.pages:
+    for annotation in page.get("/Annots", []):
+        action = annotation.get_object().get("/A")
+        if action and action.get("/URI"):
+            links.append(str(action["/URI"]))
+print(json.dumps({"pages": pages, "links": links}, ensure_ascii=False))
+`, path], { encoding: 'utf8', timeout: 10000, maxBuffer: 1024 * 1024 }));
+}
+async function downloadPlan(page, width, label, { minPages = 1 } = {}) {
   const current = new URL(page.url());
   const program = current.searchParams.get('program');
+  const route = canonicalRoute(page);
   const expected = {
     title: (await page.locator('#selTitle').innerText()).trim(),
     outcome: (await page.locator('#selOutcome').innerText()).trim(),
     firstTask: (await page.locator('#selFirstTask').innerText()).trim(),
-    starter: (await page.locator('#starterTemplate').textContent()).trim(),
+    starter: (await page.locator('#starterTemplate').textContent()).trim().split('\n').filter(Boolean),
     kit: await page.locator('#selKit li').allTextContents(),
     steps: await page.locator('#selSteps li span:last-child').allTextContents()
   };
@@ -160,22 +179,66 @@ async function downloadPlan(page, width, label) {
   const downloadEvent = page.waitForEvent('download');
   await page.locator('#downloadPlan').click();
   const download = await downloadEvent;
-  assert(download.suggestedFilename() === `ai-path-${program}-plan.txt`, 'Download filename identifies the selected program');
-  const path = `${artifacts}/ai-path-${width}-${program}-${label}.txt`;
+  assert(download.suggestedFilename() === `ai-path-${program}-plan.pdf`, 'PDF filename identifies the selected program');
+  const path = `${artifacts}/ai-path-${width}-${program}-${label}.pdf`;
   await download.saveAs(path);
   assert(await download.failure() === null, 'Program plan downloads successfully');
-  const text = await readFile(path, 'utf8');
-  const normal = value => value.replace(/\s+/g, ' ').trim();
+  const file = await readFile(path);
+  assert(file.subarray(0, 5).toString('ascii') === '%PDF-', 'Downloaded file is an actual PDF');
+  const pdf = inspectPdf(path);
+  assert(pdf.pages.length >= minPages && pdf.pages.every(text => text.trim().length > 30), 'PDF has readable content on every expected page');
+  const text = normalizePdfText(pdf.pages.join('\n'));
   for (const [key, value] of Object.entries(expected)) {
-    for (const part of Array.isArray(value) ? value : [value]) assert(normal(text).includes(normal(part)), `Downloaded plan contains the committed ${key}`);
+    for (const part of Array.isArray(value) ? value : [value]) assert(text.includes(normalizePdfText(part)), `Downloaded PDF contains the committed ${key}`);
   }
   const levels = { zero: 'с нуля', basic: 'есть небольшая база', project: 'есть свой проект' };
   const paces = { light: '2–3 ч', balanced: '4–6 ч', deep: '7+ ч' };
-  assert(text.includes('Мой уровень: ' + levels[current.searchParams.get('level')]), 'Downloaded plan retains the committed level');
-  assert(text.includes('Желаемая нагрузка: ' + paces[current.searchParams.get('pace')]), 'Downloaded plan retains the committed pace');
-  assert(text.includes(canonicalRoute(page)), 'Downloaded plan includes the canonical shared route');
+  assert(text.includes('МОЙ УРОВЕНЬ ' + levels[current.searchParams.get('level')]), 'Downloaded plan retains the committed level in its labeled card');
+  assert(text.includes(normalizePdfText('НАГРУЗКА В НЕДЕЛЮ ' + paces[current.searchParams.get('pace')])), 'Downloaded plan retains the committed pace in its labeled card');
+  assert(text.replace(/\s/g, '').includes(route.replace(/\s/g, '')), 'Downloaded PDF includes the readable canonical shared route');
+  assert(pdf.links.includes(route), 'Downloaded PDF includes a clickable canonical shared route');
   assert(!text.includes('127.0.0.1'), 'Downloaded plan never shares the test server address');
+  await page.waitForFunction(() => !document.querySelector('#downloadPlan').disabled);
+  assert((await page.locator('#downloadPlan').innerText()).trim() === 'Скачать мой план · PDF ↓', 'PDF action returns to its ready state');
   return text;
+}
+async function pdfLoadingAndRetry(context, width) {
+  const page = await context.newPage();
+  page.setDefaultTimeout(10000);
+  const vendorRequests = [];
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  page.on('request', request => {
+    if (/\/vendor\/(jspdf\.umd\.min|plan-fonts)\.js$/.test(new URL(request.url()).pathname)) vendorRequests.push(request.url());
+  });
+  let releaseFont;
+  const fontGate = new Promise(resolve => { releaseFont = resolve; });
+  const fontPattern = '**/vendor/plan-fonts.js*';
+  const holdAndFailFont = async route => { await fontGate; await route.abort('failed'); };
+  await page.route(fontPattern, holdAndFailFont);
+  try {
+    await page.goto(base + '?program=furniture&level=basic&pace=light#selected', { waitUntil: 'load' });
+    await selected(page, 'furniture');
+    assert(vendorRequests.length === 0, 'PDF library and fonts are not fetched before a download is requested');
+    const fontRequest = page.waitForRequest(request => /\/vendor\/plan-fonts\.js$/.test(new URL(request.url()).pathname));
+    await page.locator('#downloadPlan').click();
+    await fontRequest;
+    assert(await page.locator('#downloadPlan').isDisabled(), 'PDF action is disabled while its assets are being prepared');
+    assert((await page.locator('#downloadPlan').innerText()).trim() === 'Готовлю PDF…', 'PDF preparation state is visible');
+    assert(vendorRequests.length === 2 && vendorRequests.every(url => new URL(url).origin === new URL(base).origin), 'Only same-origin PDF library and font assets are requested');
+    await screenshot(page, width, 'pdf-preparing', '.plan-save');
+    releaseFont();
+    await page.waitForFunction(() => !document.querySelector('#downloadPlan').disabled && document.querySelector('#planDownloadStatus').textContent === 'Не удалось создать PDF. Проверь соединение и попробуй ещё раз.');
+    assert(await page.locator('#planDownloadStatus').isVisible(), 'Failed preparation gives the visitor a persistent visible retry instruction');
+    assert((await page.locator('#downloadPlan').innerText()).trim() === 'Скачать мой план · PDF ↓', 'Failed preparation restores the enabled download action');
+    await screenshot(page, width, 'pdf-retry', '.plan-save');
+    await page.unroute(fontPattern, holdAndFailFont);
+    await downloadPlan(page, width, 'retry');
+    assert(errors.length === 0, 'Recoverable PDF preparation failure causes no unhandled JavaScript error');
+  } finally {
+    releaseFont();
+    await page.close();
+  }
 }
 async function assertIdea(page, expected, excluded) {
   assert(await page.locator('#projectIdea').inputValue() === expected, 'Optional idea belongs to the selected program');
@@ -208,7 +271,7 @@ async function conversionFlow(page, width) {
   await page.locator('#copyStarter').click();
   await page.waitForFunction(async expected => await navigator.clipboard.readText() === expected, template);
   const furniturePlan = await downloadPlan(page, width, 'committed');
-  assert(furniturePlan.includes(furnitureIdea), 'Plan download includes the optional idea for its program');
+  assert(furniturePlan.includes(normalizePdfText(furnitureIdea)), 'Plan download includes the optional idea for its program');
   const committedMessage = await page.locator('#contactMessage').inputValue();
   await page.locator('#levels [data-level="basic"]').click();
   await page.locator('#paces [data-pace="deep"]').click();
@@ -222,7 +285,7 @@ async function conversionFlow(page, width) {
   await page.locator('#projectIdea').fill(bookIdea);
   await assertIdea(page, bookIdea, furnitureIdea);
   const bookPlan = await downloadPlan(page, width, 'committed');
-  assert(bookPlan.includes(bookIdea) && !bookPlan.includes(furnitureIdea), 'Book plan includes only its own idea');
+  assert(bookPlan.includes(normalizePdfText(bookIdea)) && !bookPlan.includes(normalizePdfText(furnitureIdea)), 'Book plan includes only its own idea');
   await screenshot(page, width, 'book-offer', '#selected');
   await page.locator('#programList [data-program="furniture"]').click();
   await selected(page, 'furniture');
@@ -312,9 +375,10 @@ async function booksRoute(page, width) {
   assert(await page.locator('#selTitle').evaluate(el => document.activeElement === el), 'Book quick start focuses the selected program');
 }
 async function vibeRoute(page, width) {
-  await page.goto(base + '?program=vibe#selected', { waitUntil: 'domcontentloaded' });
+  await page.goto(base + '?program=vibe&level=project&pace=deep#selected', { waitUntil: 'domcontentloaded' });
   await selected(page, 'vibe');
   assert(await page.locator('#selSteps li').count() === 16, 'Vibe Coding has sixteen steps');
+  if (width === 1440) await downloadPlan(page, width, 'sixteen-modules', { minPages: 2 });
   assert(await page.locator('#vibe a[href="vibe-coding/"]').count() === 1, 'Course linked from home');
   await noOverflow(page, 'vibe-deep-link-' + width);
 
@@ -396,6 +460,7 @@ async function designLabRoute(page, width) {
   assert(message.includes('Design Lab') && message.includes('program=designlab'), 'Contact draft keeps the new route');
   const plan = await downloadPlan(page, width, 'designlab');
   for (const name of ['VESPER','Layer Lab','Quiet Hours','Room Control']) assert(plan.includes(name), 'Downloaded curriculum names example ' + name);
+  await screenshot(page, width, 'pdf-download', '.plan-save');
   await screenshot(page, width, 'design-lab', '#design-lab');
   await page.locator('#design-lab [data-start-track="designlab"]').click();
   await selected(page, 'designlab');
@@ -598,11 +663,14 @@ try {
     await conversionFlow(page, width);
     await firstProjectOffer(page, width);
     await mentorExample(page, width);
-    if (width === 1440) await desktopRegressions(page);
+    if (width === 1440) {
+      await desktopRegressions(page);
+      await pdfLoadingAndRetry(context, width);
+    }
     await vibeRoute(page, width);
     await noOverflow(page, 'final');
     assert(errors.length === 0, 'No browser JavaScript errors: ' + errors.join('; '));
-    console.log(`PASS ${width}x${height}: guided choice, vibe course/CRM, book route, comparison, navigator offer, mentor verification example, contact draft, starter/download/idea flow, preserved gallery/notebook/lab content and responsive layout`);
+    console.log(`PASS ${width}x${height}: guided choice, vibe course/CRM, book route, comparison, navigator offer, mentor verification example, contact draft, real PDF contents/links and idea isolation, preserved gallery/notebook/lab content and responsive layout`);
     await context.close();
     activePage = undefined;
   }

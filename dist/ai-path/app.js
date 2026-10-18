@@ -268,35 +268,20 @@
     var p=programById(state.selection.program);
     return 'Мой первый шаг — '+p.name+'\n\n'+starterKits[p.id].prompts.map(function(prompt,index){return (index+1)+'. '+prompt}).join('\n');
   }
-  function planTextForSelection(){
-    if(!state.selection)return '';
+  function planDataForSelection(){
+    if(!state.selection)return null;
     var selected=state.selection,p=programById(selected.program),kit=starterKits[p.id];
-    var lines=[
-      'AI PATH — мой план',
-      'Программа: '+p.name,
-      'Мой уровень: '+levelLabels[selected.level],
-      'Желаемая нагрузка: '+paceLabels[selected.pace]+' в неделю, включая встречи и самостоятельную работу.',
-      'Ориентир плана: '+weekLabel(p.weeks)+' · '+meetingLabel(p.meetings)+'. Итоговый график согласуем до начала.',
-      '',
-      'Результат',p.outcome,
-      '',
-      'Что будет на руках',kit.takeaways.map(function(item,index){return (index+1)+'. '+item}).join('\n'),
-      '',
-      'Первый шаг',presentation[p.id].first,
-      '',
-      'Шаблон для старта',starterTextForSelection(),
-      '',
-      'План по этапам',p.steps.map(function(step,index){return (index+1)+'. '+step}).join('\n'),
-      '',
-      'Для старта',p.level,
-      paceNotes[selected.pace],
-      '',
-      'До начала обучения',
-      'Полная стоимость, длительность встреч, расписание, поддержка между встречами и возможные расходы на сервисы пока не согласованы. Обсудим их с Алексеем до начала обучения.'
-    ];
-    if(ideaForSelection())lines.push('','Моя идея: '+ideaForSelection());
-    lines.push('','Ссылка на программу',urlForSelection(),'','Контакт: safal0645@gmail.com');
-    return lines.join('\n')+'\n';
+    // Copy the committed selection before PDF assets load; later quiz edits must not change this file.
+    return {
+      id:p.id,name:p.name,level:levelLabels[selected.level],
+      pace:paceLabels[selected.pace]+' в неделю, включая встречи и самостоятельную работу.',
+      schedule:weekLabel(p.weeks)+' · '+meetingLabel(p.meetings)+'. Итоговый график согласуем до начала.',
+      outcome:p.outcome,takeaways:kit.takeaways.slice(),firstTask:presentation[p.id].first,
+      starterTitle:'Мой первый шаг — '+p.name,starterPrompts:kit.prompts.slice(),steps:p.steps.slice(),
+      requirements:p.level,paceNote:paceNotes[selected.pace],
+      conditions:'Полная стоимость, длительность встреч, расписание, поддержка между встречами и возможные расходы на сервисы пока не согласованы. Обсудим их с Алексеем до начала обучения.',
+      idea:ideaForSelection(),url:urlForSelection(),contact:'safal0645@gmail.com'
+    };
   }
   function renderContact(){
     if(!state.selection)return;
@@ -484,20 +469,29 @@
     URL.revokeObjectURL(url);
     var index=downloadUrls.indexOf(url);if(index!==-1)downloadUrls.splice(index,1);
   }
-  $('downloadPlan').addEventListener('click',function(){
+  $('downloadPlan').addEventListener('click',async function(){
     if(!state.selection)return;
-    var link=document.createElement('a'),url;
+    var button=$('downloadPlan');
+    if(button.disabled)return;
+    var plan=planDataForSelection(),link=document.createElement('a'),url;
+    button.disabled=true;button.setAttribute('aria-busy','true');button.textContent='Готовлю PDF…';
+    $('planDownloadStatus').textContent='Готовлю PDF с выбранной программой…';
     try{
-      var file=new Blob(['\ufeff',planTextForSelection()],{type:'text/plain;charset=utf-8'});
+      var file=await window.AIPathPlanPdf.create(plan);
       url=URL.createObjectURL(file);downloadUrls.push(url);
-      link.href=url;link.download='ai-path-'+state.selection.program+'-plan.txt';
+      link.href=url;link.download='ai-path-'+plan.id+'-plan.pdf';
       link.hidden=true;document.body.appendChild(link);link.click();
-      toast('План подготовлен для скачивания.');
-    }catch(e){toast('Не удалось скачать план. Скопируй ссылку на программу и попробуй ещё раз.')}
+      $('planDownloadStatus').textContent='PDF подготовлен для скачивания.';
+      toast('PDF подготовлен для скачивания.');
+    }catch(e){
+      var message='Не удалось создать PDF. Проверь соединение и попробуй ещё раз.';
+      $('planDownloadStatus').textContent=message;toast(message);
+    }
     finally{
+      button.disabled=false;button.removeAttribute('aria-busy');button.textContent='Скачать мой план · PDF ↓';
       link.remove();
       // Give the browser time to start the local download before releasing it.
-      if(url)window.setTimeout(function(){releaseDownloadUrl(url)},1000);
+      if(url)window.setTimeout(function(){releaseDownloadUrl(url)},60000);
     }
   });
   window.addEventListener('pagehide',function(){downloadUrls.slice().forEach(releaseDownloadUrl)});

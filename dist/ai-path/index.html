@@ -289,7 +289,7 @@
 <figure class="selected-example" id="selPreview" hidden><img id="selImage" alt="" width="800" height="500" loading="lazy" decoding="async"/><figcaption id="selImageCaption"></figcaption></figure>
 <div class="first-task"><strong>Первый небольшой шаг</strong><p id="selFirstTask"></p></div>
 <details class="starter-pack" id="starterPack"><summary>Попробуй сейчас: шаблон первой идеи</summary><p>Заполни три строки своими словами. Эту заготовку можно использовать самостоятельно или принести на знакомство.</p><pre id="starterTemplate"></pre><button class="btn ghost" type="button" id="copyStarter">Скопировать шаблон</button></details>
-<div class="plan-save"><strong>Забери маршрут и вернись, когда удобно</strong><p>В текстовом файле — выбранная программа, этапы, первая задача и шаблон идеи.</p><div class="detail-actions"><button class="btn ghost" id="downloadPlan" type="button">Скачать мой план · TXT ↓</button><button class="btn ghost" id="copyLink" type="button">Скопировать ссылку</button></div></div>
+<div class="plan-save"><strong>Забери маршрут и вернись, когда удобно</strong><p>В PDF — выбранная программа, этапы, первая задача и шаблон идеи. Удобно сохранить, распечатать или переслать.</p><div class="detail-actions"><button class="btn ghost" id="downloadPlan" type="button" aria-describedby="planDownloadStatus">Скачать мой план · PDF ↓</button><button class="btn ghost" id="copyLink" type="button">Скопировать ссылку</button></div><p id="planDownloadStatus" role="status" aria-live="polite"></p></div>
 <div class="selection-navigation"><a class="quiet-link" id="backToResults" href="#results" hidden>К сравнению вариантов ↑</a><a class="quiet-link" href="#selector">Подобрать ещё раз</a></div>
 </div>
 <div class="detail-aside">
@@ -587,7 +587,8 @@
 <div>Наставник: Алексей Сафонов · <a class="contact-email" href="mailto:safal0645@gmail.com">safal0645@gmail.com</a></div>
 </footer>
 <div aria-live="polite" class="toast" id="toast" role="status">Ссылка скопирована</div>
-<script src="app.js?v=designlab-process-1"></script>
+<script src="plan-pdf.js?v=1"></script>
+<script src="app.js?v=pdf-plan-1"></script>
 <script src="mentor-demo.js?v=1"></script>
 <script src="design-lab.js?v=1"></script>
 <dialog aria-labelledby="galleryTitle" id="projectLightbox">
