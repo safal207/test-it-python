@@ -1059,6 +1059,124 @@ async function studioPortfolio(page, width) {
   if (program) await selected(page, program);
 }
 
+async function neuralNetworks(page, width) {
+  const previous = page.url();
+  const sourceRoot = 'https://github.com/safal207/students/blob/d848e04c8f8d6e3e8e42ce15fbd98c00612e0e17/';
+  const projects = [
+    ['start', 3, /MLP.*NumPy/], ['photo', 4, /CNN.*Conv2D/], ['text', 4, /Embedding.*LSTM/],
+    ['objects', 4, /SSDLite.*MobileNetV2/], ['audio', 4, /признаки.*Dense/], ['tuning', 4, /MLP.*Keras Tuner/]
+  ];
+  await page.goto(base + '#research', { waitUntil: 'domcontentloaded' });
+  const entrance = page.locator('#research a[data-neural-entry]');
+  assert(await entrance.count() === 1 && await entrance.getAttribute('href') === 'neural-networks.html', 'Research section offers one direct entrance to the visual neural-network guide');
+  const entryBounds = await entrance.boundingBox();
+  assert(entryBounds && entryBounds.height >= 44, 'Neural-network entrance has a usable touch target');
+  await entrance.focus();
+  await page.keyboard.press('Enter');
+  await page.waitForURL(new URL('neural-networks.html', base).href);
+  await page.locator('#nn-choice-grid [data-nn-project]').first().waitFor();
+  await page.evaluate(() => document.fonts.ready);
+  const board = page.locator('#nn-readable-board');
+  const details = page.locator('#nn-selected-project');
+  const scene = page.locator('#nn-arch-scene');
+  assert(await board.isVisible() && await page.locator('main').count() === 1 && await page.locator('h1').count() === 1, 'Visual guide loads as a standalone customer page');
+  assert(await page.locator('[role="tab"], .nn-backlog').count() === 0, 'Public guide contains no internal preparation board');
+  const cards = page.locator('#nn-choice-grid [data-nn-project]');
+  assert(sameMembers(await cards.evaluateAll(elements => elements.map(el => el.dataset.nnProject)), projects.map(([id]) => id)), 'Guide exposes the six distinct project choices');
+  assert(await details.getAttribute('data-selected-project') === 'start', 'Guide initially explains the beginner model');
+  for (const card of await cards.all()) {
+    assert(await card.evaluate(el => el.tagName === 'BUTTON' && el.type === 'button' && el.querySelectorAll('button, a, input, select, textarea').length === 0), 'Each model card is one native keyboard action');
+    assert(await card.locator('.nn-mini-arch[aria-hidden="true"] svg').count() === 1, 'Every model card has a schematic thumbnail alongside its text label');
+  }
+  await noOverflow(page, 'neural guide cards ' + width);
+  await page.locator('#nn-choice-grid').screenshot({ path: `${artifacts}/ai-path-${width}-neural-cards.png`, animations: 'disabled' });
+  const sources = new Set();
+  let stageChecks = 0;
+  for (const [id, stageCount, modelPattern] of projects) {
+    const card = page.locator(`#nn-choice-grid [data-nn-project="${id}"]`);
+    await card.focus();
+    await page.keyboard.press('Enter');
+    assert(await details.getAttribute('data-selected-project') === id, `Keyboard selection opens the intended neural project: ${id}`);
+    assert((await page.locator('#nn-choice-grid [aria-pressed="true"]').evaluateAll(elements => elements.map(el => el.dataset.nnProject))).join('|') === id, `Exactly one model card is selected: ${id}`);
+    assert(modelPattern.test(await page.locator('#nn-model-title').innerText()), `Selected project names its actual model family: ${id}`);
+    assert(await page.locator('#nn-steps li').count() === 4 && await page.locator('#nn-artifacts li').count() === 3, `Selected project explains four teaching steps and three concrete artifacts: ${id}`);
+    for (const selector of ['#nn-input-detail', '#nn-model-detail', '#nn-output-detail', '#nn-limit', '#nn-readiness']) {
+      assert((await page.locator(selector).innerText()).trim().length > 25, `Project gives a useful explanation of ${selector}: ${id}`);
+    }
+    const readiness = await page.locator('#nn-readiness').innerText();
+    assert(id === 'start' ? /выполнен в CI/.test(readiness) : /архив/i.test(readiness), `Readiness distinguishes the executed starter from historical source examples: ${id}`);
+    const source = page.locator('#nn-source-link');
+    const href = await source.getAttribute('href');
+    assert(href.startsWith(sourceRoot) && href.endsWith('.ipynb'), `Project source is a pinned notebook rather than a mutable branch: ${id}`);
+    assert(await source.getAttribute('target') === '_blank' && /noopener/.test(await source.getAttribute('rel')), `Notebook source opens safely without replacing the lesson: ${id}`);
+    sources.add(href);
+    assert((await page.locator('#nn-arch-note').innerText()).includes('не запуск нейросети'), `Diagram is explicitly an explanation rather than simulated model execution: ${id}`);
+    const controls = page.locator('#nn-arch-controls [data-arch-step]');
+    assert(await controls.count() === stageCount && await scene.locator('svg[role="img"] > g[data-arch-stage]').count() === stageCount, `Architecture and controls contain the expected processing stages: ${id}`);
+    assert((await scene.locator('svg > title').textContent()).includes(await page.locator('#nn-model-title').innerText()), `Architecture has an accessible model-specific description: ${id}`);
+    assert(await controls.first().getAttribute('aria-pressed') === 'true', `Switching project resets its explanation to the first stage: ${id}`);
+    const captions = new Set();
+    for (let stage = 0; stage < stageCount; stage += 1) {
+      const control = controls.nth(stage);
+      const bounds = await control.boundingBox();
+      assert(bounds && bounds.height >= 44, `Architecture control remains touchable: ${id}/${stage}`);
+      await control.focus();
+      await page.keyboard.press(stage % 2 ? 'Space' : 'Enter');
+      assert(await control.evaluate(el => document.activeElement === el), `Stage explanation preserves keyboard focus: ${id}/${stage}`);
+      const active = await page.locator('#nn-arch-controls [aria-pressed="true"]').evaluateAll(elements => elements.map(el => el.dataset.archStep));
+      assert(active.join('|') === String(stage), `Exactly the activated architecture stage is selected: ${id}/${stage}`);
+      const caption = (await page.locator('#nn-arch-caption').innerText()).trim();
+      assert(caption.startsWith(`${stage + 1}. `) && caption.length > 45, `Activated stage explains its operation in words: ${id}/${stage}`);
+      captions.add(caption);
+      stageChecks += 1;
+    }
+    assert(captions.size === stageCount, `Every architecture stage has its own explanation: ${id}`);
+    const geometry = await scene.locator('svg').evaluate(svg => ({
+      width: svg.viewBox.baseVal.width, height: svg.viewBox.baseVal.height,
+      nodes: [...svg.querySelectorAll(':scope > g[data-arch-stage]')].map(stage => {
+        const box = stage.firstElementChild.getBBox();
+        const labels = [...stage.querySelectorAll('text')].map(text => {
+          const bounds = text.getBBox();
+          return { text: text.textContent, left: bounds.x, right: bounds.x + bounds.width, font: parseFloat(getComputedStyle(text).fontSize) };
+        });
+        return { x: box.x, y: box.y, right: box.x + box.width, bottom: box.y + box.height, labels };
+      })
+    }));
+    const vertical = width < 630;
+    assert(geometry.nodes.every((node, index, nodes) => index === 0 || (vertical
+      ? Math.abs(node.x - nodes[0].x) < 1 && node.y > nodes[index - 1].bottom
+      : Math.abs(node.y - nodes[0].y) < 1 && node.x > nodes[index - 1].right)), `Architecture flows ${vertical ? 'vertically on a phone' : 'horizontally on desktop'}: ${id}`);
+    assert(geometry.nodes.every(node => node.x >= 0 && node.right <= geometry.width + 1 && node.y >= 0 && node.bottom <= geometry.height + 1 &&
+      node.labels.every(label => label.font >= 11 && label.left >= node.x - 1 && label.right <= node.right + 1)), `Architecture labels remain readable inside their stages: ${id} at ${width}px`);
+    await noOverflow(page, `neural ${id} ${width}`);
+    await details.screenshot({ path: `${artifacts}/ai-path-${width}-neural-${id}.png`, animations: 'disabled' });
+  }
+  assert(stageChecks === 23 && sources.size === 6, 'All 23 architecture stages work and all six source notebooks are distinct');
+  if (width === 390) {
+    await page.emulateMedia({ colorScheme: 'dark' });
+    await details.screenshot({ path: `${artifacts}/ai-path-${width}-neural-dark.png`, animations: 'disabled' });
+    await page.emulateMedia({ colorScheme: 'light' });
+  }
+  const backLinks = page.locator('a[data-nn-back]');
+  assert(await backLinks.count() >= 1, 'Neural guide offers a return to the school archive');
+  for (const back of await backLinks.all()) assert(new URL(await back.getAttribute('href'), page.url()).href === base + '#research', 'Return link preserves the school research section');
+  await backLinks.first().focus();
+  await page.keyboard.press('Enter');
+  await page.waitForURL(base + '#research');
+  assert(await page.locator('#research a[data-neural-entry]').isVisible(), 'Keyboard return restores the real school research section');
+  await page.goto(base + 'neural-networks.html', { waitUntil: 'domcontentloaded' });
+  const start = page.locator('a[data-nn-start]');
+  const startURL = new URL(await start.getAttribute('href'), page.url());
+  assert(startURL.pathname === new URL(base).pathname && startURL.searchParams.get('program') === 'ml' && startURL.searchParams.get('level') === 'zero', 'Neural guide links to the existing ML program with beginner preparation');
+  await start.focus();
+  await page.keyboard.press('Enter');
+  await selected(page, 'ml');
+  assert((await page.locator('#selRequirement').innerText()).includes('Python'), 'ML program keeps its Python prerequisite after entering from the visual guide');
+  await page.goto(previous, { waitUntil: 'domcontentloaded' });
+  const program = new URL(previous).searchParams.get('program');
+  if (program) await selected(page, program);
+}
+
 async function desktopRegressions(page) {
   await chooseQuiz(page, { goal: 'research', interest: 'ml', level: 'zero' });
   await selected(page, 'qa');
@@ -1209,6 +1327,7 @@ try {
     await parentResultGallery(page, width);
     if (width === 390) await cosmosExample(page, width);
     await studioPortfolio(page, width);
+    await neuralNetworks(page, width);
     if (width === 1440) {
       await desktopRegressions(page);
       await pdfLoadingAndRetry(context, width);
@@ -1227,7 +1346,7 @@ try {
     await page.locator('#statusFilter').selectOption('all');
     await screenshot(page, width, '3d-check-matrix');
     assert(errors.length === 0, 'No browser JavaScript errors: ' + errors.join('; '));
-    console.log(`PASS ${width}x${height}: guided choice, vibe course/CRM, book route, comparison, navigator offer, mentor verification example, parent result gallery${width === 390 ? ' and interactive space website' : ''}, web-studio portfolio and three examples, contact draft, real PDF contents/links and idea isolation, preserved gallery/notebook/lab content and responsive layout`);
+    console.log(`PASS ${width}x${height}: guided choice, vibe course/CRM, book route, comparison, navigator offer, mentor verification example, parent result gallery${width === 390 ? ' and interactive space website' : ''}, web-studio portfolio and three examples, six neural-network architectures and 23 stage explanations, contact draft, real PDF contents/links and idea isolation, preserved gallery/notebook/lab content and responsive layout`);
     await context.close();
     activePage = undefined;
   }

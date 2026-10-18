@@ -4,7 +4,8 @@ module.exports = {
       staticDistDir: "./dist",
       url: [
         "http://localhost/ai-path/",
-        "http://localhost/ai-path/vibe-coding/"
+        "http://localhost/ai-path/vibe-coding/",
+        "http://localhost/ai-path/neural-networks.html"
       ],
       numberOfRuns: 2,
       settings: {
