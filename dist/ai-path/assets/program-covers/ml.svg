@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="440" viewBox="0 0 720 440" role="img" aria-labelledby="title"><title id="title">Notebook chart and connected learning nodes</title>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#182836"/><stop offset="1" stop-color="#0b1522"/></linearGradient>
+  <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#27394a"/><stop offset="1" stop-color="#172735"/></linearGradient>
+  <linearGradient id="lime" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e8ffb5"/><stop offset="1" stop-color="#b6dc6c"/></linearGradient>
+  <linearGradient id="lavender" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e1d5ff"/><stop offset="1" stop-color="#a392e5"/></linearGradient>
+  <linearGradient id="cyan" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b9f4ec"/><stop offset="1" stop-color="#6cb9bc"/></linearGradient>
+  <radialGradient id="glow"><stop stop-color="#a2bec5" stop-opacity=".1"/><stop offset="1" stop-color="#a2bec5" stop-opacity="0"/></radialGradient>
+  <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0V36" fill="none" stroke="#9eb8bd" stroke-opacity=".045"/></pattern>
+  <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%"><feDropShadow dx="0" dy="13" stdDeviation="13" flood-color="#02080f" flood-opacity=".32"/></filter>
+</defs>
+<path fill="url(#bg)" d="M0 0h720v440H0z"/>
+<path fill="url(#grid)" d="M0 0h720v440H0z"/>
+<ellipse cx="390" cy="190" rx="330" ry="240" fill="url(#glow)"/>
+<path d="M36 62V36h26M658 36h26v26M36 378v26h26M658 404h26v-26" fill="none" stroke="#859b9f" stroke-opacity=".22" stroke-width="1.5"/>
+
+<g filter="url(#shadow)"><rect x="82" y="88" width="348" height="266" rx="22" fill="url(#panel)" stroke="#47616b"/><path d="M82 137h348" stroke="#3e5561"/><circle cx="108" cy="113" r="5" fill="#92aaa9"/><circle cx="126" cy="113" r="5" fill="#92aaa9"/><circle cx="144" cy="113" r="5" fill="#92aaa9"/><rect x="324" y="103" width="79" height="20" rx="10" fill="#3c5862"/>
+<path d="M120 164v143h277" fill="none" stroke="#617b83" stroke-width="2"/><path d="M120 261h277M120 214h277M188 164v143M256 164v143M324 164v143" fill="none" stroke="#536d76" stroke-opacity=".25"/>
+<path d="m137 283 42-32 41 10 40-62 40 14 39-36 41 12" fill="none" stroke="#a6e8dd" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g fill="#d7fa82"><circle cx="137" cy="283" r="5"/><circle cx="179" cy="251" r="5"/><circle cx="220" cy="261" r="5"/><circle cx="260" cy="199" r="5"/><circle cx="300" cy="213" r="5"/><circle cx="339" cy="177" r="5"/><circle cx="380" cy="189" r="5"/></g></g>
+<rect x="456" y="81" width="172" height="277" rx="24" fill="#162732" stroke="#405767"/>
+<g fill="none" stroke="#7c8aa2" stroke-opacity=".65" stroke-width="2"><path d="M486 144 543 183 598 220M486 220l57-37M486 296l57-113M486 144l57 114 55-38M486 220l57 38M486 296l57-38"/></g>
+<g fill="url(#lavender)" stroke="#dccfff" stroke-width="2"><circle cx="486" cy="144" r="13"/><circle cx="486" cy="220" r="13"/><circle cx="486" cy="296" r="13"/><circle cx="543" cy="183" r="17"/><circle cx="543" cy="258" r="17"/></g>
+<circle cx="598" cy="220" r="18" fill="url(#lime)"/>
+<path d="M411 219h44" stroke="#9fe4d8" stroke-width="3" stroke-dasharray="5 6"/>
+</svg>

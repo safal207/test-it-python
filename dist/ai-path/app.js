@@ -325,13 +325,36 @@
     $('topicPicker').hidden=state.goal==='explore';
     $('interests').innerHTML=groups[state.goal].map(function(id){return '<button type="button" class="chip" data-interest="'+id+'" aria-pressed="'+(id===state.interest)+'">'+esc(interestLabels[id])+'</button>'}).join('');
   }
+  // Card-only illustrations do not replace the source-backed project previews.
+  var cardArt={
+    explore:{category:'Первый шаг',family:'start'},
+    build:{category:'Разработка',family:'code',kind:'Пример веб-интерфейса'},
+    space:{category:'3D и пространства',family:'design',kind:'Пример портфолио'},
+    furniture:{category:'Предметный дизайн',family:'design',kind:'LUMA 01 · цифровой концепт'},
+    create:{category:'Видео и креатив',family:'creative',kind:'Кадр демонстрационного ролика'},
+    comics:{category:'Истории и герои',family:'creative',kind:'Инь и Янка · AI-черновик'},
+    qa:{category:'Код и тестирование',family:'code',kind:'Учебный тренажёр Test it'},
+    game:{category:'Разработка игр',family:'code',kind:'Скриншот игры «Пробуждение»'},
+    ml:{category:'Нейросети и данные',family:'research'},
+    hack:{category:'Прототип и питч',family:'research'},
+    grant:{category:'Проектные заявки',family:'research'},
+    frontier:{category:'Исследования',family:'research'},
+    books:{category:'Книги и публикация',family:'creative'},
+    designlab:{category:'Интерактивный дизайн',family:'design',kind:'Layer Lab · учебная композиция'},
+    vibe:{category:'Продукт и клиенты',family:'code'}
+  };
   function cardMarkup(p,recommended){
-    var m=presentation[p.id],sel=Boolean(state.selection&&state.selection.program===p.id);
-    var media=m.image?'<span class="program-media"><img src="'+esc(m.image)+'" alt="'+esc(m.caption)+'" width="'+m.width+'" height="'+m.height+'" loading="lazy" decoding="async"></span>':'<span class="program-placeholder"><span aria-hidden="true">'+p.glyph+'</span><span>Результат программы</span></span>';
-    return '<button type="button" class="program'+(recommended?' recommended':'')+'" data-program="'+p.id+'" aria-pressed="'+sel+'">'+media+
+    var m=presentation[p.id],art=cardArt[p.id],sel=Boolean(state.selection&&state.selection.program===p.id);
+    var src=m.image||'assets/program-covers/'+p.id+'.svg';
+    var media='<span class="program-media '+(m.image?'program-media--project':'program-media--illustration')+'">'+
+      '<img src="'+esc(src)+'" alt="'+(m.image?esc(m.caption):'')+'" width="'+(m.width||720)+'" height="'+(m.height||440)+'" loading="lazy" decoding="async">'+
+      '<span class="program-category">'+esc(art.category)+'</span><span class="program-cover-note">'+esc(art.kind||'Иллюстрация направления')+'</span></span>';
+    return '<button type="button" class="program'+(recommended?' recommended':'')+'" data-family="'+art.family+'" data-program="'+p.id+'" aria-pressed="'+sel+'">'+media+
       '<span class="program-body"><span class="n">ТРЕК '+p.num+(recommended?' <span class="pill">Рекомендуем начать</span>':'')+'</span>'+
-      '<span class="program-name">'+esc(p.name)+'</span><h3>'+esc(m.headline)+'</h3><p>'+esc(p.short)+'</p><span class="program-level">'+esc(p.level)+'</span>'+
-      '<footer><span>'+weekLabel(p.weeks)+' · '+meetingLabel(p.meetings)+'</span><span class="program-choice">'+(sel?'Выбрано ✓':'Посмотреть план ↗')+'</span></footer></span></button>';
+      '<span class="program-name">'+esc(p.name)+'</span><span class="program-outcome">'+esc(m.headline)+'</span>'+
+      '<span class="program-meta"><span>'+weekLabel(p.weeks)+'</span><span>'+meetingLabel(p.meetings)+'</span></span>'+
+      '<span class="program-level"><span>Для старта</span> '+esc(p.level)+'</span>'+
+      '<span class="program-footer"><span class="program-choice">'+(sel?'Выбрано ✓':'Посмотреть план ↗')+'</span></span></span></button>';
   }
   function syncCards(){
     document.querySelectorAll('button[data-program]').forEach(function(button){
