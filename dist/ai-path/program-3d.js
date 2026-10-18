@@ -50,6 +50,7 @@
     lastVisible = null;
     mount.classList.remove('is-ready');
     stage.setAttribute('aria-busy', 'false');
+    stage.classList.remove('has-3d-frame');
     poster.hidden = posterFailed;
     stageLabel.hidden = false;
     play.hidden = false;
@@ -136,6 +137,7 @@
     stop.hidden = false;
     stop.textContent = 'Отменить запуск';
     stage.setAttribute('aria-busy', 'true');
+    stage.classList.add('has-3d-frame');
     status.textContent = 'Загружаем модель в облегчённом режиме. Пока можно рассмотреть кадр и учебные шаги.';
     mount.appendChild(frame);
     timer = window.setTimeout(function () { if (frame === thisFrame && loading) fail(); }, 20000);

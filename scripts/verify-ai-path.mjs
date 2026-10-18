@@ -567,6 +567,7 @@ async function program3dContract(page, width) {
   const frameNavigation = page.waitForEvent('framenavigated', {predicate: candidate => pattern.test(candidate.url()), timeout:15000});
   await panel.locator('#program3dPlay').click();
   assert(await panel.locator('iframe').count() === 1, 'Only one frame is created');
+  if (width <= 760) assert((await panel.locator('#program3dStage').boundingBox()).height >= 380, 'Live mobile 3D reserves space for controls');
   assert(await panel.locator('iframe').getAttribute('referrerpolicy') === 'strict-origin', 'Preview can identify its parent origin for readiness');
   const child = await frameNavigation;
   assert(Boolean(child), 'Preview frame loaded');
@@ -602,6 +603,11 @@ async function program3dContract(page, width) {
   await selected(page, 'designlab');
   await panel.locator('[data-program-scene="room"]').click();
   await panel.locator('#program3dPoster').evaluate(async img => { img.loading='eager'; await img.decode(); });
+  if (width <= 760) {
+    const bounds = await panel.locator('#program3dStage').boundingBox();
+    assert(Math.abs(bounds.width / bounds.height - 1.5) < .02, 'Mobile poster uses its natural ratio without empty bands');
+  }
+  await page.waitForFunction(() => !document.querySelector('#toast')?.classList.contains('show'));
   await screenshot(page, width, 'model-and-plan', '#program3d');
   await noOverflow(page, '3D model and study plan ' + width);
   await page.unroute(pattern, handler);
