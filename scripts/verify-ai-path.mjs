@@ -84,10 +84,14 @@ async function catalogPresentation(page, width) {
       }
     }
     return { id: card.dataset.program, covers: covers.length, alt: covers.every(img => img.hasAttribute('alt')),
-      body: Boolean(body), clipped, nestedActions: card.querySelectorAll('button, a, input, select, textarea, [tabindex]').length };
+      body: Boolean(body), clipped,
+      indexedCover: card.querySelector('.program-cover-index[aria-hidden="true"]')?.textContent.trim().length > 0,
+      outcomeLabel: card.querySelector('.program-outcome-label')?.textContent.trim() === 'Что будем создавать',
+      nestedActions: card.querySelectorAll('button, a, input, select, textarea, [tabindex]').length };
   }));
   for (const card of report) {
     assert(card.covers === 1 && card.alt, `Program has one cover with an explicit alternative-text decision: ${card.id}`);
+    assert(card.indexedCover && card.outcomeLabel, `Program has a numbered cover and learning outcome at ${width}px: ${card.id}`);
     assert(card.body && card.clipped.length === 0, `Program text fits its card at ${width}px: ${card.id} ${JSON.stringify(card.clipped)}`);
     assert(card.nestedActions === 0, `Program remains one keyboard action without nested controls: ${card.id}`);
   }

@@ -28,6 +28,61 @@ section{scroll-margin-top:35px;padding:75px 0}section h2{font-size:clamp(28px,4v
 @media(max-width:780px){.hero{padding:57px 0 55px}.sprints,.output-grid,.tools,.modules{grid-template-columns:1fr 1fr}.end-inner{display:block}.end-inner .button{margin-top:23px}section{padding:56px 0}}
 @media(max-width:570px){.metrics{grid-template-columns:1fr 1fr}.sprints,.modules,.tools,.output-grid{grid-template-columns:1fr}.hero h1{font-size:43px}.lead{font-size:15px}.module summary{min-height:128px}.metric{padding:12px}.metric strong{font-size:22px}.top{height:65px}.shell{width:calc(100% - 32px)}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+
+/* Syllabus cards: same visual language as the AI PATH catalogue, no new media. */
+.module {
+  --module-accent:#9cdbe9;
+  --module-dim:#29455c;
+  position:relative;
+  isolation:isolate;
+  border:1px solid #36475b;
+  background:linear-gradient(155deg,#1b2637,#141c29);
+  box-shadow:0 12px 30px #04091030,inset 0 1px #ffffff0b;
+  border-radius:18px;
+  transition:border-color .2s, transform .2s, box-shadow .2s;
+}
+.module[data-area="strategy"] { --module-accent:#d7f68a; --module-dim:#364b31; }
+.module[data-area="engineering"] { --module-accent:#9edbee; --module-dim:#2a485e; }
+.module[data-area="marketing"] { --module-accent:#f4c3a5; --module-dim:#514039; }
+.module[data-area="crm"] { --module-accent:#d4bcff; --module-dim:#493c5e; }
+.module[data-area="funding"] { --module-accent:#aff0d7; --module-dim:#2e514b; }
+.module::before {
+  content:"";position:absolute;z-index:1;inset:0 0 auto;height:3px;
+  background:linear-gradient(90deg,var(--module-accent),transparent 85%);
+  pointer-events:none;
+}
+.module summary {gap:11px;min-height:150px;padding:25px 23px 22px;}
+.module summary .week {
+  align-self:flex-start;
+  padding:5px 9px;
+  border:1px solid var(--module-dim);
+  background:var(--module-dim);
+  color:var(--module-accent);
+  border-radius:7px;
+  font-size:10px;
+  letter-spacing:.09em;
+}
+.module summary strong {font-size:20px;line-height:1.24;letter-spacing:-.04em}
+.module summary .small {color:#bdcde0;font-weight:650;font-size:12px;}
+.module summary .plus {
+  right:18px;top:21px;width:27px;height:27px;display:grid;place-items:center;
+  border-radius:9px;border:1px solid #596f85;background:#203246;
+  color:var(--module-accent);font-size:18px;transition:transform .16s;
+}
+.module details[open] {background:linear-gradient(165deg,#202c3a,#151d2b);}
+.module details[open] .module-body {padding:22px 23px 25px;}
+.module details[open] .plus {background:var(--module-dim);}
+.module .warning {color:#cfc8bd;}
+.sprint {position:relative;overflow:hidden;background:linear-gradient(150deg,#1d2939,#141c29);box-shadow:0 9px 23px #0002;}
+.sprint::after {content:"";position:absolute;right:-36px;bottom:-45px;width:110px;height:110px;border:1px solid #a8d87a2d;border-radius:50%;pointer-events:none}
+.sprint:nth-child(2)::after {border-color:#9edbee36}.sprint:nth-child(3)::after {border-color:#d4bcff36}.sprint:nth-child(4)::after {border-color:#f4c3a536}
+.output {background:linear-gradient(145deg,#1d2836,#151d29);box-shadow:0 10px 26px #0002}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){
+  .module:hover {transform:translateY(-3px);border-color:var(--module-accent);box-shadow:0 19px 35px #0409104f}
+}
+@media(max-width:570px){.module summary{padding:21px;min-height:135px}.module summary strong{font-size:19px}.module summary .week{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.module,.module .plus{transition:none!important}.module:hover{transform:none!important}}
+
 </style>
 </head>
 <body>

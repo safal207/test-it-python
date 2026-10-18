@@ -348,10 +348,11 @@
     var src=m.image||'assets/program-covers/'+p.id+'.svg';
     var media='<span class="program-media '+(m.image?'program-media--project':'program-media--illustration')+'">'+
       '<img src="'+esc(src)+'" alt="'+(m.image?esc(m.caption):'')+'" width="'+(m.width||720)+'" height="'+(m.height||440)+'" loading="lazy" decoding="async">'+
-      '<span class="program-category">'+esc(art.category)+'</span><span class="program-cover-note">'+esc(art.kind||'Иллюстрация направления')+'</span></span>';
+      '<span class="program-category">'+esc(art.category)+'</span><span class="program-cover-index" aria-hidden="true">'+esc(p.num)+' <i>/</i> 15</span>'+
+      '<span class="program-cover-note">'+esc(art.kind||'Иллюстрация направления')+'</span></span>';
     return '<button type="button" class="program'+(recommended?' recommended':'')+'" data-family="'+art.family+'" data-program="'+p.id+'" aria-pressed="'+sel+'">'+media+
       '<span class="program-body"><span class="n">ТРЕК '+p.num+(recommended?' <span class="pill">Рекомендуем начать</span>':'')+'</span>'+
-      '<span class="program-name">'+esc(p.name)+'</span><span class="program-outcome">'+esc(m.headline)+'</span>'+
+      '<span class="program-name">'+esc(p.name)+'</span><span class="program-outcome-label">Что будем создавать</span><span class="program-outcome">'+esc(m.headline)+'</span>'+
       '<span class="program-meta"><span>'+weekLabel(p.weeks)+'</span><span>'+meetingLabel(p.meetings)+'</span></span>'+
       '<span class="program-level"><span>Для старта</span> '+esc(p.level)+'</span>'+
       '<span class="program-footer"><span class="program-choice">'+(sel?'Выбрано ✓':p.id==='designlab'?'План и 3D-превью ↗':'Посмотреть план ↗')+'</span></span></span></button>';
