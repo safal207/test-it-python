@@ -13,7 +13,14 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  browser-acceptance:
+    uses: ./.github/workflows/ai-path-smoke.yml
+
+  lighthouse:
+    uses: ./.github/workflows/ai-path-lighthouse.yml
+
   deploy:
+    needs: [browser-acceptance, lighthouse]
     runs-on: ubuntu-latest
     permissions:
       pages: write
