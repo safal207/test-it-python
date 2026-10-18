@@ -12,7 +12,7 @@ const projectPreviewSources = {
 };
 const groups = {
   explore: ['explore'], visual: ['furniture', 'space', 'designlab', 'comics', 'books', 'create'],
-  build: ['build', 'qa', 'game', 'vibe'], research: ['ml', 'hack', 'grant', 'frontier']
+  build: ['build', 'designlab', 'vibe', 'qa', 'game'], research: ['ml', 'hack', 'grant', 'frontier']
 };
 const server = spawn('python3', ['-m', 'http.server', '4179', '--bind', '127.0.0.1', '--directory', 'dist'], {
   stdio: ['ignore', 'pipe', 'pipe']
@@ -159,7 +159,7 @@ async function compactLanding(page, width) {
   assert(sameMembers(await ids(page.locator('#programList .program:visible')), programIds), 'Keyboard catalogue entrance exposes all 15 programs');
   assert(new URL(page.url()).search === before.search && new URL(page.url()).hash === '#programs', 'Catalogue fragment navigation preserves the selected program, level and pace');
   const websitePrograms = await page.locator('#website-programs').innerText();
-  assert(/AI Разработчик/.test(websitePrograms) && /8 недел/.test(websitePrograms) && /Design Lab/.test(websitePrograms) && /6 недел/.test(websitePrograms), 'Adjacent website-program comparison explains the two distinct schedules');
+  assert(/AI Разработчик/.test(websitePrograms) && /8 недел/.test(websitePrograms) && /Design Lab/.test(websitePrograms) && /6 недел/.test(websitePrograms) && /Vibe Coding|Вайбкодинг/.test(websitePrograms) && /16 недел/.test(websitePrograms), 'Adjacent website-program comparison explains all three distinct schedules');
 
   await page.goto(base + route + '#result-gallery', { waitUntil: 'domcontentloaded' });
   assert(await page.locator('#parent-library').evaluate(el => el.open) && await page.locator('#result-gallery').isVisible(), 'Existing parent-gallery deep link opens its containing library');
@@ -241,6 +241,14 @@ async function selected(page, id) {
   for (const selector of ['#selPaceNote', '#selFirstTask', '#selOutcome']) {
     assert((await page.locator(selector).innerText()).trim().length > 12, `Selected route explains ${selector}`);
   }
+  assert((await page.locator('#selFit').innerText()).trim().length > 20, `Selected program explains who should choose it: ${id}`);
+  const readiness = page.locator('#selected-readiness');
+  assert(await readiness.evaluate(el => el.tagName === 'DETAILS'), 'Readiness and scope use a native disclosure');
+  const criteria = (await page.locator('#selReadiness > li').allTextContents()).map(text => text.trim());
+  assert(criteria.length === 2 && criteria.every(text => text.length > 20) && new Set(criteria).size === 2, `Selected program has two readable, distinct readiness criteria: ${id}`);
+  const core = (await page.locator('#selCore').textContent()).trim();
+  const extra = (await page.locator('#selExtra').textContent()).trim();
+  assert(core.length > 20 && extra.length > 20 && core !== extra, `Selected program distinguishes core work from optional extensions: ${id}`);
   const visual = await page.locator('.selection-visual').evaluate(el => ({
     visible: [...el.querySelectorAll('figure')].filter(figure => figure.getClientRects().length).map(figure => figure.id),
     projectSrc: el.querySelector('#selImage').getAttribute('src'), projectAlt: el.querySelector('#selImage').alt,
@@ -427,6 +435,10 @@ async function downloadPlan(page, width, label, { minPages = 1 } = {}) {
     title: (await page.locator('#selTitle').innerText()).trim(),
     outcome: (await page.locator('#selOutcome').innerText()).trim(),
     firstTask: (await page.locator('#selFirstTask').innerText()).trim(),
+    fit: (await page.locator('#selFit').textContent()).trim(),
+    core: (await page.locator('#selCore').textContent()).trim(),
+    extra: (await page.locator('#selExtra').textContent()).trim(),
+    readiness: (await page.locator('#selReadiness li').allTextContents()).map(text => text.trim()),
     starter: (await page.locator('#starterTemplate').textContent()).trim().split('\n').filter(Boolean),
     kit: await page.locator('#selKit li').allTextContents(),
     steps: await page.locator('#selSteps li span:last-child').allTextContents()
@@ -554,7 +566,7 @@ async function conversionFlow(page, width) {
   await selected(page, 'books');
   await assertIdea(page, '', bookIdea);
 }
-async function comparison(page) {
+async function comparison(page, { width, captureStage } = {}) {
   const cards = page.locator('#recommendationList .program');
   const candidates = await ids(cards);
   assert(candidates.length >= 1 && candidates.length <= 3 && new Set(candidates).size === candidates.length, 'At most three distinct recommendations');
@@ -566,15 +578,56 @@ async function comparison(page) {
   assert(columns.length === names.length + 1, 'Comparison has one column per suggested program');
   assert(columns.slice(1).every((text, i) => text.includes(names[i].trim())), 'Comparison headings match current recommendations');
   const rowLabels = await page.locator('#comparisonTable tbody th').allTextContents();
-  for (const label of ['Результат', 'Срок', 'Для старта', 'Время в неделю', 'Стоимость']) {
+  for (const label of ['Выбирай, если', 'Результат', 'Срок', 'Для старта', 'Твоё время, не требование курса', 'Стоимость']) {
     assert(rowLabels.some(text => text.includes(label)), `Comparison explains ${label}`);
   }
   for (const row of await page.locator('#comparisonTable tbody tr').all()) {
     assert(await row.locator('td').count() === candidates.length, 'Each comparison row covers every candidate');
   }
   await noOverflow(page, 'comparison open');
+  if (captureStage) {
+    await page.locator('#comparison').screenshot({ path: `${artifacts}/ai-path-${width}-${captureStage}.png`, animations: 'disabled',
+      style: '.header, .selection-dock, .toast { visibility: hidden !important; }' });
+  }
   await page.locator('#compareToggle').click();
   assert(!(await page.locator('#comparison').isVisible()), 'Comparison can be collapsed');
+}
+async function websiteChoice(page, width) {
+  // Start with the visitor's goal rather than an existing program URL or catalogue filter.
+  await page.locator('#goals [data-goal="build"]').click();
+  assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'Website goal retains the complete 15-program catalogue');
+  const choices = page.locator('#interests [data-interest]');
+  const interests = await choices.evaluateAll(elements => elements.map(el => el.dataset.interest));
+  assert(sameMembers(interests, groups.build) && await page.locator('#interests [data-interest="designlab"]').isVisible(), 'Site, program or game goal exposes Design Lab alongside development and Vibe Coding');
+  await page.locator('#interests [data-interest="build"]').click();
+  await page.locator('#levels [data-level="basic"]').click();
+  await page.locator('#paces [data-pace="light"]').click();
+  await page.locator('#showRecommendation').focus();
+  await page.keyboard.press('Enter');
+  await selected(page, 'build');
+  const webPrograms = ['build', 'designlab', 'vibe'];
+  assert((await ids(page.locator('#recommendationList .program'))).join('|') === webPrograms.join('|'), 'A website goal compares exactly development, interactive design and Vibe Coding');
+  const names = await page.locator('#recommendationList .program .program-name').allTextContents();
+  assert(names.length === 3 && new Set(names.map(text => text.trim())).size === 3, 'Three website choices keep distinct program names');
+  await comparison(page, { width, captureStage: 'website-choice-comparison' });
+
+  for (const [index, id] of webPrograms.entries()) {
+    await page.locator(`#recommendationList [data-program="${id}"]`).focus();
+    await page.keyboard.press('Enter');
+    await selected(page, id);
+    assert((await page.locator('#selTitle').innerText()).trim() === names[index].trim(), `Website comparison switches to the named plan: ${id}`);
+    const route = new URL(page.url());
+    assert(route.searchParams.get('level') === 'basic' && route.searchParams.get('pace') === 'light' && route.hash === '#selected', `Website choice retains experience and desired weekly time: ${id}`);
+    assert((await ids(page.locator('#recommendationList .program'))).join('|') === webPrograms.join('|'), 'Switching a website plan keeps the other two comparison choices available');
+    await revealTarget(page, '#selected-readiness');
+    assert(await page.locator('#selReadiness').isVisible() && await page.locator('#selCore').isVisible() && await page.locator('#selExtra').isVisible(), `Readiness and core versus optional scope are readable together: ${id}`);
+    await noOverflow(page, 'website readiness ' + id + ' ' + width);
+    if (width === 390) {
+      await page.locator('#selected-readiness').screenshot({ path: `${artifacts}/ai-path-${width}-website-readiness-${id}.png`, animations: 'disabled',
+        style: '.header, .selection-dock, .toast { visibility: hidden !important; }' });
+    }
+    if (width === 1440) await downloadPlan(page, width, 'website-choice', { minPages: id === 'vibe' ? 2 : 1 });
+  }
 }
 async function preservedContent(page, complete) {
   assert(await page.locator('#examples article.project').count() === 6, 'Six source-backed project cards');
@@ -750,7 +803,7 @@ async function designLabRoute(page, width) {
   await chooseQuiz(page, { goal: 'visual', interest: 'designlab', level: 'zero' });
   await selected(page, 'designlab');
   assert((await page.locator('#selTitle').innerText()).trim() === 'Design Lab — интерактивные сайты', 'Design Lab program title');
-  assert((await ids(page.locator('#recommendationList .program'))).join('|') === 'designlab|build|space', 'Design Lab recommends relevant development and space alternatives');
+  assert((await ids(page.locator('#recommendationList .program'))).join('|') === 'designlab|build|vibe', 'Design Lab recommends the other two website-building paths');
   assert(await page.locator('#selSteps li').count() === 6, 'Design Lab includes six learning stages');
   assert((await page.locator('#selOutcome').innerText()).includes('Один собственный'), 'Learning outcome is one student project');
   await program3dContract(page, width);
@@ -1338,6 +1391,28 @@ async function neuralNetworks(page, width) {
 }
 
 async function desktopRegressions(page) {
+  // Experience describes the current topic; unfinished changes must not rewrite a committed plan.
+  await chooseQuiz(page, { goal: 'visual', interest: 'books', level: 'project', pace: 'balanced' });
+  await selected(page, 'books');
+  const bookURL = page.url();
+  const bookTitle = await page.locator('#selTitle').innerText();
+  const bookMessage = await page.locator('#contactMessage').inputValue();
+  await page.locator('#goals [data-goal="research"]').click();
+  assert(await page.locator('#interests [data-interest="ml"]').getAttribute('aria-pressed') === 'true', 'Switching to research starts with its ML topic');
+  assert(await page.locator('#levels [data-level="zero"]').getAttribute('aria-pressed') === 'true', 'A new goal resets draft experience instead of reusing book-project experience');
+  assert(/Python/.test(await page.locator('#levelHint').innerText()), 'ML experience guidance names its relevant Python preparation');
+  assert(page.url() === bookURL && await page.locator('#selTitle').innerText() === bookTitle && await page.locator('#contactMessage').inputValue() === bookMessage, 'Changing the draft goal preserves the committed book title, project-level URL and contact draft');
+  assert(new URL(page.url()).searchParams.get('program') === 'books' && new URL(page.url()).searchParams.get('level') === 'project', 'Book selection retains its explicit project experience until the new answers are submitted');
+  await page.locator('#showRecommendation').click();
+  await selected(page, 'qa');
+  assert(new URL(page.url()).searchParams.get('level') === 'zero', 'Submitting the new ML goal uses its reset beginner experience and recommends preparation');
+  const preparationURL = page.url();
+  const preparationTitle = await page.locator('#selTitle').innerText();
+  await page.locator('#levels [data-level="project"]').click();
+  await page.locator('#interests [data-interest="frontier"]').click();
+  assert(await page.locator('#levels [data-level="zero"]').getAttribute('aria-pressed') === 'true', 'Changing interest within the research goal also resets topic-specific experience');
+  assert(page.url() === preparationURL && await page.locator('#selTitle').innerText() === preparationTitle, 'Unsubmitted interest changes preserve the committed preparation plan');
+
   await chooseQuiz(page, { goal: 'research', interest: 'ml', level: 'zero' });
   await selected(page, 'qa');
   assert((await ids(page.locator('#recommendationList .program'))).includes('ml'), 'Beginner keeps the desired ML destination among alternatives');
@@ -1488,6 +1563,7 @@ try {
     await catalogPresentation(page, width);
     await booksRoute(page, width);
     await designLabRoute(page, width);
+    await websiteChoice(page, width);
     await conversionFlow(page, width);
     await navigatorRoute(page, width);
     await mentorExample(page, width);

@@ -98,7 +98,7 @@
 </style>
 <link href="choice.css?v=20261018-responsive-entry" rel="stylesheet"/>
 <link href="program-cards.css?v=2" rel="stylesheet"/>
-<link href="program-plan.css?v=1" rel="stylesheet"/>
+<link href="program-plan.css?v=choice-2" rel="stylesheet"/>
 <link href="parent-gallery.css?v=1" rel="stylesheet"/>
 <link href="web-studio.css?v=1" rel="stylesheet"/>
 <link href="site-services.css" rel="stylesheet"/>
@@ -128,7 +128,7 @@
 <link rel="stylesheet" href="design-lab.css?v=1"/>
 <style id="ai-path-vibe-feature">.vibe-highlight{display:grid;grid-template-columns:1.18fr .82fr;gap:22px;padding:clamp(25px,4vw,48px);border-radius:25px;border:1px solid rgba(213,250,136,.24);background:radial-gradient(ellipse at 100% 0%,rgba(178,172,240,.14),transparent 62%),linear-gradient(135deg,#212c33,#111825);box-shadow:0 15px 65px rgba(0,0,0,.22)}.vibe-highlight>*{min-width:0}.vibe-highlight h2{font-size:clamp(32px,4vw,52px);letter-spacing:-.06em;margin:14px 0}.vibe-highlight p{max-width:660px;color:#b3c3d2;font-size:15px;line-height:1.7;margin:0 0 20px}.vibe-highlight .vibe-note{font-size:12px;color:#a6b4c7;margin-top:21px;margin-bottom:0}.vibe-tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:24px}.vibe-tags span{padding:7px 10px;font-size:12px;border-radius:999px;border:1px solid rgba(213,250,136,.21);background:rgba(213,250,136,.05);color:#d7e7c2}.vibe-flow{display:flex;flex-direction:column;gap:11px;justify-content:center}.vibe-flow span{border:1px solid rgba(220,230,230,.16);background:#131d2a;border-radius:14px;padding:17px 18px;color:var(--accent);font-size:12px;display:flex;align-items:center;gap:13px;letter-spacing:.08em}.vibe-flow strong{font-size:16px;color:#eaf0f5;letter-spacing:-.02em}@media(max-width:760px){.vibe-highlight{grid-template-columns:1fr}.vibe-flow{display:grid;grid-template-columns:1fr 1fr;gap:7px}.vibe-flow span{padding:11px;font-size:10px;flex-direction:column;align-items:flex-start;gap:4px}.vibe-flow strong{font-size:12px}}</style>
 <link rel="stylesheet" href="neural-entry.css">
-<link rel="stylesheet" href="content-sections.css?v=1">
+<link rel="stylesheet" href="content-sections.css?v=choice-2">
 </head>
 <body>
 <header class="header">
@@ -179,7 +179,7 @@
 </div>
 <div class="topic-picker" id="topicPicker" hidden><p>Какой результат тебе интереснее?</p><div class="choices" id="interests" role="group" aria-label="Интересующее направление"></div></div>
 <div class="quiz-secondary">
-<div><h3><span class="question-no">2</span> Какой у тебя опыт?</h3><div class="choices" id="levels" role="group" aria-label="Начальный уровень"><button type="button" class="chip" data-level="zero" aria-pressed="true">Начинаю с нуля</button><button type="button" class="chip" data-level="basic" aria-pressed="false">Уже немного пробовал</button><button type="button" class="chip" data-level="project" aria-pressed="false">Есть свой проект</button></div><p>Это поможет выбрать старт. Требования каждого направления покажем отдельно.</p></div>
+<div><h3><span class="question-no">2</span> Какой опыт в этой теме?</h3><div class="choices" id="levels" role="group" aria-label="Начальный уровень" aria-describedby="levelHint"><button type="button" class="chip" data-level="zero" aria-pressed="true">Начинаю с нуля</button><button type="button" class="chip" data-level="basic" aria-pressed="false">Уже немного пробовал</button><button type="button" class="chip" data-level="project" aria-pressed="false">Есть свой проект</button></div><p id="levelHint">Оцени опыт в выбранной теме. Требования и короткая проверка готовности будут в плане.</p></div>
 <div><h3><span class="question-no">3</span> Сколько времени есть?</h3><div class="choices" id="paces" role="group" aria-label="Время на занятия"><button type="button" class="chip" data-pace="light" aria-pressed="false">2–3 ч/нед.</button><button type="button" class="chip" data-pace="balanced" aria-pressed="true">4–6 ч/нед.</button><button type="button" class="chip" data-pace="deep" aria-pressed="false">7+ ч/нед.</button></div><p>Вместе со встречами и самостоятельной работой. Точный график согласуем до старта.</p></div>
 </div>
 <div class="quiz-bottom"><div class="quiz-hint" id="recommendation" role="status" aria-live="polite">Можно начать без готовой идеи. AI Навигатор поможет попробовать несколько направлений.</div><button class="btn primary" id="showRecommendation" type="button">Показать мой маршрут ↗</button></div>
@@ -231,7 +231,9 @@
 <nav class="plan-nav" aria-label="Разделы выбранного плана"><a href="#selected-result">Что создадим <span aria-hidden="true">↘</span></a><a href="#selected-curriculum">Этапы обучения <span aria-hidden="true">↘</span></a><a href="#start">Обсудить старт <span aria-hidden="true">↗</span></a></nav>
 <div class="detail">
 <div class="detail-main">
+<p class="program-fit"><strong>Кому подойдёт</strong> <span id="selFit"></span></p>
 <p class="requirement"><strong>Для старта:</strong> <span id="selRequirement"></span></p>
+<details class="readiness-box" id="selected-readiness"><summary>Проверь готовность и объём программы</summary><ul id="selReadiness"></ul><dl><div><dt>Основа программы</dt><dd id="selCore"></dd></div><div><dt>Дополнительно и ограничения</dt><dd id="selExtra"></dd></div></dl></details>
 <div class="facts"><div class="fact"><strong id="selDuration">4 недели</strong><span>Базовый план</span></div><div class="fact"><strong id="selMeetings">4 встречи</strong><span>1:1 с наставником</span></div><div class="fact"><strong id="selTime">4–6 ч</strong><span>Твоё время в неделю</span></div></div>
 <p class="pace-note" id="selPaceNote"></p>
 <div class="outcome" id="selected-result" tabindex="-1"><strong>Что получится в конце</strong><p id="selOutcome"></p></div>
@@ -253,7 +255,7 @@
 <div class="start-alternative"><a class="btn ghost" id="introSolvery" href="https://solvery.io/ru/mentor/5295" target="_blank" rel="noopener noreferrer">Знакомство 15 минут на Solvery ↗</a><p>Бесплатное знакомство доступно через профиль Solvery. Там же можно прочитать отзывы.</p></div>
 <blockquote class="mentor-quote"><p>«Алексей хорошо объясняет»</p><footer>Александр Матасов · <a href="https://solvery.io/ru/mentor/5295" target="_blank" rel="noopener noreferrer">отзыв о QA-менторстве</a> · июнь 2022</footer></blockquote>
 <details class="message-fallback"><summary>Посмотреть и скопировать запрос</summary><p>Текст можно вставить в заявку на Solvery или отправить на <a href="mailto:safal0645@gmail.com">safal0645@gmail.com</a>.</p><label for="contactMessage">Твой запрос наставнику</label><textarea id="contactMessage" readonly rows="7"></textarea><button class="btn ghost" id="copyMessage" type="button">Скопировать текст</button></details>
-<p class="start-terms"><strong>До начала занятий согласуем:</strong> полную стоимость, длительность встреч, расписание, поддержку и возможные расходы на AI-сервисы.</p>
+<p class="start-terms"><strong>До решения об обучении:</strong> запроси полную стоимость выбранного маршрута, длительность встреч, расписание и условия поддержки. Отдельно уточним возможные расходы на AI-сервисы. Эти вопросы уже включены в черновик письма.</p>
 </div>
 <dl class="offer-facts"><div><dt>Формат</dt><dd>Персональные встречи, практика на своём проекте и разбор результата.</dd></div><div><dt>Компьютер и AI-сервисы</dt><dd>Проверим, какие инструменты подойдут твоей задаче и устройству. Возможные расходы на подписки обсудим отдельно.</dd></div></dl>
 <div class="notices"><span aria-hidden="true">ⓘ</span><span>Это учебный маршрут. Итоговый объём зависит от подготовки и практики; трудоустройство и квалификация за несколько недель не гарантируются.</span></div>
@@ -273,7 +275,8 @@
 <div class="website-programs" id="website-programs"><h3>Какая программа подойдёт для сайта?</h3><div>
 <p><a href="?program=build#selected">AI Разработчик</a><strong>8 недель · 8 встреч</strong>Первый лендинг, небольшой сайт или приложение: структура, код, работающие кнопки, проверка и публикация.</p>
 <p><a href="?program=designlab#selected">Design Lab — интерактивные сайты</a><strong>6 недель · 6 встреч</strong>Визуальная веб-презентация: стиль, SVG или 3D и 2–3 интерактивных сценария.</p>
-</div><small>Оба маршрута доступны с нуля. Выбираем по задаче проекта; сроки — базовый ориентир.</small></div>
+<p><a href="?program=vibe#selected">Вайбкодинг → MVP и клиенты</a><strong>16 недель · 16 встреч</strong>Первая версия продукта и проверка спроса: разработка, учебная CRM, продвижение и подготовка предложения.</p>
+</div><small>Все три маршрута доступны с нуля. Для первого сайта — AI Разработчик; для визуального интерактива — Design Lab; для работы над продуктом и спросом — Вайбкодинг. Сроки — базовый ориентир.</small></div>
 <div class="catalog-toolbar"><div class="choices" id="catalogFilters" role="group" aria-label="Фильтр программ"><button type="button" class="chip" data-filter="all" aria-pressed="true">Все 15</button><button type="button" class="chip" data-filter="explore" aria-pressed="false">Пробую и выбираю</button><button type="button" class="chip" data-filter="visual" aria-pressed="false">Книги и креатив</button><button type="button" class="chip" data-filter="build" aria-pressed="false">Сайты, программы и игры</button><button type="button" class="chip" data-filter="research" aria-pressed="false">Развитие проекта</button></div><p class="catalog-count" id="catalogCount" role="status" aria-live="polite">15 программ</p></div>
 <div class="programs" id="programList" role="group" aria-label="Выбор программы обучения"></div><p class="catalog-note">На обложках — примеры наших проектов и иллюстрации направлений с подписью. Карточка показывает планируемый учебный результат; подробности и авторство — в портфолио.</p></div>
 </details>
@@ -623,10 +626,10 @@
 <div>Наставник: Алексей Сафонов · <a class="contact-email" href="mailto:safal0645@gmail.com">safal0645@gmail.com</a></div>
 </footer>
 <div aria-live="polite" class="toast" id="toast" role="status">Ссылка скопирована</div>
-<script src="plan-pdf.js?v=1"></script>
+<script src="plan-pdf.js?v=choice-2"></script>
 <script src="program-3d.js?v=2"></script>
 <script src="content-sections.js?v=1"></script>
-<script src="app.js?v=clear-1"></script>
+<script src="app.js?v=choice-2"></script>
 <script src="mentor-demo.js?v=1"></script>
 <script src="design-lab.js?v=1"></script>
 <dialog aria-labelledby="galleryTitle" id="projectLightbox">
