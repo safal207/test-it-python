@@ -1,0 +1,30 @@
+name: Weekly PR backlog inventory (read only)
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 6 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Collect account-wide public PR inventory without mutations
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/audit-pr-backlog.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: account-pr-backlog
+          path: artifacts/pr-triage/
+          if-no-files-found: warn
+          retention-days: 21
