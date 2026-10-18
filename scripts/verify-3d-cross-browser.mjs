@@ -48,9 +48,9 @@ async function noOverflow(page, name) {
   const dimensions = await page.evaluate(() => ({ width: innerWidth, scroll: document.documentElement.scrollWidth }));
   assert(dimensions.scroll <= dimensions.width + 1, `${name}: document fits the viewport (${dimensions.scroll}/${dimensions.width})`);
 }
-async function decode(locator) {
+async function decode(locator, description = 'Source-backed model image decodes') {
   await locator.evaluate(async img => { img.loading = 'eager'; await img.decode(); });
-  assert(await locator.evaluate(img => img.complete && img.naturalWidth >= 600 && img.naturalHeight > 0), 'Source-backed model image decodes');
+  assert(await locator.evaluate(img => img.complete && img.naturalWidth >= 600 && img.naturalHeight > 0), description);
 }
 async function screenshotPanel(page, width, name) {
   await page.locator('#program3d').evaluate(el => el.scrollIntoView({ block: 'start', behavior: 'instant' }));
@@ -108,14 +108,31 @@ async function startFrame(page) {
   assert(await page.locator('#program3d iframe').count() === 1, 'Explicit launch creates exactly one preview iframe');
   return child;
 }
+async function exposeProgramMenu(page) {
+  const before = new URL(page.url());
+  await page.locator('#hero-programs').focus();
+  await page.keyboard.press('Enter');
+  assert(await page.locator('#programs').isVisible() && await page.locator('#programs').evaluate(el => el.tagName === 'SECTION'), 'Catalogue entrance reaches the visible program menu');
+  assert(new URL(page.url()).search === before.search, 'Menu navigation preserves the committed program, experience and pace');
+  const more = page.locator('#showAllPrograms');
+  assert(await more.evaluate(el => el.tagName === 'BUTTON'), 'Additional programs use a native button');
+  if (await more.isVisible()) {
+    await more.focus();
+    await page.keyboard.press('Enter');
+  }
+  assert(await page.locator('#programList [data-program]:visible').count() === 15, 'Show-more action exposes all 15 program choices');
+  assert(await more.getAttribute('aria-expanded') === 'true', 'Expanded program menu announces its complete state');
+}
 async function iframeContract(page, width) {
   const panel = page.locator('#program3d');
   assert(await panel.isVisible(), 'Direct Design Lab route exposes the model beside the learning plan');
   assert(await panel.locator('iframe').count() === 0, 'Program selection does not create an iframe before launch');
+  await exposeProgramMenu(page);
   const card = page.locator('#programList [data-program="designlab"]');
-  assert(await card.count() === 1, 'Catalog contains one Design Lab card');
-  assert((await card.locator('img').getAttribute('src')).endsWith('room-3d-preview.png'), 'Catalog uses an actual rendered-model poster');
-  await decode(card.locator('img'));
+  assert(await card.count() === 1 && await card.isVisible(), 'Expanded catalogue contains one visible Design Lab card');
+  assert(await card.locator('img').getAttribute('src') === 'assets/program-menu-v1/designlab.webp', 'Catalogue uses the Design Lab conceptual menu illustration');
+  assert((await card.locator('.program-cover-note').innerText()).trim() === 'AI-иллюстрация', 'Conceptual menu art is visibly distinguished from the real model preview');
+  await decode(card.locator('img'), 'Conceptual program-menu illustration decodes');
   for (const scene of ['room', 'temple']) {
     await panel.locator(`[data-program-scene="${scene}"]`).click();
     assert((await panel.locator('#program3dPoster').getAttribute('src')).endsWith(`${scene}-3d-preview.png`), 'Scene tab selects its own model poster');
@@ -188,12 +205,13 @@ async function iframeContract(page, width) {
   await panel.locator('#program3dStop').click();
   assert(await panel.locator('iframe').count() === 0 && await panel.locator('#program3dStage').getAttribute('aria-busy') === 'false', 'Cancel removes the loading iframe and clears busy state');
   await startFrame(page);
-  await page.locator('#hero-programs').click();
-  assert(await page.locator('#programs').evaluate(el => el.open), 'Catalogue entrance exposes the alternative program choices');
+  await exposeProgramMenu(page);
   await page.locator('#catalogFilters [data-filter="all"]').click();
+  assert(await page.locator('#programList [data-program]:visible').count() === 6, 'Resetting the catalogue filter restores its initial six choices');
   await page.locator('#programList [data-program="build"]').click();
   assert(await panel.isHidden() && await panel.locator('iframe').count() === 0, 'Another program disposes 3D and hides its panel');
   assert(await page.locator('.selection-visual').isVisible(), 'Another program restores its regular result preview');
+  await exposeProgramMenu(page);
   await page.locator('#programList [data-program="designlab"]').click();
   assert(await panel.isVisible() && await panel.locator('iframe').count() === 0, 'Returning to Design Lab starts with an idle poster');
   await panel.locator('[data-program-scene="room"]').click();

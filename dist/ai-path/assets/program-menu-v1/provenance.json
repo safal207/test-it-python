@@ -1,0 +1,158 @@
+{
+  "version": 1,
+  "generated_at": "2026-10-18",
+  "purpose": "AI concept illustrations for course navigation. Not actual course results, runtime screenshots or student work. Real source-backed previews remain in program plans and portfolio.",
+  "processing": "Only resize and WebP format conversion after generation.",
+  "assets": [
+    {
+      "id": "explore",
+      "file": "explore.webp",
+      "method": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: illustration for an AI PATH educational course menu card, a fictional tactile miniature 3D diorama, landscape 3:2 composition ideally 1536×1024. Create ONE cohesive premium miniature creative workbench on a deep midnight navy studio background close to #101827. On the small warm cream ceramic desk, show three clear creative options: a tiny cozy room model with a simple armchair, a small easel with a peach/sage abstract painted canvas, and a cream laptop with an entirely abstract code window made only from small sage and lavender blocks, no writing. A few gentle branching curved sage paths link the three items to one central small cream sphere, suggesting exploring a first direction. Beautiful tactile ceramic and matte clay materials, sage/lime accents, restrained peach and lavender, charming clean educational product photography, soft studio light, subtle realistic shadows, centered subject, all objects comfortably inside 8 percent safe margins. Keep background uncluttered and strong silhouette at thumbnail scale. No text, no letters, no numbers, no logos, no watermark, no border/frame. This is an illustration, not a screenshot. No careers, money, employment or success symbols.",
+      "width": 960,
+      "height": 640,
+      "bytes": 39532,
+      "sha256": "5f21538970a7f6a90865daa073e392a86f81f00df64578fd3fb82b3f821c34e6"
+    },
+    {
+      "id": "build",
+      "file": "build.webp",
+      "method": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: illustration for an AI PATH educational course menu card, fictional tactile miniature 3D diorama, landscape 3:2 ideally 1536×1024. Art direction: premium warm cream ceramic objects on a deep midnight navy studio background close to #101827, sage/lime accents with restrained peach/lavender details, soft studio lighting and subtle shadows, charming clean educational product photography. Strong centered subject, uncluttered, comfortably inside 8 percent safe margins, readable thumbnail silhouette. No text, letters, numbers, logos, watermark, frame or border. This is NOT an actual screenshot. No money, employment or success symbols. Subject: A beautiful cream miniature laptop on a low ceramic oval plinth. Its navy screen shows a fictional cafe menu web page made entirely of elegant cream product cards with tiny tactile croissant, ceramic cup and bowl shapes, simple sage selection check badges, a cursor arrow, and an abstract calculator made only of cream/sage square buttons with no numbers or writing. A chosen card gently floats out from the screen into the foreground, showing a clear selected state. Compose as one cohesive miniature website-building still life, not a collage, not a real website.",
+      "width": 960,
+      "height": 640,
+      "bytes": 64602,
+      "sha256": "fb70920e9aa1b664425703da8ac73d2f1657659898e7e69695aa55eb200be85f"
+    },
+    {
+      "id": "space",
+      "file": "space.webp",
+      "method": "built-in image_gen",
+      "prompt": "Use case: stylized-concept\nAsset type: conceptual illustration for an educational program menu; not an actual completed project or screenshot.\nPrimary request: a cozy cutaway miniature 3D room with a cream ceramic sofa, a sage floor lamp, a window, and a small floor-plan sketch represented by simple abstract lines without writing, arranged as a single tactile diorama.\nStyle: premium handcrafted miniature 3D product photography, charming, clean, tactile warm cream ceramic objects with soft matte surfaces on a deep midnight navy studio background. Sage and lime accents, a restrained peach detail. Soft studio lighting, gentle shadows.\nComposition: landscape 3:2, ideally 1536 by 1024 pixels; one strong centered subject; keep all significant objects inside an 8 percent safe margin; generous clean navy background around the diorama. Match an elegant consistent educational collection.\nAvoid: all text, letters, numerals, logos, watermarks, frames, people, photorealistic room interiors, marketing promises. This is a clearly conceptual miniature, not a real architecture project.",
+      "width": 960,
+      "height": 640,
+      "bytes": 41624,
+      "sha256": "d78a43e312643a081feecdcd4075bbdbfd0d93e20ae5b3dbffe84b2dffab4455"
+    },
+    {
+      "id": "furniture",
+      "file": "furniture.webp",
+      "method": "built-in image_gen",
+      "prompt": "Use case: stylized-concept\nAsset type: conceptual illustration for an educational program menu; not an actual completed project or screenshot.\nPrimary request: one sculptural chair concept as a tactile miniature diorama. One substantial cream ceramic chair with an elegant curved back and sage upholstered cushion in the center; two tiny maquette chairs showing alternate side and rear views, plus small cream, sage and peach material samples beside it. Create an original chair, not a recognizable branded product or replica of LUMA.\nStyle: premium handcrafted miniature 3D product photography, charming, clean, tactile warm cream ceramic objects with soft matte surfaces on a deep midnight navy studio background. Sage and lime accents, restrained peach detail. Soft studio lighting, gentle shadows.\nComposition: landscape 3:2, ideally1536 by1024 pixels; strong centered chair, all significant objects inside an8percent safe margin; enough clean navy background. Same elegant educational collection aesthetic.\nAvoid: all text, letters, numerals, logos, watermarks, frames, people, diagrams with labels, photorealistic real furniture advertising. A conceptual miniature only.",
+      "width": 960,
+      "height": 640,
+      "bytes": 45412,
+      "sha256": "c9f7bed4eb09fc11f8db7d6975d4aa9c112dc2cf072746a5e784326d0ed7c13e"
+    },
+    {
+      "id": "create",
+      "file": "create.webp",
+      "method": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: AI PATH educational program menu thumbnail, landscape 3:2 ideally 1536x1024. Create a premium tactile miniature 3D diorama of a charming video camera with three floating film frames depicting simple abstract colorful scenes, a small editing timeline and a triangular play token. Strong centered subject, all objects safely within an 8% margin. Warm cream ceramic objects on a seamless deep midnight navy background, sage green and lime accents with subtle peach and lavender. Soft studio lighting, beautiful gentle shadows, clean sophisticated educational product photography, cohesive handcrafted material feel. This is a conceptual illustration of learning short video production. No people, no text, no letters, no numbers, no logos, no watermark, no frame or border.",
+      "width": 960,
+      "height": 640,
+      "bytes": 57840,
+      "sha256": "65a16af9251edd706fd758edc642f6d7478ce12db23474b0432c3c269986777e"
+    },
+    {
+      "id": "comics",
+      "file": "comics.webp",
+      "method": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: AI PATH educational program menu thumbnail, landscape 3:2 ideally 1536x1024. Create a premium tactile miniature 3D diorama of an open short comic book, visibly just a few thick pages, with two original simple papercut characters popping up from its panels: a rounded sage-green explorer and a lavender triangular friend, both cute and clearly fictional. Two completely blank cream speech bubbles and a small cream-and-lime pencil beside the book. Strong centered subject, all objects safely within an 8% margin. Warm cream ceramic and paper objects on a seamless deep midnight navy background, sage green and lime accents with subtle peach and lavender. Soft studio lighting, beautiful gentle shadows, clean sophisticated educational product photography, cohesive handcrafted material feel. Conceptual illustration of learning to create a 3–5 page comic. No text, no letters, no numbers, no existing copyrighted characters, no logos, no watermark, no frame or border.",
+      "width": 960,
+      "height": 640,
+      "bytes": 65882,
+      "sha256": "0d032a1227ec46226e8d3f148dd0a9c93ee7f62e2d5ff238a25e5a062d36d491"
+    },
+    {
+      "id": "qa",
+      "file": "qa.webp",
+      "method": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: illustration for an AI PATH educational course menu card, fictional tactile miniature 3D diorama, landscape 3:2 ideally 1536×1024. Art direction: premium warm cream ceramic objects on a deep midnight navy studio background close to #101827, sage/lime accents with restrained peach/lavender details, soft studio lighting and subtle shadows, charming clean educational product photography. Strong centered subject, uncluttered, comfortably inside 8 percent safe margins, readable thumbnail silhouette. No text, letters, numbers, logos, watermark, frame or border. This is NOT an actual screenshot. No money, employment or success symbols. Subject: A cream miniature laptop displaying an abstract application interface made only from clean geometric blocks. A large warm cream and sage magnifying glass inspects one coral geometric mismatch on its screen. A tiny friendly peach bug figurine rests beside the laptop, with two sage check tokens and a lavender test tile on the low cream ceramic base. The focus is patient inspection and testing, clean playful QA still life, not a real screenshot, no writing on laptop keys.",
+      "width": 960,
+      "height": 640,
+      "bytes": 38802,
+      "sha256": "e39972f20ac1e60acd57ea28ba4fbd2f604013e7862e27dbf73b2aa819373c52"
+    },
+    {
+      "id": "game",
+      "file": "game.webp",
+      "method": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: illustration for an AI PATH educational course menu card, fictional tactile miniature 3D diorama, landscape 3:2 ideally 1536×1024. Art direction: premium warm cream ceramic objects on a deep midnight navy studio background close to #101827, sage/lime accents with restrained peach/lavender details, soft studio lighting and subtle shadows, charming clean educational product photography. Strong centered subject, uncluttered, comfortably inside 8 percent safe margins, readable thumbnail silhouette. No text, letters, numbers, logos, watermark, frame or border. This is NOT an actual screenshot. No money, employment or success symbols. Subject: One enchanting floating voxel island on a deep navy background, rendered as tactile warm cream ceramic blocks with a sage grassy top. Add a simple block-built sage tree, a tiny abstract cream and peach block avatar, and one new lavender cube hovering beside a matching empty space in a small block structure; a gentle sage guide path suggests adding that one block. Original unbranded voxel-world concept, charming premium physical miniature, no Minecraft characters, textures or logos, no weapons, no interface or text.",
+      "width": 960,
+      "height": 640,
+      "bytes": 33342,
+      "sha256": "90dff26aad6b3c22cd2f97ce9ef9ec5c658307e7da480447bd6fe4302b960db3"
+    },
+    {
+      "id": "ml",
+      "file": "ml.webp",
+      "method": "built-in image_gen",
+      "prompt": "Use case: stylized-concept\nAsset type: conceptual illustration for an educational machine-learning program menu, not a scientifically exact architecture diagram or actual software screenshot.\nPrimary request: a readable tactile miniature composition showing a few tiny image-pixel tiles at the left, connected cream ceramic neural-node spheres in the middle, and three distinct simple class-shapes at the right: a sage cube, a peach sphere and a lavender triangular prism. The smooth thin sage connections suggest transformation from pixels into categories. Keep the composition simple enough to read at thumbnail size. No arrows or labels needed.\nStyle: premium handcrafted miniature 3D product photography, charming, clean educational concept diorama. Warm cream ceramic matte objects on deep midnight navy studio backdrop; sage and lime accents with restrained peach and lavender. Soft studio light, gentle realistic shadows.\nComposition: landscape3:2, ideally1536x1024, strong centered connected sculpture, clear spatial separation between input, nodes and outputs; all significant objects within an8percent safe margin; generous clean navy surround.\nAvoid: any text, letters, numerals, logos, watermarks, frames, people, branded devices, exact labeled technical charts, dense spaghetti networks. This illustrates an idea only, not a claim of real model accuracy.",
+      "width": 960,
+      "height": 640,
+      "bytes": 30388,
+      "sha256": "c284538b787a769b6b054b4c6d27535b960e782cef5e7bb40468ba83146f954c"
+    },
+    {
+      "id": "hack",
+      "file": "hack.webp",
+      "method": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: AI PATH educational program menu thumbnail, landscape 3:2 ideally 1536x1024. Create a premium tactile miniature 3D diorama illustrating preparing a prototype for a hackathon: a small cream ceramic laptop with an abstract sage-and-lime working app assembled from simple blocks on its screen, three surrounding circular tool tokens showing a wrench, connected nodes and a play triangle, a small analog clock with no numerals, and a little demonstration presentation board showing the same simple prototype layout. Strong centered subject, all objects safely within an 8% margin. Warm cream ceramic objects on a seamless deep midnight navy background, sage green and lime accents with subtle peach and lavender. Soft studio lighting, beautiful gentle shadows, clean sophisticated educational product photography, cohesive handcrafted material feel. Conceptual illustration of building and presenting one modest project. No awards, no trophy, no prize money, no people, no text, no letters, no numbers, no logos, no watermark, no frame or border.",
+      "width": 960,
+      "height": 640,
+      "bytes": 49426,
+      "sha256": "9b3129a7d54477292249bdbb79700200a7593ac79d8497f072b5fccc18294ca6"
+    },
+    {
+      "id": "grant",
+      "file": "grant.webp",
+      "method": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: AI PATH educational program menu thumbnail, landscape 3:2 ideally 1536x1024. Create a premium tactile miniature 3D diorama illustrating preparing a realistic grant application: one modest abstract project concept model assembled from cream blocks and sage-green connecting pieces, one upright blank proposal page, a small flat budget grid with only a few plain cream coin tokens, and three small evidence cards arranged along a gentle timeline. The proposal sheet is prominent and clean; the visual is about organizing a project's evidence and budget, not obtaining money. Strong centered subject, all objects safely within an 8% margin. Warm cream ceramic and paper objects on a seamless deep midnight navy background, sage green and lime accents with subtle peach and lavender. Soft studio lighting, beautiful gentle shadows, clean sophisticated educational product photography, cohesive handcrafted material feel. No money rain, no piles of cash, no currency symbols, no awards, no trophy, no people, no text, no letters, no numbers, no logos, no watermark, no frame or border.",
+      "width": 960,
+      "height": 640,
+      "bytes": 41754,
+      "sha256": "09103f96401f69560e96c7d0fb01521d3b4554ec4c64d9263b42eb433734af4e"
+    },
+    {
+      "id": "frontier",
+      "file": "frontier.webp",
+      "method": "built-in image_gen",
+      "prompt": "Use case: stylized-concept\nAsset type: conceptual illustration for an educational research-project program menu, not an authentic laboratory or project result.\nPrimary request: a charming tactile miniature research bench displaying two comparable cream ceramic model cubes side by side, each with different sage and lavender inset geometric details. Place a small open blank notebook, a few cream evidence cards carrying only simple abstract geometric marks, and a sage-handled measuring magnifying lens around the cubes. The lens and equal display suggest careful comparison and evidence, without any written labels or scientific accuracy claims.\nStyle: premium handcrafted miniature3D product photography; warm cream ceramic matte objects against a deep midnight navy studio background; sage and lime accents with restrained peach or lavender. Soft studio lighting and gentle shadows, elegant clean educational collection.\nComposition: landscape3:2, ideally1536x1024; one centered cohesive bench diorama, clear substantial cubes and supporting evidence objects; all important objects within an8percent safe margin, generous clean navy background.\nAvoid: text, letters, numerals, logos, watermarks, frame, people, real laboratory brands, money, trophies, job or income promises, technical labeled charts. This is a conceptual illustration only.",
+      "width": 960,
+      "height": 640,
+      "bytes": 48302,
+      "sha256": "d726f0245708a5c17b52a878966a6ff46abacee15028ae20e513fda63d24967d"
+    },
+    {
+      "id": "books",
+      "file": "books.webp",
+      "method": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: AI PATH educational program menu thumbnail, landscape 3:2 ideally 1536x1024. Create a premium tactile miniature 3D editorial diorama of a beautiful completely blank cream-and-sage book cover standing beside an open book with clean empty pages, a short manuscript paper stack, a cream pencil with a lime tip, and a small peach bookmark. Strong centered subject, all objects safely within an 8% margin. Warm cream ceramic and paper objects on a seamless deep midnight navy background, sage green and lime accents with subtle peach and lavender. Soft studio lighting, beautiful gentle shadows, clean sophisticated educational product photography, cohesive handcrafted material feel. Conceptual illustration of writing and editing a short book, distinct from comics: no characters, no comic panels, no speech bubbles. No text, no letters, no numbers, no Amazon logo or other logos, no watermark, no frame or border.",
+      "width": 960,
+      "height": 640,
+      "bytes": 53108,
+      "sha256": "8b2b4256c86841c6f3d94cb34dc008c5e05322751cd1cb5737203c076c44c80e"
+    },
+    {
+      "id": "designlab",
+      "file": "designlab.webp",
+      "method": "built-in image_gen",
+      "prompt": "Use case: stylized-concept\nAsset type: conceptual illustration for an educational program menu; not a project screenshot.\nPrimary request: a floating cream ceramic browser window as a handcrafted tactile object, containing a tiny three-dimensional room with a sofa and a small plant. A few tangible sage ceramic control knobs, simple layered translucent panels and three round palette swatches orbit near the window to suggest interactive web design. The browser has only abstract geometric controls, absolutely no writing or symbols that resemble letters.\nStyle: premium handcrafted miniature 3D product photography, charming clean educational diorama. Warm cream ceramic objects with soft matte surfaces against a deep midnight navy studio background. Sage and lime accents, restrained peach and lavender details. Soft studio lighting and gentle realistic shadows.\nComposition: landscape3:2, ideally1536x1024, one clear centered subject, all significant objects inside an8percent safe margin, generous clean navy surround. Consistent elegant collection aesthetic.\nAvoid: text, letters, numerals, logos, watermarks, frames around the image, people, real brand interfaces, a literal screenshot, technical labeled diagrams. It is a conceptual miniature visualization.",
+      "width": 960,
+      "height": 640,
+      "bytes": 45184,
+      "sha256": "dc43a5fd3724f889bff8574ba1aef227cf043c6af66a68333c8fe4a30e251225"
+    },
+    {
+      "id": "vibe",
+      "file": "vibe.webp",
+      "method": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: illustration for an AI PATH educational course menu card, fictional tactile miniature 3D diorama, landscape 3:2 ideally 1536×1024. Art direction: premium warm cream ceramic objects on a deep midnight navy studio background close to #101827, sage/lime accents with restrained peach/lavender details, soft studio lighting and subtle shadows, charming clean educational product photography. Strong centered subject, uncluttered, comfortably inside 8 percent safe margins, readable thumbnail silhouette. No text, letters, numbers, logos, watermark, frame or border. This is NOT an actual screenshot. No money, employment or success symbols. Subject: A cohesive miniature first-web-product studio. On one cream ceramic plinth, a large cream web-product window shows only abstract sage and lavender feature blocks; next to it is a small fictional CRM kanban board with three columns of simple peach/sage/cream blank cards. A gentle curved sage path of three stepping stones connects a small prototype tile, two abstract feedback cards with simple speech-bubble shapes, and a small young sage plant in a cream pot. Emphasize practice, iteration and organizing a first product, not financial success. No currency, graphs promising growth, trophies, charts with numbers, words or arrows representing guaranteed outcomes.",
+      "width": 960,
+      "height": 640,
+      "bytes": 31712,
+      "sha256": "e1bf1841f8c3828864ed0d68a65cd4663e4f9b570816af5b5a446aeffc894ba0"
+    }
+  ]
+}

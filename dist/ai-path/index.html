@@ -97,7 +97,7 @@
 @media(max-width:760px){.furniture-grid{grid-template-columns:1fr}.furniture-grid .project{width:100%;max-width:410px;margin-inline:auto}.furniture-section .furniture-actions .btn{width:100%}}
 </style>
 <link href="choice.css?v=20261018-responsive-entry" rel="stylesheet"/>
-<link href="program-cards.css?v=2" rel="stylesheet"/>
+<link href="program-cards.css?v=menu-1" rel="stylesheet"/>
 <link href="program-plan.css?v=choice-2" rel="stylesheet"/>
 <link href="parent-gallery.css?v=1" rel="stylesheet"/>
 <link href="web-studio.css?v=1" rel="stylesheet"/>
@@ -147,8 +147,8 @@
 <h1>Твоя идея.<br/>Твой первый<br/><em>проект с ИИ.</em></h1>
 <p class="lead">Создай проект с ИИ, который ты понимаешь и можешь показать. На личных встречах выберем посильную задачу, разберём ответы нейросети, найдём ошибки и подготовим работу к демонстрации.</p>
 <div class="buttons">
-<a class="btn primary" href="#selector">Подобрать по 3 вопросам <span aria-hidden="true">↗</span></a>
-<a class="btn ghost" id="hero-programs" href="#programs">Все 15 программ <span aria-hidden="true">↓</span></a>
+<a class="btn primary" id="hero-programs" href="#programs">Открыть меню программ <span aria-hidden="true">↓</span></a>
+<a class="btn ghost" href="#selector">Помочь с выбором <span aria-hidden="true">↗</span></a>
 </div>
 <p class="hero-choice-note">Нужен готовый сайт для бизнеса? <a href="studio.html#services">Обсудить разработку ↗</a>.</p>
 <div class="hero-foot"><span><strong>1:1</strong> с наставником</span><span><strong>4–16 недель</strong> базовый план</span><span><strong>Свой проект</strong> в портфолио</span></div>
@@ -162,11 +162,30 @@
 </div>
 </div>
 </div>
+<section class="catalog-section wrap program-menu" id="programs" aria-labelledby="programMenuTitle">
+<div class="menu-heading"><div><span class="tag">01 / Меню программ</span><h2 id="programMenuTitle">Что создадим вместе?</h2></div><p>Сайт, игра, книга или свой 3D-мир? Выбери проект, который хочется сделать, и попробуй задачи новой для себя роли.</p></div>
+<div class="catalog-toolbar">
+<div class="catalog-search"><label for="programSearch">Найти программу</label><div><input type="search" id="programSearch" placeholder="Например, сайт, видео или Python" autocomplete="off" aria-controls="programList"/><button type="button" id="clearProgramSearch" aria-label="Очистить поиск программ" hidden>Очистить</button></div></div>
+<div class="choices" id="catalogFilters" role="group" aria-label="Фильтр программ"><button type="button" class="chip" data-filter="all" aria-pressed="true">Все 15</button><button type="button" class="chip" data-filter="explore" aria-pressed="false">Пробую и выбираю</button><button type="button" class="chip" data-filter="visual" aria-pressed="false">Дизайн и истории</button><button type="button" class="chip" data-filter="build" aria-pressed="false">Сайты, программы и игры</button><button type="button" class="chip" data-filter="research" aria-pressed="false">Развитие проекта</button></div>
+<p class="catalog-count" id="catalogCount" role="status" aria-live="polite">15 программ</p>
+</div>
+<div class="programs" id="programList" role="group" aria-label="Выбор программы обучения"></div>
+<div id="catalogEmpty" class="catalog-empty" hidden><p>По этому запросу в категории ничего не нашлось.</p><button type="button" class="btn ghost" id="resetProgramSearch">Сбросить поиск и показать все программы</button></div>
+<div class="catalog-more"><button type="button" class="btn ghost" id="showAllPrograms" aria-controls="programList" aria-expanded="false">Показать ещё 9 программ</button><a href="#selector">Помочь с выбором: 3 вопроса ↗</a></div>
+<p class="menu-note">На обложках — AI-иллюстрации направлений. Роль — возможность попробовать задачи профессии; реальные проекты и авторство смотри в портфолио. Сроки — базовый ориентир, стоимость обсудим до старта.</p>
+<details class="menu-compare"><summary>Хочу сделать сайт — чем отличаются три программы?</summary>
+<div class="website-programs" id="website-programs"><h3>Какая программа подойдёт для сайта?</h3><div>
+<p><a href="?program=build#selected">AI Разработчик</a><strong>8 недель · 8 встреч</strong>Первый лендинг, небольшой сайт или приложение: структура, код, работающие кнопки, проверка и публикация.</p>
+<p><a href="?program=designlab#selected">Design Lab — интерактивные сайты</a><strong>6 недель · 6 встреч</strong>Визуальная веб-презентация: стиль, SVG или 3D и 2–3 интерактивных сценария.</p>
+<p><a href="?program=vibe#selected">Вайбкодинг → MVP и клиенты</a><strong>16 недель · 16 встреч</strong>Первая версия продукта и проверка спроса: разработка, учебная CRM, продвижение и подготовка предложения.</p>
+</div><small>Все три маршрута доступны с нуля. Для первого сайта — AI Разработчик; для визуального интерактива — Design Lab; для работы над продуктом и спросом — Вайбкодинг. Сроки — базовый ориентир.</small></div>
+</details>
+</section>
 <span id="first-project" class="legacy-anchor" aria-hidden="true"></span>
 <section class="section" id="selector">
 <div class="wrap">
 <div class="section-top">
-<div><span class="tag">01 / Найди свою точку старта</span><h2>С чего начнём?</h2></div>
+<div><span class="tag">02 / Поможем выбрать</span><h2>С чего начнём?</h2></div>
 <p>Три вопроса — и несколько подходящих маршрутов с объяснением выбора. Без регистрации, можно поменять любой ответ.</p>
 </div>
 <div class="quiz" role="form" aria-label="Подбор программы по трём вопросам">
@@ -268,20 +287,8 @@
 </details>
 </div>
 </section>
-<details class="catalog-section content-disclosure wrap" id="programs">
-<summary><span><strong>Уже знаешь направление?</strong><small>Открой все 15 программ и выбери свой результат</small></span></summary>
-<div class="disclosure-body">
-
-<div class="website-programs" id="website-programs"><h3>Какая программа подойдёт для сайта?</h3><div>
-<p><a href="?program=build#selected">AI Разработчик</a><strong>8 недель · 8 встреч</strong>Первый лендинг, небольшой сайт или приложение: структура, код, работающие кнопки, проверка и публикация.</p>
-<p><a href="?program=designlab#selected">Design Lab — интерактивные сайты</a><strong>6 недель · 6 встреч</strong>Визуальная веб-презентация: стиль, SVG или 3D и 2–3 интерактивных сценария.</p>
-<p><a href="?program=vibe#selected">Вайбкодинг → MVP и клиенты</a><strong>16 недель · 16 встреч</strong>Первая версия продукта и проверка спроса: разработка, учебная CRM, продвижение и подготовка предложения.</p>
-</div><small>Все три маршрута доступны с нуля. Для первого сайта — AI Разработчик; для визуального интерактива — Design Lab; для работы над продуктом и спросом — Вайбкодинг. Сроки — базовый ориентир.</small></div>
-<div class="catalog-toolbar"><div class="choices" id="catalogFilters" role="group" aria-label="Фильтр программ"><button type="button" class="chip" data-filter="all" aria-pressed="true">Все 15</button><button type="button" class="chip" data-filter="explore" aria-pressed="false">Пробую и выбираю</button><button type="button" class="chip" data-filter="visual" aria-pressed="false">Книги и креатив</button><button type="button" class="chip" data-filter="build" aria-pressed="false">Сайты, программы и игры</button><button type="button" class="chip" data-filter="research" aria-pressed="false">Развитие проекта</button></div><p class="catalog-count" id="catalogCount" role="status" aria-live="polite">15 программ</p></div>
-<div class="programs" id="programList" role="group" aria-label="Выбор программы обучения"></div><p class="catalog-note">На обложках — примеры наших проектов и иллюстрации направлений с подписью. Карточка показывает планируемый учебный результат; подробности и авторство — в портфолио.</p></div>
-</details>
 <section class="section portfolio-overview" id="portfolio" aria-labelledby="portfolioTitle"><div class="wrap">
-<div class="section-top"><div><span class="tag">02 / Примеры</span><h2 id="portfolioTitle">Посмотри, как это работает</h2></div><p>Проекты наставника и учебные демо. Авторство, исходники и ограничения указаны внутри каждого примера.</p></div>
+<div class="section-top"><div><span class="tag">03 / Примеры</span><h2 id="portfolioTitle">Посмотри, как это работает</h2></div><p>Проекты наставника и учебные демо. Авторство, исходники и ограничения указаны внутри каждого примера.</p></div>
 <div class="portfolio-entries">
 <article class="portfolio-entry" id="landing-learning"><span class="tag">Лендинги и сайты</span><h3>Карточка, выбор, понятная сумма.</h3><p>Попробуй учебный сайт Pocitel: выбери завтрак и проверь, как меняется итог.</p><div><a href="examples/pocitel.html">Открыть демо ↗</a><a id="landing-learn" href="./?program=build&amp;level=zero&amp;pace=balanced#selected">Научиться: AI Разработчик ↗</a></div></article>
 <article class="portfolio-entry" id="web-studio"><span class="tag">Веб-портфолио</span><h3>Бренд, персонаж, атмосфера.</h3><p>FLORA, Мори и ДАЛЬ: три интерактивных примера с пояснением, чему можно научиться.</p><div><a href="studio.html">Открыть портфолио ↗</a><a href="studio.html#services">Заказать разработку сайта ↗</a></div></article>
@@ -629,7 +636,7 @@
 <script src="plan-pdf.js?v=choice-2"></script>
 <script src="program-3d.js?v=2"></script>
 <script src="content-sections.js?v=1"></script>
-<script src="app.js?v=choice-2"></script>
+<script src="app.js?v=menu-1"></script>
 <script src="mentor-demo.js?v=1"></script>
 <script src="design-lab.js?v=1"></script>
 <dialog aria-labelledby="galleryTitle" id="projectLightbox">
