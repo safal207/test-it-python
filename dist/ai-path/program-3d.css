@@ -1,0 +1,45 @@
+/* Scoped to Design Lab; all other programme layouts stay unchanged. */
+.selection-section.has-program-3d .selection-hero{grid-template-columns:1fr}
+.selection-section.has-program-3d .selection-visual{display:none}
+.selection-section.has-program-3d .selection-heading .detail-lead{max-width:850px}
+.program-3d{margin:27px 0 24px;border:1px solid #52614d;border-radius:20px;padding:24px;background:linear-gradient(135deg,#1e2a29,#101b26 70%);overflow:hidden}
+.program-3d *{box-sizing:border-box}
+.program-3d-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:22px}
+.program-3d-eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.12em;font-weight:750;color:#cbe8a7}
+.program-3d-heading h4{font-size:clamp(21px,2.4vw,29px);line-height:1.2;letter-spacing:-.045em;margin:9px 0 0}
+.program-3d-badge{font-size:10px;line-height:1.4;border:1px solid #57684d;border-radius:100px;padding:8px 12px;flex:none;color:#d8edc1}
+.program-3d-layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:24px;align-items:start}
+.program-3d-viewer,.program-3d-path{min-width:0}
+.program-3d-tabs{display:flex;gap:8px;margin-bottom:12px}
+.program-3d-tabs button{border:1px solid #485463;border-radius:100px;padding:10px 15px;color:#d1dce5;background:#15222a;font:inherit;font-size:12px;line-height:1.3;cursor:pointer;min-height:42px}
+.program-3d-tabs button[aria-pressed="true"]{background:#d6eeab;border-color:#d6eeab;color:#122018}
+.program-3d-stage{position:relative;aspect-ratio:3/2;border:1px solid #44515e;border-radius:14px;overflow:hidden;background:radial-gradient(ellipse at 55% 40%,#354246,#121d27)}
+.program-3d-stage>img{display:block;width:100%;height:100%;object-fit:contain}
+.program-3d-frame{position:absolute;inset:0;opacity:0;visibility:hidden;pointer-events:none}
+.program-3d-frame.is-ready{opacity:1;visibility:visible;pointer-events:auto}
+.program-3d-frame iframe{display:block;width:100%;height:100%;border:0}
+.program-3d-stage-label{position:absolute;left:12px;right:12px;bottom:12px;padding:8px 10px;background:rgba(12,20,26,.88);border:1px solid #637064;border-radius:8px;font-size:10px;line-height:1.45;color:#eff6e9}
+.program-3d-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin-top:14px}
+.program-3d-actions .btn{font-size:12px;padding:12px 15px;min-height:44px;white-space:normal}
+.program-3d-actions>a{font-size:12px;color:#cadbb7;text-decoration:underline;text-underline-offset:4px;min-height:36px;display:inline-flex;align-items:center}
+.program-3d-status{font-size:12px;line-height:1.6;color:#afc3ce;margin:12px 0 0;min-height:3.2em}
+.program-3d-milestones{display:grid;gap:9px;margin-top:12px}
+.program-3d-milestones button{display:grid;gap:5px;width:100%;text-align:left;padding:13px 15px;background:#15232c;border:1px solid #40505c;border-radius:12px;color:#e4edf2;font:inherit;cursor:pointer;min-width:0}
+.program-3d-milestones button>span{font-size:10px;color:#acc79f;letter-spacing:.07em}
+.program-3d-milestones button>strong{font-size:15px;line-height:1.25;font-weight:700}
+.program-3d-milestones button>small{font-size:11px;line-height:1.4;color:#b8c7d4}
+.program-3d-milestones button[aria-pressed="true"]{border-color:#cce69d;background:#29382e;box-shadow:inset 3px 0 #cce69d}
+.program-3d-task{margin-top:18px;border-top:1px solid #40505c;padding-top:17px}
+.program-3d-task>strong{font-size:14px;color:#e3edda;line-height:1.4}
+.program-3d-task>p{font-size:12px;line-height:1.65;color:#bdcdd6;margin:8px 0 9px}
+.program-3d-task>a{font-size:12px;color:#d6edb3;text-decoration:underline;text-underline-offset:4px;line-height:1.5;display:inline-flex;align-items:center;min-height:36px}
+.program-3d-outcome{font-size:11px;line-height:1.6;color:#b3c1cd;margin:15px 0 0}
+.program-3d-outcome strong{font-weight:650;color:#d4e0e8}
+.program-3d button:focus-visible,.program-3d a:focus-visible{outline:3px solid #e4f9bc;outline-offset:3px}
+.selection-section.has-program-3d [id^="designlab-week-"]{scroll-margin-top:110px}
+.selection-section.has-program-3d [id^="designlab-week-"]:target{background:#26362e;border-radius:10px;padding:12px}
+@media(max-width:1000px){.program-3d-layout{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:18px}.program-3d{padding:20px}.program-3d-heading{align-items:flex-start}.program-3d-badge{max-width:125px}}
+@media(max-width:760px){.program-3d{padding:16px;margin-top:24px}.program-3d-heading{display:block;margin-bottom:18px}.program-3d-badge{display:inline-block;max-width:none;margin-top:12px}.program-3d-layout{grid-template-columns:1fr;gap:24px}.program-3d-stage{aspect-ratio:auto;height:380px;min-height:380px}.program-3d-stage>img{object-fit:contain}.program-3d-actions .btn{flex:1}.program-3d-status{min-height:0}.program-3d-milestones{gap:8px}.program-3d-milestones button{padding:13px}.program-3d-heading h4{font-size:24px}}
+@media(max-width:360px){.program-3d{padding:12px;border-radius:14px}.program-3d-heading h4{font-size:22px}.program-3d-stage{min-height:380px}.program-3d-tabs button{padding:9px 12px;font-size:11px}}
+
+.program-3d-checks{margin:18px 0 0;font-size:11px;line-height:1.5}.program-3d-checks a{color:#b7c7cd;text-decoration:underline;text-underline-offset:4px;display:inline-flex;align-items:center;min-height:32px}

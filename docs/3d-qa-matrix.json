@@ -1,0 +1,558 @@
+{
+  "title": "3D: превью, свет и план обучения",
+  "date": "2026-10-18",
+  "rows": [
+    {
+      "id": "P01",
+      "scene": "Программа",
+      "action": "Открыть карточку Design Lab",
+      "expected": "В карточке есть декодируемый кадр 3D-комнаты. В выбранной программе показана панель модели и плана.",
+      "method": "Chromium: карточки, image.decode(), видимость панели; 1440 / 390 / 320.",
+      "status": "pending",
+      "steps": [
+        "Открыть каталог программ и найти Design Lab.",
+        "Проверить декодирование постера и выбор этой программы."
+      ],
+      "result": "Ожидает школьного CI. PNG получены из рендера сцены; это не результат проверки всей карточки.",
+      "evidence": [
+        {
+          "label": "Школьный workflow · результат ожидается",
+          "url": "https://github.com/safal207/test-it-python/actions/workflows/ai-path-smoke.yml"
+        }
+      ]
+    },
+    {
+      "id": "P02",
+      "scene": "Программа",
+      "action": "Выбрать программу и открыть план",
+      "expected": "В плане шесть этапов, задания ведут к существующим неделям, PDF содержит программу и четыре учебных примера.",
+      "method": "Chromium + разбор PDF; 1440 / 390 / 320.",
+      "status": "pending",
+      "steps": [
+        "Выбрать Design Lab и открыть план.",
+        "Перейти от заданий превью к неделям 4–6.",
+        "Скачать PDF и проверить его текст и ссылку маршрута."
+      ],
+      "result": "Ожидает школьного CI; сохранение плана и PDF не помечены как проверенные заранее.",
+      "evidence": [
+        {
+          "label": "Школьный workflow · результат ожидается",
+          "url": "https://github.com/safal207/test-it-python/actions/workflows/ai-path-smoke.yml"
+        }
+      ]
+    },
+    {
+      "id": "P03",
+      "scene": "Программа",
+      "action": "Переключить Комната → Храм → Комната",
+      "expected": "При выборе меняется постер; выбор вкладки сам по себе не загружает WebGL. iframe появляется после запуска.",
+      "method": "Chromium; состояние панели и адрес iframe; дочерний документ заменён fixture.",
+      "status": "pending",
+      "steps": [
+        "В выбранной программе открыть вкладку «Храм».",
+        "Вернуться к «Комнате».",
+        "Проверить постеры и запуск выбранного превью."
+      ],
+      "result": "Ожидает школьного CI. Реальный рендер этих сцен проверен отдельно.",
+      "evidence": [
+        {
+          "label": "Школьный workflow · результат ожидается",
+          "url": "https://github.com/safal207/test-it-python/actions/workflows/ai-path-smoke.yml"
+        }
+      ]
+    },
+    {
+      "id": "P04",
+      "scene": "Программа",
+      "action": "Запустить 3D и сменить программу",
+      "expected": "Одновременно существует не больше одного iframe; остановка и смена программы удаляют предыдущий.",
+      "method": "Chromium; контроль DOM iframe с тестовым дочерним документом.",
+      "status": "pending",
+      "steps": [
+        "Запустить модель и проверить количество iframe.",
+        "Остановить, повторно запустить, сменить модель.",
+        "Выбрать другую учебную программу."
+      ],
+      "result": "Ожидает школьного CI.",
+      "evidence": [
+        {
+          "label": "Школьный workflow · результат ожидается",
+          "url": "https://github.com/safal207/test-it-python/actions/workflows/ai-path-smoke.yml"
+        }
+      ]
+    },
+    {
+      "id": "P05",
+      "scene": "Программа",
+      "action": "Увести превью за экран и вернуть его",
+      "expected": "Дочерний документ получает active:false вне экрана и active:true при возвращении.",
+      "method": "Chromium + контракт postMessage. Фоновая вкладка проверяется отдельно в T06.",
+      "status": "pending",
+      "steps": [
+        "Запустить превью с тестовым дочерним документом.",
+        "Прокрутить панель за экран.",
+        "Вернуть панель в видимую область."
+      ],
+      "result": "Ожидает школьного CI. Этот тест проверяет сообщение управления, а не FPS модели.",
+      "evidence": [
+        {
+          "label": "Школьный workflow · результат ожидается",
+          "url": "https://github.com/safal207/test-it-python/actions/workflows/ai-path-smoke.yml"
+        }
+      ]
+    },
+    {
+      "id": "P06",
+      "scene": "Программа",
+      "action": "Ошибка загрузки модели / постороннее сообщение",
+      "expected": "Чужие сообщения не открывают сцену; ошибка возвращает постер и кнопку повтора, повтор создаёт один iframe.",
+      "method": "Chromium; управляемые сообщения из тестового iframe.",
+      "status": "pending",
+      "steps": [
+        "Послать preview-ready с чужим origin и неверным source.",
+        "Послать допустимый preview-ready, затем preview-error.",
+        "Проверить восстановленный постер и повторный запуск."
+      ],
+      "result": "Ожидает школьного CI; реальный сетевой обрыв в этом сценарии не моделируется.",
+      "evidence": [
+        {
+          "label": "Школьный workflow · результат ожидается",
+          "url": "https://github.com/safal207/test-it-python/actions/workflows/ai-path-smoke.yml"
+        }
+      ]
+    },
+    {
+      "id": "R01",
+      "scene": "Комната",
+      "action": "8 сочетаний ламп × яркость 0/25/50/75/100 × день/ночь",
+      "expected": "В 80 состояниях интенсивность, эмиссия материалов и отметки включения на схеме согласованы.",
+      "method": "verify-lighting.mjs: реальные объекты Three.js + SVG; GPU подменён.",
+      "status": "passed",
+      "steps": [
+        "Для дня и ночи перебрать все 8 сочетаний трёх ламп.",
+        "Для каждого сочетания установить 0 / 25 / 50 / 75 / 100%.",
+        "Сравнить источники света, материалы ламп и SVG-схему."
+      ],
+      "result": "80 сочетаний пройдены. Проверка мощности покрывает отдельные пресеты в контроллере, а не все 80 строк.",
+      "evidence": [
+        {
+          "label": "CI комнаты",
+          "url": "https://github.com/safal207/room-control-studio/actions/runs/39108645408"
+        },
+        {
+          "label": "Сохранённый JSON комнаты",
+          "url": "https://github.com/safal207/test-it-python/blob/main/docs/3d-evidence-room.json"
+        }
+      ]
+    },
+    {
+      "id": "R02",
+      "scene": "Комната",
+      "action": "Проверить пресеты и возврат к вечернему свету",
+      "expected": "Состояние ламп вечера полностью восстанавливается; вечерний и выключенный режимы дают непустые кадры.",
+      "method": "Three.js: сравнение материалов и интенсивностей; WebGL: кадры evening/away.",
+      "status": "passed",
+      "steps": [
+        "Сохранить параметры ламп вечернего сценария.",
+        "Переключить утро → кино → никого дома → вечер.",
+        "Отдельно сравнить WebGL-кадры вечернего и выключенного света."
+      ],
+      "result": "Возврат параметров подтверждён контрактом. WebGL подтвердил видимые изменения света; пиксельное совпадение повторного вечера не заявляется.",
+      "evidence": [
+        {
+          "label": "CI комнаты",
+          "url": "https://github.com/safal207/room-control-studio/actions/runs/39108645408"
+        },
+        {
+          "label": "Сохранённый JSON комнаты",
+          "url": "https://github.com/safal207/test-it-python/blob/main/docs/3d-evidence-room.json"
+        }
+      ]
+    },
+    {
+      "id": "R03",
+      "scene": "Комната",
+      "action": "Яркость 100% → 0% при включённых переключателях",
+      "expected": "При 0% нет эмиссии ламп; изменение ползунка не создаёт свет при выключенных лампах. Экспозиция при диммировании постоянна.",
+      "method": "Three.js: интенсивность и материалы. WebGL: 0/100%, разность кадров и средняя яркость.",
+      "status": "passed",
+      "steps": [
+        "Во включённом вечернем сценарии сменить 100% на 0%.",
+        "Поочерёдно проверить каждую лампу на 0 / 25 / 50 / 75 / 100%.",
+        "При всех выключенных лампах изменить яркость 0 → 100%."
+      ],
+      "result": "Контракт и пиксельные сравнения пройдены. Небольшая фоновая подсветка намеренно сохраняет читаемый силуэт комнаты.",
+      "evidence": [
+        {
+          "label": "CI комнаты",
+          "url": "https://github.com/safal207/room-control-studio/actions/runs/39108645408"
+        },
+        {
+          "label": "Сохранённый JSON комнаты",
+          "url": "https://github.com/safal207/test-it-python/blob/main/docs/3d-evidence-room.json"
+        }
+      ]
+    },
+    {
+      "id": "R04",
+      "scene": "Комната",
+      "action": "Включать подвес и торшер по отдельности",
+      "expected": "У каждой лампы есть направление и ограниченные тени; источник не заперт внутри собственного плафона; отдельная лампа осветляет кадр.",
+      "method": "Three.js: raycasting и параметры теней. SwiftShader: рост яркости для каждой лампы.",
+      "status": "passed",
+      "steps": [
+        "Включать подвес, торшер и акцент по одному.",
+        "Проверить направление, параметры теней и пересечение луча с геометрией.",
+        "Сравнить кадр каждой лампы с полностью выключенным состоянием."
+      ],
+      "result": "Три источника прошли проверки геометрии и WebGL. Отсутствие всех визуальных артефактов теней этим не доказано.",
+      "evidence": [
+        {
+          "label": "CI комнаты",
+          "url": "https://github.com/safal207/room-control-studio/actions/runs/39108645408"
+        },
+        {
+          "label": "Сохранённый JSON комнаты",
+          "url": "https://github.com/safal207/test-it-python/blob/main/docs/3d-evidence-room.json"
+        }
+      ]
+    },
+    {
+      "id": "R05",
+      "scene": "Комната",
+      "action": "Схема ↔ 3D, ракурс, изменение размера",
+      "expected": "Отложенный выбор ракурса сохраняется; схема использует текущее состояние; геометрия комнаты помещается в оба ракурса. Кадры плана и модели различаются.",
+      "method": "Контроллер с моделью DOM; Three.js проекция границ; WebGL-кадры двух камер.",
+      "status": "passed",
+      "steps": [
+        "Выбрать верхний ракурс до завершения загрузки.",
+        "Переключить схему и 3D после изменения настроек.",
+        "Проверить план и объёмный ракурс на 1200 / 390 / 320."
+      ],
+      "result": "Контракт состояния и границ пройден; WebGL подтвердил различные камеры и размещение органов управления.",
+      "evidence": [
+        {
+          "label": "CI комнаты",
+          "url": "https://github.com/safal207/room-control-studio/actions/runs/39108645408"
+        },
+        {
+          "label": "Сохранённый JSON комнаты",
+          "url": "https://github.com/safal207/test-it-python/blob/main/docs/3d-evidence-room.json"
+        }
+      ]
+    },
+    {
+      "id": "R06",
+      "scene": "Комната",
+      "action": "Ошибка рендера / потеря WebGL → повторный запуск",
+      "expected": "Возвращается управляемая схема; повтор создаёт новый renderer и применяет актуальные параметры.",
+      "method": "verify-camera.mjs: модель DOM и renderer с внедрёнными ошибками.",
+      "status": "passed",
+      "steps": [
+        "Внести ошибку первого и последующего рендера.",
+        "Смоделировать потерю контекста и ошибку при перетаскивании.",
+        "Изменить параметры в 2D и повторить запуск."
+      ],
+      "result": "Сценарии восстановления пройдены. Настоящая потеря аппаратного GPU-контекста не воспроизводилась.",
+      "evidence": [
+        {
+          "label": "CI комнаты",
+          "url": "https://github.com/safal207/room-control-studio/actions/runs/39108645408"
+        },
+        {
+          "label": "Сохранённый JSON комнаты",
+          "url": "https://github.com/safal207/test-it-python/blob/main/docs/3d-evidence-room.json"
+        }
+      ]
+    },
+    {
+      "id": "T01",
+      "scene": "Храм",
+      "action": "Запустить полное качество с bloom",
+      "expected": "В sampler2D передаются Texture, нет чтения собственного draw buffer. Полный bloom запускается без ошибок консоли и активных шейдеров.",
+      "method": "Three.js: контракт проходов. Chromium WebGL: настоящий high/bloom.",
+      "status": "passed",
+      "steps": [
+        "Собрать сцену в полном качестве.",
+        "Проверить тип каждого sampler2D при проходах.",
+        "Запустить high в SwiftShader и потребовать postprocessing:true."
+      ],
+      "result": "Типы и буферы проверены; реальный программный WebGL выполнил high-пайплайн без зарегистрированных ошибок.",
+      "evidence": [
+        {
+          "label": "CI храма",
+          "url": "https://github.com/safal207/quiet-hours-sanctuary/actions/runs/39108319680"
+        },
+        {
+          "label": "Сохранённый JSON храма",
+          "url": "https://github.com/safal207/test-it-python/blob/main/docs/3d-evidence-temple.json"
+        }
+      ]
+    },
+    {
+      "id": "T02",
+      "scene": "Храм",
+      "action": "Накопить несколько уровней свечения",
+      "expected": "Дополнительный уровень свечения складывается с содержимым назначения, а не стирает его.",
+      "method": "verify-scene.mjs: наблюдение вызовов renderer и реальных материалов Three.js.",
+      "status": "passed",
+      "steps": [
+        "Проследить четыре уровня размытия.",
+        "При additive upsample проверить отсутствие автоматической и явной очистки."
+      ],
+      "result": "Контракт сохранения буфера пройден. Попиксельная форма каждого уровня bloom отдельно не сравнивалась.",
+      "evidence": [
+        {
+          "label": "CI храма",
+          "url": "https://github.com/safal207/quiet-hours-sanctuary/actions/runs/39108319680"
+        },
+        {
+          "label": "Сохранённый JSON храма",
+          "url": "https://github.com/safal207/test-it-python/blob/main/docs/3d-evidence-temple.json"
+        }
+      ]
+    },
+    {
+      "id": "T03",
+      "scene": "Храм",
+      "action": "Сравнить экспозицию low/high и безопасные пределы",
+      "expected": "Экспозиция конечна и ограничена 0.6–1.4. При 140% средняя яркость выше, чем при 60%, в обоих режимах; кадры не пустые.",
+      "method": "Three.js: значения экспозиции. SwiftShader: средняя яркость и разность PNG.",
+      "status": "passed",
+      "steps": [
+        "Проверить API на 60 / 100 / 140%, выход за пределы и NaN/Infinity.",
+        "В WebGL low сравнить 60% и 140%.",
+        "Повторить 60% и 140% в high с включённым bloom."
+      ],
+      "result": "Оба режима прошли сравнение 60/140%; API проверен также на 100%. Точное совпадение цветов low/high не требуется.",
+      "evidence": [
+        {
+          "label": "CI храма",
+          "url": "https://github.com/safal207/quiet-hours-sanctuary/actions/runs/39108319680"
+        },
+        {
+          "label": "Сохранённый JSON храма",
+          "url": "https://github.com/safal207/test-it-python/blob/main/docs/3d-evidence-temple.json"
+        }
+      ]
+    },
+    {
+      "id": "T04",
+      "scene": "Храм",
+      "action": "Проверить световые переходы в GLSL",
+      "expected": "В проверенных GLSL нет smoothstep с обратными числовыми границами; активные шейдеры сцен не сообщают об ошибке.",
+      "method": "Проверка строк реальных ShaderMaterial + запуск WebGL low/high.",
+      "status": "passed",
+      "steps": [
+        "Осмотреть шейдеры частиц, дождя, теневого тона и виньетки.",
+        "Проверить возрастающий порядок числовых границ smoothstep.",
+        "Запустить активные low/high-шейдеры в WebGL."
+      ],
+      "result": "Контракт GLSL пройден; low/high рендер без ошибок. Дождь в WebGL-превью выключен — его видимая анимация отдельно не проверялась.",
+      "evidence": [
+        {
+          "label": "CI храма",
+          "url": "https://github.com/safal207/quiet-hours-sanctuary/actions/runs/39108319680"
+        },
+        {
+          "label": "Сохранённый JSON храма",
+          "url": "https://github.com/safal207/test-it-python/blob/main/docs/3d-evidence-temple.json"
+        }
+      ]
+    },
+    {
+      "id": "T05",
+      "scene": "Храм",
+      "action": "Пауза → изменить свет и ракурс → продолжить",
+      "expected": "Рендер по запросу работает, фаза освещения при паузе не изменяется, возобновление не включает время простоя.",
+      "method": "Three.js: снимки интенсивностей и uT; модель контроллера проверяет вызовы setPaused.",
+      "status": "passed",
+      "steps": [
+        "Остановить время сцены.",
+        "Изменить экспозицию и ракурс; запросить новые кадры.",
+        "Возобновить движение."
+      ],
+      "result": "Фаза и пауза проверены по состоянию сцены; анимация после следующего интервала возобновляется.",
+      "evidence": [
+        {
+          "label": "CI храма",
+          "url": "https://github.com/safal207/quiet-hours-sanctuary/actions/runs/39108319680"
+        },
+        {
+          "label": "Сохранённый JSON храма",
+          "url": "https://github.com/safal207/test-it-python/blob/main/docs/3d-evidence-temple.json"
+        }
+      ]
+    },
+    {
+      "id": "T06",
+      "scene": "Храм",
+      "action": "Скрыть вкладку → вернуться",
+      "expected": "Время простоя не двигает свет и не считается медленным кадром для адаптивного разрешения.",
+      "method": "verify-scene.mjs: часы и pixel ratio; verify-startup.mjs: visibilitychange/pageshow.",
+      "status": "passed",
+      "steps": [
+        "Накопить нормальные интервалы кадров.",
+        "Сбросить таймер при смене видимости вкладки.",
+        "Вернуться после большого перерыва; проверить также bfcache-восстановление."
+      ],
+      "result": "Регрессия времени и подключение событий пройдены с моделируемыми часами и DOM.",
+      "evidence": [
+        {
+          "label": "CI храма",
+          "url": "https://github.com/safal207/quiet-hours-sanctuary/actions/runs/39108319680"
+        },
+        {
+          "label": "Сохранённый JSON храма",
+          "url": "https://github.com/safal207/test-it-python/blob/main/docs/3d-evidence-temple.json"
+        }
+      ]
+    },
+    {
+      "id": "T07",
+      "scene": "Храм",
+      "action": "Сбой 3D / потеря WebGL → облегчённый повтор",
+      "expected": "После сбоя 2D остаётся управляемой, повтор создаёт renderer заново. Изменения во время загрузки и возврат к 2D сохраняют свет, дождь и ракурс.",
+      "method": "verify-startup.mjs: контроллер с моделью DOM и сбоями renderer; отдельно политика low/half-float.",
+      "status": "passed",
+      "steps": [
+        "Внести сбой первого и следующего кадра; смоделировать потерю WebGL.",
+        "Продолжить изменение параметров в 2D.",
+        "Повторить запуск и проверить готовность после первого успешного кадра."
+      ],
+      "result": "Контракты восстановления и облегчённого режима пройдены. Реальный аппаратный сбой не моделировался.",
+      "evidence": [
+        {
+          "label": "CI храма",
+          "url": "https://github.com/safal207/quiet-hours-sanctuary/actions/runs/39108319680"
+        },
+        {
+          "label": "Сохранённый JSON храма",
+          "url": "https://github.com/safal207/test-it-python/blob/main/docs/3d-evidence-temple.json"
+        }
+      ]
+    },
+    {
+      "id": "V01",
+      "scene": "Обе сцены",
+      "action": "Настоящий рендер 3D на 1200/390/320 px",
+      "expected": "Кадр не пустой и не почти целиком чёрный/белый; органы управления помещаются; доверенные сообщения управляют видимостью, чужой origin не возобновляет сцену.",
+      "method": "Chromium / ANGLE SwiftShader. PNG: яркость, дисперсия и диапазон; DOM и postMessage.",
+      "status": "passed",
+      "steps": [
+        "Открыть preview.html каждой сцены на 1200×800, 390×520, 320×520.",
+        "Потребовать настоящий WebGL-контекст и сделать PNG canvas.",
+        "Проверить непустой кадр, отсутствие overflow, ползунок и сообщения видимости."
+      ],
+      "result": "Обе сцены прошли три ширины. Это адаптивные viewport-проверки на программном WebGL, а не испытание трёх устройств.",
+      "evidence": [
+        {
+          "label": "CI комнаты",
+          "url": "https://github.com/safal207/room-control-studio/actions/runs/39108645408"
+        },
+        {
+          "label": "CI храма",
+          "url": "https://github.com/safal207/quiet-hours-sanctuary/actions/runs/39108319680"
+        },
+        {
+          "label": "Сохранённый JSON комнаты",
+          "url": "https://github.com/safal207/test-it-python/blob/main/docs/3d-evidence-room.json"
+        },
+        {
+          "label": "Сохранённый JSON храма",
+          "url": "https://github.com/safal207/test-it-python/blob/main/docs/3d-evidence-temple.json"
+        }
+      ]
+    },
+    {
+      "id": "D01",
+      "scene": "Физический телефон",
+      "action": "Xiaomi: Chrome и встроенный браузер",
+      "expected": "Проверить плавность, тени, нагрев, потерю контекста и возврат из фонового режима.",
+      "method": "Ручная проверка на устройстве",
+      "status": "not_run",
+      "steps": [
+        "Открыть модель на физическом Xiaomi в Chrome.",
+        "Повторить во встроенном браузере.",
+        "Оценить свет, плавность, нагрев и возврат из фона."
+      ],
+      "result": "Не выполнялось в этой итерации. Нет доступа к измерениям на физическом телефоне.",
+      "evidence": []
+    },
+    {
+      "id": "D02",
+      "scene": "Другие браузеры",
+      "action": "Safari/iOS, Firefox и аппаратные GPU",
+      "expected": "Проверить визуальное совпадение, WebGL-совместимость и производительность.",
+      "method": "Отдельный прогон на целевых платформах",
+      "status": "not_run",
+      "steps": [
+        "Повторить ключевые сценарии на Safari/iOS и Firefox.",
+        "Проверить аппаратные GPU и драйверы целевых устройств.",
+        "Сравнить тени, цвет и производительность."
+      ],
+      "result": "Не выполнялось в этой итерации. Результаты Chromium/SwiftShader не перенесены на эти платформы.",
+      "evidence": []
+    }
+  ],
+  "schema_version": 1,
+  "scope": "Превью и программа Design Lab; реальная геометрия, свет и жизненный цикл двух сцен.",
+  "status_labels": {
+    "passed": "Подтверждено",
+    "pending": "Ожидает CI",
+    "not_run": "Не запускали"
+  },
+  "environments": [
+    {
+      "id": "scene_webgl",
+      "name": "Рендер сцен",
+      "details": "Chromium / ANGLE SwiftShader, программный WebGL в GitHub Actions; 1200×800, 390×520, 320×520. Полный bloom храма дополнительно проверен при 1200×800."
+    },
+    {
+      "id": "node_contract",
+      "name": "Логика и материалы",
+      "details": "Node.js: реальные объекты Three.js, геометрия, материалы и источники света; GPU и Canvas2D подменены. Контроллер проверен с моделью DOM."
+    },
+    {
+      "id": "school_fixture",
+      "name": "Программа обучения",
+      "details": "Chromium 1440×960, 390×844, 320×740. В проверках iframe используется тестовый дочерний документ. Пиксели 3D проверяются отдельно в репозиториях сцен."
+    }
+  ],
+  "limits": [
+    "SwiftShader исполняет настоящие WebGL-шейдеры программно. Это не испытание GPU физического телефона.",
+    "Проверки яркости и различия кадров обнаруживают пустые сцены и ошибки освещения. Они не подтверждают художественное качество всех теней и материалов.",
+    "Школьный тест проверяет карточку, план, PDF и взаимодействие с iframe через тестовый документ; он не дублирует рендер модели.",
+    "Плавность, FPS, нагрев, расход батареи, Safari/iOS, Firefox и встроенные мобильные браузеры в эту итерацию не входят."
+  ],
+  "runs": {
+    "temple": {
+      "repo": "safal207/quiet-hours-sanctuary",
+      "commit": "edd3866867eb8e5122e861835a413219df0b0349",
+      "run_id": 39108319680,
+      "url": "https://github.com/safal207/quiet-hours-sanctuary/actions/runs/39108319680",
+      "status": "passed",
+      "artifact": "qa-webgl-temple",
+      "report_path": "docs/3d-evidence-temple.json",
+      "case_count": 20
+    },
+    "room": {
+      "repo": "safal207/room-control-studio",
+      "commit": "4d2c0710e253fcec02f21cac4078f5efe589ce80",
+      "run_id": 39108645408,
+      "url": "https://github.com/safal207/room-control-studio/actions/runs/39108645408",
+      "status": "passed",
+      "artifact": "qa-webgl-room",
+      "report_path": "docs/3d-evidence-room.json",
+      "case_count": 28
+    },
+    "school": {
+      "repo": "safal207/test-it-python",
+      "commit": null,
+      "run_id": null,
+      "url": "https://github.com/safal207/test-it-python/actions/workflows/ai-path-smoke.yml",
+      "status": "pending",
+      "artifact": "Скриншоты и PDF из AI PATH smoke"
+    }
+  }
+}

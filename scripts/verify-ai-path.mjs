@@ -8,7 +8,7 @@ const programIds = ['explore', 'build', 'space', 'furniture', 'create', 'comics'
 const projectPreviewSources = {
   build: 'assets/testit.webp', space: 'assets/architectural.webp', furniture: 'assets/furniture/luma01-hero.webp',
   create: 'assets/rustclip.webp', comics: 'assets/comics/issue-02-cover.webp', qa: 'assets/testit.webp',
-  game: 'assets/awakening.webp', designlab: 'assets/design-lab/composition.svg'
+  game: 'assets/awakening.webp', designlab: 'assets/design-lab/room-3d-preview.png'
 };
 const groups = {
   explore: ['explore'], visual: ['furniture', 'space', 'designlab', 'comics', 'books', 'create'],
@@ -126,7 +126,11 @@ async function selected(page, id) {
     conceptSrc: el.querySelector('#selConceptImage').getAttribute('src'), conceptAlt: el.querySelector('#selConceptImage').alt,
     conceptCaption: el.querySelector('#selConcept figcaption').textContent.trim()
   }));
-  if (projectPreviewSources[id]) {
+  if (id === 'designlab') {
+    assert(visual.visible.length === 0, 'Design Lab replaces the duplicate hero image with its model-and-plan panel');
+    assert(await page.locator('#program3d').isVisible(), '3D scene is visible inside the selected program');
+    assert((await page.locator('#program3dPoster').getAttribute('src')).includes('-3d-preview.png'), 'Selected program uses an actual rendered-model poster');
+  } else if (projectPreviewSources[id]) {
     assert(visual.visible.join('|') === 'selPreview' && visual.projectSrc === projectPreviewSources[id], `Selected program preserves its source-backed project preview: ${id}`);
     assert(visual.projectAlt.length > 12 && visual.projectCaption === visual.projectAlt, `Selected project preview retains its attribution: ${id}`);
     assert(visual.conceptSrc === null, `Project preview clears a previous conceptual illustration: ${id}`);
@@ -543,6 +547,67 @@ async function vibeRoute(page, width) {
   assert(await page.locator('#programList .program').count() === 15, 'Existing catalog preserved');
 }
 
+async function program3dContract(page, width) {
+  // Renderer pixels are verified by the two scene repositories. This fixture isolates
+  // the school's cross-origin iframe lifecycle without depending on a remote deploy.
+  const pattern = /https:\/\/safal207\.github\.io\/(room-control-studio|quiet-hours-sanctuary)\/preview\.html/;
+  const handler = route => route.fulfill({ contentType: 'text/html', body: '<!doctype html><html><body><p>Preview message fixture</p><script>window.lastActive=null;addEventListener("message",e=>{if(e.data?.type==="designlab:visibility")window.lastActive=e.data.active});</script></body></html>' });
+  await page.route(pattern, handler);
+  const panel = page.locator('#program3d');
+  assert(await panel.isVisible(), 'Selected Design Lab includes 3D panel');
+  assert(await panel.locator('iframe').count() === 0, '3D is not loaded before a deliberate action');
+  await panel.locator('[data-program-scene="temple"]').click();
+  assert((await panel.locator('#program3dPoster').getAttribute('src')).endsWith('temple-3d-preview.png'), 'Temple tab changes real model poster');
+  assert(await panel.locator('iframe').count() === 0, 'Tab selection alone does not load WebGL');
+  for (const [milestone, week] of [['light',4],['interaction',5],['publish',6]]) {
+    await panel.locator(`[data-program-milestone="${milestone}"]`).click();
+    assert(await panel.locator('#program3dWeek').getAttribute('href') === '#designlab-week-' + week, 'Preview task connects to the correct curriculum week');
+    assert(await page.locator('#designlab-week-' + week).count() === 1, 'Preview week has a real plan destination');
+  }
+  await panel.locator('#program3dPlay').click();
+  assert(await panel.locator('iframe').count() === 1, 'Only one frame is created');
+  assert(await panel.locator('iframe').getAttribute('referrerpolicy') === 'strict-origin', 'Preview can identify its parent origin for readiness');
+  await page.waitForFunction(() => document.querySelector('#program3dFrame iframe')?.contentWindow);
+  let child = page.frames().find(f => f.url().includes('/preview.html'));
+  if (!child) { await page.waitForTimeout(150); child = page.frames().find(f => f.url().includes('/preview.html')); }
+  assert(Boolean(child), 'Preview frame loaded');
+  await child.waitForLoadState('domcontentloaded');
+  await page.evaluate(() => {
+    window.dispatchEvent(new MessageEvent('message', { origin:'https://untrusted.example', source:document.querySelector('#program3dFrame iframe').contentWindow, data:{type:'designlab:preview-ready'} }));
+    window.dispatchEvent(new MessageEvent('message', { origin:'https://safal207.github.io', source:window, data:{type:'designlab:preview-ready'} }));
+  });
+  assert(await panel.locator('#program3dStage').getAttribute('aria-busy') === 'true', 'Wrong origin or source cannot mark a preview ready');
+  await child.evaluate(() => parent.postMessage({type:'designlab:preview-ready'}, '*'));
+  await page.waitForFunction(() => document.querySelector('#program3dFrame').classList.contains('is-ready'));
+  assert(await panel.locator('#program3dPoster').isHidden(), 'Verified child readiness reveals the model');
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await child.waitForFunction(() => window.lastActive === false);
+  await panel.locator('#program3dStage').scrollIntoViewIfNeeded();
+  await child.waitForFunction(() => window.lastActive === true);
+  await child.evaluate(() => parent.postMessage({type:'designlab:preview-error'}, '*'));
+  await page.waitForFunction(() => !document.querySelector('#program3dFrame iframe'));
+  assert(await panel.locator('#program3dPoster').isVisible(), 'Failure restores the actual model poster');
+  assert((await panel.locator('#program3dPlay').innerText()).includes('Повторить'), 'Failure has an actionable retry');
+  await panel.locator('#program3dPlay').click();
+  assert(await panel.locator('iframe').count() === 1, 'Retry creates a single new iframe');
+  await panel.locator('[data-program-scene="temple"]').click();
+  assert(await panel.locator('iframe').count() === 0, 'Switching model disposes the previous frame');
+  await panel.locator('#program3dPlay').click();
+  await panel.locator('#program3dStop').click();
+  assert(await panel.locator('iframe').count() === 0, 'Stop cancels loading and removes the frame');
+  await panel.locator('#program3dPlay').click();
+  await page.locator('#programList [data-program="build"]').click();
+  await selected(page, 'build');
+  assert(await panel.isHidden() && await panel.locator('iframe').count() === 0, 'Another program restores its normal plan and disposes 3D');
+  await page.locator('#programList [data-program="designlab"]').click();
+  await selected(page, 'designlab');
+  await panel.locator('[data-program-scene="room"]').click();
+  await panel.locator('#program3dPoster').evaluate(async img => { img.loading='eager'; await img.decode(); });
+  await screenshot(page, width, 'model-and-plan', '#program3d');
+  await noOverflow(page, '3D model and study plan ' + width);
+  await page.unroute(pattern, handler);
+}
+
 async function designLabRoute(page, width) {
   await chooseQuiz(page, { goal: 'visual', interest: 'designlab', level: 'zero' });
   await selected(page, 'designlab');
@@ -550,6 +615,7 @@ async function designLabRoute(page, width) {
   assert((await ids(page.locator('#recommendationList .program'))).join('|') === 'designlab|build|space', 'Design Lab recommends relevant development and space alternatives');
   assert(await page.locator('#selSteps li').count() === 6, 'Design Lab includes six learning stages');
   assert((await page.locator('#selOutcome').innerText()).includes('Один собственный'), 'Learning outcome is one student project');
+  await program3dContract(page, width);
   assert(await page.locator('#design-lab article.project').count() === 4, 'Four separate teaching examples');
   const demos = await page.locator('#design-lab .design-lab-visual').evaluateAll(items => items.map(a => a.href));
   assert(demos.length === 4 && new Set(demos).size === 4, 'Teaching demo links are distinct');
@@ -823,4 +889,5 @@ try {
   if (browser) await browser.close();
   server.kill('SIGTERM');
 }
+
 

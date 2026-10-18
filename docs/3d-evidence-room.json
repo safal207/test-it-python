@@ -1,0 +1,354 @@
+{
+  "scene": "room",
+  "engine": "Chromium / ANGLE SwiftShader software WebGL",
+  "date": "2026-10-18T07:42:35.754Z",
+  "commit": "4d2c0710e253fcec02f21cac4078f5efe589ce80",
+  "status": "passed",
+  "cases": [
+    {
+      "id": "low-1200-webgl-startup",
+      "status": "pass",
+      "viewport": {
+        "width": 1200,
+        "height": 800
+      },
+      "gl": {
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      }
+    },
+    {
+      "id": "low-1200-controls-fit",
+      "status": "pass"
+    },
+    {
+      "id": "room-daylight-preview",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 173.45677355435606,
+        "std": 42.267961110915856,
+        "min": 0,
+        "max": 249.20059999999998,
+        "clippedFraction": 0,
+        "blackFraction": 0.00004270833333333333
+      },
+      "image": "room-daylight-preview.png",
+      "poster": true
+    },
+    {
+      "id": "room-evening-75",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 56.36780496961786,
+        "std": 18.549617483853584,
+        "min": 0,
+        "max": 252.27679999999998,
+        "clippedFraction": 0,
+        "blackFraction": 0.003190625
+      },
+      "image": "room-evening-75.png",
+      "poster": false
+    },
+    {
+      "id": "room-evening-0",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 52.65978548219903,
+        "std": 14.787062871669647,
+        "min": 0,
+        "max": 90.1806,
+        "clippedFraction": 0,
+        "blackFraction": 0.008240625
+      },
+      "image": "room-evening-0.png",
+      "poster": false
+    },
+    {
+      "id": "room-evening-100",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 57.19886177751766,
+        "std": 20.259922127057948,
+        "min": 0,
+        "max": 253.9238,
+        "clippedFraction": 0.0000010416666666666667,
+        "blackFraction": 0.0028291666666666665
+      },
+      "image": "room-evening-100.png",
+      "poster": false
+    },
+    {
+      "id": "room-light-monotonic",
+      "status": "pass",
+      "low": 52.65978548219903,
+      "high": 57.19886177751766
+    },
+    {
+      "id": "room-away-0",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 52.65560089428362,
+        "std": 14.802243229011436,
+        "min": 0,
+        "max": 90.1806,
+        "clippedFraction": 0,
+        "blackFraction": 0.008241666666666666
+      },
+      "image": "room-away-0.png",
+      "poster": false
+    },
+    {
+      "id": "room-away-100",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 52.65560089428362,
+        "std": 14.802243229011436,
+        "min": 0,
+        "max": 90.1806,
+        "clippedFraction": 0,
+        "blackFraction": 0.008241666666666666
+      },
+      "image": "room-away-100.png",
+      "poster": false
+    },
+    {
+      "id": "room-off-slider-stable",
+      "status": "pass"
+    },
+    {
+      "id": "room-custom-off",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 52.659896159074016,
+        "std": 14.787073598395821,
+        "min": 0,
+        "max": 90.1806,
+        "clippedFraction": 0,
+        "blackFraction": 0.008240625
+      },
+      "image": "room-custom-off.png",
+      "poster": false
+    },
+    {
+      "id": "room-pendant-only",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 55.91571142046996,
+        "std": 18.38959222169499,
+        "min": 0,
+        "max": 195.279,
+        "clippedFraction": 0,
+        "blackFraction": 0.008201041666666667
+      },
+      "image": "room-pendant-only.png",
+      "poster": false
+    },
+    {
+      "id": "room-pendant-light-visible",
+      "status": "pass",
+      "off": 52.659896159074016,
+      "on": 55.91571142046996
+    },
+    {
+      "id": "room-floor-only",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 53.707954352992374,
+        "std": 16.840526017312087,
+        "min": 0,
+        "max": 212.1326,
+        "clippedFraction": 0,
+        "blackFraction": 0.008239583333333333
+      },
+      "image": "room-floor-only.png",
+      "poster": false
+    },
+    {
+      "id": "room-floor-light-visible",
+      "status": "pass",
+      "off": 52.659896159074016,
+      "on": 53.707954352992374
+    },
+    {
+      "id": "room-accent-only",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 52.942608414063095,
+        "std": 15.134705075897743,
+        "min": 0,
+        "max": 253.9238,
+        "clippedFraction": 0.0000010416666666666667,
+        "blackFraction": 0.0028697916666666668
+      },
+      "image": "room-accent-only.png",
+      "poster": false
+    },
+    {
+      "id": "room-accent-light-visible",
+      "status": "pass",
+      "off": 52.659896159074016,
+      "on": 52.942608414063095
+    },
+    {
+      "id": "room-plan",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 54.466054248746126,
+        "std": 14.05985597824639,
+        "min": 0,
+        "max": 224.28499999999997,
+        "clippedFraction": 0,
+        "blackFraction": 0.0011833333333333333
+      },
+      "image": "room-plan.png",
+      "poster": false
+    },
+    {
+      "id": "room-model",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "1200×800",
+      "metrics": {
+        "width": 1200,
+        "height": 800,
+        "mean": 52.942608414063095,
+        "std": 15.134705075897743,
+        "min": 0,
+        "max": 253.9238,
+        "clippedFraction": 0.0000010416666666666667,
+        "blackFraction": 0.0028697916666666668
+      },
+      "image": "room-model.png",
+      "poster": false
+    },
+    {
+      "id": "room-plan-model-camera",
+      "status": "pass"
+    },
+    {
+      "id": "low-390-webgl-startup",
+      "status": "pass",
+      "viewport": {
+        "width": 390,
+        "height": 520
+      },
+      "gl": {
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      }
+    },
+    {
+      "id": "low-390-controls-fit",
+      "status": "pass"
+    },
+    {
+      "id": "room-mobile-390",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "390×520",
+      "metrics": {
+        "width": 390,
+        "height": 520,
+        "mean": 181.0244498115829,
+        "std": 36.646712141732635,
+        "min": 1,
+        "max": 248.2688,
+        "clippedFraction": 0,
+        "blackFraction": 0.000014792899408284024
+      },
+      "image": "room-mobile-390.png",
+      "poster": false
+    },
+    {
+      "id": "room-mobile-390-visibility-origin",
+      "status": "pass"
+    },
+    {
+      "id": "low-320-webgl-startup",
+      "status": "pass",
+      "viewport": {
+        "width": 320,
+        "height": 520
+      },
+      "gl": {
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      }
+    },
+    {
+      "id": "low-320-controls-fit",
+      "status": "pass"
+    },
+    {
+      "id": "room-mobile-320",
+      "status": "pass",
+      "quality": "low",
+      "viewport": "320×520",
+      "metrics": {
+        "width": 320,
+        "height": 520,
+        "mean": 184.19960861496986,
+        "std": 33.592167011158836,
+        "min": 2.7152000000000003,
+        "max": 249.12839999999997,
+        "clippedFraction": 0,
+        "blackFraction": 0
+      },
+      "image": "room-mobile-320.png",
+      "poster": false
+    },
+    {
+      "id": "room-mobile-320-visibility-origin",
+      "status": "pass"
+    }
+  ],
+  "errors": [],
+  "limits": [
+    "Software WebGL does not certify an Android/iOS device GPU.",
+    "Pixel luminance checks detect blank scenes and lighting regressions; aesthetic review of screenshots remains separate."
+  ]
+}

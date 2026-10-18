@@ -33,7 +33,7 @@
     deep:'Ты планируешь уделять 7 и более часов в неделю. Обсудим дополнительную практику и глубину проекта с учётом твоей подготовки.'
   };
   var presentation={
-    designlab:{"headline": "Создай сайт, с которым можно взаимодействовать", "image": "assets/design-lab/composition.svg", "width": 600, "height": 700, "caption": "Учебный пример Layer Lab: авторская SVG-композиция.", "first": "Выбрать тему своего сайта, описать посетителя и одно действие, которое он сможет выполнить."},
+    designlab:{"headline": "Создай сайт, с которым можно взаимодействовать", "image": "assets/design-lab/room-3d-preview.png", "width": 1200, "height": 800, "caption": "Room Control: кадр работающей 3D-сцены. В программе можно покрутить модель и изучить свет.", "first": "Выбрать тему своего сайта, описать посетителя и одно действие, которое он сможет выполнить."},
     explore:{headline:'Попробуй два проекта и выбери своё направление',first:'Выбрать одну небольшую идею и составить понятное задание для ИИ.'},
     build:{headline:'Собери и опубликуй своё веб-приложение',image:'assets/testit.webp',width:1440,height:960,caption:'Пример веб-интерфейса — тренажёр Test it Python.',first:'Описать одну полезную функцию приложения и собрать первый экран с работающей кнопкой.'},
     space:{headline:'Создай 3D-комнату и покажи её с разных сторон',image:'assets/architectural.webp',width:1440,height:960,caption:'Пример портфолио пространств — Architectural AI Lab.',first:'Выбрать небольшую комнату, собрать референсы и набросать её простую объёмную схему.'},
@@ -340,7 +340,7 @@
     grant:{category:'Проектные заявки',family:'research'},
     frontier:{category:'Исследования',family:'research'},
     books:{category:'Книги и публикация',family:'creative'},
-    designlab:{category:'Интерактивный дизайн',family:'design',kind:'Layer Lab · учебная композиция'},
+    designlab:{category:'Интерактивный дизайн',family:'design',kind:'Room Control · кадр 3D-сцены'},
     vibe:{category:'Продукт и клиенты',family:'code'}
   };
   function cardMarkup(p,recommended){
@@ -354,13 +354,13 @@
       '<span class="program-name">'+esc(p.name)+'</span><span class="program-outcome">'+esc(m.headline)+'</span>'+
       '<span class="program-meta"><span>'+weekLabel(p.weeks)+'</span><span>'+meetingLabel(p.meetings)+'</span></span>'+
       '<span class="program-level"><span>Для старта</span> '+esc(p.level)+'</span>'+
-      '<span class="program-footer"><span class="program-choice">'+(sel?'Выбрано ✓':'Посмотреть план ↗')+'</span></span></span></button>';
+      '<span class="program-footer"><span class="program-choice">'+(sel?'Выбрано ✓':p.id==='designlab'?'План и 3D-превью ↗':'Посмотреть план ↗')+'</span></span></span></button>';
   }
   function syncCards(){
     document.querySelectorAll('button[data-program]').forEach(function(button){
       var selected=Boolean(state.selection&&button.dataset.program===state.selection.program);
       button.setAttribute('aria-pressed',String(selected));
-      var label=button.querySelector('.program-choice');if(label)label.textContent=selected?'Выбрано ✓':'Посмотреть план ↗';
+      var label=button.querySelector('.program-choice');if(label)label.textContent=selected?'Выбрано ✓':button.dataset.program==='designlab'?'План и 3D-превью ↗':'Посмотреть план ↗';
     });
   }
   function filterCatalog(){
@@ -408,7 +408,7 @@
   }
   function renderSelection(){
     $('selected').hidden=!state.selection;$('backToResults').hidden=!state.result;
-    renderSelectionNavigation();if(!state.selection)return;
+    renderSelectionNavigation();if(!state.selection){document.dispatchEvent(new CustomEvent('ai-path:program-selected',{detail:{program:null}}));return;}
     var selected=state.selection,p=programById(selected.program),m=presentation[p.id];
     $('selTitle').textContent=p.name;$('selText').textContent=p.short;
     $('selected').dataset.family=cardArt[p.id].family;
@@ -422,15 +422,16 @@
     $('startProgram').textContent=p.name;
     $('startMeta').textContent='Ориентир: '+weekLabel(p.weeks)+' · '+meetingLabel(p.meetings)+'. Уровень: '+levelLabels[selected.level]+'. Желаемая нагрузка: '+paceLabels[selected.pace]+' в неделю.';
     $('projectIdea').value=projectIdeas[p.id]||'';
-    $('selSteps').innerHTML=p.steps.map(function(s,i){return '<li><span class="step-no">'+(i+1)+'</span><span>'+esc(s)+'</span></li>'}).join('');
+    $('selSteps').innerHTML=p.steps.map(function(s,i){return '<li'+(p.id==='designlab'?' id="designlab-week-'+(i+1)+'"':'')+'><span class="step-no">'+(i+1)+'</span><span>'+esc(s)+'</span></li>'}).join('');
     $('selRefs').innerHTML=p.refs.map(function(r){return '<a href="'+esc(r[1])+'"'+(r[1].charAt(0)==='#'?'':' target="_blank" rel="noopener noreferrer"')+'>'+esc(r[0])+' ↗</a>'}).join('');
-    $('selPreview').hidden=!m.image;
+    $('selPreview').hidden=!m.image||p.id==='designlab';
     if(m.image){$('selImage').src=m.image;$('selImage').alt=m.caption;$('selImage').width=m.width;$('selImage').height=m.height;$('selImageCaption').textContent=m.caption}
     else{$('selImage').removeAttribute('src');$('selImage').alt='';$('selImageCaption').textContent=''}
     $('selConcept').hidden=Boolean(m.image);
     if(!m.image){$('selConceptImage').src='assets/program-covers/'+p.id+'.svg'}
     else{$('selConceptImage').removeAttribute('src')}
     renderContact();syncCards();updateSelectionDock();
+    document.dispatchEvent(new CustomEvent('ai-path:program-selected',{detail:{program:p.id}}));
   }
   function selectProgram(id){
     if(!programById(id))return;
@@ -573,4 +574,5 @@
   $('programList').innerHTML=programs.map(function(p){return cardMarkup(p,false)}).join('');
   filterCatalog();closeResults();renderSelection();
 })();
+
 
