@@ -637,6 +637,7 @@ async function conversionFlow(page, width) {
   assert(bookPlan.includes(normalizePdfText(bookIdea)) && !bookPlan.includes(normalizePdfText(furnitureIdea)), 'Book plan includes only its own idea');
   await screenshot(page, width, 'book-offer', '#selected');
   await revealTarget(page, '#programList');
+  if (await page.locator('#showAllPrograms').isVisible()) await page.locator('#showAllPrograms').click();
   await page.locator('#programList [data-program="furniture"]').click();
   await selected(page, 'furniture');
   await assertIdea(page, furnitureIdea, bookIdea);
@@ -863,6 +864,7 @@ async function program3dContract(page, width) {
   await panel.locator('#program3dStop').click();
   assert(await panel.locator('iframe').count() === 0, 'Stop cancels loading and removes the frame');
   await panel.locator('#program3dPlay').click();
+  if (await page.locator('#showAllPrograms').isVisible()) await page.locator('#showAllPrograms').click();
   await page.locator('#programList [data-program="build"]').click();
   await selected(page, 'build');
   assert(await panel.isHidden() && await panel.locator('iframe').count() === 0, 'Another program restores its normal plan and disposes 3D');
