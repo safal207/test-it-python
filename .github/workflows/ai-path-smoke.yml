@@ -1,12 +1,7 @@
 name: AI PATH interactive smoke
 
 on:
-  push:
-    branches: [main, 'feat/ai-path-*']
-    paths:
-      - "dist/ai-path/**"
-      - "scripts/verify-ai-path.mjs"
-      - ".github/workflows/ai-path-smoke.yml"
+  workflow_call:
   pull_request:
     paths:
       - "dist/ai-path/**"

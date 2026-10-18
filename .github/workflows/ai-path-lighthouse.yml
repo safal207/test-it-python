@@ -1,0 +1,39 @@
+name: AI PATH Lighthouse and accessibility budgets
+
+on:
+  workflow_call:
+  pull_request:
+    paths:
+      - "dist/ai-path/**"
+      - "lighthouserc.cjs"
+      - ".github/workflows/ai-path-lighthouse.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check project JavaScript
+        run: npm run check
+      - name: Install pinned Lighthouse CI runner
+        run: npm install --no-save --no-audit --no-fund @lhci/cli@0.15.1
+      - name: Audit the program chooser and vibe coding syllabus
+        run: ./node_modules/.bin/lhci autorun --config=./lighthouserc.cjs
+      - name: Archive Lighthouse reports for review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-path-lighthouse-reports
+          path: |
+            .lighthouseci/
+            artifacts/lighthouse/
+          if-no-files-found: warn
+          retention-days: 21

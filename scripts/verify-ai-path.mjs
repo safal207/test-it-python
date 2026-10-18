@@ -4,10 +4,10 @@ import { chromium } from 'playwright';
 
 const base = 'http://127.0.0.1:4179/ai-path/';
 const artifacts = 'artifacts/ai-path-qa';
-const programIds = ['explore', 'build', 'space', 'furniture', 'create', 'comics', 'qa', 'game', 'ml', 'hack', 'grant', 'frontier', 'books', 'designlab'];
+const programIds = ['explore', 'build', 'space', 'furniture', 'create', 'comics', 'qa', 'game', 'ml', 'hack', 'grant', 'frontier', 'books', 'designlab', 'vibe'];
 const groups = {
   explore: ['explore'], visual: ['furniture', 'space', 'designlab', 'comics', 'books', 'create'],
-  build: ['build', 'qa', 'game'], research: ['ml', 'hack', 'grant', 'frontier']
+  build: ['build', 'qa', 'game', 'vibe'], research: ['ml', 'hack', 'grant', 'frontier']
 };
 const server = spawn('python3', ['-m', 'http.server', '4179', '--bind', '127.0.0.1', '--directory', 'dist'], {
   stdio: ['ignore', 'pipe', 'pipe']
@@ -311,6 +311,49 @@ async function booksRoute(page, width) {
   await selected(page, 'books');
   assert(await page.locator('#selTitle').evaluate(el => document.activeElement === el), 'Book quick start focuses the selected program');
 }
+async function vibeRoute(page, width) {
+  await page.goto(base + '?program=vibe#selected', { waitUntil: 'domcontentloaded' });
+  await selected(page, 'vibe');
+  assert(await page.locator('#selSteps li').count() === 16, 'Vibe Coding has sixteen steps');
+  assert(await page.locator('#vibe a[href="vibe-coding/"]').count() === 1, 'Course linked from home');
+  await noOverflow(page, 'vibe-deep-link-' + width);
+
+  const course = await page.goto(base + 'vibe-coding/', { waitUntil: 'domcontentloaded' });
+  assert(course?.status() === 200, 'Course published on local server');
+  assert(await page.locator('#modules .module').count() === 16, 'Sixteen curriculum modules');
+  await page.locator('#filters [data-area="engineering"]').click();
+  assert(await page.locator('#modules .module:visible').count() === 6, 'Engineering modules filter');
+  await page.locator('#filters [data-area="all"]').click();
+  assert(await page.locator('#modules .module:visible').count() === 16, 'All modules after reset');
+  await page.locator('#modules .module').first().locator('summary').click();
+  assert(await page.locator('#modules .module').first().locator('details').evaluate(el => el.open), 'Native accordion');
+  await noOverflow(page, 'vibe-course-' + width);
+  await screenshot(page, width, 'vibe-course', '#curriculum');
+
+  const crm = await page.goto(base + 'vibe-coding/crm-demo.html', { waitUntil: 'domcontentloaded' });
+  assert(crm?.status() === 200, 'CRM published on local server');
+  assert((await page.locator('#leadCount').innerText()) === '5', 'Five fictional leads loaded');
+  await page.locator('#leadLabel').fill('Демо-новый');
+  await page.locator('#leadNext').fill('Проверить прототип');
+  await page.locator('#leadForm button[type="submit"]').click();
+  assert((await page.locator('#leadCount').innerText()) === '6', 'Add fictional lead');
+  assert(await page.locator('#rows tr').count() === 6, 'Table refresh');
+  await page.locator('#rows select').first().selectOption('won');
+  assert((await page.locator('#activeCount').innerText()) === '4', 'Terminal stage excluded from active');
+  const downloadPromise = page.waitForEvent('download');
+  await page.locator('#export').click();
+  const csv = await downloadPromise;
+  assert(csv.suggestedFilename() === 'ai-path-demo-crm.csv', 'Safe CSV export filename');
+  await page.locator('#reset').click();
+  assert((await page.locator('#leadCount').innerText()) === '5', 'Reset to synthetic seed');
+  await noOverflow(page, 'vibe-crm-' + width);
+  await screenshot(page, width, 'vibe-crm', '#tableTitle');
+
+  await page.goto(base + '?program=vibe#selected', { waitUntil: 'domcontentloaded' });
+  await selected(page, 'vibe');
+  assert(await page.locator('#programList .program').count() === 15, 'Existing catalog preserved');
+}
+
 async function designLabRoute(page, width) {
   await chooseQuiz(page, { goal: 'visual', interest: 'designlab', level: 'zero' });
   await selected(page, 'designlab');
@@ -445,7 +488,7 @@ try {
     const response = await page.goto(base, { waitUntil: 'domcontentloaded' });
     assert(response?.status() === 200, 'Page returns HTTP 200');
     await page.locator('#programList .program').first().waitFor();
-    assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'All 14 stable programs are available');
+    assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'All 15 programs are available');
     const trackNumbers = await page.locator('#programList .program').evaluateAll(cards => Object.fromEntries(cards.map(card => [card.dataset.program, card.querySelector('.n').textContent.match(/ТРЕК\s*(\d+)/)?.[1]])));
     for (const [index, id] of programIds.entries()) assert(Number(trackNumbers[id]) === index + 1, `Track number stays stable: ${id}`);
     assert(!(await page.locator('#selected').isVisible()) && !(await page.locator('#results').isVisible()), 'Fresh entry does not claim the visitor already selected a program');
@@ -490,9 +533,10 @@ try {
     await designLabRoute(page, width);
     await conversionFlow(page, width);
     if (width === 1440) await desktopRegressions(page);
+    await vibeRoute(page, width);
     await noOverflow(page, 'final');
     assert(errors.length === 0, 'No browser JavaScript errors: ' + errors.join('; '));
-    console.log(`PASS ${width}x${height}: guided choice, book route, comparison, contact draft, starter/download/idea flow, preserved gallery/notebook/lab content and responsive layout`);
+    console.log(`PASS ${width}x${height}: guided choice, vibe course/CRM, book route, review and preserved gallery/notebook/lab content and responsive layout`);
     await context.close();
     activePage = undefined;
   }

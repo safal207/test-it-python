@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0c111b">
+<meta name="description" content="Учебная CRM-песочница для курса вайбкодинга: вымышленные лиды, стадии продаж, задачи и экспорт CSV. Никаких реальных клиентских данных.">
+<meta name="robots" content="noindex,follow">
+<title>CRM Lite — демонстрация AI PATH</title>
+<style>
+:root{color-scheme:dark;--bg:#0c111b;--panel:#182131;--border:#39465b;--green:#d5fa88;--muted:#b1bdcf;--txt:#f0f5fc}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.58 Inter,"Segoe UI",Arial,sans-serif;min-width:320px}
+a{color:var(--green)}button,input,select{font:inherit}button{cursor:pointer;border-radius:10px;padding:10px 15px;border:1px solid var(--border);background:#293548;color:var(--txt);font-weight:750;min-height:43px}button:hover{border-color:var(--green)}button.primary{background:var(--green);border-color:var(--green);color:#142015}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--green);outline-offset:3px}
+.wrap{width:min(1120px,calc(100% - 32px));margin:auto}.top{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid var(--border);min-height:69px}.brand{font-weight:850;letter-spacing:-.035em}.brand span{color:var(--green)}.top a{text-decoration:none;font-size:13px}
+.hero{padding:50px 0 29px}.marker{font-size:11px;color:var(--green);letter-spacing:.13em;font-weight:800;text-transform:uppercase}.hero h1{font-size:clamp(32px,5.2vw,56px);line-height:1.1;letter-spacing:-.06em;margin:13px 0}.hero p{color:var(--muted);max-width:760px}.warning{border:1px solid rgba(213,250,136,.27);padding:13px 16px;background:rgba(213,250,136,.05);border-radius:13px;font-size:13px;color:#d3dec2}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:21px 0 32px}.stat{background:var(--panel);border:1px solid var(--border);border-radius:15px;padding:19px}.stat strong{display:block;font-size:28px;line-height:1.1}.stat span{font-size:12px;color:var(--muted)}
+.panel{border:1px solid var(--border);background:var(--panel);border-radius:17px;padding:23px;margin:0 0 24px}.panel h2{font-size:24px;line-height:1.2;letter-spacing:-.04em;margin:0 0 8px}.panel p{font-size:13px;color:var(--muted);margin:0 0 18px}
+.fields{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 1.4fr;gap:11px}.field{display:flex;flex-direction:column;gap:7px;min-width:0}.field label{font-size:12px;font-weight:750;color:#cdd7e4}
+.field input,.field select,.select{background:#101825;border:1px solid #53627a;border-radius:10px;padding:11px;color:white;min-height:44px;max-width:100%;width:100%}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:17px;align-items:center}.muted{color:var(--muted);font-size:12px}#feedback{margin-left:auto}
+.table-scroll{overflow-x:auto;border-radius:13px;border:1px solid var(--border)}table{border-collapse:collapse;width:100%;min-width:800px}thead th{background:#101826;color:#b9ccca;font-size:12px;text-align:left;padding:14px}td{border-top:1px solid var(--border);padding:13px;font-size:13px;vertical-align:middle}td .select{font-size:12px;padding:8px;min-height:38px;min-width:128px}td .remove{padding:7px 11px;min-height:37px;font-size:12px}td strong{display:block;line-height:1.25}tbody tr:hover{background:#212c3e}
+.empty{text-align:center;color:#b4c0d1}footer{padding:25px 0 40px;border-top:1px solid var(--border);font-size:12px;color:var(--muted)}small{font-size:12px}
+@media(max-width:960px){.fields{grid-template-columns:repeat(2,minmax(0,1fr))}.fields .field:last-child{grid-column:1/-1}}@media(max-width:550px){.fields,.stats{grid-template-columns:1fr}.stats{gap:8px}.panel{padding:17px}.hero{padding:35px 0 18px}#feedback{width:100%;margin:3px 0}.stat{padding:14px}}
+</style>
+</head>
+<body>
+<header class="wrap top"><a class="brand" href="index.html">AI<span>PATH</span> / CRM LITE</a><a href="index.html">К программе ↗</a></header>
+<main class="wrap">
+<section class="hero"><span class="marker">Учебный проект · воронка продаж</span><h1>CRM Lite: от интереса<br>до результата</h1><p>Создай вымышленный лид, назначь этап и следующий шаг. Посмотри, как меняется воронка. Это локальный тренажёр, не коммерческий сервис.</p><div class="warning"><b>Только тестовые данные!</b> Не вводи настоящие имена, телефоны, адреса, e-mail или сведения о клиентах. Данные доступны только в этой вкладке браузера (sessionStorage), не уходят на сервер и исчезают после завершения сеанса.</div></section>
+<section aria-label="Сводка воронки"><div class="stats"><div class="stat"><strong id="leadCount">0</strong><span>Вымышленных лидов</span></div><div class="stat"><strong id="activeCount">0</strong><span>В работе</span></div><div class="stat"><strong id="pipelineValue">0 ₽</strong><span>Учебная сумма в активных стадиях</span></div></div></section>
+<section class="panel" aria-labelledby="createTitle"><h2 id="createTitle">Добавить тестовую сделку</h2><p>Собери тренировочную воронку на примере вымышленных компаний «Демо-А», «Демо-Б» или проекта из собственного шаблона.</p>
+<form id="leadForm">
+<div class="fields">
+<div class="field"><label for="leadLabel">Название (без персональных данных)</label><input id="leadLabel" name="leadLabel" maxlength="60" required autocomplete="off" placeholder="Демо-проект G"></div>
+<div class="field"><label for="leadSource">Источник</label><select id="leadSource" name="leadSource"><option>SEO</option><option>SMM</option><option>Рекомендация</option><option>Портфолио</option><option>Хакатон</option></select></div>
+<div class="field"><label for="leadStage">Стадия</label><select id="leadStage" name="leadStage"><option value="new">Интерес</option><option value="qualified">Квалифицирован</option><option value="demo">Демо</option><option value="proposal">Предложение</option><option value="won">Успех</option><option value="lost">Отказ</option></select></div>
+<div class="field"><label for="leadValue">Учебная сумма, ₽</label><input id="leadValue" name="leadValue" type="number" min="0" max="1000000" step="100" value="5000" required inputmode="numeric"></div>
+<div class="field"><label for="leadNext">Следующее действие (без контактов)</label><input id="leadNext" name="leadNext" maxlength="90" required autocomplete="off" placeholder="Подготовить демо"></div>
+</div>
+<div class="actions"><button type="submit" class="primary">Добавить в CRM ↗</button><button type="button" id="reset">Сбросить демо</button><button type="button" id="export">Скачать CSV</button><span id="feedback" role="status" aria-live="polite" class="muted"></span></div>
+</form></section>
+<section class="panel" aria-labelledby="tableTitle"><h2 id="tableTitle">Воронка и задачи</h2><p>Передвигай вымышленные сделки по стадиям. При реальной CRM нужны права доступа, согласие, аудит изменений, бэкапы и ограничение хранения данных.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Таблица сделок с горизонтальной прокруткой"><table><thead><tr><th scope="col">Тестовый лид</th><th scope="col">Источник</th><th scope="col">Стадия</th><th scope="col">Сумма</th><th scope="col">Следующее действие</th><th scope="col">Управление</th></tr></thead><tbody id="rows"></tbody></table></div>
+</section>
+</main><footer class="wrap">CRM Lite — образовательная модель, без внешнего API и реальных персональных данных. <a href="index.html">← Вернуться к курсу</a></footer>
+<script>
+(function(){'use strict';
+const stages={new:'Интерес',qualified:'Квалифицирован',demo:'Демо',proposal:'Предложение',won:'Успех',lost:'Отказ'};
+const key='ai-path-crm-training-v1';
+const seed=[
+{id:1,label:'Демо-А: дизайн',source:'Портфолио',stage:'new',value:7000,next:'Показать портфолио'},
+{id:2,label:'Демо-Б: QA',source:'SEO',stage:'qualified',value:12000,next:'Уточнить требования'},
+{id:3,label:'Демо-В: лендинг',source:'Рекомендация',stage:'demo',value:25000,next:'Подготовить прототип'},
+{id:4,label:'Демо-Г: видео',source:'SMM',stage:'proposal',value:8000,next:'Проверить предложение'},
+{id:5,label:'Демо-Д: игра',source:'Хакатон',stage:'lost',value:10000,next:'Разобрать причины'}
+];
+function isValid(x){return x&&Number.isSafeInteger(x.id)&&x.id>0&&typeof x.label==='string'&&x.label.length<=60&&typeof x.next==='string'&&x.next.length<=90&&Object.hasOwn(stages,x.stage)&&Number.isFinite(x.value)&&x.value>=0&&x.value<=1000000&&seed.some(z=>z.source===x.source)}
+let data;
+try{const stored=JSON.parse(sessionStorage.getItem(key));data=Array.isArray(stored)&&stored.length<=100&&stored.every(isValid)?stored:structuredClone(seed)}
+catch{data=structuredClone(seed)}
+const $=id=>document.getElementById(id);
+const currency=n=>new Intl.NumberFormat('ru-RU',{style:'currency',currency:'RUB',maximumFractionDigits:0}).format(n);
+const save=()=>{try{sessionStorage.setItem(key,JSON.stringify(data))}catch{}};
+const feedback=t=>{$('feedback').textContent=t};
+function render(){
+$('rows').replaceChildren();
+let active=0,total=0;
+for(const item of data){
+if(item.stage!=='won'&&item.stage!=='lost'){active++;total+=item.value}
+const tr=document.createElement('tr');
+for(const value of [item.label,item.source]){const td=document.createElement('td');td.textContent=value;tr.append(td)}
+const stageTd=document.createElement('td'),select=document.createElement('select');select.className='select';select.setAttribute('aria-label','Стадия '+item.label);
+for(const [v,label] of Object.entries(stages)){const option=document.createElement('option');option.value=v;option.textContent=label;if(item.stage===v)option.selected=true;select.append(option)}
+select.addEventListener('change',()=>{item.stage=select.value;save();render();feedback('Стадия изменена')});
+stageTd.append(select);tr.append(stageTd);
+const amount=document.createElement('td');amount.textContent=currency(item.value);tr.append(amount);
+const next=document.createElement('td');next.textContent=item.next;tr.append(next);
+const action=document.createElement('td'),deleteButton=document.createElement('button');deleteButton.type='button';deleteButton.className='remove';deleteButton.textContent='Удалить';deleteButton.setAttribute('aria-label','Удалить '+item.label);
+deleteButton.addEventListener('click',()=>{data=data.filter(x=>x!==item);save();render();feedback('Учебная сделка удалена')});action.append(deleteButton);tr.append(action);
+$('rows').append(tr);
+}
+if(data.length===0){const tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=6;td.className='empty';td.textContent='Учебных сделок пока нет. Добавь первую выше.';tr.append(td);$('rows').append(tr)}
+$('leadCount').textContent=String(data.length);$('activeCount').textContent=String(active);$('pipelineValue').textContent=currency(total);
+}
+$('leadForm').addEventListener('submit',event=>{
+event.preventDefault();const form=event.currentTarget;
+const label=$('leadLabel').value.trim(),next=$('leadNext').value.trim(),value=Number($('leadValue').value);
+if(!label||!next||!Number.isFinite(value)||value<0||value>1000000){feedback('Проверь название, сумму и следующее действие');return}
+if(data.length>=100){feedback('Учебная CRM ограничена 100 сделками');return}
+const id=data.reduce((a,z)=>Math.max(a,z.id),0)+1;
+data.push({id,label,source:$('leadSource').value,stage:$('leadStage').value,value,next});
+if(!isValid(data.at(-1))){data.pop();feedback('Недопустимые учебные данные');return}
+save();render();feedback('Учебная сделка добавлена');HTMLFormElement.prototype.reset.call(form);$('leadLabel').focus();
+});
+$('reset').addEventListener('click',()=>{data=structuredClone(seed);save();render();feedback('Демо восстановлено')});
+function spreadsheetSafe(text){const val=String(text);return /^[=+\-@\t\r]/.test(val)?"'"+val:val}
+const csvQuote=v=>'"'+spreadsheetSafe(v).replaceAll('"','""')+'"';
+$('export').addEventListener('click',()=>{
+const rows=[['id','project','source','stage','rub_demo','next_demo'],...data.map(item=>[item.id,item.label,item.source,stages[item.stage],item.value,item.next])];
+const csv='\ufeff'+rows.map(row=>row.map(csvQuote).join(';')).join('\r\n')+'\r\n';
+const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');
+a.href=url;a.download='ai-path-demo-crm.csv';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),800);feedback('CSV учебной базы подготовлен');
+});
+render();
+})();
+</script>
+</body></html>
