@@ -24,7 +24,7 @@
   var state={goal:'explore',interest:'explore',level:'zero',pace:'balanced',selection:null,result:null,filter:'all'};
   var groups={explore:['explore'],visual:['furniture','space','designlab','comics','books','create'],build:['build','qa','game','vibe'],research:['ml','hack','grant','frontier']};
   var goalLabels={explore:'попробовать разные направления',visual:'создавать книги и визуальные проекты',build:'создавать приложения и игры',research:'развивать проект и исследовать'};
-  var interestLabels={designlab:'Интерактивные сайты и 3D',explore:'Пока выбираю направление',furniture:'Мебель и предметы',space:'Комнаты и пространства',comics:'Комиксы и истории',books:'Книга и Amazon KDP',create:'Короткие видео',build:'Веб-приложения',qa:'Python и тестирование',game:'3D-игры',vibe:'Вайбкодинг, MVP и клиенты',ml:'Нейросети и данные',hack:'Хакатоны',grant:'Грантовая заявка',frontier:'Исследовательский проект'};
+  var interestLabels={designlab:'Интерактивные сайты и 3D',explore:'Пока выбираю направление',furniture:'Мебель и предметы',space:'Комнаты и пространства',comics:'Комиксы и истории',books:'Книга и Amazon KDP',create:'Короткие видео',build:'Лендинг, сайт или приложение',qa:'Python и тестирование',game:'3D-игры',vibe:'Вайбкодинг, MVP и клиенты',ml:'Нейросети и данные',hack:'Хакатоны',grant:'Грантовая заявка',frontier:'Исследовательский проект'};
   var levelLabels={zero:'с нуля',basic:'есть небольшая база',project:'есть свой проект'};
   var paceLabels={light:'2–3 ч',balanced:'4–6 ч',deep:'7+ ч'};
   var paceNotes={
@@ -35,7 +35,7 @@
   var presentation={
     designlab:{"headline": "Создай сайт, с которым можно взаимодействовать", "image": "assets/design-lab/room-3d-preview.png", "width": 1200, "height": 800, "caption": "Room Control: кадр работающей 3D-сцены. В программе можно покрутить модель и изучить свет.", "first": "Выбрать тему своего сайта, описать посетителя и одно действие, которое он сможет выполнить."},
     explore:{headline:'Попробуй два проекта и выбери своё направление',first:'Выбрать одну небольшую идею и составить понятное задание для ИИ.'},
-    build:{headline:'Собери и опубликуй своё веб-приложение',image:'assets/testit.webp',width:1440,height:960,caption:'Пример веб-интерфейса — тренажёр Test it Python.',first:'Описать одну полезную функцию приложения и собрать первый экран с работающей кнопкой.'},
+    build:{headline:'Создай первый лендинг, сайт или веб-приложение',image:'assets/testit.webp',width:1440,height:960,caption:'Пример веб-интерфейса — тренажёр Test it Python.',first:'Описать одну полезную функцию приложения и собрать первый экран с работающей кнопкой.'},
     space:{headline:'Создай 3D-комнату и покажи её с разных сторон',image:'assets/architectural.webp',width:1440,height:960,caption:'Пример портфолио пространств — Architectural AI Lab.',first:'Выбрать небольшую комнату, собрать референсы и набросать её простую объёмную схему.'},
     furniture:{headline:'Придумай предмет мебели и создай 3–4 ракурса',image:'assets/furniture/luma01-hero.webp',width:1200,height:1500,caption:'LUMA 01 — цифровой концепт кресла Алексея Сафонова.',first:'Выбрать простой предмет, описать его назначение и набросать основную форму.'},
     create:{headline:'Создай свой короткий ролик до 30 секунд',image:'assets/rustclip.webp',width:675,height:1200,caption:'Кадр демонстрационного ролика RustClip Studio.',first:'Написать идею ролика и собрать раскадровку из трёх сцен.'},
@@ -413,15 +413,16 @@
     var selected=state.selection,p=programById(selected.program),m=presentation[p.id];
     $('selTitle').textContent=p.name;$('selText').textContent=p.short;
     $('selected').dataset.family=cardArt[p.id].family;
-    $('curriculumSummary').textContent=weekLabel(p.weeks)+' · '+meetingLabel(p.meetings)+' с наставником. Это базовый план: темп и объём согласуем до старта.';
+    $('selected-curriculum').open=false;
+    $('curriculumSummary').textContent='Базовый план по этапам. Темп и объём практики согласуем до старта.';
     $('selDuration').textContent=weekLabel(p.weeks);$('selMeetings').textContent=meetingLabel(p.meetings);$('selTime').textContent=paceLabels[selected.pace];
     $('selOutcome').textContent=p.outcome;$('selRequirement').textContent=p.level;
-    $('selPaceNote').textContent=paceNotes[selected.pace]+' План на '+weekLabel(p.weeks)+' — ориентир; итоговый график определим вместе.';
+    $('selPaceNote').textContent=paceNotes[selected.pace];
     $('selFirstTask').textContent=m.first;
     $('selKit').innerHTML=starterKits[p.id].takeaways.map(function(item){return '<li>'+esc(item)+'</li>'}).join('');
     $('starterTemplate').textContent=starterTextForSelection();
     $('startProgram').textContent=p.name;
-    $('startMeta').textContent='Ориентир: '+weekLabel(p.weeks)+' · '+meetingLabel(p.meetings)+'. Уровень: '+levelLabels[selected.level]+'. Желаемая нагрузка: '+paceLabels[selected.pace]+' в неделю.';
+    $('startMeta').textContent='Уровень: '+levelLabels[selected.level]+'. Срок, встречи и нагрузка — в фактах плана.';
     $('projectIdea').value=projectIdeas[p.id]||'';
     $('selSteps').innerHTML=p.steps.map(function(s,i){return '<li'+(p.id==='designlab'?' id="designlab-week-'+(i+1)+'"':'')+'><span class="step-no">'+(i+1)+'</span><span>'+esc(s)+'</span></li>'}).join('');
     $('selRefs').innerHTML=p.refs.map(function(r){return '<a href="'+esc(r[1])+'"'+(r[1].charAt(0)==='#'?'':' target="_blank" rel="noopener noreferrer"')+'>'+esc(r[0])+' ↗</a>'}).join('');

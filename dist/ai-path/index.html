@@ -128,12 +128,13 @@
 <link rel="stylesheet" href="design-lab.css?v=1"/>
 <style id="ai-path-vibe-feature">.vibe-highlight{display:grid;grid-template-columns:1.18fr .82fr;gap:22px;padding:clamp(25px,4vw,48px);border-radius:25px;border:1px solid rgba(213,250,136,.24);background:radial-gradient(ellipse at 100% 0%,rgba(178,172,240,.14),transparent 62%),linear-gradient(135deg,#212c33,#111825);box-shadow:0 15px 65px rgba(0,0,0,.22)}.vibe-highlight>*{min-width:0}.vibe-highlight h2{font-size:clamp(32px,4vw,52px);letter-spacing:-.06em;margin:14px 0}.vibe-highlight p{max-width:660px;color:#b3c3d2;font-size:15px;line-height:1.7;margin:0 0 20px}.vibe-highlight .vibe-note{font-size:12px;color:#a6b4c7;margin-top:21px;margin-bottom:0}.vibe-tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:24px}.vibe-tags span{padding:7px 10px;font-size:12px;border-radius:999px;border:1px solid rgba(213,250,136,.21);background:rgba(213,250,136,.05);color:#d7e7c2}.vibe-flow{display:flex;flex-direction:column;gap:11px;justify-content:center}.vibe-flow span{border:1px solid rgba(220,230,230,.16);background:#131d2a;border-radius:14px;padding:17px 18px;color:var(--accent);font-size:12px;display:flex;align-items:center;gap:13px;letter-spacing:.08em}.vibe-flow strong{font-size:16px;color:#eaf0f5;letter-spacing:-.02em}@media(max-width:760px){.vibe-highlight{grid-template-columns:1fr}.vibe-flow{display:grid;grid-template-columns:1fr 1fr;gap:7px}.vibe-flow span{padding:11px;font-size:10px;flex-direction:column;align-items:flex-start;gap:4px}.vibe-flow strong{font-size:12px}}</style>
 <link rel="stylesheet" href="neural-entry.css">
+<link rel="stylesheet" href="content-sections.css?v=1">
 </head>
 <body>
 <header class="header">
 <div class="wrap nav">
 <a aria-label="AI PATH, на главную" class="logo" href="#top"><span class="mark">↗</span><span>AI<b>PATH</b></span></a>
-<nav aria-label="Основное меню" class="navlinks"><a href="#selector">Подобрать программу</a><a href="#programs">Все программы</a><a href="studio.html">Портфолио школы</a><a href="#vibe">Вайбкодинг</a><a href="#mentor">Наставник</a></nav>
+<nav aria-label="Основное меню" class="navlinks"><a href="#selector">Подобрать программу</a><a href="#programs">Все программы</a><a href="studio.html">Портфолио школы</a><a href="studio.html#services">Разработка сайтов</a><a href="#mentor">Наставник</a></nav>
 <a class="navcta" id="headerAction" href="#selector">Подобрать маршрут ↗</a>
 </div>
 </header>
@@ -147,144 +148,21 @@
 <p class="lead">Создай проект с ИИ, который ты понимаешь и можешь показать. На личных встречах выберем посильную задачу, разберём ответы нейросети, найдём ошибки и подготовим работу к демонстрации.</p>
 <div class="buttons">
 <a class="btn primary" href="#selector">Подобрать по 3 вопросам <span aria-hidden="true">↗</span></a>
-<a class="btn ghost" href="#result-gallery">Посмотреть результаты <span aria-hidden="true">↓</span></a>
+<a class="btn ghost" id="hero-programs" href="#programs">Все 15 программ <span aria-hidden="true">↓</span></a>
 </div>
-<p class="hero-choice-note">После подбора — план работы и первая задача. Или сначала <a href="studio.html">попробуй проекты нашей школы ↗</a>.</p>
+<p class="hero-choice-note">Нужен готовый сайт для бизнеса? <a href="studio.html#services">Обсудить разработку ↗</a>.</p>
 <div class="hero-foot"><span><strong>1:1</strong> с наставником</span><span><strong>4–16 недель</strong> базовый план</span><span><strong>Свой проект</strong> в портфолио</span></div>
 <div class="hero-mentor"><span class="mentor-mini" aria-hidden="true">АС</span><span><strong>Алексей Сафонов</strong><span>QA-инженер и AI-наставник · <a href="#mentor">Проекты и отзывы ↗</a></span></span></div>
 </div>
 <div>
-<div class="hero-showcase" aria-label="Выбрать направление по примеру работы">
-<button class="hero-work" type="button" data-start-track="furniture" aria-label="Хочу создать предмет: программа по мебели"><img src="assets/furniture/luma01-hero.webp" alt="LUMA 01: цифровой концепт кресла" width="1200" height="1500" fetchpriority="high"/><span class="hero-work-copy"><small>Мебель · LUMA 01</small><strong>От замысла к предмету</strong><span>Хочу создать такой проект ↗</span></span></button>
-<button class="hero-work" type="button" data-start-track="comics" aria-label="Хочу создать комикс: программа по визуальным историям"><img src="assets/comics/issue-02-cover.webp" alt="Обложка комикса Иня и Янки «Лист на ветру»" width="1024" height="1536" decoding="async"/><span class="hero-work-copy"><small>Комиксы · Инь и Янка</small><strong>Свои герои. Своя история.</strong><span>Выбрать комиксы ↗</span></span></button>
-<button class="hero-work" type="button" data-start-track="game" aria-label="Хочу доработать игру: программа 3D GameDev"><img src="assets/awakening.webp" alt="Реальный игровой кадр «Пробуждения»" width="800" height="500" decoding="async" loading="lazy"/><span class="hero-work-copy"><small>3D GameDev · Пробуждение</small><strong>Мир, который можно менять</strong><span>Выбрать разработку игр ↗</span></span></button>
-</div>
-<p class="showcase-note">Примеры из наших проектов. Авторство и процесс — в галерее ниже.</p>
+<figure class="hero-project">
+<img src="assets/furniture/luma01-hero.webp" alt="LUMA 01: цифровой концепт кресла Алексея Сафонова" width="1200" height="1500" fetchpriority="high"/>
+<figcaption><span>Проект наставника · LUMA 01</span><strong>От идеи — к своей работе.</strong><a href="#furniture">Посмотреть процесс и авторство ↗</a></figcaption>
+</figure>
 </div>
 </div>
 </div>
-<div aria-label="Преимущества" class="wrap strip">
-<div><strong>01</strong><span>Выбери, что хочешь создать</span></div>
-<div><strong>02</strong><span>Получи маршрут и первую задачу</span></div>
-<div><strong>03</strong><span>Обсуди старт с наставником</span></div>
-</div>
-<section class="section parent-gallery" id="result-gallery" aria-labelledby="parentGalleryTitle">
-<div class="wrap">
-<div class="section-top"><div><span class="tag">Для родителей и детей</span><h2 id="parentGalleryTitle">Первый проект,<br/><span>которым хочется поделиться</span></h2></div><p>Поможем придать идее ребёнка форму: придумать историю, создать комнату или собрать свой сайт. Выберем посильную задачу и доведём её до понятного результата.</p></div>
-<p class="parent-gallery-note" id="parentGalleryNote">На обложках — AI-концепции возможных проектов. Ссылки в карточках открывают указанные примеры для разбора. Объём и базовый срок первого проекта уточним с учётом подготовки.</p>
-<div class="parent-results">
-<article class="parent-result" data-result="space" aria-labelledby="parentRoomTitle">
-<figure class="parent-result-cover"><img src="assets/parent-gallery/space.webp" alt="AI-концепция: уютная комната в виде объёмной модели, рядом план и модель без материалов" width="1122" height="1402" loading="lazy" decoding="async"/><span class="parent-concept-badge">AI-концепция</span></figure>
-<div class="parent-result-body"><p class="parent-result-meta">3D-дизайн · 6 недель</p><h3 id="parentRoomTitle">Комната, которую придумал сам</h3><p class="parent-result-copy">Один учебный 3D-проект: от первого плана до модели с материалами, светом и несколькими ракурсами.</p>
-<ul class="parent-deliverables"><li>Цифровая модель своей комнаты</li><li>Ракурсы и визуальная презентация</li><li>Объяснение формы, материалов и света</li></ul>
-<a class="parent-example" href="https://safal207.github.io/room-control-studio/" target="_blank" rel="noopener noreferrer">3D-пример наставника: Room Control ↗</a>
-<details class="parent-process"><summary>Как создадим такой проект</summary><ol><li>Выберем небольшую комнату, соберём идеи и набросаем план.</li><li>Соберём модель, подберём материалы и настроим свет.</li><li>Проверим ракурсы и оформим учебный кейс с исходниками.</li></ol></details>
-<button class="btn primary" type="button" data-start-track="space">Посмотреть план программы ↗</button></div>
-</article>
-<article class="parent-result" data-result="comics" aria-labelledby="parentComicTitle">
-<figure class="parent-result-cover"><img src="assets/parent-gallery/comics.webp" alt="AI-концепция: обложка и страницы комикса «Лунный маяк», планшет и набросок раскадровки" width="1122" height="1402" loading="lazy" decoding="async"/><span class="parent-concept-badge">AI-концепция</span></figure>
-<div class="parent-result-body"><p class="parent-result-meta">Комикс · 6 недель</p><h3 id="parentComicTitle">Своя история. Настоящий комикс.</h3><p class="parent-result-copy">Придумать героев и собрать короткую законченную историю, которую можно читать и показывать семье.</p>
-<ul class="parent-deliverables"><li>Обложка и 3–5 страниц</li><li>Сценарий и раскадровка</li><li>PDF для чтения и показа</li></ul>
-<a class="parent-example" href="#comics">Посмотреть пример «Инь и Янка» ↓</a>
-<details class="parent-process"><summary>Как создадим такой проект</summary><ol><li>Придумаем героя, его цель и одну законченную историю.</li><li>Соберём раскадровку, страницы и диалоги; проверим постоянство персонажей.</li><li>Оформим обложку и проверим читаемость готового PDF.</li></ol></details>
-<button class="btn primary" type="button" data-start-track="comics">Посмотреть план программы ↗</button></div>
-</article>
-<article class="parent-result" data-result="build" aria-labelledby="parentSiteTitle">
-<figure class="parent-result-cover"><img src="assets/parent-gallery/build.webp" alt="AI-концепция: сайт «Мой космос» на ноутбуке и телефоне, рядом эскиз страницы" width="1122" height="1402" loading="lazy" decoding="async"/><span class="parent-concept-badge">AI-концепция</span></figure>
-<div class="parent-result-body"><p class="parent-result-meta">Свой сайт · 8 недель</p><h3 id="parentSiteTitle">Свой сайт. Настоящая ссылка.</h3><p class="parent-result-copy">Небольшой сайт или веб-приложение: своя идея, работающие кнопки, проверка на телефоне и публикация.</p>
-<ul class="parent-deliverables"><li>Один работающий веб-проект</li><li>Исходники и ссылка на результат</li><li>Проверка основных действий</li></ul>
-<a class="parent-example" href="examples/my-cosmos.html">Открыть сайт-пример «Мой космос» →</a>
-<details class="parent-process"><summary>Как создадим такой проект</summary><ol><li>Выберем тему и одно полезное действие для посетителя.</li><li>Соберём экран и кнопки с помощью ИИ; разберём, как они работают.</li><li>Проверим сайт на компьютере и телефоне и опубликуем проект.</li></ol></details>
-<button class="btn primary" type="button" data-start-track="build">Посмотреть план программы ↗</button></div>
-</article>
-</div>
-<div class="parent-gallery-footer"><p>Пока сложно выбрать? Начнём с интересов и опыта ребёнка. На знакомстве обсудим компьютер, время на практику, стоимость и подходящий первый проект.</p><a href="#selector">Подобрать направление →</a></div>
-</div>
-</section>
-<section class="section first-project-section" id="first-project" aria-labelledby="firstProjectTitle">
-<div class="wrap">
-<div class="section-top">
-<div><span class="tag">Понятный старт · можно с нуля</span><h2 id="firstProjectTitle">Не знаешь, с чего начать?<br/><span class="accent">Попробуй два проекта.</span></h2></div>
-</div>
-<div class="first-project-grid">
-<article class="navigator-offer" aria-labelledby="navigatorTitle">
-<span class="navigator-label">Твой первый маршрут</span>
-<h3 id="navigatorTitle">AI Навигатор</h3>
-<p>Попробуй два способа создавать с ИИ и выбери направление, которое хочется развивать дальше. Готовая идея и опыт программирования для старта не нужны.</p>
-<ul class="navigator-results">
-<li><span aria-hidden="true">01</span><div><strong>Визуальная работа</strong><p>Простая визуализация или короткий ролик — выберем по твоим интересам.</p></div></li>
-<li><span aria-hidden="true">02</span><div><strong>Первая программа</strong><p>Небольшая задача на Python: понять код, запустить и проверить результат.</p></div></li>
-</ul>
-<div class="navigator-facts"><span><strong>4 встречи</strong>индивидуально</span><span><strong>2 пробные работы</strong>в мини-портфолио</span></div>
-<p class="navigator-scope">Базовый маршрут — 4 недели. Объём практики и расписание согласуем с учётом твоего опыта и времени.</p>
-<button class="btn primary" type="button" id="navigatorStart" data-start-track="explore">Посмотреть мой старт ↗</button>
-<a class="navigator-alternative" href="#selector">Уже знаю, что хочу создать — подобрать программу</a>
-<p class="navigator-terms">Условия обсудим лично: полную стоимость, длительность встреч, помощь между занятиями и возможные расходы на AI-сервисы.</p>
-</article>
-<aside class="mentor-value" aria-labelledby="mentorValueTitle">
-<span class="tag">Работа с наставником</span>
-<h3 id="mentorValueTitle">Зачем наставник,<br/>если есть ИИ?</h3>
-<p>ИИ помогает создавать варианты. На встречах учимся выбирать подходящий и проверять, что получилось.</p>
-<ol class="mentor-value-list">
-<li><strong>Выбрать посильную задачу</strong><p>Ограничим проект до понятного результата, который соответствует твоей подготовке и времени.</p></li>
-<li><strong>Замечать ошибки</strong><p>Проверим, работает ли кнопка, читается ли текст и согласуются ли детали. Разберём, что нужно исправить.</p></li>
-<li><strong>Понимать свои решения</strong><p>Объяснишь, как устроена твоя работа, что изменилось после исправления и как проверить результат.</p></li>
-</ol>
-</aside>
-</div>
-<details class="mentor-demo" id="mentorExample">
-  <summary>Попробуй: найти ошибку и проверить исправление</summary>
-  <div class="mentor-demo-body">
-    <p class="mentor-demo-note"><strong>Подготовленный учебный пример.</strong> Мы специально оставили ошибку в первой версии, чтобы показать процесс проверки. Можно повторить каждый шаг и сравнить результат.</p>
-    <div id="mentor-demo-controls" hidden>
-      <div class="mentor-demo-steps" role="group" aria-label="Этапы учебного примера">
-        <button type="button" data-mentor-demo-step="1" aria-pressed="true">1. Первая версия</button>
-        <button type="button" data-mentor-demo-step="2" aria-pressed="false">2. Проверка</button>
-        <button type="button" data-mentor-demo-step="3" aria-pressed="false">3. Исправление</button>
-      </div>
-      <h3 id="mentor-demo-stage-title">Первая версия</h3>
-      <p class="mentor-demo-description" id="mentor-demo-description">В этом учебном макете специально оставлена ошибка. Нажми «Туман»: должна поменяться и подпись, и палитра пейзажа. Затем открой шаг 2.</p>
-      <div class="mentor-demo-workspace">
-        <figure class="mentor-demo-figure">
-          <svg id="mentor-demo-artwork" data-palette="sunset" viewBox="0 0 480 280" width="480" height="280" role="img" aria-labelledby="mentor-demo-artwork-title">
-            <title id="mentor-demo-artwork-title">Учебный пейзаж: палитра «Закат»</title>
-            <rect width="480" height="280" fill="#eaad8e" data-mentor-demo-paint="sky"/>
-            <circle cx="355" cy="73" r="32" fill="#ffe3b6" data-mentor-demo-paint="sun"/>
-            <path d="M0 190 103 95 183 165 275 69 405 176 480 127V280H0Z" fill="#7c627e" data-mentor-demo-paint="mountain"/>
-            <path d="M0 202Q120 175 240 204T480 194V280H0Z" fill="#a67a8c" data-mentor-demo-paint="water"/>
-            <path d="M0 244Q65 203 137 242T300 257 480 232V280H0Z" fill="#4f5f64" data-mentor-demo-paint="foreground"/>
-            <path d="M185 226h85m-46 17h63m-154-5h32" fill="none" stroke="#ffffff" stroke-opacity=".35" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          <figcaption>На картинке: <strong id="mentor-demo-canvas-name">Закат</strong></figcaption>
-        </figure>
-        <div class="mentor-demo-controls">
-          <p class="mentor-demo-selection">Выбрана палитра: <strong id="mentor-demo-palette-name">Закат</strong></p>
-          <div class="mentor-demo-palettes" role="group" aria-label="Палитра учебного пейзажа">
-            <button type="button" data-mentor-demo-palette="sunset" aria-pressed="true"><span class="mentor-demo-palette-dot sunset" aria-hidden="true"></span>Закат</button>
-            <button type="button" data-mentor-demo-palette="mist" aria-pressed="false"><span class="mentor-demo-palette-dot mist" aria-hidden="true"></span>Туман</button>
-          </div>
-          <button type="button" class="mentor-demo-check" id="mentor-demo-check" hidden>Проверить результат</button>
-          <p class="mentor-demo-status" id="mentor-demo-status" role="status" aria-live="polite" aria-atomic="true">Проверки ещё не было. Начни с кнопки «Туман».</p>
-        </div>
-      </div>
-      <div class="mentor-demo-results" id="mentor-demo-results" hidden>
-        <h4>Что произошло при переключении</h4>
-        <ul>
-          <li id="mentor-demo-label-result"></li>
-          <li id="mentor-demo-color-result"></li>
-        </ul>
-        <p class="mentor-demo-takeaway" id="mentor-demo-takeaway"></p>
-      </div>
-      <div class="mentor-demo-bottom">
-        <p>Роль наставника: помочь задать критерий, найти расхождение, объяснить исправление и проверить его тем же действием.</p>
-        <button type="button" id="mentor-demo-reset">Начать заново</button>
-      </div>
-    </div>
-    <noscript><p class="mentor-demo-note">Для интерактивного примера нужен JavaScript. Суть проверки: после выбора «Туман» должны измениться и подпись, и цвета. В первой версии меняется только подпись; исправление обновляет оба элемента.</p></noscript>
-  </div>
-</details>
-</div>
-</section>
+<span id="first-project" class="legacy-anchor" aria-hidden="true"></span>
 <section class="section" id="selector">
 <div class="wrap">
 <div class="section-top">
@@ -296,7 +174,7 @@
 <div class="goal-options choices" id="goals" role="group" aria-label="Цель обучения">
 <button class="chip goal-option" type="button" data-goal="explore" aria-pressed="true"><span class="goal-glyph" aria-hidden="true">✦</span><b>Хочу попробовать</b><small>Пока ищу своё направление</small></button>
 <button class="chip goal-option" type="button" data-goal="visual" aria-pressed="false"><span class="goal-glyph" aria-hidden="true">◈</span><b>Творческий проект</b><small>Книги, комиксы, видео, 3D и мебель</small></button>
-<button class="chip goal-option" type="button" data-goal="build" aria-pressed="false"><span class="goal-glyph" aria-hidden="true">⌘</span><b>Программу или игру</b><small>Приложения, Python и GameDev</small></button>
+<button class="chip goal-option" type="button" data-goal="build" aria-pressed="false"><span class="goal-glyph" aria-hidden="true">⌘</span><b>Сайт, программу или игру</b><small>Лендинги, Python и GameDev</small></button>
 <button class="chip goal-option" type="button" data-goal="research" aria-pressed="false"><span class="goal-glyph" aria-hidden="true">↗</span><b>Развивать проект</b><small>Нейросети, хакатоны и исследования</small></button>
 </div>
 <div class="topic-picker" id="topicPicker" hidden><p>Какой результат тебе интереснее?</p><div class="choices" id="interests" role="group" aria-label="Интересующее направление"></div></div>
@@ -357,7 +235,7 @@
 <div class="facts"><div class="fact"><strong id="selDuration">4 недели</strong><span>Базовый план</span></div><div class="fact"><strong id="selMeetings">4 встречи</strong><span>1:1 с наставником</span></div><div class="fact"><strong id="selTime">4–6 ч</strong><span>Твоё время в неделю</span></div></div>
 <p class="pace-note" id="selPaceNote"></p>
 <div class="outcome" id="selected-result" tabindex="-1"><strong>Что получится в конце</strong><p id="selOutcome"></p></div>
-<div class="takeaway-box"><h4>Что заберёшь с собой</h4><ul id="selKit" class="takeaways"></ul></div>
+<details class="takeaway-box"><summary>Файлы и материалы результата</summary><ul id="selKit" class="takeaways"></ul></details>
 <div class="first-task"><strong>Первый небольшой шаг</strong><p id="selFirstTask"></p></div>
 <details class="starter-pack" id="starterPack"><summary>Попробуй сейчас: шаблон первой идеи</summary><p>Заполни три строки своими словами. Эту заготовку можно использовать самостоятельно или принести на знакомство.</p><pre id="starterTemplate"></pre><button class="btn ghost" type="button" id="copyStarter">Скопировать шаблон</button></details>
 <div class="plan-save"><strong>Забери маршрут и вернись, когда удобно</strong><p>В PDF — выбранная программа, этапы, первая задача и шаблон идеи. Удобно сохранить, распечатать или переслать.</p><div class="detail-actions"><button class="btn ghost" id="downloadPlan" type="button" aria-describedby="planDownloadStatus">Скачать мой план · PDF ↓</button><button class="btn ghost" id="copyLink" type="button">Скопировать ссылку</button></div><p id="planDownloadStatus" role="status" aria-live="polite"></p></div>
@@ -377,68 +255,35 @@
 <details class="message-fallback"><summary>Посмотреть и скопировать запрос</summary><p>Текст можно вставить в заявку на Solvery или отправить на <a href="mailto:safal0645@gmail.com">safal0645@gmail.com</a>.</p><label for="contactMessage">Твой запрос наставнику</label><textarea id="contactMessage" readonly rows="7"></textarea><button class="btn ghost" id="copyMessage" type="button">Скопировать текст</button></details>
 <p class="start-terms"><strong>До начала занятий согласуем:</strong> полную стоимость, длительность встреч, расписание, поддержку и возможные расходы на AI-сервисы.</p>
 </div>
-<dl class="offer-facts"><div><dt>Формат</dt><dd>Персональные встречи, практика на своём проекте и разбор результата.</dd></div><div><dt>Стоимость и график</dt><dd>Согласуем полную стоимость программы, длительность встречи и помощь между занятиями до старта.</dd></div><div><dt>Компьютер и AI-сервисы</dt><dd>Проверим, какие инструменты подойдут твоей задаче и устройству. Возможные расходы на подписки обсудим отдельно.</dd></div></dl>
+<dl class="offer-facts"><div><dt>Формат</dt><dd>Персональные встречи, практика на своём проекте и разбор результата.</dd></div><div><dt>Компьютер и AI-сервисы</dt><dd>Проверим, какие инструменты подойдут твоей задаче и устройству. Возможные расходы на подписки обсудим отдельно.</dd></div></dl>
 <div class="notices"><span aria-hidden="true">ⓘ</span><span>Это учебный маршрут. Итоговый объём зависит от подготовки и практики; трудоустройство и квалификация за несколько недель не гарантируются.</span></div>
 </div>
 </div>
-<section class="program-curriculum" id="selected-curriculum" aria-labelledby="curriculumTitle" tabindex="-1">
-<div class="curriculum-top"><span class="tag">Твой маршрут по этапам</span><h4 id="curriculumTitle">Как будем двигаться</h4><p id="curriculumSummary"></p></div>
+<details class="program-curriculum" id="selected-curriculum" aria-labelledby="curriculumTitle" tabindex="-1">
+<summary><h4 id="curriculumTitle">Этапы обучения и примеры</h4></summary><div class="curriculum-top"><p id="curriculumSummary"></p></div>
 <ol class="steps" id="selSteps"></ol>
 <div class="refs"><span class="subhead" style="width:100%">Примеры проектов и работ</span><div id="selRefs" style="display:flex;gap:9px;flex-wrap:wrap"></div></div>
-</section>
+</details>
 </div>
 </section>
-<section class="section catalog-section" id="programs">
-<div class="wrap"><div class="section-top"><div><span class="tag">02 / Выбери свой результат</span><h2>Что ты хочешь<br/><span class="accent">создать?</span></h2></div><p>Можно сразу выбрать программу по примеру работы. Есть маршруты для первого творческого проекта, разработки и развития исследовательских навыков.</p></div>
-<article class="site-learning-card" id="landing-learning" aria-labelledby="landingLearningTitle">
-<figure><img src="assets/pocitel/cilbir.jpg" alt="Материал присланного меню Pocitel: завтрак Çılbır, используемый в учебном лендинге" width="1031" height="1536" loading="lazy" decoding="async"/><figcaption>Pocitel · учебный сайт по материалам меню</figcaption></figure>
-<div><span class="tag">Практика / AI Разработчик</span><h3 id="landingLearningTitle">Лендинги и сайты,<br/>которые помогают выбрать.</h3><p>Создай свой сайт для кафе, услуги или портфолио. Разберём предложение, первый экран, карточки, выбор и понятную стоимость на примере Pocitel.</p><p>Базовый маршрут — 8 недель и 8 встреч. Итог: один опубликованный сайт с мобильной версией, исходниками и проверенными действиями.</p><div class="site-learning-actions"><a class="site-service-link" id="landing-learn" href="./?program=build&amp;level=zero&amp;pace=balanced#selected">Выбрать обучение ↗</a><a class="site-learning-secondary" href="examples/pocitel.html">Попробовать учебный сайт ↗</a><a class="site-learning-secondary" href="studio.html#services">Помощь с разработкой сайта ↗</a></div></div>
-</article>
-<div class="catalog-toolbar"><div class="choices" id="catalogFilters" role="group" aria-label="Фильтр программ"><button type="button" class="chip" data-filter="all" aria-pressed="true">Все 15</button><button type="button" class="chip" data-filter="explore" aria-pressed="false">Пробую и выбираю</button><button type="button" class="chip" data-filter="visual" aria-pressed="false">Книги и креатив</button><button type="button" class="chip" data-filter="build" aria-pressed="false">Программы и игры</button><button type="button" class="chip" data-filter="research" aria-pressed="false">Развитие проекта</button></div><p class="catalog-count" id="catalogCount" role="status" aria-live="polite">15 программ</p></div>
-<div class="programs" id="programList" role="group" aria-label="Выбор программы обучения"></div><p class="catalog-note">На обложках — примеры наших проектов и иллюстрации направлений с подписью. Карточка показывает планируемый учебный результат; подробности и авторство работ — ниже.</p></div>
-</section>
-<section class="mentor-section" id="mentor" aria-labelledby="mentorTitle"><div class="wrap">
-<div class="mentor-card"><div class="mentor-intro"><div class="mentor-avatar" aria-hidden="true">АС</div><span class="tag">Твой наставник</span><h2 id="mentorTitle">Алексей Сафонов</h2><p>QA-инженер и ментор по применению ИИ. Создаю приложения, цифровые проекты и инструменты для проверки результатов.</p><a class="quiet-link" href="https://github.com/safal207" target="_blank" rel="noopener noreferrer">Проекты и опыт на GitHub ↗</a></div><div><h2>Начнём с твоей идеи</h2><p>Разберём, что тебе интересно, выберем посильную задачу и определим, как проверить результат. Можно задавать базовые вопросы и разбираться в своём темпе.</p><div class="mentor-proof"><a href="#furniture">Мебель: LUMA 01 ↗</a><a href="#awakening">3D-игра: Пробуждение ↗</a><a href="https://safal207.github.io/test-it-python/">Тренажёр Python ↗</a></div><a class="btn primary" href="https://solvery.io/ru/mentor/5295" target="_blank" rel="noopener noreferrer">Познакомиться на Solvery ↗</a><p class="intro-offer">В профиле — отзывы и заявка на бесплатное 15-минутное знакомство. Полную программу обсудим отдельно.</p></div></div>
-<div class="faq" aria-label="Вопросы перед стартом"><details><summary>Можно начать совсем без опыта?</summary><p>Да, у нас есть программы с нуля. Для нейросетей полезны основы Python, а для грантов и исследовательских презентаций нужен собственный проект. Подбор покажет подходящую точку старта и требования.</p></details><details><summary>Что делать, если нравится сразу несколько направлений?</summary><p>Начни с AI Навигатора или сравни варианты после подбора. Первые небольшие работы помогут понять, какой процесс тебе интереснее. Смену направления можно обсудить с наставником.</p></details><details><summary>Нужно сразу оплачивать все AI-сервисы?</summary><p>Сначала определим задачу и набор инструментов. Доступность сервисов, возможности компьютера и возможные дополнительные расходы проверим до начала работы.</p></details><details><summary>Почему время в неделю не меняет срок автоматически?</summary><p>4–16 недель — базовые планы программ. Выбранные часы показывают, сколько времени у тебя есть вместе со встречами и практикой. На знакомстве уточним объём проекта и реалистичный график под твою подготовку.</p></details></div>
-</div></section>
-<section id="vibe" class="section" aria-labelledby="vibeTitle">
-<div class="wrap"><div class="vibe-highlight">
-<div><span class="tag">Новое направление · 15-я программа</span>
-<h2 id="vibeTitle">Вайбкодинг <span class="accent">→ свой продукт</span></h2>
-<p>За 16 недель пройдём путь от идеи и GitHub до рабочего MVP. Разберём CodeRabbit, Qodo, Codex Review, CI/CD и Lighthouse, работу через телефон и IDE, поиск ниши, SEO/SMM, клиентов, CRM и воронку продаж.</p>
-<div class="vibe-tags"><span>16 недель</span><span>Git + AI Review</span><span>SEO / SMM</span><span>CRM и воронка</span><span>Гранты и хакатоны</span></div>
-<div class="buttons"><a class="btn primary" href="vibe-coding/">Изучить 16 модулей ↗</a><a class="btn ghost" href="vibe-coding/crm-demo.html">Открыть CRM-песочницу ↗</a><a class="btn ghost" href="?program=vibe#selected">Выбрать маршрут ↗</a></div>
-<p class="vibe-note">Результат — учебный MVP и проверяемые артефакты, а не обещание клиентов, дохода, гранта или инвестиций. В учебную CRM нельзя вносить реальные контакты.</p></div>
-<div class="vibe-flow" aria-hidden="true"><span>01 <strong>Идея и ниша</strong></span><span>02 <strong>Код и ревью</strong></span><span>03 <strong>Тесты и релиз</strong></span><span>04 <strong>Маркетинг и CRM</strong></span><span>05 <strong>Питч и следующий шаг</strong></span></div>
+<details class="catalog-section content-disclosure wrap" id="programs">
+<summary><span><strong>Уже знаешь направление?</strong><small>Открой все 15 программ и выбери свой результат</small></span></summary>
+<div class="disclosure-body">
+
+<div class="website-programs" id="website-programs"><h3>Какая программа подойдёт для сайта?</h3><div>
+<p><a href="?program=build#selected">AI Разработчик</a><strong>8 недель · 8 встреч</strong>Первый лендинг, небольшой сайт или приложение: структура, код, работающие кнопки, проверка и публикация.</p>
+<p><a href="?program=designlab#selected">Design Lab — интерактивные сайты</a><strong>6 недель · 6 встреч</strong>Визуальная веб-презентация: стиль, SVG или 3D и 2–3 интерактивных сценария.</p>
+</div><small>Оба маршрута доступны с нуля. Выбираем по задаче проекта; сроки — базовый ориентир.</small></div>
+<div class="catalog-toolbar"><div class="choices" id="catalogFilters" role="group" aria-label="Фильтр программ"><button type="button" class="chip" data-filter="all" aria-pressed="true">Все 15</button><button type="button" class="chip" data-filter="explore" aria-pressed="false">Пробую и выбираю</button><button type="button" class="chip" data-filter="visual" aria-pressed="false">Книги и креатив</button><button type="button" class="chip" data-filter="build" aria-pressed="false">Сайты, программы и игры</button><button type="button" class="chip" data-filter="research" aria-pressed="false">Развитие проекта</button></div><p class="catalog-count" id="catalogCount" role="status" aria-live="polite">15 программ</p></div>
+<div class="programs" id="programList" role="group" aria-label="Выбор программы обучения"></div><p class="catalog-note">На обложках — примеры наших проектов и иллюстрации направлений с подписью. Карточка показывает планируемый учебный результат; подробности и авторство — в портфолио.</p></div>
+</details>
+<section class="section portfolio-overview" id="portfolio" aria-labelledby="portfolioTitle"><div class="wrap">
+<div class="section-top"><div><span class="tag">02 / Примеры</span><h2 id="portfolioTitle">Посмотри, как это работает</h2></div><p>Проекты наставника и учебные демо. Авторство, исходники и ограничения указаны внутри каждого примера.</p></div>
+<div class="portfolio-entries">
+<article class="portfolio-entry" id="landing-learning"><span class="tag">Лендинги и сайты</span><h3>Карточка, выбор, понятная сумма.</h3><p>Попробуй учебный сайт Pocitel: выбери завтрак и проверь, как меняется итог.</p><div><a href="examples/pocitel.html">Открыть демо ↗</a><a id="landing-learn" href="./?program=build&amp;level=zero&amp;pace=balanced#selected">Научиться: AI Разработчик ↗</a></div></article>
+<article class="portfolio-entry" id="web-studio"><span class="tag">Веб-портфолио</span><h3>Бренд, персонаж, атмосфера.</h3><p>FLORA, Мори и ДАЛЬ: три интерактивных примера с пояснением, чему можно научиться.</p><div><a href="studio.html">Открыть портфолио ↗</a><a href="studio.html#services">Заказать разработку сайта ↗</a></div></article>
 </div></div></section>
-<section class="section how" id="process">
-<div class="wrap">
-<span class="tag">03 / Формат</span><h2>Учимся через действие</h2>
-<div class="howgrid">
-<div class="howbox"><b>ШАГ 01</b><h3>Знакомство и диагностика</h3><p>Обсудим интересы, уровень, цели и устройство компьютера. Выберем посильную первую задачу.</p></div>
-<div class="howbox"><b>ШАГ 02</b><h3>Встреча + практика</h3><p>Разбираем инструменты, делаем небольшой шаг в проекте, ищем ошибки и учимся объяснять решения своими словами.</p></div>
-<div class="howbox"><b>ШАГ 03</b><h3>Проект и следующий путь</h3><p>Собираем демонстрацию, выкладываем учебный результат на GitHub и определяем, что изучать дальше.</p></div>
-</div>
-</div>
-</section>
-<section class="section awakening-section" id="awakening">
-<div class="wrap">
-<div class="awakening-feature">
-<div class="awakening-copy">
-<span class="tag">04 / Игровой проект · 3D GameDev</span>
-<h2>Пробуждение<span> / Awakening</span></h2>
-<p>Свой мир из кубов, который можно исследовать и изменять. Учимся разработке игр на основе открытого 3D-движка: C#, OpenGL, процедурная генерация, строительство, NPC и сохранения.</p>
-<div class="awakening-tags"><span>C# / .NET 8</span><span>OpenGL 3.3</span><span>Voxel World</span><span>GitHub</span></div>
-<div class="buttons">
-<button class="btn primary" id="chooseAwakening" type="button">Выбрать 3D GameDev ↗</button>
-<a class="btn ghost" href="https://github.com/safal207/Awakening" rel="noopener noreferrer" target="_blank">Код игры на GitHub ↗</a>
-</div>
-<div class="notices"><span>ⓘ</span><span>Локальный десктопный проект: .NET 8 и OpenGL 3.3. Справа — реальный скриншот запущенной игры. На курсе создаём посильную доработку, а не весь движок с нуля.</span></div>
-</div>
-<div class="awakening-preview awakening-real-shot"><button aria-label="Увеличить: Пробуждение — игровой кадр" class="project-shot" data-shot="assets/awakening.webp" data-shot-caption="Реальный кадр десктопного проекта, снятый при запуске без изменения исходного кода." data-shot-source="https://github.com/safal207/Awakening/tree/a92bd1560215833a232362ad78de88335e51ac81" data-shot-title="Пробуждение — игровой кадр" type="button"><img alt="Пробуждение — игровой кадр" decoding="async" height="720" loading="lazy" src="assets/awakening.webp" width="1280"/><span aria-hidden="true" class="shot-zoom">Увеличить ↗</span></button></div>
-</div>
-</div>
-</section>
+<details class="content-disclosure wrap" id="projects-library"><summary><span><strong>Приложения и игры</strong><small>6 проектов · реальные кадры, демо и исходники</small></span></summary>
 <section class="section" id="examples">
 <div class="wrap">
 <div class="section-top">
@@ -448,14 +293,15 @@
 <div class="projects">
 <article class="project"><button class="project-shot" type="button" aria-label="Увеличить реальный кадр Agent Arena" data-shot="https://raw.githubusercontent.com/safal207/agent-arena/main/docs/screenshots/agent-arena-gameplay.png" data-shot-title="Agent Arena — игровой бой" data-shot-caption="Реальный скриншот запущенной локальной арены с двумя встроенными сценарными ботами. Не демонстрация внешних LLM-моделей." data-shot-source="https://github.com/safal207/agent-arena"><img src="https://raw.githubusercontent.com/safal207/agent-arena/main/docs/screenshots/agent-arena-gameplay.png" alt="Настоящий игровой интерфейс Agent Arena с двумя сценарными ботами" width="1440" height="900" loading="lazy" decoding="async"/><span class="shot-zoom" aria-hidden="true">Увеличить ↗</span></button><div class="project-body"><span class="project-icon">◎ AGENTS / GAME</span><h3>Agent Arena</h3><p>Игровые боты сражаются через HTTP API. Настоящий интерактивный бой, CI-тесты и исправленная мобильная вёрстка.</p><a class="link" href="https://github.com/safal207/agent-arena" target="_blank" rel="noopener noreferrer">Исходники и режимы ↗</a><p class="shot-caption">Playwright-снимок реального локального боя встроенных демоботов.</p></div></article>
 <article class="project"><button class="project-shot" type="button" aria-label="Увеличить настоящий скриншот Garder" data-shot="https://raw.githubusercontent.com/safal207/Garder-2d/main/docs/screenshots/garder-demo.png" data-shot-title="Garder — The Last Garden · Godot 4.2" data-shot-caption="Реальный PNG из запущенной сцены Godot 4.2, подтверждённый сборкой и smoke-тестами GitHub Actions." data-shot-source="https://github.com/safal207/Garder-2d"><img src="https://raw.githubusercontent.com/safal207/Garder-2d/main/docs/screenshots/garder-demo.png" alt="Настоящий кадр Garder: игрок, дерево и враги на игровой арене" width="1280" height="720" loading="lazy" decoding="async"/><span class="shot-zoom" aria-hidden="true">Увеличить ↗</span></button><div class="project-body"><span class="project-icon">✳ 2D GAME / GODOT</span><h3>Garder — The Last Garden</h3><p>Волны врагов, ловушки, перемещение, атака, очки и здоровье дерева. Собственный небольшой игровой прототип с тестами.</p><a class="link" href="https://github.com/safal207/Garder-2d" target="_blank" rel="noopener noreferrer">Исходники и тесты ↗</a><p class="shot-caption">Скриншот снят с настоящего запуска Godot, не AI-иллюстрация.</p></div></article>
-<article class="project"><button aria-label="Увеличить: Пробуждение — игровой кадр" class="project-shot" data-shot="assets/awakening.webp" data-shot-caption="Реальный кадр запущенной десктопной игры. C# / OpenGL." data-shot-source="https://github.com/safal207/Awakening" data-shot-title="Пробуждение — игровой кадр" type="button"><img alt="Пробуждение — игровой кадр" decoding="async" height="720" loading="lazy" src="assets/awakening.webp" width="1280"/><span aria-hidden="true" class="shot-zoom">Увеличить ↗</span></button><div class="project-body"><span class="project-icon">▣ 3D GAME / C#</span><h3>Пробуждение</h3><p>Воксельный мир, процедурная генерация, блоки, NPC и сохранение прогресса. Исходники десктопной игры на C#.</p><a class="link" href="https://github.com/safal207/Awakening" rel="noopener noreferrer" target="_blank">Исходники игры ↗</a><p class="shot-caption">Реальный кадр запущенной десктопной игры. C# / OpenGL.</p></div></article>
+<article class="project" id="awakening"><button aria-label="Увеличить: Пробуждение — игровой кадр" class="project-shot" data-shot="assets/awakening.webp" data-shot-caption="Реальный кадр запущенной десктопной игры. C# / OpenGL." data-shot-source="https://github.com/safal207/Awakening/tree/a92bd1560215833a232362ad78de88335e51ac81" data-shot-title="Пробуждение — игровой кадр" type="button"><img alt="Пробуждение — игровой кадр" decoding="async" height="720" loading="lazy" src="assets/awakening.webp" width="1280"/><span aria-hidden="true" class="shot-zoom">Увеличить ↗</span></button><div class="project-body"><span class="project-icon">▣ 3D GAME / C#</span><h3>Пробуждение</h3><button class="btn ghost" type="button" id="chooseAwakening">План программы 3D GameDev ↗</button><p>Воксельный мир, процедурная генерация, блоки, NPC и сохранение прогресса. Исходники десктопной игры на C#.</p><a class="link" href="https://github.com/safal207/Awakening" rel="noopener noreferrer" target="_blank">Исходники игры ↗</a><p class="shot-caption">Реальный кадр запущенной десктопной игры. C# / OpenGL.</p></div></article>
 <article class="project"><button aria-label="Увеличить: Виртуальная вилла — интерфейс проекта" class="project-shot" data-shot="assets/architectural.webp" data-shot-caption="Скриншот опубликованного архитектурного портфолио." data-shot-source="https://safal207.github.io/Architectural-AI-Lab/" data-shot-title="Виртуальная вилла — интерфейс проекта" type="button"><img alt="Виртуальная вилла — интерфейс проекта" decoding="async" height="960" loading="lazy" src="assets/architectural.webp" width="1440"/><span aria-hidden="true" class="shot-zoom">Увеличить ↗</span></button><div class="project-body"><span class="project-icon">◈ 3D / ARCHITECTURE</span><h3>Виртуальная вилла</h3><p>Интерактивный 3D-тур, освещение, материалы и визуализация с Blender и Three.js.</p><a class="link" href="https://safal207.github.io/Architectural-AI-Lab/" rel="noopener noreferrer" target="_blank">Открыть проект ↗</a><p class="shot-caption">Скриншот опубликованного архитектурного портфолио.</p></div></article>
 <article class="project"><button aria-label="Увеличить: RustClip Studio — кадр деморолика" class="project-shot" data-shot="assets/rustclip.webp" data-shot-caption="Кадр деморолика проекта, не скриншот интерфейса студии." data-shot-source="https://github.com/safal207/rustclip-studio" data-shot-title="RustClip Studio — кадр деморолика" type="button"><img alt="RustClip Studio — кадр деморолика" decoding="async" height="1200" loading="lazy" src="assets/rustclip.webp" width="675"/><span aria-hidden="true" class="shot-zoom">Увеличить ↗</span></button><div class="project-body"><span class="project-icon">▶ VIDEO / AI</span><h3>RustClip Studio</h3><p>Локальная студия роликов: сцены, озвучка, субтитры и экспорт видео.</p><a class="link" href="https://github.com/safal207/rustclip-studio" rel="noopener noreferrer" target="_blank">Посмотреть проект ↗</a><p class="shot-caption">Кадр деморолика проекта, не скриншот интерфейса студии.</p></div></article>
 <article class="project"><button aria-label="Увеличить: Test it — тренажёр Python" class="project-shot" data-shot="assets/testit.webp" data-shot-caption="Скриншот работающего учебного интерфейса." data-shot-source="https://safal207.github.io/test-it-python/" data-shot-title="Test it — тренажёр Python" type="button"><img alt="Test it — тренажёр Python" decoding="async" height="960" loading="lazy" src="assets/testit.webp" width="1440"/><span aria-hidden="true" class="shot-zoom">Увеличить ↗</span></button><div class="project-body"><span class="project-icon">⌘ PYTHON / QA</span><h3>Интерактивный тренажёр</h3><p>Уроки по Python, практические задания, тестирование и первые учебные проекты.</p><a class="link" href="https://safal207.github.io/test-it-python/" rel="noopener noreferrer" target="_blank">Попробовать ↗</a><p class="shot-caption">Скриншот работающего учебного интерфейса.</p></div></article>
 </div>
 </div>
 </section>
-
+</details>
+<details class="content-disclosure wrap" id="creative-library"><summary><span><strong>Комиксы, книги и предметный дизайн</strong><small>Истории, публикация и процесс создания LUMA 01</small></span></summary>
 <section class="section comics-section" id="comics" aria-labelledby="comicsTitle">
 <div class="wrap">
 <div class="section-top"><div><span class="tag">Комиксы / Визуальные истории</span><h2 id="comicsTitle">Свои герои.<br/><span class="accent">Своя история.</span></h2></div><p>Примеры из авторского проекта «Живут в папках» про Иня и Янку: две обложки и страница готового черновика. Нажми на изображение, чтобы рассмотреть его.</p></div>
@@ -469,7 +315,6 @@
 <div class="comic-actions"><button class="btn primary" type="button" data-start-track="comics">Выбрать программу по комиксам ↗</button><a class="btn ghost" href="https://yin-yanka-comics.safalex.chatgpt.site" target="_blank" rel="noopener noreferrer">Читать выпуски целиком ↗</a></div>
 </div>
 </section>
-
 <section class="section books-section" id="books" aria-labelledby="booksTitle">
 <div class="wrap">
 <div class="section-top"><div><span class="tag">Книга / ИИ / Amazon KDP</span><h2 id="booksTitle">Твоя идея.<br/><span class="accent">Твоя книга.</span></h2></div><p>Помогу пройти путь от замысла и первых глав до оформления книги и подачи на Amazon KDP.</p></div>
@@ -499,7 +344,6 @@
 </div>
 </div>
 </section>
-
 <section class="section furniture-section" id="furniture" aria-labelledby="furnitureTitle">
 <div class="wrap">
 <div class="section-top"><div><span class="tag">Мебель / Предметный дизайн</span><h2 id="furnitureTitle">Придумай предмет.<br/><span class="accent">Покажи его в 3D.</span></h2></div><p>Пример из нашего портфолио — кресло LUMA 01. Три ракурса одной модели: можно проверить, как сохраняются форма и детали.</p></div>
@@ -513,22 +357,15 @@
 <div class="furniture-actions"><button class="btn primary" type="button" data-start-track="furniture">Выбрать программу по мебели ↗</button><a class="btn ghost" href="https://safal207.github.io/safonov-interior-portfolio/cases/luma-01.html" target="_blank" rel="noopener noreferrer">Все ракурсы, анимация и 3D-модель ↗</a></div>
 </div>
 </section>
-
-
+</details>
+<details class="content-disclosure wrap" id="design-library"><summary><span><strong>Лаборатория интерактивного дизайна</strong><small>SVG, слои, 3D и четыре примера для разбора</small></span></summary>
 <section class="section design-lab-section" id="design-lab" aria-labelledby="designLabTitle">
 <div class="wrap">
 <div class="section-top">
 <div><span class="tag">Design Lab / сайты, образы и интерактив</span><h2 id="designLabTitle">Форма. Движение.<br/><span class="accent">Живой интерфейс.</span></h2></div>
 <p>Учебные примеры для программы Design Lab. Разбираем визуальный стиль, SVG, 3D и состояние интерфейса — затем собираем один собственный интерактивный сайт ученика.</p>
 </div>
-<section class="web-studio" id="web-studio" aria-labelledby="webStudioTitle">
-<div class="web-studio-head"><div><span class="tag">Новое в портфолио школы</span><h3 id="webStudioTitle">Такие проекты мы тоже создаём.<br/>Поможем сделать свой.</h3></div><p>Сайт бренда, мир персонажа или атмосферная презентация. Открой демо, попробуй действия и выбери близкое направление.</p></div>
-<div class="web-studio-grid">
-<a class="web-studio-card" href="examples/flora.html"><img src="assets/web-studio/flora.webp" alt="AI-иллюстрация из учебного проекта FLORA: ботаническая композиция" width="1122" height="1402" loading="lazy" decoding="async"/><span><strong>FLORA</strong><small>Бренд · палитра · визуальный бриф</small><em>Попробовать конструктор ↗</em></span></a>
-<a class="web-studio-card" href="examples/mori.html"><img src="assets/web-studio/mori.webp" alt="AI-иллюстрация из учебного проекта Мори: пушистый лесной персонаж" width="1536" height="1024" loading="lazy" decoding="async"/><span><strong>Мори</strong><small>Персонаж · история · твой выбор</small><em>Пройти историю ↗</em></span></a>
-<a class="web-studio-card" href="examples/dal.html"><img src="assets/web-studio/dal.webp" alt="AI-иллюстрация из учебного проекта ДАЛЬ: туманное горное озеро" width="1672" height="941" loading="lazy" decoding="async"/><span><strong>ДАЛЬ</strong><small>Атмосфера · маршруты · сохранение</small><em>Выбрать маршрут ↗</em></span></a>
-</div><div class="web-studio-foot"><p>Оригинальные учебные демопроекты наставника. Иллюстрации созданы с ИИ; бренды и истории вымышлены. Объём своего сайта согласуем до старта.</p><a href="studio.html">Всё о проектах и обучении →</a></div>
-</section>
+<p class="portfolio-crosslink">Ещё примеры сайтов: <a href="studio.html">FLORA, Мори, ДАЛЬ и Pocitel в портфолио школы ↗</a>.</p>
 <section class="transformation-lab" id="transformation-lab" aria-labelledby="transformationTitle" data-step="0">
 <span class="tag">Попробуй здесь · без установки и 3D</span><h3 id="transformationTitle">Как картинка становится интерактивной</h3><p>Нажимай шаги по порядку. Исходник остаётся для сравнения, а справа меняется результат. Это подготовленная иллюстрация из пяти SVG-слоёв: мы показываем её устройство и пересборку.</p>
 <div class="lesson-step-buttons" role="group" aria-label="Шаги преобразования"><button type="button" data-lesson-step="0" aria-pressed="true">01 · Исходная картинка</button><button type="button" data-lesson-step="1" aria-pressed="false">02 · Разделить на слои</button><button type="button" data-lesson-step="2" aria-pressed="false">03 · Пересобрать по-своему</button></div>
@@ -562,7 +399,118 @@
 </div>
 </div>
 </section>
-
+</details>
+<section class="section how" id="process">
+<div class="wrap">
+<span class="tag">03 / Формат</span><h2>Учимся через действие</h2>
+<div class="howgrid">
+<div class="howbox"><b>ШАГ 01</b><h3>Знакомство и диагностика</h3><p>Обсудим интересы, уровень, цели и устройство компьютера. Выберем посильную первую задачу.</p></div>
+<div class="howbox"><b>ШАГ 02</b><h3>Встреча + практика</h3><p>Разбираем инструменты, делаем небольшой шаг в проекте, ищем ошибки и учимся объяснять решения своими словами.</p></div>
+<div class="howbox"><b>ШАГ 03</b><h3>Проект и следующий путь</h3><p>Собираем демонстрацию, выкладываем учебный результат на GitHub и определяем, что изучать дальше.</p></div>
+</div>
+</div>
+</section>
+<section class="mentor-section" id="mentor" aria-labelledby="mentorTitle"><div class="wrap">
+<div class="mentor-card"><div class="mentor-intro"><div class="mentor-avatar" aria-hidden="true">АС</div><span class="tag">Твой наставник</span><h2 id="mentorTitle">Алексей Сафонов</h2><p>QA-инженер и ментор по применению ИИ. Создаю приложения, цифровые проекты и инструменты для проверки результатов.</p><a class="quiet-link" href="https://github.com/safal207" target="_blank" rel="noopener noreferrer">Проекты и опыт на GitHub ↗</a></div><div><h2>Начнём с твоей идеи</h2><p>Разберём, что тебе интересно, выберем посильную задачу и определим, как проверить результат. Можно задавать базовые вопросы и разбираться в своём темпе.</p><div class="mentor-proof"><a href="#furniture">Мебель: LUMA 01 ↗</a><a href="#awakening">3D-игра: Пробуждение ↗</a><a href="https://safal207.github.io/test-it-python/">Тренажёр Python ↗</a></div><a class="btn primary" href="https://solvery.io/ru/mentor/5295" target="_blank" rel="noopener noreferrer">Познакомиться на Solvery ↗</a><p class="intro-offer">В профиле — отзывы и заявка на бесплатное 15-минутное знакомство. Полную программу обсудим отдельно.</p></div></div>
+<details class="mentor-demo" id="mentorExample">
+  <summary>Попробуй: найти ошибку и проверить исправление</summary>
+  <div class="mentor-demo-body">
+    <p class="mentor-demo-note"><strong>Подготовленный учебный пример.</strong> Мы специально оставили ошибку в первой версии, чтобы показать процесс проверки. Можно повторить каждый шаг и сравнить результат.</p>
+    <div id="mentor-demo-controls" hidden>
+      <div class="mentor-demo-steps" role="group" aria-label="Этапы учебного примера">
+        <button type="button" data-mentor-demo-step="1" aria-pressed="true">1. Первая версия</button>
+        <button type="button" data-mentor-demo-step="2" aria-pressed="false">2. Проверка</button>
+        <button type="button" data-mentor-demo-step="3" aria-pressed="false">3. Исправление</button>
+      </div>
+      <h3 id="mentor-demo-stage-title">Первая версия</h3>
+      <p class="mentor-demo-description" id="mentor-demo-description">В этом учебном макете специально оставлена ошибка. Нажми «Туман»: должна поменяться и подпись, и палитра пейзажа. Затем открой шаг 2.</p>
+      <div class="mentor-demo-workspace">
+        <figure class="mentor-demo-figure">
+          <svg id="mentor-demo-artwork" data-palette="sunset" viewBox="0 0 480 280" width="480" height="280" role="img" aria-labelledby="mentor-demo-artwork-title">
+            <title id="mentor-demo-artwork-title">Учебный пейзаж: палитра «Закат»</title>
+            <rect width="480" height="280" fill="#eaad8e" data-mentor-demo-paint="sky"/>
+            <circle cx="355" cy="73" r="32" fill="#ffe3b6" data-mentor-demo-paint="sun"/>
+            <path d="M0 190 103 95 183 165 275 69 405 176 480 127V280H0Z" fill="#7c627e" data-mentor-demo-paint="mountain"/>
+            <path d="M0 202Q120 175 240 204T480 194V280H0Z" fill="#a67a8c" data-mentor-demo-paint="water"/>
+            <path d="M0 244Q65 203 137 242T300 257 480 232V280H0Z" fill="#4f5f64" data-mentor-demo-paint="foreground"/>
+            <path d="M185 226h85m-46 17h63m-154-5h32" fill="none" stroke="#ffffff" stroke-opacity=".35" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <figcaption>На картинке: <strong id="mentor-demo-canvas-name">Закат</strong></figcaption>
+        </figure>
+        <div class="mentor-demo-controls">
+          <p class="mentor-demo-selection">Выбрана палитра: <strong id="mentor-demo-palette-name">Закат</strong></p>
+          <div class="mentor-demo-palettes" role="group" aria-label="Палитра учебного пейзажа">
+            <button type="button" data-mentor-demo-palette="sunset" aria-pressed="true"><span class="mentor-demo-palette-dot sunset" aria-hidden="true"></span>Закат</button>
+            <button type="button" data-mentor-demo-palette="mist" aria-pressed="false"><span class="mentor-demo-palette-dot mist" aria-hidden="true"></span>Туман</button>
+          </div>
+          <button type="button" class="mentor-demo-check" id="mentor-demo-check" hidden>Проверить результат</button>
+          <p class="mentor-demo-status" id="mentor-demo-status" role="status" aria-live="polite" aria-atomic="true">Проверки ещё не было. Начни с кнопки «Туман».</p>
+        </div>
+      </div>
+      <div class="mentor-demo-results" id="mentor-demo-results" hidden>
+        <h4>Что произошло при переключении</h4>
+        <ul>
+          <li id="mentor-demo-label-result"></li>
+          <li id="mentor-demo-color-result"></li>
+        </ul>
+        <p class="mentor-demo-takeaway" id="mentor-demo-takeaway"></p>
+      </div>
+      <div class="mentor-demo-bottom">
+        <p>Роль наставника: помочь задать критерий, найти расхождение, объяснить исправление и проверить его тем же действием.</p>
+        <button type="button" id="mentor-demo-reset">Начать заново</button>
+      </div>
+    </div>
+    <noscript><p class="mentor-demo-note">Для интерактивного примера нужен JavaScript. Суть проверки: после выбора «Туман» должны измениться и подпись, и цвета. В первой версии меняется только подпись; исправление обновляет оба элемента.</p></noscript>
+  </div>
+</details>
+<div class="faq" aria-label="Вопросы перед стартом"><details><summary>Можно начать совсем без опыта?</summary><p>Да, у нас есть программы с нуля. Для нейросетей полезны основы Python, а для грантов и исследовательских презентаций нужен собственный проект. Подбор покажет подходящую точку старта и требования.</p></details><details><summary>Что делать, если нравится сразу несколько направлений?</summary><p>Начни с AI Навигатора или сравни варианты после подбора. Первые небольшие работы помогут понять, какой процесс тебе интереснее. Смену направления можно обсудить с наставником.</p></details><details><summary>Нужно сразу оплачивать все AI-сервисы?</summary><p>Сначала определим задачу и набор инструментов. Доступность сервисов, возможности компьютера и возможные дополнительные расходы проверим до начала работы.</p></details><details><summary>Почему время в неделю не меняет срок автоматически?</summary><p>4–16 недель — базовые планы программ. Выбранные часы показывают, сколько времени у тебя есть вместе со встречами и практикой. На знакомстве уточним объём проекта и реалистичный график под твою подготовку.</p></details></div>
+</div></section>
+<details class="content-disclosure wrap" id="parent-library"><summary><span><strong>Родителям: какой первый проект выбрать</strong><small>Три возможных результата и этапы работы с ребёнком</small></span></summary>
+<section class="section parent-gallery" id="result-gallery" aria-labelledby="parentGalleryTitle">
+<div class="wrap">
+<div class="section-top"><div><span class="tag">Для родителей и детей</span><h2 id="parentGalleryTitle">Первый проект,<br/><span>которым хочется поделиться</span></h2></div><p>Поможем придать идее ребёнка форму: придумать историю, создать комнату или собрать свой сайт. Выберем посильную задачу и доведём её до понятного результата.</p></div>
+<p class="parent-gallery-note" id="parentGalleryNote">На обложках — AI-концепции возможных проектов. Ссылки в карточках открывают указанные примеры для разбора. Объём и базовый срок первого проекта уточним с учётом подготовки.</p>
+<div class="parent-results">
+<article class="parent-result" data-result="space" aria-labelledby="parentRoomTitle">
+<figure class="parent-result-cover"><img src="assets/parent-gallery/space.webp" alt="AI-концепция: уютная комната в виде объёмной модели, рядом план и модель без материалов" width="1122" height="1402" loading="lazy" decoding="async"/><span class="parent-concept-badge">AI-концепция</span></figure>
+<div class="parent-result-body"><p class="parent-result-meta">3D-дизайн · 6 недель</p><h3 id="parentRoomTitle">Комната, которую придумал сам</h3><p class="parent-result-copy">Один учебный 3D-проект: от первого плана до модели с материалами, светом и несколькими ракурсами.</p>
+<ul class="parent-deliverables"><li>Цифровая модель своей комнаты</li><li>Ракурсы и визуальная презентация</li><li>Объяснение формы, материалов и света</li></ul>
+<a class="parent-example" href="https://safal207.github.io/room-control-studio/" target="_blank" rel="noopener noreferrer">3D-пример наставника: Room Control ↗</a>
+<details class="parent-process"><summary>Как создадим такой проект</summary><ol><li>Выберем небольшую комнату, соберём идеи и набросаем план.</li><li>Соберём модель, подберём материалы и настроим свет.</li><li>Проверим ракурсы и оформим учебный кейс с исходниками.</li></ol></details>
+<button class="btn primary" type="button" data-start-track="space">Посмотреть план программы ↗</button></div>
+</article>
+<article class="parent-result" data-result="comics" aria-labelledby="parentComicTitle">
+<figure class="parent-result-cover"><img src="assets/parent-gallery/comics.webp" alt="AI-концепция: обложка и страницы комикса «Лунный маяк», планшет и набросок раскадровки" width="1122" height="1402" loading="lazy" decoding="async"/><span class="parent-concept-badge">AI-концепция</span></figure>
+<div class="parent-result-body"><p class="parent-result-meta">Комикс · 6 недель</p><h3 id="parentComicTitle">Своя история. Настоящий комикс.</h3><p class="parent-result-copy">Придумать героев и собрать короткую законченную историю, которую можно читать и показывать семье.</p>
+<ul class="parent-deliverables"><li>Обложка и 3–5 страниц</li><li>Сценарий и раскадровка</li><li>PDF для чтения и показа</li></ul>
+<a class="parent-example" href="#comics">Посмотреть пример «Инь и Янка» ↓</a>
+<details class="parent-process"><summary>Как создадим такой проект</summary><ol><li>Придумаем героя, его цель и одну законченную историю.</li><li>Соберём раскадровку, страницы и диалоги; проверим постоянство персонажей.</li><li>Оформим обложку и проверим читаемость готового PDF.</li></ol></details>
+<button class="btn primary" type="button" data-start-track="comics">Посмотреть план программы ↗</button></div>
+</article>
+<article class="parent-result" data-result="build" aria-labelledby="parentSiteTitle">
+<figure class="parent-result-cover"><img src="assets/parent-gallery/build.webp" alt="AI-концепция: сайт «Мой космос» на ноутбуке и телефоне, рядом эскиз страницы" width="1122" height="1402" loading="lazy" decoding="async"/><span class="parent-concept-badge">AI-концепция</span></figure>
+<div class="parent-result-body"><p class="parent-result-meta">Свой сайт · 8 недель</p><h3 id="parentSiteTitle">Свой сайт. Настоящая ссылка.</h3><p class="parent-result-copy">Небольшой сайт или веб-приложение: своя идея, работающие кнопки, проверка на телефоне и публикация.</p>
+<ul class="parent-deliverables"><li>Один работающий веб-проект</li><li>Исходники и ссылка на результат</li><li>Проверка основных действий</li></ul>
+<a class="parent-example" href="examples/my-cosmos.html">Открыть сайт-пример «Мой космос» →</a>
+<details class="parent-process"><summary>Как создадим такой проект</summary><ol><li>Выберем тему и одно полезное действие для посетителя.</li><li>Соберём экран и кнопки с помощью ИИ; разберём, как они работают.</li><li>Проверим сайт на компьютере и телефоне и опубликуем проект.</li></ol></details>
+<button class="btn primary" type="button" data-start-track="build">Посмотреть план программы ↗</button></div>
+</article>
+</div>
+<div class="parent-gallery-footer"><p>Пока сложно выбрать? Начнём с интересов и опыта ребёнка. На знакомстве обсудим компьютер, время на практику, стоимость и подходящий первый проект.</p><a href="#selector">Подобрать направление →</a></div>
+</div>
+</section>
+</details>
+<details class="content-disclosure wrap" id="resource-library"><summary><span><strong>Материалы для развития проекта</strong><small>Вайбкодинг, нейросети, хакатоны и исследовательские заявки</small></span></summary>
+<section id="vibe" class="section" aria-labelledby="vibeTitle">
+<div class="wrap"><div class="vibe-highlight">
+<div><span class="tag">Новое направление · 15-я программа</span>
+<h2 id="vibeTitle">Вайбкодинг <span class="accent">→ свой продукт</span></h2>
+<p>За 16 недель пройдём путь от идеи и GitHub до рабочего MVP. Разберём CodeRabbit, Qodo, Codex Review, CI/CD и Lighthouse, работу через телефон и IDE, поиск ниши, SEO/SMM, клиентов, CRM и воронку продаж.</p>
+<div class="vibe-tags"><span>16 недель</span><span>Git + AI Review</span><span>SEO / SMM</span><span>CRM и воронка</span><span>Гранты и хакатоны</span></div>
+<div class="buttons"><a class="btn primary" href="vibe-coding/">Изучить 16 модулей ↗</a><a class="btn ghost" href="vibe-coding/crm-demo.html">Открыть CRM-песочницу ↗</a><a class="btn ghost" href="?program=vibe#selected">Выбрать маршрут ↗</a></div>
+<p class="vibe-note">Результат — учебный MVP и проверяемые артефакты, а не обещание клиентов, дохода, гранта или инвестиций. В учебную CRM нельзя вносить реальные контакты.</p></div>
+<div class="vibe-flow" aria-hidden="true"><span>01 <strong>Идея и ниша</strong></span><span>02 <strong>Код и ревью</strong></span><span>03 <strong>Тесты и релиз</strong></span><span>04 <strong>Маркетинг и CRM</strong></span><span>05 <strong>Питч и следующий шаг</strong></span></div>
+</div></div></section>
 <section class="section extra-research" id="research">
   <div class="wrap">
     <div class="section-top">
@@ -631,7 +579,6 @@
     <p class="ml-disclaimer">Приведены примеры конкурсных разработок, подготовленных документов и заявок на рассмотрении, а не доказательства побед или полученных грантов. Участие, допуск и финансирование зависят от требований организаторов. Для новичка сначала рекомендуется базовая программа.</p>
   </div>
 </section>
-
 <section class="section frontier-section" id="frontier">
 <div class="wrap">
 <div class="section-top">
@@ -662,6 +609,7 @@
 <button class="btn primary" type="button" data-start-track="frontier">Выбрать «AI Lab Research Pitch» ↗</button>
 </div>
 </section>
+</details>
 <div class="wrap">
 <div class="closing">
 <div><span class="tag">Готов пробовать?</span><h2>Начни с одного небольшого проекта.</h2><p>Выбери интересный результат, посмотри свой план и обсуди первый шаг с наставником. Если пока сомневаешься — начни с трёх вопросов.</p></div>
@@ -677,7 +625,8 @@
 <div aria-live="polite" class="toast" id="toast" role="status">Ссылка скопирована</div>
 <script src="plan-pdf.js?v=1"></script>
 <script src="program-3d.js?v=2"></script>
-<script src="app.js?v=sites-1"></script>
+<script src="content-sections.js?v=1"></script>
+<script src="app.js?v=clear-1"></script>
 <script src="mentor-demo.js?v=1"></script>
 <script src="design-lab.js?v=1"></script>
 <dialog aria-labelledby="galleryTitle" id="projectLightbox">

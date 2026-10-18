@@ -131,6 +131,7 @@ async function iframeContract(page, width) {
     assert(await page.locator(target).count() === 1, 'Linked curriculum week exists once');
     await panel.locator('#program3dWeek').click();
     assert(new URL(page.url()).hash === target, 'Week action navigates to its real learning stage');
+    assert(await page.locator('#selected-curriculum').evaluate(el => el.open) && await page.locator(target).isVisible(), 'Week action reveals its collapsed curriculum');
     assert(new URL(page.url()).searchParams.get('program') === 'designlab', 'Week navigation preserves the selected program');
   }
   await panel.locator('[data-program-scene="room"]').click();
@@ -187,6 +188,8 @@ async function iframeContract(page, width) {
   await panel.locator('#program3dStop').click();
   assert(await panel.locator('iframe').count() === 0 && await panel.locator('#program3dStage').getAttribute('aria-busy') === 'false', 'Cancel removes the loading iframe and clears busy state');
   await startFrame(page);
+  await page.locator('#hero-programs').click();
+  assert(await page.locator('#programs').evaluate(el => el.open), 'Catalogue entrance exposes the alternative program choices');
   await page.locator('#catalogFilters [data-filter="all"]').click();
   await page.locator('#programList [data-program="build"]').click();
   assert(await panel.isHidden() && await panel.locator('iframe').count() === 0, 'Another program disposes 3D and hides its panel');
