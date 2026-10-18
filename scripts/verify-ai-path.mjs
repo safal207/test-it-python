@@ -127,17 +127,22 @@ async function compactLanding(page, width) {
   const libraryIds = ['projects-library', 'creative-library', 'design-library', 'parent-library', 'resource-library'];
   const initial = await page.evaluate(() => {
     const hero = document.querySelector('.hero').getBoundingClientRect();
+    const menu = document.querySelector('#programs').getBoundingClientRect();
     const selector = document.querySelector('#selector').getBoundingClientRect();
-    return { height: document.documentElement.scrollHeight, gap: selector.top - hero.bottom,
+    return { height: document.documentElement.scrollHeight, menuGap: menu.top - hero.bottom, quizAfterMenu: selector.top >= menu.bottom - 1,
       disclosures: [...document.querySelectorAll('details.content-disclosure:not(#programs)')].map(el => ({ id: el.id, open: el.open })),
-      catalogClosed: document.querySelector('#programs').tagName === 'DETAILS' && !document.querySelector('#programs').open };
+      menuSection: document.querySelector('#programs').tagName === 'SECTION' };
   });
-  assert(initial.catalogClosed, 'Fresh landing keeps the complete catalogue behind its native summary');
+  assert(initial.menuSection && await page.locator('#programs').isVisible(), 'Fresh landing exposes the program menu as a visible section');
+  assert(await page.locator('#programList .program:visible').count() === 6 && await page.locator('#showAllPrograms').isVisible(), 'Fresh menu starts with six programs and a clear action to see the rest');
   assert(sameMembers(initial.disclosures.map(item => item.id), libraryIds) && initial.disclosures.every(item => !item.open), 'Fresh landing keeps all five detail libraries closed');
-  assert(initial.gap >= -1 && initial.gap < 100, 'Quiz immediately follows the hero without repeated selection offers');
+  assert(initial.menuGap >= -1 && initial.menuGap < 100 && initial.quizAfterMenu, 'Visual program menu immediately follows the hero, with the guided quiz after it');
   assert(await page.locator('.first-project-section, #navigatorStart').count() === 0, 'Fresh landing removes the duplicate Navigator offer while keeping its old URL anchor');
   assert(await page.locator('#portfolio').isVisible() && await page.locator('#web-studio').isVisible(), 'Compact portfolio overview remains visible without opening a library');
-  if (width === 1440) assert(initial.height < 8500, `Fresh desktop landing fits the compact page budget: ${initial.height}px (baseline 24714px)`);
+  if (width === 1440) assert(initial.height < 8500, `Fresh desktop landing fits the compact page budget with its six-card menu: ${initial.height}px`);
+  await page.locator('#programList .program:visible img').evaluateAll(images => Promise.all(images.map(async image => {
+    image.loading = 'eager'; await image.decode();
+  })));
   await noOverflow(page, 'compact landing ' + width);
   await page.screenshot({ path: `${artifacts}/ai-path-${width}-landing-overview.png`, fullPage: true, animations: 'disabled' });
   const library = page.locator('#projects-library');
@@ -152,12 +157,17 @@ async function compactLanding(page, width) {
   await page.goto(base + route + '#selected', { waitUntil: 'domcontentloaded' });
   await selected(page, 'build');
   const before = new URL(page.url());
-  assert(!(await page.locator('#programs').evaluate(el => el.open)), 'Deep-linked plan does not expand the complete catalogue');
+  assert(await page.locator('#programList .program:visible').count() === 6, 'Deep-linked plan keeps the menu at its compact six-card starting state');
   await page.locator('#hero-programs').focus();
   await page.keyboard.press('Enter');
-  assert(await page.locator('#programs').evaluate(el => el.open), 'Keyboard catalogue entrance opens the native disclosure');
-  assert(sameMembers(await ids(page.locator('#programList .program:visible')), programIds), 'Keyboard catalogue entrance exposes all 15 programs');
+  assert(await page.locator('#programs').isVisible(), 'Keyboard hero entrance reaches the visible program menu');
   assert(new URL(page.url()).search === before.search && new URL(page.url()).hash === '#programs', 'Catalogue fragment navigation preserves the selected program, level and pace');
+  const nextProgram = await page.locator('#programList .program[hidden]').first().getAttribute('data-program');
+  await page.locator('#showAllPrograms').focus();
+  await page.keyboard.press('Enter');
+  assert(sameMembers(await ids(page.locator('#programList .program:visible')), programIds), 'Keyboard show-all action exposes every one of the 15 programs');
+  assert(await page.locator(`#programList [data-program="${nextProgram}"]`).evaluate(el => document.activeElement === el), 'Show-all moves keyboard focus to the first newly available program');
+  await revealTarget(page, '#website-programs');
   const websitePrograms = await page.locator('#website-programs').innerText();
   assert(/AI Разработчик/.test(websitePrograms) && /8 недел/.test(websitePrograms) && /Design Lab/.test(websitePrograms) && /6 недел/.test(websitePrograms) && /Vibe Coding|Вайбкодинг/.test(websitePrograms) && /16 недел/.test(websitePrograms), 'Adjacent website-program comparison explains all three distinct schedules');
 
@@ -180,6 +190,7 @@ async function compactLanding(page, width) {
 }
 async function catalogPresentation(page, width) {
   await revealTarget(page, '#programList');
+  if (await page.locator('#showAllPrograms').isVisible()) await page.locator('#showAllPrograms').click();
   await page.locator('#programList img').evaluateAll(images => Promise.all(images.map(async image => {
     image.loading = 'eager'; await image.decode();
   })));
@@ -201,14 +212,25 @@ async function catalogPresentation(page, width) {
       }
     }
     return { id: card.dataset.program, covers: covers.length, alt: covers.every(img => img.hasAttribute('alt')),
+      source: covers[0]?.getAttribute('src'), decoded: covers.every(img => img.complete && img.naturalWidth > 0),
+      category: card.querySelector('.program-category')?.textContent.trim(),
+      provenance: card.querySelector('.program-cover-note')?.textContent.trim(),
+      role: card.querySelector('.program-role')?.textContent.trim(),
+      result: card.querySelector('.program-result.program-outcome')?.textContent.trim(),
+      resultLabel: card.querySelector('.program-outcome-label')?.textContent.trim(),
+      skill: card.querySelector('.program-skill')?.textContent.trim(),
       body: Boolean(body), clipped,
       indexedCover: card.querySelector('.program-cover-index[aria-hidden="true"]')?.textContent.trim().length > 0,
-      outcomeLabel: card.querySelector('.program-outcome-label')?.textContent.trim() === 'Что будем создавать',
       nestedActions: card.querySelectorAll('button, a, input, select, textarea, [tabindex]').length };
   }));
+  assert(sameMembers(report.map(card => card.id), programIds), 'Visual menu preserves all 15 distinct programs');
+  assert(new Set(report.map(card => card.source)).size === programIds.length, 'Every program has its own illustration');
   for (const card of report) {
     assert(card.covers === 1 && card.alt, `Program has one cover with an explicit alternative-text decision: ${card.id}`);
-    assert(card.indexedCover && card.outcomeLabel, `Program has a numbered cover and learning outcome at ${width}px: ${card.id}`);
+    assert(card.source === `assets/program-menu-v1/${card.id}.webp` && card.decoded, `Program illustration loads from its own local WebP: ${card.id}`);
+    assert(card.provenance === 'AI-иллюстрация' && card.category?.length > 3, `Illustration names its category and is not presented as a project screenshot: ${card.id}`);
+    assert(card.indexedCover && card.role?.includes('Попробуешь роль') && card.role.length > 20, `Program has a numbered cover and an exploratory role at ${width}px: ${card.id}`);
+    assert(card.resultLabel === 'Создашь' && card.result?.length > 12 && card.skill?.length > 12 && card.result !== card.skill, `Program separately explains what the visitor will make and practise: ${card.id}`);
     assert(card.body && card.clipped.length === 0, `Program text fits its card at ${width}px: ${card.id} ${JSON.stringify(card.clipped)}`);
     assert(card.nestedActions === 0, `Program remains one keyboard action without nested controls: ${card.id}`);
   }
@@ -216,6 +238,65 @@ async function catalogPresentation(page, width) {
   // Capture the expanded catalogue with decoded covers and without sticky chrome.
   await page.locator('#programList').screenshot({ path: `${artifacts}/ai-path-${width}-catalog.png`, animations: 'disabled',
     style: '.header, .selection-dock, .toast { visibility: hidden !important; }' });
+}
+async function catalogSearch(page, width) {
+  await revealTarget(page, '#programList');
+  const search = page.locator('#programSearch');
+  const clear = page.locator('#clearProgramSearch');
+  const empty = page.locator('#catalogEmpty');
+  const visibleCards = page.locator('#programList .program:visible');
+  const routeBefore = page.url();
+  const selectedBefore = await ids(page.locator('#programList .program[aria-pressed="true"]'));
+  assert(await search.getAttribute('type') === 'search', 'Program menu exposes a native search input');
+  assert(await search.evaluate(el => Boolean(el.labels?.length || el.getAttribute('aria-label') || el.getAttribute('aria-labelledby'))), 'Program search has an accessible name');
+  assert(await clear.evaluate(el => el.tagName === 'BUTTON' && el.type === 'button'), 'Clear search uses a native button');
+  assert(await page.locator('#catalogCount').getAttribute('aria-live') === 'polite', 'Program count changes are announced without interrupting the visitor');
+
+  async function resultsMatch(expected, label) {
+    const actual = await ids(visibleCards);
+    assert(sameMembers(actual, expected), `${label}: ${actual.join(', ')}`);
+    assert((await page.locator('#catalogCount').innerText()).includes(`${expected.length} из 15`), `Visible count agrees with ${label}`);
+    assert(await empty.isVisible() === (expected.length === 0), `Empty-state visibility agrees with ${label}`);
+    assert(await page.locator('#programList .program').count() === programIds.length, 'Searching and filtering never removes or duplicates a program');
+  }
+
+  await page.locator('#catalogFilters [data-filter="all"]').click();
+  await search.fill('  aMaZoN kDp  ');
+  await resultsMatch(['books'], 'Search ignores case and surrounding spaces');
+  await page.locator('#catalogFilters [data-filter="build"]').click();
+  await resultsMatch([], 'Category and search combine instead of silently replacing one another');
+  await clear.focus();
+  await page.keyboard.press('Enter');
+  assert(await search.inputValue() === '' && await search.evaluate(el => document.activeElement === el), 'Keyboard clear empties the query and restores search focus');
+  await resultsMatch(groups.build, 'Clearing search preserves the chosen category');
+
+  await search.fill('нет такой программы 987654321');
+  await resultsMatch([], 'Unknown query gives an honest empty state');
+  const reset = empty.getByRole('button');
+  assert(await reset.count() === 1, 'Empty state offers one clear reset action');
+  await reset.focus();
+  await page.keyboard.press('Space');
+  assert(await search.inputValue() === '' && await page.locator('#catalogFilters [data-filter="all"]').getAttribute('aria-pressed') === 'true', 'Empty-state reset clears both query and category');
+  await resultsMatch(programIds, 'Reset restores all 15 programs');
+
+  const role = (await page.locator('#programList [data-program="furniture"] .program-role').innerText()).replace(/^Попробуешь роль\s*:?\s*/, '').trim();
+  await search.fill(role);
+  assert((await ids(visibleCards)).includes('furniture'), 'Menu can be searched by a program role as well as its name');
+  await search.fill('монтаж');
+  assert((await ids(visibleCards)).includes('create'), 'Menu search finds a practical skill in the video program');
+  await search.fill('сайт');
+  await resultsMatch(['build', 'designlab', 'vibe'], 'Website search brings the three relevant programs together');
+  await page.locator('#programList .program:visible img').evaluateAll(images => Promise.all(images.map(async image => {
+    image.loading = 'eager'; await image.decode();
+  })));
+  await noOverflow(page, 'three website program cards ' + width);
+  await page.locator('#programs').screenshot({ path: `${artifacts}/ai-path-${width}-program-menu-web.png`, animations: 'disabled',
+    style: '.header, .selection-dock, .toast { visibility: hidden !important; }' });
+  await clear.click();
+  if (await page.locator('#showAllPrograms').isVisible()) await page.locator('#showAllPrograms').click();
+  await resultsMatch(programIds, 'Full menu remains reachable after searching');
+  assert(page.url() === routeBefore && sameMembers(await ids(page.locator('#programList .program[aria-pressed="true"]')), selectedBefore), 'Browsing menu results does not rewrite the committed program or shared URL');
+  await noOverflow(page, 'menu search and filters ' + width);
 }
 async function clickWithoutJump(page, selector, label) {
   const button = page.locator(selector);
@@ -1445,6 +1526,7 @@ async function desktopRegressions(page) {
     assert(sameMembers(await ids(page.locator('#programList .program:visible')), expected), `Catalog ${filter} filter contains the correct programs`);
   }
   await page.locator('#catalogFilters [data-filter="all"]').click();
+  if (await page.locator('#showAllPrograms').isVisible()) await page.locator('#showAllPrograms').click();
   assert(sameMembers(await ids(page.locator('#programList .program:visible')), programIds), 'All programs remain reachable in the catalog');
   await page.locator('#programList [data-program="comics"]').click();
   await selected(page, 'comics');
@@ -1561,6 +1643,7 @@ try {
     assert(new URL(page.url()).searchParams.get('pace') === 'light', 'Selected route survives reload');
     await preservedContent(page, width === 1440);
     await catalogPresentation(page, width);
+    await catalogSearch(page, width);
     await booksRoute(page, width);
     await designLabRoute(page, width);
     await websiteChoice(page, width);
