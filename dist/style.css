@@ -4,3 +4,4 @@
 @media(max-width:370px){main{padding-inline:15px}nav a{font-size:.6875rem}.stats{grid-template-columns:1fr}.stat{display:flex;gap:15px;align-items:center}.stat strong{margin:0}.lesson-row{gap:8px}}
 @media(prefers-reduced-motion:no-preference){.btn,.lesson-row,.option{transition:background .15s,border-color .15s,filter .15s}main{animation:appear .18s ease-out}@keyframes appear{from{opacity:.65;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}}
 .tab{text-decoration:none}label.btn:focus-visible{outline:3px solid #365bdc;outline-offset:4px}
+.school-link{display:flex;align-items:center;gap:8px;min-height:44px;margin-top:12px;font-size:.875rem;font-weight:650;line-height:1.5;text-decoration:none;color:var(--blue)}.school-link:hover{text-decoration:underline}

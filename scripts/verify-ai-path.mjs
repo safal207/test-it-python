@@ -65,6 +65,27 @@ async function screenshot(page, width, stage, selector) {
   await noOverflow(page, stage);
   await page.screenshot({ path: `${artifacts}/ai-path-${width}-${stage}.png`, animations: 'disabled' });
 }
+async function schoolEntry(context, width) {
+  const page = await context.newPage();
+  try {
+    const response = await page.goto(new URL('../', base).href, { waitUntil: 'domcontentloaded' });
+    assert(response?.status() === 200, 'Public root returns the Python trainer');
+    const link = page.getByRole('link', { name: 'Онлайн-школа AI PATH', exact: true });
+    assert(await link.isVisible(), `Public root exposes the school entrance at ${width}px`);
+    assert(await link.getAttribute('href') === 'ai-path/', 'School entrance uses a project-relative URL');
+    const bounds = await link.boundingBox();
+    assert(bounds && bounds.height >= 44, 'School entrance provides a 44px touch target');
+    await noOverflow(page, 'Python trainer school entrance ' + width);
+    await page.screenshot({ path: `${artifacts}/ai-path-${width}-root-school-entry.png`, animations: 'disabled' });
+    await link.focus();
+    await page.keyboard.press('Enter');
+    await page.waitForURL(base);
+    await page.locator('#programList .program').first().waitFor();
+    assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'Root school entrance opens all 15 programs');
+  } finally {
+    await page.close();
+  }
+}
 async function catalogPresentation(page, width) {
   const report = await page.locator('#programList .program').evaluateAll(cards => cards.map(card => {
     const body = card.querySelector('.program-body');
@@ -1097,6 +1118,7 @@ try {
       viewport: { width, height }, reducedMotion: 'reduce', deviceScaleFactor: 1,
       permissions: ['clipboard-read', 'clipboard-write'], acceptDownloads: true
     });
+    await schoolEntry(context, width);
     const page = await context.newPage();
     activePage = page;
     page.setDefaultTimeout(10000);
