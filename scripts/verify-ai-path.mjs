@@ -580,10 +580,12 @@ async function program3dContract(page, width) {
   await child.evaluate(() => parent.postMessage({type:'designlab:preview-ready'}, '*'));
   await page.waitForFunction(() => document.querySelector('#program3dFrame').classList.contains('is-ready'));
   assert(await panel.locator('#program3dPoster').isHidden(), 'Verified child readiness reveals the model');
-  await page.evaluate(() => window.scrollTo(0, 0));
-  await child.waitForFunction(() => window.lastActive === false);
+  await page.evaluate(() => window.scrollTo({top:0,behavior:'instant'}));
+  // Chromium may suspend rAF inside an offscreen iframe; poll the received
+  // visibility message with a timer so the assertion does not depend on rAF.
+  await child.waitForFunction(() => window.lastActive === false, null, {polling:100});
   await panel.locator('#program3dStage').scrollIntoViewIfNeeded();
-  await child.waitForFunction(() => window.lastActive === true);
+  await child.waitForFunction(() => window.lastActive === true, null, {polling:100});
   await child.evaluate(() => parent.postMessage({type:'designlab:preview-error'}, '*'));
   await page.waitForFunction(() => !document.querySelector('#program3dFrame iframe'));
   assert(await panel.locator('#program3dPoster').isVisible(), 'Failure restores the actual model poster');
