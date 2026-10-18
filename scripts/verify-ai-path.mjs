@@ -55,8 +55,29 @@ async function noOverflow(page, stage) {
   if (report.document > report.viewport + 1) console.error('AI_PATH_OVERFLOW', stage, JSON.stringify(report));
   assert(report.document <= report.viewport + 1, `No document horizontal overflow: ${stage}`);
 }
+// Exercise the native disclosure controls before testing content retained below them.
+// Never force visibility in the DOM: a broken summary or hidden ancestor must fail.
+async function revealTarget(page, target) {
+  const locator = typeof target === 'string' ? page.locator(target) : target;
+  const ancestors = await locator.evaluate(el => {
+    const details = [...document.querySelectorAll('details')];
+    const result = [];
+    for (let node = el; node; node = node.parentElement) {
+      if (node.tagName === 'DETAILS' && !node.open) result.unshift(details.indexOf(node));
+    }
+    return result;
+  });
+  for (const index of ancestors) {
+    const disclosure = page.locator('details').nth(index);
+    await disclosure.locator(':scope > summary').click();
+    assert(await disclosure.evaluate(el => el.open), 'Native summary opens the retained content');
+  }
+}
 async function screenshot(page, width, stage, selector) {
-  if (selector) await page.locator(selector).evaluate(el => el.scrollIntoView({ block: 'start', behavior: 'instant' }));
+  if (selector) {
+    await revealTarget(page, selector);
+    await page.locator(selector).evaluate(el => el.scrollIntoView({ block: 'start', behavior: 'instant' }));
+  }
   else await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
   await page.locator('img').evaluateAll(images => Promise.all(images.filter(img => {
     const rect = img.getBoundingClientRect();
@@ -96,13 +117,72 @@ async function schoolEntry(context, width) {
     await link.focus();
     await page.keyboard.press('Enter');
     await page.waitForURL(base);
-    await page.locator('#programList .program').first().waitFor();
+    await page.locator('#programList .program').first().waitFor({ state: 'attached' });
     assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'Root school entrance opens all 15 programs');
   } finally {
     await page.close();
   }
 }
+async function compactLanding(page, width) {
+  const libraryIds = ['projects-library', 'creative-library', 'design-library', 'parent-library', 'resource-library'];
+  const initial = await page.evaluate(() => {
+    const hero = document.querySelector('.hero').getBoundingClientRect();
+    const selector = document.querySelector('#selector').getBoundingClientRect();
+    return { height: document.documentElement.scrollHeight, gap: selector.top - hero.bottom,
+      disclosures: [...document.querySelectorAll('details.content-disclosure:not(#programs)')].map(el => ({ id: el.id, open: el.open })),
+      catalogClosed: document.querySelector('#programs').tagName === 'DETAILS' && !document.querySelector('#programs').open };
+  });
+  assert(initial.catalogClosed, 'Fresh landing keeps the complete catalogue behind its native summary');
+  assert(sameMembers(initial.disclosures.map(item => item.id), libraryIds) && initial.disclosures.every(item => !item.open), 'Fresh landing keeps all five detail libraries closed');
+  assert(initial.gap >= -1 && initial.gap < 100, 'Quiz immediately follows the hero without repeated selection offers');
+  assert(await page.locator('.first-project-section, #navigatorStart').count() === 0, 'Fresh landing removes the duplicate Navigator offer while keeping its old URL anchor');
+  assert(await page.locator('#portfolio').isVisible() && await page.locator('#web-studio').isVisible(), 'Compact portfolio overview remains visible without opening a library');
+  if (width === 1440) assert(initial.height < 8500, `Fresh desktop landing fits the compact page budget: ${initial.height}px (baseline 24714px)`);
+  await noOverflow(page, 'compact landing ' + width);
+  await page.screenshot({ path: `${artifacts}/ai-path-${width}-landing-overview.png`, fullPage: true, animations: 'disabled' });
+  const library = page.locator('#projects-library');
+  const librarySummary = library.locator(':scope > summary');
+  await librarySummary.focus();
+  await page.keyboard.press('Space');
+  assert(await library.evaluate(el => el.open) && await page.locator('#examples').isVisible(), 'Project library summary opens its retained cases by keyboard');
+  await page.keyboard.press('Enter');
+  assert(!(await library.evaluate(el => el.open)) && await librarySummary.evaluate(el => document.activeElement === el), 'Project library closes by keyboard without losing focus');
+
+  const route = '?program=build&level=basic&pace=light';
+  await page.goto(base + route + '#selected', { waitUntil: 'domcontentloaded' });
+  await selected(page, 'build');
+  const before = new URL(page.url());
+  assert(!(await page.locator('#programs').evaluate(el => el.open)), 'Deep-linked plan does not expand the complete catalogue');
+  await page.locator('#hero-programs').focus();
+  await page.keyboard.press('Enter');
+  assert(await page.locator('#programs').evaluate(el => el.open), 'Keyboard catalogue entrance opens the native disclosure');
+  assert(sameMembers(await ids(page.locator('#programList .program:visible')), programIds), 'Keyboard catalogue entrance exposes all 15 programs');
+  assert(new URL(page.url()).search === before.search && new URL(page.url()).hash === '#programs', 'Catalogue fragment navigation preserves the selected program, level and pace');
+  const websitePrograms = await page.locator('#website-programs').innerText();
+  assert(/AI Разработчик/.test(websitePrograms) && /8 недел/.test(websitePrograms) && /Design Lab/.test(websitePrograms) && /6 недел/.test(websitePrograms), 'Adjacent website-program comparison explains the two distinct schedules');
+
+  await page.goto(base + route + '#result-gallery', { waitUntil: 'domcontentloaded' });
+  assert(await page.locator('#parent-library').evaluate(el => el.open) && await page.locator('#result-gallery').isVisible(), 'Existing parent-gallery deep link opens its containing library');
+  assert(!(await page.locator('#creative-library').evaluate(el => el.open)), 'Unrelated creative library remains closed on a parent deep link');
+  await page.locator('#result-gallery a.parent-example[href="#comics"]').focus();
+  await page.keyboard.press('Enter');
+  await page.waitForURL(base + route + '#comics');
+  assert(await page.locator('#creative-library').evaluate(el => el.open) && await page.locator('#comics').isVisible(), 'Same-page keyboard link opens the nested comics section');
+  assert(new URL(page.url()).search === before.search, 'Nested project navigation preserves the chosen plan parameters');
+  await page.goBack({ waitUntil: 'domcontentloaded' });
+  await page.waitForURL(base + route + '#result-gallery');
+  assert(await page.locator('#parent-library').evaluate(el => el.open) && await page.locator('#result-gallery').isVisible(), 'Browser Back restores the originating parent-gallery fragment');
+  await page.goto(base + route + '#furniture', { waitUntil: 'domcontentloaded' });
+  assert(await page.locator('#creative-library').evaluate(el => el.open) && await page.locator('#furniture').isVisible(), 'Existing furniture deep link opens its containing library');
+  assert(new URL(page.url()).search === before.search, 'Furniture deep link preserves program, level and pace');
+  await page.goto(base, { waitUntil: 'domcontentloaded' });
+  await page.locator('#programList .program').first().waitFor({ state: 'attached' });
+}
 async function catalogPresentation(page, width) {
+  await revealTarget(page, '#programList');
+  await page.locator('#programList img').evaluateAll(images => Promise.all(images.map(async image => {
+    image.loading = 'eager'; await image.decode();
+  })));
   const report = await page.locator('#programList .program').evaluateAll(cards => cards.map(card => {
     const body = card.querySelector('.program-body');
     const covers = [...card.querySelectorAll('.program-media img')];
@@ -133,7 +213,7 @@ async function catalogPresentation(page, width) {
     assert(card.nestedActions === 0, `Program remains one keyboard action without nested controls: ${card.id}`);
   }
   await noOverflow(page, 'visual catalog ' + width);
-  // Images were decoded by preservedContent; omit sticky chrome from the tall catalog capture.
+  // Capture the expanded catalogue with decoded covers and without sticky chrome.
   await page.locator('#programList').screenshot({ path: `${artifacts}/ai-path-${width}-catalog.png`, animations: 'disabled',
     style: '.header, .selection-dock, .toast { visibility: hidden !important; }' });
 }
@@ -183,7 +263,7 @@ async function selected(page, id) {
   }
   const summary = await page.locator('#curriculumSummary').innerText();
   for (const selector of ['#selDuration', '#selMeetings']) {
-    assert(summary.includes((await page.locator(selector).innerText()).trim()), `Curriculum summary retains the selected ${selector}: ${id}`);
+    assert(!summary.includes((await page.locator(selector).innerText()).trim()), `Curriculum summary does not repeat the selected ${selector}: ${id}`);
   }
 }
 async function curriculumPresentation(page, width, id) {
@@ -191,6 +271,16 @@ async function curriculumPresentation(page, width, id) {
   assert(links.join('|') === '#selected-result|#selected-curriculum|#start', 'Plan navigation exposes result, curriculum and contact in order');
   for (const target of links) assert(await page.locator(target).count() === 1 && await page.locator(target).isVisible(), `Plan navigation has one visible destination: ${target}`);
   assert(await page.locator('#selected-result #selOutcome').count() === 1, 'Result link leads to the current learning outcome');
+  const curriculum = page.locator('#selected-curriculum');
+  assert(await curriculum.evaluate(el => el.tagName === 'DETAILS'), 'Curriculum uses a native disclosure');
+  assert(await page.locator('#selKit').evaluate(el => el.closest('details')?.classList.contains('takeaway-box')), 'Deliverable files remain available in their own native disclosure');
+  if (await curriculum.evaluate(el => el.open)) await curriculum.locator(':scope > summary').click();
+  const routeBefore = new URL(page.url());
+  await page.locator('nav.plan-nav a[href="#selected-curriculum"]').focus();
+  await page.keyboard.press('Enter');
+  const routeAfter = new URL(page.url());
+  assert(routeAfter.search === routeBefore.search && routeAfter.hash === '#selected-curriculum', 'Curriculum navigation preserves the program URL and opens its section');
+  assert(await curriculum.evaluate(el => el.open && document.activeElement === el), 'Curriculum navigation opens and focuses its destination');
   assert(await page.locator('#selected-curriculum #selSteps li').count() > 0, 'Curriculum link leads to the complete selected step list');
   const clipped = await page.locator('#selSteps li').evaluateAll(steps => steps.flatMap(step => {
     const bounds = step.getBoundingClientRect();
@@ -201,11 +291,6 @@ async function curriculumPresentation(page, width, id) {
       ? [step.textContent.trim()] : [];
   }));
   assert(clipped.length === 0, `All selected curriculum text fits at ${width}px: ${id} ${JSON.stringify(clipped)}`);
-  const routeBefore = new URL(page.url());
-  await page.locator('nav.plan-nav a[href="#selected-curriculum"]').click();
-  const routeAfter = new URL(page.url());
-  assert(routeAfter.search === routeBefore.search && routeAfter.hash === '#selected-curriculum', 'Curriculum navigation preserves the program URL and opens its section');
-  assert(await page.locator('#selected-curriculum').evaluate(el => document.activeElement === el), 'Curriculum navigation moves keyboard focus to its destination');
   await assertUncovered(page.locator('#curriculumTitle'), 'Curriculum heading after plan navigation');
   await noOverflow(page, 'selected curriculum ' + id + ' ' + width);
   await page.locator('#selected-curriculum').screenshot({ path: `${artifacts}/ai-path-${width}-${id}-curriculum.png`, animations: 'disabled',
@@ -237,6 +322,7 @@ async function resizeSelectedViewport(page, width, height) {
 async function selectedBreakpointChecks(page) {
   await page.goto(base + '?program=vibe&level=project&pace=deep#selected', { waitUntil: 'domcontentloaded' });
   await selected(page, 'vibe');
+  await revealTarget(page, '#selected-curriculum');
   for (const width of [759, 760, 761, 1019, 1020, 1021]) {
     await resizeSelectedViewport(page, width, 900);
     const columns = await page.evaluate(() => ['.selection-hero', '#selSteps'].map(selector => {
@@ -457,6 +543,7 @@ async function conversionFlow(page, width) {
   const bookPlan = await downloadPlan(page, width, 'committed');
   assert(bookPlan.includes(normalizePdfText(bookIdea)) && !bookPlan.includes(normalizePdfText(furnitureIdea)), 'Book plan includes only its own idea');
   await screenshot(page, width, 'book-offer', '#selected');
+  await revealTarget(page, '#programList');
   await page.locator('#programList [data-program="furniture"]').click();
   await selected(page, 'furniture');
   await assertIdea(page, furnitureIdea, bookIdea);
@@ -497,6 +584,7 @@ async function preservedContent(page, complete) {
   assert(await page.locator('#frontier a[href*="openai.com"]').count() >= 1, 'Official OpenAI route linked');
   assert(await page.locator('#frontier a[href*="anthropic.com"]').count() >= 1, 'Official Anthropic route linked');
   assert(await page.locator('#nbGrid .nb-card').count() === 6, 'Featured ML notebooks visible');
+  await revealTarget(page, '#research');
   if (complete) {
     await page.locator('#nbFilters [data-nbcat="nlp"]').click();
     assert(await page.locator('#nbGrid .nb-card').count() === 10, 'Ten NLP notebooks after filtering');
@@ -508,6 +596,7 @@ async function preservedContent(page, complete) {
   }
   const galleries = page.locator('#examples .project-shot, #comics .project-shot, #furniture .project-shot');
   for (const button of await galleries.all()) {
+    await revealTarget(page, button);
     await button.scrollIntoViewIfNeeded();
     await button.locator('img').evaluate(img => img.decode());
     await button.click();
@@ -670,6 +759,7 @@ async function designLabRoute(page, width) {
   assert(demos.length === 4 && new Set(demos).size === 4, 'Teaching demo links are distinct');
   assert(await page.locator('#design-lab .design-lab-skill').count() === 4, 'Every example explains the skill taught');
   const lesson = page.locator('#transformation-lab');
+  await revealTarget(page, lesson);
   await lesson.scrollIntoViewIfNeeded();
   await lesson.locator('[data-lesson-step="1"]').click();
   assert(await lesson.getAttribute('data-step') === '1', 'The lesson visibly separates the same image layers');
@@ -708,22 +798,24 @@ async function designLabRoute(page, width) {
   await noOverflow(page, 'Design Lab selection ' + width);
 }
 
-async function firstProjectOffer(page, width) {
-  // Use non-default experience and pace so the quick start cannot silently reset them.
+async function navigatorRoute(page, width) {
+  // Navigator remains an ordinary choice, with no duplicate offer before the quiz.
+  assert(await page.locator('.first-project-section, #navigatorStart').count() === 0, 'Standalone Navigator pitch is removed while its old fragment can remain');
   await chooseQuiz(page, { goal: 'build', interest: 'qa', level: 'basic', pace: 'light' });
   const previous = new URL(page.url());
-  await screenshot(page, width, 'first-project', '#first-project');
-  const offer = page.locator('#first-project');
-  assert(await offer.locator('.navigator-results li').count() === 2, 'Navigator offer describes two trial projects');
-  assert(await offer.locator('.mentor-value-list li').count() === 3, 'The offer explains three concrete mentor contributions');
-  const offerFacts = await offer.locator('.navigator-facts strong').allTextContents();
-  assert(offerFacts.map(text => Number.parseInt(text, 10)).join('|') === '4|2', 'Navigator offer states four meetings and two trials');
-  await page.locator('#navigatorStart').click();
+  await chooseQuiz(page, { goal: 'explore', level: 'basic', pace: 'light' });
   await selected(page, 'explore');
-  assert(await page.locator('#selTitle').evaluate(el => document.activeElement === el), 'Navigator quick start focuses the selected plan');
   const current = new URL(page.url());
-  for (const key of ['level', 'pace']) assert(current.searchParams.get(key) === previous.searchParams.get(key), `Navigator quick start retains the chosen ${key}`);
-  assert(Number.parseInt(await page.locator('#selDuration').innerText(), 10) === 4 && Number.parseInt(await page.locator('#selMeetings').innerText(), 10) === 4, 'Navigator details match the four-week, four-meeting base plan');
+  for (const key of ['level', 'pace']) assert(current.searchParams.get(key) === previous.searchParams.get(key), `Navigator choice retains the chosen ${key}`);
+  assert(Number.parseInt(await page.locator('#selDuration').innerText(), 10) === 4 && Number.parseInt(await page.locator('#selMeetings').innerText(), 10) === 4, 'Navigator details retain the four-week, four-meeting base plan');
+  assert(/2 пробных/.test(await page.locator('#selOutcome').innerText()) && await page.locator('#selSteps li').count() === 4, 'Navigator retains its two trials and four learning steps');
+  await revealTarget(page, '#programList');
+  await page.locator('#programList [data-program="explore"]').focus();
+  await page.keyboard.press('Enter');
+  await selected(page, 'explore');
+  assert(await page.locator('#selTitle').evaluate(el => document.activeElement === el), 'Catalogue Navigator choice focuses its plan');
+  for (const key of ['level', 'pace']) assert(new URL(page.url()).searchParams.get(key) === previous.searchParams.get(key), `Catalogue Navigator choice retains ${key}`);
+  await screenshot(page, width, 'navigator-plan', '#selected');
   await contact(page);
   if (width === 1440) await downloadPlan(page, width, 'navigator');
 }
@@ -773,6 +865,7 @@ async function mentorExample(page, width) {
 }
 
 async function parentResultGallery(page, width) {
+  await revealTarget(page, '#result-gallery');
   const gallery = page.locator('#result-gallery');
   const cards = gallery.locator('article.parent-result');
   assert(await cards.count() === 3, 'Parent gallery offers three concrete project results');
@@ -996,12 +1089,8 @@ async function studioPortfolio(page, width) {
   const portfolioLink = teaser.locator('a[href="studio.html"]');
   assert(await portfolioLink.count() === 1, 'School teaser links directly to the portfolio');
   const projects = ['flora', 'mori', 'dal'];
-  for (const id of projects) {
-    const example = teaser.locator(`a[href="examples/${id}.html"]`);
-    assert(await example.count() === 1 && await example.locator('img').count() === 1, `School teaser has a visual link to its ${id} example`);
-    await example.locator('img').evaluate(async image => { image.loading = 'eager'; await image.decode(); });
-    assert(await example.locator('img').evaluate(image => image.naturalWidth > 0), `School teaser preview decodes: ${id}`);
-  }
+  assert(await teaser.locator('img, a[href^="examples/"]').count() === 0, 'School portfolio entrance does not duplicate case previews');
+  assert(await teaser.evaluate(el => el.closest('#portfolio') !== null), 'Portfolio entrance stays in the visible overview');
   await noOverflow(page, 'web studio teaser ' + width);
   await teaser.screenshot({ path: `${artifacts}/ai-path-${width}-web-studio-teaser.png`, animations: 'disabled',
     style: '.header, .selection-dock, .toast { visibility: hidden !important; }' });
@@ -1020,11 +1109,13 @@ async function studioPortfolio(page, width) {
   await studioImages(page, 'portfolio ' + width);
   await noOverflow(page, 'studio portfolio ' + width);
   await page.screenshot({ path: `${artifacts}/ai-path-${width}-web-studio-portfolio.png`, fullPage: true, animations: 'disabled' });
-  assert(await page.locator('#studio-start').getAttribute('href') === './?program=designlab&level=zero&pace=balanced#selected', 'Portfolio closing action opens the school program instead of its own page');
+  assert(await page.locator('#studio-start').getAttribute('href') === './?program=designlab&level=zero&pace=balanced#selected', 'Portfolio closing Design Lab action names its matching school program');
+  assert(await page.locator('#studio-build').getAttribute('href') === './?program=build&level=zero&pace=balanced#selected', 'Portfolio closing website-development action preserves its separate school program');
+  assert(/6 недел/.test(await page.locator('#studio-start').innerText()) && /8 недел/.test(await page.locator('#studio-build').innerText()), 'Closing learning choices explicitly distinguish their six- and eight-week schedules');
   if (width === 390) {
-    for (const action of ['article[data-studio-project="flora"] a[data-studio-program]', '#studio-start']) {
+    for (const action of ['article[data-studio-project="flora"] a[data-studio-program]', '#studio-start', '#studio-build']) {
       await page.locator(action).click();
-      await selected(page, 'designlab');
+      await selected(page, action === '#studio-build' ? 'build' : 'designlab');
       assert(new URL(page.url()).pathname === new URL(base).pathname, 'Portfolio program action actually returns to the school chooser');
       await page.goto(base + 'studio.html', { waitUntil: 'domcontentloaded' });
     }
@@ -1068,7 +1159,8 @@ async function landingSites(page, width) {
   assert(await learning.count() === 1 && /лендинги и сайты/i.test(await learning.innerText()), 'School has a clear landing-page learning card');
   assert(await learning.locator('#landing-learn').getAttribute('href') === programHref, 'Landing card uses the existing beginner development program');
   await learning.scrollIntoViewIfNeeded();
-  await learning.locator('img').evaluate(async image => { image.loading = 'eager'; await image.decode(); });
+  assert(await learning.locator('img').count() === 0, 'Landing learning entrance avoids repeating the café case image');
+  assert(await learning.evaluate(el => el.closest('#portfolio') !== null), 'Landing learning entrance belongs to the compact portfolio overview');
   await noOverflow(page, 'landing learning card ' + width);
   await learning.screenshot({ path: `${artifacts}/ai-path-${width}-landing-learning.png`, animations: 'disabled',
     style: '.header, .selection-dock, .toast { visibility: hidden !important; }' });
@@ -1080,12 +1172,16 @@ async function landingSites(page, width) {
   assert(/продающие лендинги и сайты/i.test(await page.locator('#servicesTitle').innerText()), 'Portfolio explicitly offers landing-page and website development');
   const contactURL = new URL(await page.locator('#site-service-contact').getAttribute('href'));
   assert(contactURL.protocol === 'mailto:' && contactURL.pathname === 'safal0645@gmail.com', 'Development enquiry opens a draft to the existing public contact');
+  assert(await page.locator('#studio-contact').getAttribute('href') === contactURL.href, 'Portfolio closing development enquiry keeps the same contact and draft as its opening service');
   assert(await page.locator('#site-service-learn').getAttribute('href') === programHref && await page.locator('#pocitel-learn').getAttribute('href') === programHref, 'Service and café case use the matching course');
   await page.locator('#services').screenshot({ path: `${artifacts}/ai-path-${width}-site-services.png`, animations: 'disabled' });
   await page.locator('#pocitel-demo').click();
   await page.waitForURL(new URL('examples/pocitel.html', base).href);
   await studioImages(page, 'Pocitel ' + width);
   assert(/учебный макет/i.test(await page.locator('#demo-provenance').innerText()), 'Café site visibly identifies its educational status');
+  assert(await page.locator('.slow').count() === 0 && await page.locator('section.lesson').count() === 1, 'Café page has one teaching explanation instead of two repeated promotional sections');
+  assert(await page.locator('#lesson ol > li').count() === 4, 'Single café teaching section retains all four steps from task to publication');
+  assert(await page.locator('#demo-provenance details.source-menu').count() === 1, 'Original menu and its source prices remain available with the consolidated provenance');
   assert(await page.locator('[data-demo-program]').getAttribute('href') === '../?program=build&level=zero&pace=balanced#selected', 'Café example links to website development rather than a different course');
   await noOverflow(page, 'Pocitel initial ' + width);
   await page.screenshot({ path: `${artifacts}/ai-path-${width}-pocitel-hero.png`, animations: 'disabled' });
@@ -1268,6 +1364,7 @@ async function desktopRegressions(page) {
   assert(new URL(page.url()).searchParams.get('pace') === 'light', 'Submitting changed answers updates the chosen pace');
   assert((await page.locator('#selPaceNote').innerText()).trim().length > 20, 'Light pace has a concrete explanation');
 
+  await revealTarget(page, '#programList');
   for (const [filter, expected] of Object.entries(groups)) {
     await page.locator(`#catalogFilters [data-filter="${filter}"]`).click();
     assert(sameMembers(await ids(page.locator('#programList .program:visible')), expected), `Catalog ${filter} filter contains the correct programs`);
@@ -1279,10 +1376,14 @@ async function desktopRegressions(page) {
   assert((await page.locator('#selOutcome').innerText()).includes('PDF'), 'Comic program preserves its concrete PDF deliverable');
 
   for (const button of await page.locator('[data-start-track]').all()) {
+    await revealTarget(page, button);
     const id = await button.getAttribute('data-start-track');
     await button.click();
     await selected(page, id);
   }
+  await revealTarget(page, '#chooseAwakening');
+  assert(await page.locator('#chooseAwakening').evaluate(el => el.closest('#examples') !== null), 'Awakening action is kept with its single detailed project case');
+  assert(await page.locator('#examples img[src="assets/awakening.webp"]').count() === 1 && await page.locator('.awakening-grid').count() === 0, 'Awakening keeps one detailed case image instead of a second full feature');
   await page.locator('#chooseAwakening').click();
   await selected(page, 'game');
   assert((await page.locator('#selTitle').innerText()).includes('Пробуждение'), 'Awakening CTA preserves the game route');
@@ -1326,7 +1427,7 @@ try {
     page.on('dialog', dialog => { errors.push('Unexpected dialog: ' + dialog.message()); void dialog.dismiss(); });
     const response = await page.goto(base, { waitUntil: 'domcontentloaded' });
     assert(response?.status() === 200, 'Page returns HTTP 200');
-    await page.locator('#programList .program').first().waitFor();
+    await page.locator('#programList .program').first().waitFor({ state: 'attached' });
     assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'All 15 programs are available');
     const trackNumbers = await page.locator('#programList .program').evaluateAll(cards => Object.fromEntries(cards.map(card => [card.dataset.program, card.querySelector('.n').textContent.match(/ТРЕК\s*(\d+)/)?.[1]])));
     for (const [index, id] of programIds.entries()) assert(Number(trackNumbers[id]) === index + 1, `Track number stays stable: ${id}`);
@@ -1335,6 +1436,7 @@ try {
     assert(!(await page.locator('#selectionDock').isVisible()), 'Fresh entry has no sticky selection action');
     assert(await page.locator('#headerAction').getAttribute('href') === '#selector', 'Fresh header starts the selection quiz');
     if (width === 1440) await responsivePageBounds(page);
+    await compactLanding(page, width);
     await screenshot(page, width, 'hero');
     await screenshot(page, width, 'quiz', '#selector');
 
@@ -1365,6 +1467,7 @@ try {
     await comparison(page);
     const candidates = await ids(page.locator('#recommendationList .program'));
     const keyboardProgram = candidates[1];
+    await revealTarget(page, '#programList');
     await page.locator(`#programList [data-program="${keyboardProgram}"]`).focus();
     await page.keyboard.press('Space');
     await selected(page, keyboardProgram);
@@ -1386,7 +1489,7 @@ try {
     await booksRoute(page, width);
     await designLabRoute(page, width);
     await conversionFlow(page, width);
-    await firstProjectOffer(page, width);
+    await navigatorRoute(page, width);
     await mentorExample(page, width);
     await parentResultGallery(page, width);
     if (width === 390) await cosmosExample(page, width);
@@ -1411,7 +1514,7 @@ try {
     await page.locator('#statusFilter').selectOption('all');
     await screenshot(page, width, '3d-check-matrix');
     assert(errors.length === 0, 'No browser JavaScript errors: ' + errors.join('; '));
-    console.log(`PASS ${width}x${height}: guided choice, vibe course/CRM, book route, comparison, navigator offer, mentor verification example, parent result gallery${width === 390 ? ' and interactive space website' : ''}, web-studio portfolio and three examples, six neural-network architectures and 23 stage explanations, contact draft, real PDF contents/links and idea isolation, preserved gallery/notebook/lab content and responsive layout`);
+    console.log(`PASS ${width}x${height}: guided choice, vibe course/CRM, book route, comparison, compact Navigator choice, mentor verification example, parent result gallery${width === 390 ? ' and interactive space website' : ''}, web-studio portfolio and three examples, six neural-network architectures and 23 stage explanations, contact draft, real PDF contents/links and idea isolation, preserved gallery/notebook/lab content and responsive layout`);
     await context.close();
     activePage = undefined;
   }
