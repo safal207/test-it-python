@@ -556,12 +556,12 @@
   }
   $('goals').addEventListener('click',function(e){
     var b=e.target.closest('button[data-goal]');if(!b||!own(groups,b.dataset.goal)||state.goal===b.dataset.goal)return;
-    state.goal=b.dataset.goal;state.interest=groups[state.goal][0];
-    syncButtons('goals','goal',state.goal);renderInterests();invalidateResults();
+    state.goal=b.dataset.goal;state.interest=groups[state.goal][0];state.level='zero';
+    syncButtons('goals','goal',state.goal);syncButtons('levels','level',state.level);renderInterests();invalidateResults();
   });
   $('interests').addEventListener('click',function(e){
     var b=e.target.closest('button[data-interest]');if(!b||groups[state.goal].indexOf(b.dataset.interest)===-1||state.interest===b.dataset.interest)return;
-    state.interest=b.dataset.interest;syncButtons('interests','interest',state.interest);renderLevelHint();invalidateResults();
+    state.interest=b.dataset.interest;state.level='zero';syncButtons('levels','level',state.level);syncButtons('interests','interest',state.interest);renderLevelHint();invalidateResults();
   });
   $('levels').addEventListener('click',function(e){var b=e.target.closest('button[data-level]');if(!b||!own(levelLabels,b.dataset.level)||state.level===b.dataset.level)return;state.level=b.dataset.level;syncButtons('levels','level',state.level);invalidateResults()});
   $('paces').addEventListener('click',function(e){var b=e.target.closest('button[data-pace]');if(!b||!own(paceLabels,b.dataset.pace)||state.pace===b.dataset.pace)return;state.pace=b.dataset.pace;syncButtons('paces','pace',state.pace);invalidateResults()});

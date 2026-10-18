@@ -1391,6 +1391,28 @@ async function neuralNetworks(page, width) {
 }
 
 async function desktopRegressions(page) {
+  // Experience describes the current topic; unfinished changes must not rewrite a committed plan.
+  await chooseQuiz(page, { goal: 'visual', interest: 'books', level: 'project', pace: 'balanced' });
+  await selected(page, 'books');
+  const bookURL = page.url();
+  const bookTitle = await page.locator('#selTitle').innerText();
+  const bookMessage = await page.locator('#contactMessage').inputValue();
+  await page.locator('#goals [data-goal="research"]').click();
+  assert(await page.locator('#interests [data-interest="ml"]').getAttribute('aria-pressed') === 'true', 'Switching to research starts with its ML topic');
+  assert(await page.locator('#levels [data-level="zero"]').getAttribute('aria-pressed') === 'true', 'A new goal resets draft experience instead of reusing book-project experience');
+  assert(/Python/.test(await page.locator('#levelHint').innerText()), 'ML experience guidance names its relevant Python preparation');
+  assert(page.url() === bookURL && await page.locator('#selTitle').innerText() === bookTitle && await page.locator('#contactMessage').inputValue() === bookMessage, 'Changing the draft goal preserves the committed book title, project-level URL and contact draft');
+  assert(new URL(page.url()).searchParams.get('program') === 'books' && new URL(page.url()).searchParams.get('level') === 'project', 'Book selection retains its explicit project experience until the new answers are submitted');
+  await page.locator('#showRecommendation').click();
+  await selected(page, 'qa');
+  assert(new URL(page.url()).searchParams.get('level') === 'zero', 'Submitting the new ML goal uses its reset beginner experience and recommends preparation');
+  const preparationURL = page.url();
+  const preparationTitle = await page.locator('#selTitle').innerText();
+  await page.locator('#levels [data-level="project"]').click();
+  await page.locator('#interests [data-interest="frontier"]').click();
+  assert(await page.locator('#levels [data-level="zero"]').getAttribute('aria-pressed') === 'true', 'Changing interest within the research goal also resets topic-specific experience');
+  assert(page.url() === preparationURL && await page.locator('#selTitle').innerText() === preparationTitle, 'Unsubmitted interest changes preserve the committed preparation plan');
+
   await chooseQuiz(page, { goal: 'research', interest: 'ml', level: 'zero' });
   await selected(page, 'qa');
   assert((await ids(page.locator('#recommendationList .program'))).includes('ml'), 'Beginner keeps the desired ML destination among alternatives');
