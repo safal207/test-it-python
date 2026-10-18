@@ -1,0 +1,30 @@
+module.exports = {
+  ci: {
+    collect: {
+      staticDistDir: "./dist",
+      url: [
+        "http://localhost/ai-path/",
+        "http://localhost/ai-path/vibe-coding/"
+      ],
+      numberOfRuns: 2,
+      settings: {
+        chromeFlags: "--headless --no-sandbox --disable-dev-shm-usage",
+        maxWaitForLoad: 60000,
+        // A repeatable desktop baseline. Mobile behavior has its own Playwright suite.
+        preset: "desktop"
+      }
+    },
+    assert: {
+      assertions: {
+        "categories:accessibility": ["error", { minScore: 0.75 }],
+        "categories:seo": ["warn", { minScore: 0.75 }],
+        "categories:performance": ["warn", { minScore: 0.55 }],
+        "categories:best-practices": ["warn", { minScore: 0.75 }]
+      }
+    },
+    upload: {
+      target: "filesystem",
+      outputDir: "./artifacts/lighthouse"
+    }
+  }
+};
