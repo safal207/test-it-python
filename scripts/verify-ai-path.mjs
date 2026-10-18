@@ -403,6 +403,70 @@ async function designLabRoute(page, width) {
   await noOverflow(page, 'Design Lab selection ' + width);
 }
 
+async function firstProjectOffer(page, width) {
+  // Use non-default experience and pace so the quick start cannot silently reset them.
+  await chooseQuiz(page, { goal: 'build', interest: 'qa', level: 'basic', pace: 'light' });
+  const previous = new URL(page.url());
+  await screenshot(page, width, 'first-project', '#first-project');
+  const offer = page.locator('#first-project');
+  assert(await offer.locator('.navigator-results li').count() === 2, 'Navigator offer describes two trial projects');
+  assert(await offer.locator('.mentor-value-list li').count() === 3, 'The offer explains three concrete mentor contributions');
+  const offerFacts = await offer.locator('.navigator-facts strong').allTextContents();
+  assert(offerFacts.map(text => Number.parseInt(text, 10)).join('|') === '4|2', 'Navigator offer states four meetings and two trials');
+  await page.locator('#navigatorStart').click();
+  await selected(page, 'explore');
+  assert(await page.locator('#selTitle').evaluate(el => document.activeElement === el), 'Navigator quick start focuses the selected plan');
+  const current = new URL(page.url());
+  for (const key of ['level', 'pace']) assert(current.searchParams.get(key) === previous.searchParams.get(key), `Navigator quick start retains the chosen ${key}`);
+  assert(Number.parseInt(await page.locator('#selDuration').innerText(), 10) === 4 && Number.parseInt(await page.locator('#selMeetings').innerText(), 10) === 4, 'Navigator details match the four-week, four-meeting base plan');
+  await contact(page);
+  if (width === 1440) await downloadPlan(page, width, 'navigator');
+}
+async function mentorExample(page, width) {
+  const demo = page.locator('#mentorExample');
+  // Keep sticky page chrome out of tall component captures; viewport captures retain it.
+  const componentStyle = '.header, .selection-dock, .toast { visibility: hidden !important; }';
+  const routeBefore = page.url();
+  const messageBefore = await page.locator('#contactMessage').inputValue();
+  if (!(await demo.evaluate(el => el.open))) {
+    await demo.locator('summary').focus();
+    await page.keyboard.press('Enter');
+  }
+  assert(await demo.evaluate(el => el.open), 'Teaching example opens by keyboard');
+  const paint = () => demo.locator('[data-mentor-demo-paint]').evaluateAll(shapes => shapes.map(shape => getComputedStyle(shape).fill));
+  const initialPaint = await paint();
+  assert(initialPaint.length > 0 && await demo.getAttribute('data-mentor-demo-stage') === '1', 'Teaching example starts with an actual painted first version');
+  const initialLabel = await demo.locator('#mentor-demo-palette-name').innerText();
+  await demo.locator('[data-mentor-demo-palette="mist"]').focus();
+  await page.keyboard.press('Space');
+  assert(await demo.locator('[data-mentor-demo-palette="mist"]').getAttribute('aria-pressed') === 'true', 'Palette button is keyboard-operable');
+  assert(await demo.locator('#mentor-demo-palette-name').innerText() !== initialLabel, 'Prepared faulty version changes the visible label');
+  assert(JSON.stringify(await paint()) === JSON.stringify(initialPaint), 'Prepared faulty version leaves the actual colors unchanged');
+  await demo.locator('[data-mentor-demo-step="2"]').click();
+  await demo.locator('#mentor-demo-check').click();
+  assert(await demo.locator('#mentor-demo-results').isVisible(), 'Checking the first version reveals the measured result');
+  assert(await demo.locator('#mentor-demo-label-result').getAttribute('data-passed') === 'true' && await demo.locator('#mentor-demo-color-result').getAttribute('data-passed') === 'false', 'First check reports the real label/color mismatch');
+  await noOverflow(page, 'mentor mismatch ' + width);
+  await demo.screenshot({ path: `${artifacts}/ai-path-${width}-mentor-mismatch.png`, animations: 'disabled', style: componentStyle });
+  await demo.locator('[data-mentor-demo-step="3"]').click();
+  assert(await demo.getAttribute('data-mentor-demo-stage') === '3', 'Fix step opens the corrected version');
+  assert(JSON.stringify(await paint()) === JSON.stringify(initialPaint), 'Corrected version resets to the same initial conditions');
+  await demo.locator('#mentor-demo-check').click();
+  assert(!(await demo.locator('#mentor-demo-results').isVisible()) && await demo.locator('#mentor-demo-color-result').getAttribute('data-passed') === null, 'No pass or failure is invented before the visitor repeats the action');
+  await demo.locator('[data-mentor-demo-palette="mist"]').click();
+  assert(await demo.locator('#mentor-demo-palette-name').innerText() !== initialLabel, 'Corrected version changes the label again');
+  assert(JSON.stringify(await paint()) !== JSON.stringify(initialPaint), 'Corrected version changes the actual rendered colors');
+  await demo.locator('#mentor-demo-check').click();
+  assert(await demo.locator('#mentor-demo-label-result').getAttribute('data-passed') === 'true' && await demo.locator('#mentor-demo-color-result').getAttribute('data-passed') === 'true', 'Repeating the same check confirms both corrected behaviors');
+  await noOverflow(page, 'mentor corrected ' + width);
+  await demo.screenshot({ path: `${artifacts}/ai-path-${width}-mentor-corrected.png`, animations: 'disabled', style: componentStyle });
+  await demo.locator('#mentor-demo-reset').click();
+  assert(await demo.getAttribute('data-mentor-demo-stage') === '1' && JSON.stringify(await paint()) === JSON.stringify(initialPaint), 'Reset restores the initial teaching example');
+  assert(!(await demo.locator('#mentor-demo-results').isVisible()) && await demo.locator('#mentor-demo-color-result').getAttribute('data-passed') === null, 'Reset clears stale verification results');
+  assert(page.url() === routeBefore && await page.locator('#contactMessage').inputValue() === messageBefore, 'Teaching example does not change the selected program or contact draft');
+  await demo.locator('summary').click();
+}
+
 async function desktopRegressions(page) {
   await chooseQuiz(page, { goal: 'research', interest: 'ml', level: 'zero' });
   await selected(page, 'qa');
@@ -532,11 +596,13 @@ try {
     await booksRoute(page, width);
     await designLabRoute(page, width);
     await conversionFlow(page, width);
+    await firstProjectOffer(page, width);
+    await mentorExample(page, width);
     if (width === 1440) await desktopRegressions(page);
     await vibeRoute(page, width);
     await noOverflow(page, 'final');
     assert(errors.length === 0, 'No browser JavaScript errors: ' + errors.join('; '));
-    console.log(`PASS ${width}x${height}: guided choice, vibe course/CRM, book route, review and preserved gallery/notebook/lab content and responsive layout`);
+    console.log(`PASS ${width}x${height}: guided choice, vibe course/CRM, book route, comparison, navigator offer, mentor verification example, contact draft, starter/download/idea flow, preserved gallery/notebook/lab content and responsive layout`);
     await context.close();
     activePage = undefined;
   }

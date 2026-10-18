@@ -145,3 +145,30 @@
  html{scroll-padding-bottom:125px}#selTitle,#startTitle{scroll-margin-top:105px}
 }
 @media(max-width:360px){.detail-aside{padding:20px}.start-panel h4{font-size:27px}.offer-early-action>.btn{font-size:13px}.selection-dock{padding-inline:12px}.dock-actions{gap:12px}}
+
+/* A concrete first project, followed by a small example of the mentoring process. */
+.first-project-section{padding-bottom:0}.first-project-section .section-top{margin-bottom:28px}
+.first-project-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:start}
+.navigator-offer,.mentor-value{min-width:0;padding:30px;border-radius:22px;border:1px solid var(--line)}
+.navigator-offer{background:linear-gradient(135deg,#202d28,#151e2a);border-color:#617449}
+.navigator-label{font-size:11px;text-transform:uppercase;letter-spacing:.14em;font-weight:750;color:#c5e59b}
+.navigator-offer h3{font-size:32px;line-height:1.15;letter-spacing:-.04em;margin:11px 0 16px}
+.navigator-offer>p,.mentor-value>p{font-size:14px;line-height:1.7;color:#b9c7d5;margin:0 0 22px}
+.navigator-results{list-style:none;padding:0;margin:23px 0;display:grid;gap:16px}
+.navigator-results li{display:flex;gap:13px;align-items:start}.navigator-results li>span{flex:none;display:grid;place-items:center;width:32px;height:32px;border:1px solid #4e624b;background:#203428;border-radius:9px;color:var(--accent);font-size:11px;font-weight:800}
+.navigator-results strong{display:block;font-size:14px;line-height:1.5;color:#ecf2e6}.navigator-results p{font-size:12px;line-height:1.65;margin:4px 0 0;color:#b6c6d0}
+.navigator-facts{display:flex;gap:26px;flex-wrap:wrap;padding-top:20px;border-top:1px solid #3f5044}
+.navigator-facts span{display:flex;flex-direction:column;font-size:11px;color:#aebfc1;gap:3px}.navigator-facts strong{font-size:18px;color:#e7f4d1;letter-spacing:-.025em}
+.navigator-offer .navigator-scope{font-size:12px;line-height:1.65;margin:17px 0 21px;color:#b6c5ce}
+.navigator-offer>.btn{width:100%;min-height:48px}.navigator-alternative{display:block;text-align:center;font-size:12px;line-height:1.6;text-decoration:underline;text-underline-offset:4px;margin-top:9px;padding:12px 3px;color:#d5e5c3}
+.navigator-offer .navigator-terms{font-size:11px;line-height:1.7;margin:15px 0 0;padding-top:16px;border-top:1px solid #3f5044;color:#aebecc}
+.mentor-value{background:#121a28}.mentor-value>.tag{font-size:10px;letter-spacing:.12em}.mentor-value h3{font-size:29px;line-height:1.2;letter-spacing:-.04em;margin:13px 0 16px}
+.mentor-value-list{list-style:none;counter-reset:mentor-value;padding:0;margin:24px 0 0;display:grid;gap:22px}
+.mentor-value-list li{counter-increment:mentor-value;padding-left:37px;position:relative}.mentor-value-list li:before{content:'0' counter(mentor-value);position:absolute;left:0;top:2px;font-size:11px;font-weight:800;color:#bdb7f3}
+.mentor-value-list strong{font-size:14px;color:#e4e9f3;line-height:1.5}.mentor-value-list p{font-size:12px;line-height:1.7;color:#b6c3d4;margin:6px 0 0}
+@media(max-width:760px){
+ .first-project-grid{grid-template-columns:1fr;gap:16px}.navigator-offer,.mentor-value{padding:23px}.navigator-offer h3{font-size:29px}.mentor-value h3{font-size:27px}
+ .navigator-offer>p,.mentor-value>p{font-size:13px}.navigator-facts{gap:20px}.navigator-facts strong{font-size:17px}.navigator-offer>.btn{font-size:13px}
+ .first-project-section .section-top{margin-bottom:22px}.mentor-value-list{gap:18px;margin-top:21px}.navigator-alternative{font-size:11px}
+}
+@media(max-width:360px){.navigator-offer,.mentor-value{padding:20px}.navigator-facts{gap:16px}.navigator-facts strong{font-size:16px}.navigator-alternative{font-size:11px}}
