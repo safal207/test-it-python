@@ -77,10 +77,10 @@
     if (!plan || typeof plan !== 'object') throw new Error('Choose a program before saving a plan.');
     var copy = {};
     ['id', 'name', 'level', 'pace', 'schedule', 'outcome', 'firstTask', 'starterTitle',
-      'requirements', 'paceNote', 'conditions', 'idea', 'url', 'contact'].forEach(function (key) {
+      'requirements', 'paceNote', 'conditions', 'idea', 'url', 'contact', 'fit', 'core', 'extra'].forEach(function (key) {
       copy[key] = clean(plan[key]);
     });
-    ['takeaways', 'starterPrompts', 'steps'].forEach(function (key) {
+    ['takeaways', 'starterPrompts', 'steps', 'readiness'].forEach(function (key) {
       copy[key] = Array.isArray(plan[key]) ? plan[key].map(clean) : [];
     });
     if (!copy.name) throw new Error('The selected program has no title.');
@@ -247,6 +247,11 @@
     paragraph(plan.name, { size: 23, bold: true, lineHeight: 10, after: 5 });
     metadata();
 
+    if (plan.fit) {
+      section('Кому подойдёт', plan.fit);
+      paragraph(plan.fit);
+    }
+
     section('Результат', plan.outcome);
     paragraph(plan.outcome);
 
@@ -271,7 +276,14 @@
 
     section('Для старта', plan.requirements || plan.paceNote);
     paragraph(plan.requirements);
+    list(plan.readiness);
     paragraph(plan.paceNote);
+
+    if (plan.core) {
+      section('Основа программы', plan.core);
+      paragraph(plan.core);
+      paragraph(plan.extra);
+    }
 
     section('До начала обучения', plan.conditions);
     paragraph(plan.conditions);

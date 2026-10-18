@@ -24,7 +24,7 @@
 .catalog-section{padding:0}
 .website-programs{padding:22px;border:1px solid #354354;border-radius:12px;margin-bottom:28px;background:#192536}
 .website-programs h3{font-size:20px;margin:0 0 18px}
-.website-programs>div{display:grid;grid-template-columns:1fr 1fr;gap:25px}
+.website-programs>div{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:25px}
 .website-programs p{min-width:0;margin:0;font-size:13px;line-height:1.8;color:#b9c8dc}
 .website-programs a,.website-programs strong{display:block}
 .website-programs a{font-size:16px;font-weight:650;color:var(--accent)}
