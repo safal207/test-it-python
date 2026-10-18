@@ -1059,6 +1059,70 @@ async function studioPortfolio(page, width) {
   if (program) await selected(page, program);
 }
 
+async function landingSites(page, width) {
+  const previous = page.url();
+  const programHref = './?program=build&level=zero&pace=balanced#selected';
+  const expectedPrices = { classic: [345, 360], sweet: [460, 485], fresh: [510, 535], lunch: [395, 415] };
+  await page.goto(base, { waitUntil: 'domcontentloaded' });
+  const learning = page.locator('#landing-learning');
+  assert(await learning.count() === 1 && /лендинги и сайты/i.test(await learning.innerText()), 'School has a clear landing-page learning card');
+  assert(await learning.locator('#landing-learn').getAttribute('href') === programHref, 'Landing card uses the existing beginner development program');
+  await learning.scrollIntoViewIfNeeded();
+  await learning.locator('img').evaluate(async image => { image.loading = 'eager'; await image.decode(); });
+  await noOverflow(page, 'landing learning card ' + width);
+  await learning.screenshot({ path: `${artifacts}/ai-path-${width}-landing-learning.png`, animations: 'disabled',
+    style: '.header, .selection-dock, .toast { visibility: hidden !important; }' });
+  await learning.locator('#landing-learn').focus();
+  await page.keyboard.press('Enter');
+  await selected(page, 'build');
+  assert(/лендинг/i.test(await page.locator('#selOutcome').innerText()), 'Selected course actually teaches the landing-page deliverable');
+  await page.goto(base + 'studio.html#services', { waitUntil: 'domcontentloaded' });
+  assert(/продающие лендинги и сайты/i.test(await page.locator('#servicesTitle').innerText()), 'Portfolio explicitly offers landing-page and website development');
+  const contactURL = new URL(await page.locator('#site-service-contact').getAttribute('href'));
+  assert(contactURL.protocol === 'mailto:' && contactURL.pathname === 'safal0645@gmail.com', 'Development enquiry opens a draft to the existing public contact');
+  assert(await page.locator('#site-service-learn').getAttribute('href') === programHref && await page.locator('#pocitel-learn').getAttribute('href') === programHref, 'Service and café case use the matching course');
+  await page.locator('#services').screenshot({ path: `${artifacts}/ai-path-${width}-site-services.png`, animations: 'disabled' });
+  await page.locator('#pocitel-demo').click();
+  await page.waitForURL(new URL('examples/pocitel.html', base).href);
+  await studioImages(page, 'Pocitel ' + width);
+  assert(/учебный макет/i.test(await page.locator('#demo-provenance').innerText()), 'Café site visibly identifies its educational status');
+  assert(await page.locator('[data-demo-program]').getAttribute('href') === '../?program=build&level=zero&pace=balanced#selected', 'Café example links to website development rather than a different course');
+  await noOverflow(page, 'Pocitel initial ' + width);
+  await page.screenshot({ path: `${artifacts}/ai-path-${width}-pocitel-hero.png`, animations: 'disabled' });
+  for (const [id, [price, original]] of Object.entries(expectedPrices)) {
+    const card = page.locator(`[data-id="${id}"]`);
+    assert(Number(await card.getAttribute('data-price')) === price && Number(await card.getAttribute('data-base')) === original, `Pocitel preserves source-menu prices for ${id}`);
+    assert((await card.locator('.price').innerText()).includes(`Выгода ${original - price} TL`), `Pocitel displays the correct saving for ${id}`);
+  }
+  assert(await page.locator('#pairing-cards .pairing:visible').count() === 4 && await page.locator('#selection-total').innerText() === '0 TL', 'Pocitel starts with four choices and an empty total');
+  const first = page.locator('[data-pairing="classic"]');
+  await first.focus();
+  await page.keyboard.press('Space');
+  assert(await first.getAttribute('aria-pressed') === 'true' && await page.locator('#selection-total').innerText() === '345 TL', 'Keyboard choice updates its pressed state and total');
+  await page.locator('[data-filter="fresh"]').click();
+  assert(await page.locator('#pairing-cards .pairing:visible').count() === 1 && await page.locator('#selection-total').innerText() === '345 TL', 'Filtering preserves a selected item that is temporarily hidden');
+  await page.locator('[data-pairing="fresh"]').click();
+  assert(await page.locator('#selection-total').innerText() === '855 TL' && await page.locator('#selection-saving').innerText() === 'Выгода: 40 TL', 'Selection correctly sums combinations and source-menu savings');
+  await noOverflow(page, 'Pocitel filtered selection ' + width);
+  await page.locator('#pairings').screenshot({ path: `${artifacts}/ai-path-${width}-pocitel-filtered.png`, animations: 'disabled' });
+  await page.locator('[data-filter="all"]').click();
+  await page.locator('[data-pairing="sweet"]').click();
+  await page.locator('[data-pairing="lunch"]').click();
+  assert(await page.locator('#selection-total').innerText() === '1710 TL' && await page.locator('#selection-saving').innerText() === 'Выгода: 85 TL', 'All four combinations have the correct total and saving');
+  await page.locator('[data-pairing="sweet"]').click();
+  assert(await page.locator('#selection-total').innerText() === '1250 TL' && await page.locator('#selection-list li').count() === 3, 'Removing an item updates the selection and amount without duplicates');
+  await page.locator('#clear-selection').click();
+  assert(await page.locator('#selection-total').innerText() === '0 TL' && await page.locator('#clear-selection').isDisabled() && await page.locator('#selection-empty').isVisible(), 'Clear restores the empty state');
+  assert(await first.evaluate(element => document.activeElement === element), 'Clear returns keyboard focus to an available choice');
+  assert(await page.locator('form').count() === 0, 'Educational selection does not include a customer order submission form');
+  await page.locator('#pairings').screenshot({ path: `${artifacts}/ai-path-${width}-pocitel-menu.png`, animations: 'disabled' });
+  await page.locator('[data-demo-program]').click();
+  await selected(page, 'build');
+  await page.goto(previous, { waitUntil: 'domcontentloaded' });
+  const program = new URL(previous).searchParams.get('program');
+  if (program) await selected(page, program);
+}
+
 async function neuralNetworks(page, width) {
   const previous = page.url();
   const sourceRoot = 'https://github.com/safal207/students/blob/d848e04c8f8d6e3e8e42ce15fbd98c00612e0e17/';
@@ -1327,6 +1391,7 @@ try {
     await parentResultGallery(page, width);
     if (width === 390) await cosmosExample(page, width);
     await studioPortfolio(page, width);
+    await landingSites(page, width);
     await neuralNetworks(page, width);
     if (width === 1440) {
       await desktopRegressions(page);
