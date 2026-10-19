@@ -417,7 +417,7 @@
   function renderSelectionNavigation(){
     var hasSelection=Boolean(state.selection);
     document.body.classList.toggle('has-selection',hasSelection);
-    $('headerAction').href=hasSelection?'#selected':'#programs';
+    $('headerAction').href=hasSelection?'#selected':'#courses';
     $('headerAction').textContent=hasSelection?'Мой план ↗':'Выбрать курс ↓';
     $('closingAction').href=hasSelection?'#start':'#selector';
     $('closingAction').textContent=hasSelection?'Обсудить мой старт':'Подобрать маршрут';

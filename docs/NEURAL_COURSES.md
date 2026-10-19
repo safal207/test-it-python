@@ -6,7 +6,7 @@ The former single `ml` program was split at the user's request into eight select
 
 The main catalogue initially displays all eight neural/data courses in learning order, without search, category selection or expansion. The other fourteen programs remain available through categories and the show-more action. This is one catalogue, not a second set of duplicated course cards. Track numbers and deep links stay stable.
 
-The hero and mobile header lead directly to the catalogue. Two keyboard-operable starter actions open the Python or first-model plan. Course cards show a short deliverable, requirements, duration and one plan action; the full scope stays in the plan and static guide. The hero course action clears an earlier catalogue filter/search so it always returns to the advertised courses.
+The hero and mobile header lead directly to the course cards at `#courses`, past the search/category toolbar. Two keyboard-operable starter actions open the Python or first-model plan. Course cards show a short deliverable, requirements, duration and one plan action; the full scope stays in the plan and static guide. The hero course action clears an earlier catalogue filter/search so it always returns to the advertised courses.
 
 The interaction reference is [SamCart Pages](https://www.samcart.com/ai/pages): explicit offer, outcome-led copy and a direct next action on the same page. AI PATH retains its existing mentor-contact journey; no SamCart payment integration, sales claims, artificial discounts or enrollment metrics are introduced.
 

@@ -10,5 +10,6 @@
 .neural-catalog-intro{margin:0 0 22px;padding:18px 22px;border-left:3px solid #b7cc9d;border-radius:0 12px 12px 0;background:#1b2a24}
 .neural-catalog-intro h3{margin:0 0 7px;color:#e1ebd7;font-size:21px;line-height:1.4;letter-spacing:-.02em}
 .neural-catalog-intro p{margin:0;color:#bfcdc1;font-size:13px;line-height:1.7}
+.home-courses{scroll-margin-top:94px}
 @media(min-width:1280px){.programs.neural-menu{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.neural-menu .program-body{padding:18px}.neural-menu .program-name{font-size:21px;margin-bottom:10px}.neural-menu .program-outcome{margin-bottom:10px}.neural-menu .program-role{padding-top:10px}.neural-menu .program-meta{gap:5px;padding-top:12px}.neural-menu .program-meta>span{padding-inline:7px}.neural-menu .program-level{margin-bottom:12px}}
 @media(max-width:480px){.neural-course-entrance{padding:15px}.neural-start-actions{gap:8px}.neural-start-actions button{padding:10px}.neural-catalog-intro{padding:16px}.neural-catalog-intro h3{font-size:19px}}

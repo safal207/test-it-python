@@ -214,7 +214,7 @@ async function compactLanding(page, width) {
   await page.locator('#hero-programs').focus();
   await page.keyboard.press('Enter');
   assert(await page.locator('#programs').isVisible(), 'Keyboard hero entrance reaches the visible program menu');
-  assert(new URL(page.url()).search === before.search && new URL(page.url()).hash === '#programs', 'Catalogue fragment navigation preserves the selected program, level and pace');
+  assert(new URL(page.url()).search === before.search && new URL(page.url()).hash === '#courses', 'Catalogue fragment navigation preserves the selected program, level and pace');
   const nextProgram = await page.locator('#programList .program[hidden]').first().getAttribute('data-program');
   await page.locator('#showAllPrograms').focus();
   await page.keyboard.press('Enter');
@@ -1540,8 +1540,10 @@ async function neuralCourses(page, width) {
   assert(sameMembers(await ids(page.locator('#programList .program:visible')), neuralCourseIds) && await page.locator('#programSearch').inputValue() === '', 'Hero course action restores the eight neural courses after another filter and search');
   await page.locator('#headerAction').focus();
   await page.keyboard.press('Enter');
-  assert(new URL(page.url()).hash === '#programs', 'Fresh desktop and mobile header navigates directly to courses');
-  await page.locator('#programs').evaluate(el => el.scrollIntoView({block:'start',behavior:'instant'}));
+  assert(new URL(page.url()).hash === '#courses', 'Fresh desktop and mobile header navigates directly to courses');
+  const firstCourse = await page.locator('#programList .program:visible').first().boundingBox();
+  const stickyHeader = await page.locator('.header').boundingBox();
+  assert(firstCourse && firstCourse.y >= stickyHeader.y + stickyHeader.height && firstCourse.y + 180 <= page.viewportSize().height, 'Course action exposes the first card below the sticky header, beyond the filter toolbar');
   await page.screenshot({path:`${artifacts}/ai-path-${width}-home-course-entry.png`,animations:'disabled'});
   for (const id of ['ml-python', 'ml']) {
     await page.locator(`.hero [data-start-track="${id}"]`).focus();
@@ -1802,7 +1804,7 @@ async function historySelection(page) {
   await selected(page, 'build');
   const buildTitle = (await page.locator('#selTitle').innerText()).trim();
   await page.locator('#hero-programs').click();
-  await page.waitForURL(base + '?program=build&level=basic&pace=light#programs');
+  await page.waitForURL(base + '?program=build&level=basic&pace=light#courses');
   await page.locator('#showAllPrograms').click();
   await page.locator('#programList [data-program="designlab"]').click();
   await selected(page, 'designlab');
@@ -1971,7 +1973,7 @@ try {
     assert(!(await page.locator('#selected').isVisible()) && !(await page.locator('#results').isVisible()), 'Fresh entry does not claim the visitor already selected a program');
     assert(!new URL(page.url()).searchParams.has('program'), 'Fresh entry does not manufacture a selection in the URL');
     assert(!(await page.locator('#selectionDock').isVisible()), 'Fresh entry has no sticky selection action');
-    assert(await page.locator('#headerAction').getAttribute('href') === '#programs', 'Fresh header opens the visible course catalogue');
+    assert(await page.locator('#headerAction').getAttribute('href') === '#courses', 'Fresh header opens the visible course catalogue');
     if (width === 1440) await responsivePageBounds(page);
     await compactLanding(page, width);
     await screenshot(page, width, 'hero');
