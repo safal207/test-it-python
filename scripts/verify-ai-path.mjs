@@ -4,7 +4,7 @@ import { chromium } from 'playwright';
 
 const base = 'http://127.0.0.1:4179/ai-path/';
 const artifacts = 'artifacts/ai-path-qa';
-const programIds = ['explore', 'build', 'space', 'furniture', 'create', 'comics', 'qa', 'game', 'ml', 'hack', 'grant', 'frontier', 'books', 'designlab', 'vibe', 'ml-python', 'ml-data', 'ml-vision', 'ml-text', 'ml-audio', 'ml-series', 'ml-tuning'];
+const programIds = ['explore', 'build', 'space', 'furniture', 'create', 'comics', 'qa', 'game', 'ml', 'hack', 'grant', 'frontier', 'books', 'designlab', 'vibe', 'ml-python', 'ml-data', 'ml-vision', 'ml-text', 'ml-audio', 'ml-series', 'ml-tuning', 'career'];
 const neuralCourseIds = ['ml-python', 'ml', 'ml-data', 'ml-vision', 'ml-text', 'ml-audio', 'ml-series', 'ml-tuning'];
 const projectPreviewSources = {
   build: 'assets/testit.webp', space: 'assets/architectural.webp', furniture: 'assets/furniture/luma01-hero.webp',
@@ -12,7 +12,7 @@ const projectPreviewSources = {
   game: 'assets/awakening/city-day.webp', designlab: 'assets/design-lab/room-3d-preview.png'
 };
 const groups = {
-  neural: neuralCourseIds, explore: ['explore'], visual: ['furniture', 'space', 'designlab', 'comics', 'books', 'create'],
+  neural: neuralCourseIds, explore: ['explore', 'career'], visual: ['furniture', 'space', 'designlab', 'comics', 'books', 'create'],
   build: ['build', 'designlab', 'vibe', 'qa', 'game'], research: ['ml', 'hack', 'grant', 'frontier']
 };
 const server = spawn('python3', ['-m', 'http.server', '4179', '--bind', '127.0.0.1', '--directory', 'dist'], {
@@ -132,7 +132,7 @@ async function schoolEntry(context, width) {
     await page.keyboard.press('Enter');
     await page.waitForURL(base);
     await page.locator('#programList .program').first().waitFor({ state: 'attached' });
-    assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'Root school entrance opens all 22 programs');
+    assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'Root school entrance opens all 23 programs');
   } finally {
     await page.close();
   }
@@ -218,7 +218,7 @@ async function compactLanding(page, width) {
   const nextProgram = await page.locator('#programList .program[hidden]').first().getAttribute('data-program');
   await page.locator('#showAllPrograms').focus();
   await page.keyboard.press('Enter');
-  assert(sameMembers(await ids(page.locator('#programList .program:visible')), programIds), 'Keyboard show-all action exposes every one of the 22 programs');
+  assert(sameMembers(await ids(page.locator('#programList .program:visible')), programIds), 'Keyboard show-all action exposes every one of the 23 programs');
   assert(await page.locator(`#programList [data-program="${nextProgram}"]`).evaluate(el => document.activeElement === el), 'Show-all moves keyboard focus to the first newly available program');
   await revealTarget(page, '#website-programs');
   const websitePrograms = await page.locator('#website-programs').innerText();
@@ -276,7 +276,7 @@ async function catalogPresentation(page, width) {
       indexedCover: card.querySelector('.program-cover-index[aria-hidden="true"]')?.textContent.trim().length > 0,
       nestedActions: card.querySelectorAll('button, a, input, select, textarea, [tabindex]').length };
   }));
-  assert(sameMembers(report.map(card => card.id), programIds), 'Visual menu preserves all 22 distinct programs');
+  assert(sameMembers(report.map(card => card.id), programIds), 'Visual menu preserves all 23 distinct programs');
   assert(new Set(report.map(card => card.source)).size === programIds.length, 'Every program has its own illustration');
   for (const card of report) {
     assert(card.covers === 1 && card.alt, `Program has one cover with an explicit alternative-text decision: ${card.id}`);
@@ -332,7 +332,7 @@ async function catalogSearch(page, width) {
   await reset.focus();
   await page.keyboard.press('Space');
   assert(await search.inputValue() === '' && await page.locator('#catalogFilters [data-filter="all"]').getAttribute('aria-pressed') === 'true', 'Empty-state reset clears both query and category');
-  await resultsMatch(programIds, 'Reset restores all 22 programs');
+  await resultsMatch(programIds, 'Reset restores all 23 programs');
 
   const role = (await page.locator('#programList [data-program="furniture"] .program-role').innerText()).replace(/^Попробуешь роль\s*:?\s*/, '').trim();
   await search.fill(role);
@@ -363,7 +363,7 @@ async function clickWithoutJump(page, selector, label) {
 }
 async function chooseQuiz(page, { goal, interest, level = 'zero', pace = 'balanced' }) {
   await page.locator(`#goals [data-goal="${goal}"]`).click();
-  if (interest && goal !== 'explore') await page.locator(`#interests [data-interest="${interest}"]`).click();
+  if (interest) await page.locator(`#interests [data-interest="${interest}"]`).click();
   await page.locator(`#levels [data-level="${level}"]`).click();
   await page.locator(`#paces [data-pace="${pace}"]`).click();
   await page.locator('#showRecommendation').click();
@@ -732,7 +732,7 @@ async function comparison(page, { width, captureStage } = {}) {
 async function websiteChoice(page, width) {
   // Start with the visitor's goal rather than an existing program URL or catalogue filter.
   await page.locator('#goals [data-goal="build"]').click();
-  assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'Website goal retains the complete 22-program catalogue');
+  assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'Website goal retains the complete 23-program catalogue');
   const choices = page.locator('#interests [data-interest]');
   const interests = await choices.evaluateAll(elements => elements.map(el => el.dataset.interest));
   assert(sameMembers(interests, groups.build) && await page.locator('#interests [data-interest="designlab"]').isVisible(), 'Site, program or game goal exposes Design Lab alongside development and Vibe Coding');
@@ -1550,6 +1550,217 @@ async function landingSites(page, width) {
   if (program) await selected(page, program);
 }
 
+async function careerResearch(page, width) {
+  const schoolPage = page;
+  const browserContext = page.context();
+  const previous = page.url();
+  const context = { program: 'career', level: 'basic', pace: 'light' };
+  await page.goto(base + '?program=build&level=basic&pace=light#programs', { waitUntil: 'domcontentloaded' });
+  await page.locator('#catalogFilters [data-filter="explore"]').click();
+  assert(sameMembers(await ids(page.locator('#programList .program:visible')), groups.explore), 'The exploration menu offers both the introductory Navigator and career research');
+  const card = page.locator('#programList [data-program="career"]');
+  await card.locator('img').evaluate(async image => { image.loading = 'eager'; await image.decode(); });
+  await card.screenshot({ path: `${artifacts}/ai-path-${width}-career-card.png`, animations: 'disabled', style: '.header, .selection-dock {visibility:hidden!important}' });
+  await card.focus();
+  await page.keyboard.press('Enter');
+  await selected(page, 'career');
+  assert(JSON.stringify(committedContext(page.url())) === JSON.stringify(context), 'Choosing career research preserves the committed preparation and pace');
+  assert(Number.parseInt(await page.locator('#selDuration').innerText(), 10) === 4 && Number.parseInt(await page.locator('#selMeetings').innerText(), 10) === 4, 'Career research has a four-week, four-meeting base plan');
+  if (width === 1440) {
+    await chooseQuiz(page, { goal: 'explore', interest: 'career', level: 'basic', pace: 'light' });
+    await selected(page, 'career');
+    assert(sameMembers(await page.locator('#interests [data-interest]').evaluateAll(buttons => buttons.map(button => button.dataset.interest)), groups.explore), 'Guided exploration also distinguishes its two programs');
+  }
+  await screenshot(page, width, 'career-selected', '#selected');
+  const entrance = page.locator('#career-research-entry');
+  assert(await entrance.count() === 1, 'The program menu exposes the new career research entrance');
+  await schoolLink(page, entrance, 'career-research.html', context, 'Career research menu entrance');
+  await revealTarget(page, '#selRefs');
+  const guide = page.locator('#selRefs').getByRole('link', { name: 'Курс и рабочая тетрадь ↗', exact: true });
+  const destination = await schoolLink(page, guide, 'career-research.html', context, 'Career research plan reference');
+  await schoolLink(page, page.locator('#selRefs').getByRole('link', { name: 'Открыть исследование ↗', exact: true }), 'career-research.html#researchWorkspace', context, 'Direct research-workspace reference');
+  const blocked = [];
+  const localOnly = async route => {
+    const request = route.request();
+    const url = new URL(request.url());
+    if (/^https?:$/.test(url.protocol) && (url.origin !== new URL(base).origin || request.method() !== 'GET')) {
+      blocked.push(request.method() + ' ' + url.href);
+      await route.abort();
+    } else await route.continue();
+  };
+  await browserContext.route('**/*', localOnly);
+  let notebook;
+  const notebookErrors = [];
+  try {
+    const popupEvent = page.waitForEvent('popup');
+    await guide.focus();
+    await page.keyboard.press('Enter');
+    notebook = await popupEvent;
+    page = notebook;
+    page.on('pageerror', error => notebookErrors.push(error.message));
+    await page.waitForLoadState('domcontentloaded');
+    await page.waitForURL(destination);
+    const workspaceURL = page.url();
+    const records = page.locator('#vacancyList [data-vacancy-id]');
+    assert(await page.locator('#researchWorkspace').isVisible() && await records.count() === 0, 'A fresh research workspace contains no invented vacancies');
+    for (const number of [1, 2, 3]) assert(await page.locator('#direction' + number).inputValue() === '', 'Research directions start as the visitor’s own blank hypotheses');
+    assert(await page.locator('#workspaceStatus').getAttribute('aria-live') === 'polite', 'Research save and clear outcomes are announced accessibly');
+    await schoolLink(page, page.locator('header').getByRole('link', { name: 'План программы ↗', exact: true }), './#selected', context, 'Research workspace return to plan');
+    const storageBefore = await page.evaluate(() => JSON.stringify(Object.entries(localStorage).sort()));
+    await screenshot(page, width, 'career-research-hero');
+    const models = ['codex', 'claude', 'grok', 'deepseek', 'qwen'];
+    assert(sameMembers(await page.locator('[data-tool]').evaluateAll(cards => cards.map(card => card.dataset.tool)), models) && await page.locator('[data-copy-prompt]').count() === 5, 'Research provides the five advertised model prompts');
+    for (const model of models) {
+      const tool = page.locator(`[data-tool="${model}"]`);
+      const prompt = tool.locator('textarea[readonly]');
+      const text = await prompt.inputValue();
+      assert(text.length > 150 && /URL|источник/i.test(text), `The ${model} prompt asks for source-backed work and has a permanent manual-copy field`);
+      await tool.locator('[data-copy-prompt]').click();
+      await page.waitForFunction(async expected => await navigator.clipboard.readText() === expected, text);
+    }
+    await page.evaluate(() => Object.defineProperty(navigator.clipboard, 'writeText', { configurable: true, value: async () => { throw new Error('Simulated clipboard denial'); } }));
+    try {
+      const tool = page.locator('[data-tool="codex"]');
+      await tool.locator('[data-copy-prompt]').click();
+      assert(await tool.locator('details').evaluate(details => details.open) && await tool.locator('textarea').evaluate(input => document.activeElement === input && input.selectionStart === 0 && input.selectionEnd === input.value.length), 'Denied clipboard access reveals and selects the real prompt for manual copying');
+    } finally { await page.evaluate(() => { delete navigator.clipboard.writeText; }); }
+    const directions = ['Синтетическое исследование: QA', 'Синтетическое исследование: аналитика', 'Синтетическое исследование: UX'];
+    for (const [index, direction] of directions.entries()) {
+      const number = index + 1;
+      await page.locator('#direction' + number).fill(direction);
+      await page.locator('#trial' + number).fill('Учебная проба ' + number + ': разобрать небольшой пример');
+      await page.locator('#trialResult' + number).fill('Синтетический результат ' + number + ': записаны наблюдения и вопросы');
+      await page.locator('#interest' + number).selectOption(String(5 - index));
+      await page.locator('#readiness' + number).selectOption('2');
+    }
+    await page.locator('#researchTime').fill('5 часов в неделю');
+    await page.locator('#researchLocation').fill('Синтетический сценарий: удалённо');
+    await page.locator('#researchExperience').fill('Учебная практика, без реального отклика работодателю');
+    await page.locator('#chosenDirection').selectOption('1');
+    await page.locator('#decisionReasons').fill('Предварительная гипотеза: нужны дополнительные источники и проба');
+    await page.locator('#next30Days').fill('Неделя 1: выполнить пробу. Неделя 2: разобрать источники. Неделя 3: улучшить работу. Неделя 4: проверить выводы.');
+    const checked = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+    const published = new Date(Date.now() - 2 * 86400000).toISOString().slice(0, 10);
+    async function fillVacancy({ title = 'Синтетическая вакансия: QA-инженер', url = 'https://example.com/synthetic-career-qa?utm_source=acceptance#description', direction = '1', date = checked, publication = published, salary = '100000', currency = 'RUB', period = 'month', tax = 'gross', inference = 'Синтетическая интерпретация: требуется отдельная проба' } = {}) {
+      for (const [id, value] of Object.entries({ vacancyTitle: title, vacancyUrl: url, vacancyDate: date, vacancyPublished: publication, vacancySkills: 'Тестирование, SQL', vacancyQuote: 'Синтетический источник для acceptance: нужны тестирование и SQL.', vacancyInference: inference })) await page.locator('#' + id).fill(value);
+      await page.locator('#vacancyDirection').selectOption(direction);
+      await revealTarget(page, '#vacancySalary');
+      await page.locator('#vacancySalary').fill(salary);
+      await page.locator('#vacancyCurrency').fill(currency);
+      await page.locator('#vacancyPeriod').selectOption(period);
+      await page.locator('#vacancyTax').selectOption(tax);
+    }
+    await fillVacancy();
+    await page.locator('#vacancySkills').fill('Тестирование, SQL, SQL');
+    await page.locator('#addVacancy').click();
+    assert(await records.count() === 1 && (await records.first().innerText()).includes('Синтетическая вакансия: QA-инженер'), 'Manually entered synthetic evidence appears as one source record');
+    assert(await records.first().locator('a').getAttribute('href') === 'https://example.com/synthetic-career-qa', 'Stored source removes tracking and fragments without opening the external vacancy');
+    assert(await page.evaluate(() => JSON.stringify(Object.entries(localStorage).sort())) === storageBefore, 'Editing directions and adding evidence does not silently save to the device');
+    if (width === 1440) {
+      const tomorrow = new Date(Date.now() + 2 * 86400000).toISOString().slice(0, 10);
+      for (const [label, values] of [
+        ['non-HTTP URL', { url: 'javascript:alert(1)' }],
+        ['duplicate canonical URL', { url: 'https://example.com/synthetic-career-qa?fbclid=acceptance&gclid=duplicate&utm_medium=test#new-fragment' }],
+        ['future check date', { url: 'https://example.com/synthetic-future', date: tomorrow, publication: '' }],
+        ['publication after checking', { url: 'https://example.com/synthetic-publication', date: published, publication: checked }]
+      ]) {
+        await fillVacancy(values);
+        await page.locator('#addVacancy').click();
+        assert(await records.count() === 1 && ((await page.locator('#vacancyError').innerText()).trim().length > 0 || !(await page.locator('#vacancyForm').evaluate(form => form.checkValidity()))), `Invalid evidence is rejected without altering the sample: ${label}`);
+      }
+      const injection = '<img src=x onerror="document.body.dataset.careerXss=1">';
+      await fillVacancy({ title: 'Синтетический XSS ' + injection, url: 'https://example.com/synthetic-career-analyst', direction: '2', salary: '2000', currency: 'EUR', period: 'year', tax: 'net' });
+      await page.locator('#addVacancy').click();
+      assert(await records.count() === 2 && (await records.nth(1).locator('h4').innerText()).includes(injection) && await records.locator('img').count() === 0 && !(await page.locator('body').getAttribute('data-career-xss')), 'Source text renders literally without executing injected HTML');
+      await records.nth(1).locator('[data-edit-vacancy]').click();
+      await page.locator('#vacancyTitle').fill('Синтетическая вакансия: аналитик');
+      await page.locator('#addVacancy').click();
+      assert(await records.count() === 2 && (await records.nth(1).locator('h4').innerText()) === 'Синтетическая вакансия: аналитик', 'Editing a source updates its record instead of adding another vacancy');
+      await fillVacancy({ title: 'Синтетическая вакансия: UX', url: 'https://example.com/synthetic-career-ux', direction: '3', salary: '2500', currency: '', period: 'unknown', tax: 'unknown', publication: '' });
+      await page.locator('#addVacancy').click();
+      await fillVacancy({ title: 'Синтетическая вакансия без зарплаты', url: 'https://example.com/synthetic-career-no-salary', salary: '', currency: '', period: 'unknown', tax: 'unknown', publication: '' });
+      await page.locator('#addVacancy').click();
+      assert(await records.count() === 4, 'Four distinct synthetic sources remain four records');
+      const salaries = await records.locator('p').filter({ hasText: 'Зарплата в источнике:' }).allTextContents();
+      assert(salaries[0].includes('100000 · RUB · в месяц · до налогов') && salaries[1].includes('2000 · EUR · в год · после налогов') && salaries[2].includes('2500 · валюта не указана · период не указан · налоги не уточнены') && salaries[3].includes('Не указана'), 'Salary observations retain separate currencies, periods, tax status and missing values');
+      assert(!/средн|медиан/i.test(await page.locator('#researchSummary').innerText()) && /У 2 вакансий нет даты публикации/.test(await page.locator('#researchGaps').innerText()), 'Summary does not pool incompatible salaries and counts sources with unknown publication dates');
+      await page.locator('#directionFilter').selectOption('2');
+      assert(await records.count() === 1 && (await records.first().innerText()).includes('Синтетическая вакансия: аналитик'), 'Direction filtering shows the matching sources without changing their data');
+      await page.locator('#directionFilter').selectOption('all');
+      await fillVacancy({ title: 'Синтетический пример URL HH', url: 'https://hh.ru/vacancy/123456789?from=vacancy_search_list' });
+      await page.locator('#addVacancy').click();
+      await fillVacancy({ title: 'Синтетический дубль URL HH', url: 'https://hh.ru/vacancy/123456789?from=employer' });
+      await page.locator('#addVacancy').click();
+      assert(await records.count() === 5 && /уже есть/.test(await page.locator('#vacancyError').innerText()), 'HH entry-point parameters do not turn one vacancy ID into two sources');
+      const hhRecord = records.filter({ has: page.locator('a[href="https://hh.ru/vacancy/123456789"]') });
+      assert(await hhRecord.count() === 1, 'HH source is canonicalized by its vacancy ID without requesting the external URL');
+      await hhRecord.locator('[data-remove-vacancy]').click();
+      assert(await records.count() === 4, 'Removing the temporary duplicate-test record restores the synthetic sample');
+    }
+    const expectedCount = width === 1440 ? 4 : 1;
+    const expectedCounts = width === 1440 ? [2, 1, 1] : [1, 0, 0];
+    assert(await page.evaluate(() => JSON.stringify(Object.entries(localStorage).sort())) === storageBefore, 'Validation and source edits still require explicit saving');
+    await noOverflow(page, 'career research populated workspace ' + width);
+    await screenshot(page, width, 'career-workspace', '#researchWorkspace');
+    await page.locator('#vacancyList').screenshot({ path: `${artifacts}/ai-path-${width}-career-sources.png`, animations: 'disabled' });
+    await page.locator('#saveResearch').click();
+    const saved = await page.evaluate(() => JSON.parse(localStorage.getItem('ai-path-career-research-v1')));
+    assert(saved.vacancies.length === expectedCount && saved.directions[0].direction === directions[0] && saved.context.chosenDirection === '1', 'Explicit save stores the entered directions, decision and sources on this device');
+    await page.locator('#direction1').fill('Несохранённая правка для проверки');
+    await page.reload({ waitUntil: 'domcontentloaded' });
+    assert(await records.count() === expectedCount && await page.locator('#direction1').inputValue() === directions[0] && await page.locator('#interest1').inputValue() === '5' && await page.locator('#readiness1').inputValue() === '2', 'Reload restores saved evidence and self-assessment rather than an unsaved edit');
+    for (const extension of ['json', 'md']) {
+      const event = page.waitForEvent('download');
+      await page.locator(extension === 'json' ? '#exportResearchJson' : '#exportResearchMarkdown').click();
+      const download = await event;
+      assert(new RegExp('^ai-path-research-\\d{4}-\\d{2}-\\d{2}\\.' + extension + '$').test(download.suggestedFilename()), 'Research download has its own dated ' + extension + ' filename');
+      const path = `${artifacts}/ai-path-${width}-career-research.${extension}`;
+      await download.saveAs(path);
+      assert(await download.failure() === null, 'Research ' + extension + ' download succeeds');
+      const contents = await readFile(path, 'utf8');
+      if (extension === 'json') {
+        const data = JSON.parse(contents);
+        assert(data.version === 1 && data.vacancies.length === expectedCount && data.summary.totalUnique === expectedCount && data.directions.map(direction => direction.direction).join('|') === directions.join('|'), 'JSON exports the actual directions and unique source count');
+        assert(data.summary.groups.every((group, index) => group.count === expectedCounts[index]) && data.summary.groups[0].skills.find(([skill]) => skill === 'sql')?.[1] === expectedCounts[0], 'Exported skill frequencies count each requirement once per vacancy within its direction');
+        const source = data.vacancies[0];
+        assert(source.url === 'https://example.com/synthetic-career-qa' && source.date === checked && source.published === published && source.quote.includes('Синтетический источник') && source.inference.includes('Синтетическая интерпретация'), 'JSON keeps canonical URL, dates, source excerpt and interpretation as separate fields');
+        assert(source.salary === '100000' && source.currency === 'RUB' && source.period === 'month' && source.tax === 'gross' && data.context.next30Days.includes('Неделя 4'), 'JSON retains original salary dimensions and the learner’s next-month plan');
+      } else {
+        assert(contents.startsWith('# Исследование направлений') && directions.every(direction => contents.includes(direction)) && contents.includes('https://example.com/synthetic-career-qa') && contents.includes(checked) && contents.includes('Фрагмент источника:') && contents.includes('Моя интерпретация:') && contents.includes('100000 · RUB · в месяц · до налогов') && contents.includes('Неделя 4'), 'Markdown download is a readable report of the entered evidence, separated interpretation and next steps');
+      }
+    }
+    await page.locator('#clearResearch').click();
+    assert(await page.locator('#clearConfirmation').isVisible() && await records.count() === expectedCount, 'Clearing first presents an inline confirmation without deleting evidence');
+    await page.locator('#cancelClear').focus();
+    await page.keyboard.press('Enter');
+    assert(!(await page.locator('#clearConfirmation').isVisible()) && await records.count() === expectedCount && await page.locator('#clearResearch').evaluate(button => document.activeElement === button), 'Cancelling clear preserves records and returns keyboard focus');
+    await page.locator('#clearResearch').click();
+    await page.locator('#confirmClear').focus();
+    await page.keyboard.press('Enter');
+    assert(await records.count() === 0 && await page.locator('#direction1').inputValue() === '' && await page.evaluate(() => localStorage.getItem('ai-path-career-research-v1')) === null, 'Confirmed clear removes both the working notebook and its saved copy');
+    await page.reload({ waitUntil: 'domcontentloaded' });
+    assert(await records.count() === 0 && await page.locator('#chosenDirection').inputValue() === '', 'Cleared research stays blank after reload');
+    assert(page.url() === workspaceURL && blocked.length === 0, 'Research actions stay on the page without submitting data or requesting external services: ' + blocked.join(', '));
+    const back = page.locator('header').getByRole('link', { name: 'План программы ↗', exact: true });
+    const backURL = await schoolLink(page, back, './#selected', context, 'Research return after completing the local workflow');
+    await back.focus();
+    await page.keyboard.press('Enter');
+    await page.waitForURL(backURL);
+    await selected(page, 'career');
+    assert(JSON.stringify(committedContext(page.url())) === JSON.stringify(context), 'Research round trip restores the same program, preparation and pace');
+    assert(notebookErrors.length === 0, 'Research workspace has no unhandled browser errors: ' + notebookErrors.join('; '));
+  } catch (error) {
+    if (notebook && !notebook.isClosed()) await notebook.screenshot({ path: `${artifacts}/ai-path-${width}-career-failure.png`, fullPage: true, animations: 'disabled' }).catch(() => {});
+    throw error;
+  } finally {
+    await browserContext.unroute('**/*', localOnly);
+    if (notebook && !notebook.isClosed()) await notebook.close();
+  }
+  await schoolPage.goto(previous, { waitUntil: 'domcontentloaded' });
+  const previousProgram = new URL(previous).searchParams.get('program');
+  if (previousProgram) await selected(schoolPage, previousProgram);
+}
+
 async function courseEnquiry(page, width) {
   await page.goto(base + '?program=ml&level=project&pace=light#selected', {waitUntil:'domcontentloaded'});
   await page.locator('.hero [data-start-track="ml"]').click();
@@ -2041,7 +2252,7 @@ try {
     const response = await page.goto(base, { waitUntil: 'domcontentloaded' });
     assert(response?.status() === 200, 'Page returns HTTP 200');
     await page.locator('#programList .program').first().waitFor({ state: 'attached' });
-    assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'All 22 programs are available');
+    assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'All 23 programs are available');
     const trackNumbers = await page.locator('#programList .program').evaluateAll(cards => Object.fromEntries(cards.map(card => [card.dataset.program, card.querySelector('.n').textContent.match(/ТРЕК\s*(\d+)/)?.[1]])));
     for (const [index, id] of programIds.entries()) assert(Number(trackNumbers[id]) === index + 1, `Track number stays stable: ${id}`);
     assert(!(await page.locator('#selected').isVisible()) && !(await page.locator('#results').isVisible()), 'Fresh entry does not claim the visitor already selected a program');
@@ -2113,6 +2324,7 @@ try {
     await studioPortfolio(page, width);
     await landingSites(page, width);
     await courseEnquiry(page, width);
+    await careerResearch(page, width);
     await neuralCourses(page, width);
     await neuralNetworks(page, width);
     if (width === 1440) {

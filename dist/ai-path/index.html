@@ -128,7 +128,7 @@
 <link rel="stylesheet" href="design-lab.css?v=1"/>
 <style id="ai-path-vibe-feature">.vibe-highlight{display:grid;grid-template-columns:1.18fr .82fr;gap:22px;padding:clamp(25px,4vw,48px);border-radius:25px;border:1px solid rgba(213,250,136,.24);background:radial-gradient(ellipse at 100% 0%,rgba(178,172,240,.14),transparent 62%),linear-gradient(135deg,#212c33,#111825);box-shadow:0 15px 65px rgba(0,0,0,.22)}.vibe-highlight>*{min-width:0}.vibe-highlight h2{font-size:clamp(32px,4vw,52px);letter-spacing:-.06em;margin:14px 0}.vibe-highlight p{max-width:660px;color:#b3c3d2;font-size:15px;line-height:1.7;margin:0 0 20px}.vibe-highlight .vibe-note{font-size:12px;color:#a6b4c7;margin-top:21px;margin-bottom:0}.vibe-tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:24px}.vibe-tags span{padding:7px 10px;font-size:12px;border-radius:999px;border:1px solid rgba(213,250,136,.21);background:rgba(213,250,136,.05);color:#d7e7c2}.vibe-flow{display:flex;flex-direction:column;gap:11px;justify-content:center}.vibe-flow span{border:1px solid rgba(220,230,230,.16);background:#131d2a;border-radius:14px;padding:17px 18px;color:var(--accent);font-size:12px;display:flex;align-items:center;gap:13px;letter-spacing:.08em}.vibe-flow strong{font-size:16px;color:#eaf0f5;letter-spacing:-.02em}@media(max-width:760px){.vibe-highlight{grid-template-columns:1fr}.vibe-flow{display:grid;grid-template-columns:1fr 1fr;gap:7px}.vibe-flow span{padding:11px;font-size:10px;flex-direction:column;align-items:flex-start;gap:4px}.vibe-flow strong{font-size:12px}}</style>
 <link rel="stylesheet" href="neural-entry.css?v=home-courses-1">
-<link rel="stylesheet" href="content-sections.css?v=awakening-20261019">
+<link rel="stylesheet" href="content-sections.css?v=career-20261019">
 </head>
 <body>
 <header class="header">
@@ -169,18 +169,19 @@
 </div>
 </div>
 <section class="catalog-section wrap program-menu" id="programs" aria-labelledby="programMenuTitle">
-<div class="menu-heading"><div><span class="tag">01 / 22 программы обучения</span><h2 id="programMenuTitle">Выбери курс и создай проект</h2></div><p>1. Выбери курс. 2. Посмотри план и результат. 3. Укажи подготовку и нагрузку — запрос наставнику соберётся на этой странице. Другие направления — в категориях и по кнопке «Ещё 14 программ».</p></div>
+<div class="menu-heading"><div><span class="tag">01 / 23 программы обучения</span><h2 id="programMenuTitle">Выбери курс и создай проект</h2></div><p>1. Выбери курс. 2. Посмотри план и результат. 3. Укажи подготовку и нагрузку — запрос наставнику соберётся на этой странице. Другие направления — в категориях и по кнопке «Ещё 15 программ».</p></div>
+<div class="career-entry"><div><strong>Пока выбираешь направление?</strong><p>Исследуй вакансии с ИИ, сравни задачи и попробуй работу до выбора следующего курса.</p></div><a class="quiet-link" id="career-research-entry" href="career-research.html">Новый курс: выбор направления с ИИ ↗</a></div>
 <div class="catalog-toolbar">
 <div class="catalog-search"><label for="programSearch">Найти программу</label><div><input type="search" id="programSearch" placeholder="Например, нейросети, сайт или Python" autocomplete="off" aria-controls="programList"/><button type="button" id="clearProgramSearch" aria-label="Очистить поиск программ" hidden>Очистить</button></div></div>
-<div class="choices" id="catalogFilters" role="group" aria-label="Фильтр программ"><button type="button" class="chip" data-filter="all" aria-pressed="true">Все 22</button><button type="button" class="chip" data-filter="neural" aria-pressed="false">Нейросети · 8 курсов</button><button type="button" class="chip" data-filter="explore" aria-pressed="false">Пробую и выбираю</button><button type="button" class="chip" data-filter="visual" aria-pressed="false">Дизайн и истории</button><button type="button" class="chip" data-filter="build" aria-pressed="false">Сайты, программы и игры</button><button type="button" class="chip" data-filter="research" aria-pressed="false">Развитие проекта</button></div>
-<p class="catalog-count" id="catalogCount" role="status" aria-live="polite">22 программы</p>
+<div class="choices" id="catalogFilters" role="group" aria-label="Фильтр программ"><button type="button" class="chip" data-filter="all" aria-pressed="true">Все 23</button><button type="button" class="chip" data-filter="neural" aria-pressed="false">Нейросети · 8 курсов</button><button type="button" class="chip" data-filter="explore" aria-pressed="false">Пробую и выбираю</button><button type="button" class="chip" data-filter="visual" aria-pressed="false">Дизайн и истории</button><button type="button" class="chip" data-filter="build" aria-pressed="false">Сайты, программы и игры</button><button type="button" class="chip" data-filter="research" aria-pressed="false">Развитие проекта</button></div>
+<p class="catalog-count" id="catalogCount" role="status" aria-live="polite">23 программы</p>
 </div>
 <div class="home-courses" id="courses">
 <div class="neural-catalog-intro" id="neuralCatalogIntro"><h3>Нейросети · 8 отдельных курсов</h3><p>Python → первая модель → специализация → улучшение модели. Проходить все восемь подряд не обязательно.</p></div>
 <div class="programs" id="programList" role="group" aria-label="Выбор программы обучения"></div>
 </div>
 <div id="catalogEmpty" class="catalog-empty" hidden><p>По этому запросу в категории ничего не нашлось.</p><button type="button" class="btn ghost" id="resetProgramSearch">Сбросить поиск и показать все программы</button></div>
-<div class="catalog-more"><button type="button" class="btn ghost" id="showAllPrograms" aria-controls="programList" aria-expanded="false">Ещё 14 программ: сайты, игры, дизайн ↓</button><a href="#selector">Помочь с выбором: 3 вопроса ↗</a></div>
+<div class="catalog-more"><button type="button" class="btn ghost" id="showAllPrograms" aria-controls="programList" aria-expanded="false">Ещё 15 программ: сайты, игры, дизайн ↓</button><a href="#selector">Помочь с выбором: 3 вопроса ↗</a></div>
 <p class="menu-note">На обложках — AI-иллюстрации направлений и учебные схемы. Роль — возможность попробовать задачи профессии; реальные проекты и авторство смотри в портфолио. Сроки — базовый ориентир, стоимость обсудим до старта.</p>
 <details class="menu-compare"><summary>Хочу сделать сайт — чем отличаются три программы?</summary>
 <div class="website-programs" id="website-programs"><h3>Какая программа подойдёт для сайта?</h3><div>
@@ -518,7 +519,7 @@
     <noscript><p class="mentor-demo-note">Для интерактивного примера нужен JavaScript. Суть проверки: после выбора «Туман» должны измениться и подпись, и цвета. В первой версии меняется только подпись; исправление обновляет оба элемента.</p></noscript>
   </div>
 </details>
-<div class="faq" aria-label="Вопросы перед стартом"><details><summary>Можно начать совсем без опыта?</summary><p>Да, у нас есть программы с нуля. Для нейросетей полезны основы Python, а для грантов и исследовательских презентаций нужен собственный проект. Подбор покажет подходящую точку старта и требования.</p></details><details><summary>Что делать, если нравится сразу несколько направлений?</summary><p>Начни с AI Навигатора или сравни варианты после подбора. Первые небольшие работы помогут понять, какой процесс тебе интереснее. Смену направления можно обсудить с наставником.</p></details><details><summary>Нужно сразу оплачивать все AI-сервисы?</summary><p>Сначала определим задачу и набор инструментов. Доступность сервисов, возможности компьютера и возможные дополнительные расходы проверим до начала работы.</p></details><details><summary>Почему время в неделю не меняет срок автоматически?</summary><p>4–16 недель — базовые планы программ. Выбранные часы показывают, сколько времени у тебя есть вместе со встречами и практикой. На знакомстве уточним объём проекта и реалистичный график под твою подготовку.</p></details></div>
+<div class="faq" aria-label="Вопросы перед стартом"><details><summary>Можно начать совсем без опыта?</summary><p>Да, у нас есть программы с нуля. Для нейросетей полезны основы Python, а для грантов и исследовательских презентаций нужен собственный проект. Подбор покажет подходящую точку старта и требования.</p></details><details><summary>Что делать, если нравится сразу несколько направлений?</summary><p>В AI Навигаторе попробуешь две работы, а на <a href="career-research.html">курсе выбора направления с ИИ</a> исследуешь вакансии и выполнишь короткие пробы. Сравни варианты после подбора и обсуди выбор с наставником.</p></details><details><summary>Нужно сразу оплачивать все AI-сервисы?</summary><p>Сначала определим задачу и набор инструментов. Доступность сервисов, возможности компьютера и возможные дополнительные расходы проверим до начала работы.</p></details><details><summary>Почему время в неделю не меняет срок автоматически?</summary><p>4–16 недель — базовые планы программ. Выбранные часы показывают, сколько времени у тебя есть вместе со встречами и практикой. На знакомстве уточним объём проекта и реалистичный график под твою подготовку.</p></details></div>
 </div></section>
 <details class="content-disclosure wrap" id="parent-library"><summary><span><strong>Родителям: какой первый проект выбрать</strong><small>Три возможных результата и этапы работы с ребёнком</small></span></summary>
 <section class="section parent-gallery" id="result-gallery" aria-labelledby="parentGalleryTitle">
@@ -682,9 +683,9 @@
 <script src="plan-pdf.js?v=choice-2"></script>
 <script src="program-3d.js?v=2"></script>
 <script src="content-sections.js?v=1"></script>
-<script src="course-navigation.js?v=1"></script>
+<script src="course-navigation.js?v=career-1"></script>
 <script src="neural-courses-data.js?v=home-courses-1"></script>
-<script src="app.js?v=awakening-20261019"></script>
+<script src="app.js?v=career-20261019"></script>
 <script src="mentor-demo.js?v=1"></script>
 <script src="design-lab.js?v=1"></script>
 <dialog aria-labelledby="galleryTitle" id="projectLightbox">
