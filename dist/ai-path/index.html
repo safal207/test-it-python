@@ -96,7 +96,7 @@
 .furniture-section{padding-top:20px}.furniture-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.furniture-grid .project-shot{aspect-ratio:4/5}.furniture-grid .project-body{padding:21px}.furniture-intro{max-width:760px;color:#b7c5d2;font-size:15px;line-height:1.7;margin:0 0 26px}.furniture-note{margin:22px 0;color:var(--muted);font-size:13px;line-height:1.65}.furniture-note strong{color:#dceeba}.furniture-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}.furniture-skill{display:block;color:var(--accent);font-size:12px;font-weight:750;line-height:1.6}.furniture-section .project-body p{margin-bottom:0}
 @media(max-width:760px){.furniture-grid{grid-template-columns:1fr}.furniture-grid .project{width:100%;max-width:410px;margin-inline:auto}.furniture-section .furniture-actions .btn{width:100%}}
 </style>
-<link href="choice.css?v=20261018-responsive-entry" rel="stylesheet"/>
+<link href="choice.css?v=20261019-author" rel="stylesheet"/>
 <link href="program-cards.css?v=menu-1" rel="stylesheet"/>
 <link href="program-plan.css?v=choice-2" rel="stylesheet"/>
 <link href="parent-gallery.css?v=1" rel="stylesheet"/>
@@ -134,7 +134,7 @@
 <header class="header">
 <div class="wrap nav">
 <a aria-label="AI PATH, на главную" class="logo" href="#top"><span class="mark">↗</span><span>AI<b>PATH</b></span></a>
-<nav aria-label="Основное меню" class="navlinks"><a href="#selector">Подобрать программу</a><a href="#programs">Все программы</a><a href="studio.html">Портфолио школы</a><a href="studio.html#services">Разработка сайтов</a><a href="#mentor">Наставник</a></nav>
+<nav aria-label="Основное меню" class="navlinks"><a href="#selector">Подобрать программу</a><a href="#programs">Меню программ</a><a href="studio.html">Портфолио школы</a><a href="studio.html#services">Разработка сайтов</a><a href="#mentor">Наставник</a></nav>
 <a class="navcta" id="headerAction" href="#selector">Подобрать маршрут ↗</a>
 </div>
 </header>
@@ -152,7 +152,7 @@
 </div>
 <p class="hero-choice-note">Нужен готовый сайт для бизнеса? <a href="studio.html#services">Обсудить разработку ↗</a>.</p>
 <div class="hero-foot"><span><strong>1:1</strong> с наставником</span><span><strong>4–16 недель</strong> базовый план</span><span><strong>Свой проект</strong> в портфолио</span></div>
-<div class="hero-mentor"><span class="mentor-mini" aria-hidden="true">АС</span><span><strong>Алексей Сафонов</strong><span>QA-инженер и AI-наставник · <a href="#mentor">Проекты и отзывы ↗</a></span></span></div>
+<div class="hero-mentor"><span class="mentor-mini" aria-hidden="true"><img src="assets/mentor/alexey-safonov-solvery.webp" alt="" width="39" height="39" decoding="async"/></span><span><strong>Алексей Сафонов</strong><span>QA-инженер и AI-наставник · <a href="#mentor">Об авторе школы ↗</a></span></span></div>
 </div>
 <div>
 <figure class="hero-project">
@@ -209,7 +209,7 @@
 <div class="wrap">
 <div class="section-top"><div class="result-summary"><span class="tag">Твоя точка старта</span><h2 id="resultTitle" tabindex="-1">Вот с чего можно начать</h2><p id="resultReason"></p></div><a class="quiet-link" href="#selector">Изменить ответы</a></div>
 <div class="programs" id="recommendationList" role="group" aria-label="Рекомендация и альтернативы"></div>
-<div class="results-actions"><button class="btn ghost" id="compareToggle" type="button" aria-expanded="false" aria-controls="comparison">Сравнить варианты</button><a class="quiet-link" href="#programs">Посмотреть все 15 программ</a></div>
+<div class="results-actions"><button class="btn ghost" id="compareToggle" type="button" aria-expanded="false" aria-controls="comparison">Сравнить варианты</button><a class="quiet-link" href="#programs">Вернуться в меню программ</a></div>
 <div class="comparison" id="comparison" hidden><p class="comparison-help">Сравни результат и требования. На небольшом экране таблицу можно сдвигать в сторону.</p><div class="comparison-scroll" tabindex="0" role="region" aria-label="Таблица сравнения программ"><table id="comparisonTable"></table></div></div>
 </div>
 </section>
@@ -297,7 +297,7 @@
 <section class="section" id="examples">
 <div class="wrap">
 <div class="section-top">
-<div><span class="tag">05 / Основа практики</span><h2>Не теория в вакууме.<br/>Реальные примеры.</h2></div>
+<div><span class="tag">Основа практики</span><h2>Не теория в вакууме.<br/>Реальные примеры.</h2></div>
 <p>Открытые проекты Алексея Сафонова и адаптации с указанием авторства. Нажми на изображение, чтобы рассмотреть его. Экспериментальные и учебные работы не выдаются за коммерческие заказы.</p>
 </div>
 <div class="projects">
@@ -413,7 +413,7 @@
 </details>
 <section class="section how" id="process">
 <div class="wrap">
-<span class="tag">03 / Формат</span><h2>Учимся через действие</h2>
+<span class="tag">04 / Формат</span><h2>Учимся через действие</h2>
 <div class="howgrid">
 <div class="howbox"><b>ШАГ 01</b><h3>Знакомство и диагностика</h3><p>Обсудим интересы, уровень, цели и устройство компьютера. Выберем посильную первую задачу.</p></div>
 <div class="howbox"><b>ШАГ 02</b><h3>Встреча + практика</h3><p>Разбираем инструменты, делаем небольшой шаг в проекте, ищем ошибки и учимся объяснять решения своими словами.</p></div>
@@ -422,7 +422,7 @@
 </div>
 </section>
 <section class="mentor-section" id="mentor" aria-labelledby="mentorTitle"><div class="wrap">
-<div class="mentor-card"><div class="mentor-intro"><div class="mentor-avatar" aria-hidden="true">АС</div><span class="tag">Твой наставник</span><h2 id="mentorTitle">Алексей Сафонов</h2><p>QA-инженер и ментор по применению ИИ. Создаю приложения, цифровые проекты и инструменты для проверки результатов.</p><a class="quiet-link" href="https://github.com/safal207" target="_blank" rel="noopener noreferrer">Проекты и опыт на GitHub ↗</a></div><div><h2>Начнём с твоей идеи</h2><p>Разберём, что тебе интересно, выберем посильную задачу и определим, как проверить результат. Можно задавать базовые вопросы и разбираться в своём темпе.</p><div class="mentor-proof"><a href="#furniture">Мебель: LUMA 01 ↗</a><a href="#awakening">3D-игра: Пробуждение ↗</a><a href="https://safal207.github.io/test-it-python/">Тренажёр Python ↗</a></div><a class="btn primary" href="https://solvery.io/ru/mentor/5295" target="_blank" rel="noopener noreferrer">Познакомиться на Solvery ↗</a><p class="intro-offer">В профиле — отзывы и заявка на бесплатное 15-минутное знакомство. Полную программу обсудим отдельно.</p></div></div>
+<div class="mentor-card"><div class="mentor-intro"><div class="mentor-portrait"><img id="mentorPhoto" src="assets/mentor/alexey-safonov-solvery.webp" alt="Алексей Сафонов — автор AI PATH и наставник" width="425" height="531" loading="lazy" decoding="async"/></div><span class="tag">Автор школы</span><h2 id="mentorTitle">Алексей Сафонов</h2><p>Автор AI PATH, QA-инженер и ментор по применению ИИ. Помогаю создавать сайты, приложения и учебные проекты — от первой идеи до работающего результата, который можно проверить и показать.</p><a class="quiet-link" href="https://github.com/safal207" target="_blank" rel="noopener noreferrer">Проекты и опыт на GitHub ↗</a></div><div><h2>Начнём с твоей идеи</h2><p>Разберём, что тебе интересно, выберем посильную задачу и определим, как проверить результат. Можно задавать базовые вопросы и разбираться в своём темпе.</p><div class="mentor-proof"><a href="#furniture">Мебель: LUMA 01 ↗</a><a href="#awakening">3D-игра: Пробуждение ↗</a><a href="https://safal207.github.io/test-it-python/">Тренажёр Python ↗</a></div><a class="btn primary" href="https://solvery.io/ru/mentor/5295" target="_blank" rel="noopener noreferrer">Познакомиться на Solvery ↗</a><p class="intro-offer">В профиле — отзывы и заявка на бесплатное 15-минутное знакомство. Полную программу обсудим отдельно.</p></div></div>
 <details class="mentor-demo" id="mentorExample">
   <summary>Попробуй: найти ошибку и проверить исправление</summary>
   <div class="mentor-demo-body">
@@ -525,7 +525,7 @@
 <section class="section extra-research" id="research">
   <div class="wrap">
     <div class="section-top">
-      <div><span class="tag">06 / Научная и ML-практика</span><h2>24 работы по <span class="accent">нейросетям</span></h2></div>
+      <div><span class="tag">Научная и ML-практика</span><h2>24 работы по <span class="accent">нейросетям</span></h2></div>
       <p>В учебном архиве — <strong>66 ноутбуков Jupyter</strong>. Из него отобраны 24 работы по пяти темам — это настоящие файлы, которые можно открыть на GitHub.</p>
     </div>
     <div class="nn-research-entry" aria-labelledby="neuralChooserTitle"><div><h3 id="neuralChooserTitle">Фото, тексты или звук — с чего начнём?</h3><p>Сравни шесть учебных задач: наглядная схема покажет, как устроена модель, какие данные ей нужны и что получится в конце.</p></div><a href="neural-networks.html" data-neural-entry>Выбрать задачу и разобрать схему →</a></div>
@@ -558,7 +558,7 @@
 <section class="section extra-labs" id="labs">
   <div class="wrap">
     <div class="section-top">
-      <div><span class="tag">07 / Новые возможности</span><h2>Хакатоны <span class="purple">и гранты</span></h2></div>
+      <div><span class="tag">Новые возможности</span><h2>Хакатоны <span class="purple">и гранты</span></h2></div>
       <p>Два дополнительных направления для тех, кто хочет не только учиться, но и представлять собственные проекты экспертам.</p>
     </div>
     <div class="lab-grid">
@@ -593,7 +593,7 @@
 <section class="section frontier-section" id="frontier">
 <div class="wrap">
 <div class="section-top">
-  <div><span class="tag">08 / Научное портфолио и внешняя экспертиза</span><h2>Проект для <span class="accent">OpenAI, Anthropic</span><br/>и исследовательского сообщества</h2></div>
+  <div><span class="tag">Научное портфолио и внешняя экспертиза</span><h2>Проект для <span class="accent">OpenAI, Anthropic</span><br/>и исследовательского сообщества</h2></div>
   <p>Путь начинается не с массовой рассылки, а с результатов: воспроизводимый эксперимент, тесты, baseline, честные ограничения, короткий memo на английском и релевантный канал.</p>
 </div>
 <div class="frontier-summary">
@@ -637,7 +637,8 @@
 <script src="plan-pdf.js?v=choice-2"></script>
 <script src="program-3d.js?v=2"></script>
 <script src="content-sections.js?v=1"></script>
-<script src="app.js?v=menu-1"></script>
+<script src="course-navigation.js?v=1"></script>
+<script src="app.js?v=20261019-navigation"></script>
 <script src="mentor-demo.js?v=1"></script>
 <script src="design-lab.js?v=1"></script>
 <dialog aria-labelledby="galleryTitle" id="projectLightbox">
