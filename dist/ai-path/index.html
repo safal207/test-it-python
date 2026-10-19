@@ -128,7 +128,7 @@
 <link rel="stylesheet" href="design-lab.css?v=1"/>
 <style id="ai-path-vibe-feature">.vibe-highlight{display:grid;grid-template-columns:1.18fr .82fr;gap:22px;padding:clamp(25px,4vw,48px);border-radius:25px;border:1px solid rgba(213,250,136,.24);background:radial-gradient(ellipse at 100% 0%,rgba(178,172,240,.14),transparent 62%),linear-gradient(135deg,#212c33,#111825);box-shadow:0 15px 65px rgba(0,0,0,.22)}.vibe-highlight>*{min-width:0}.vibe-highlight h2{font-size:clamp(32px,4vw,52px);letter-spacing:-.06em;margin:14px 0}.vibe-highlight p{max-width:660px;color:#b3c3d2;font-size:15px;line-height:1.7;margin:0 0 20px}.vibe-highlight .vibe-note{font-size:12px;color:#a6b4c7;margin-top:21px;margin-bottom:0}.vibe-tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:24px}.vibe-tags span{padding:7px 10px;font-size:12px;border-radius:999px;border:1px solid rgba(213,250,136,.21);background:rgba(213,250,136,.05);color:#d7e7c2}.vibe-flow{display:flex;flex-direction:column;gap:11px;justify-content:center}.vibe-flow span{border:1px solid rgba(220,230,230,.16);background:#131d2a;border-radius:14px;padding:17px 18px;color:var(--accent);font-size:12px;display:flex;align-items:center;gap:13px;letter-spacing:.08em}.vibe-flow strong{font-size:16px;color:#eaf0f5;letter-spacing:-.02em}@media(max-width:760px){.vibe-highlight{grid-template-columns:1fr}.vibe-flow{display:grid;grid-template-columns:1fr 1fr;gap:7px}.vibe-flow span{padding:11px;font-size:10px;flex-direction:column;align-items:flex-start;gap:4px}.vibe-flow strong{font-size:12px}}</style>
 <link rel="stylesheet" href="neural-entry.css">
-<link rel="stylesheet" href="content-sections.css?v=choice-2">
+<link rel="stylesheet" href="content-sections.css?v=home-projects-1">
 </head>
 <body>
 <header class="header">
@@ -145,7 +145,7 @@
 <div>
 <span class="eyebrow"><span class="dot"></span> Онлайн-школа ИИ · личный наставник</span>
 <h1>Твоя идея.<br/>Твой первый<br/><em>проект с ИИ.</em></h1>
-<p class="lead">Создай проект с ИИ, который ты понимаешь и можешь показать. На личных встречах выберем посильную задачу, разберём ответы нейросети, найдём ошибки и подготовим работу к демонстрации.</p>
+<p class="lead">На личных встречах сделаем сайт, игру или творческую работу с ИИ. Разберём инструменты, проверим результат и соберём проект для портфолио.</p>
 <div class="buttons">
 <a class="btn primary" id="hero-programs" href="#programs">Открыть меню программ <span aria-hidden="true">↓</span></a>
 <a class="btn ghost" href="#selector">Помочь с выбором <span aria-hidden="true">↗</span></a>
@@ -155,10 +155,16 @@
 <div class="hero-mentor"><span class="mentor-mini" aria-hidden="true"><img src="assets/mentor/alexey-safonov-solvery.webp" alt="" width="39" height="39" decoding="async"/></span><span><strong>Алексей Сафонов</strong><span>QA-инженер и AI-наставник · <a href="#mentor">Об авторе школы ↗</a></span></span></div>
 </div>
 <div>
-<figure class="hero-project">
-<img src="assets/furniture/luma01-hero.webp" alt="LUMA 01: цифровой концепт кресла Алексея Сафонова" width="1200" height="1500" fetchpriority="high"/>
-<figcaption><span>Проект наставника · LUMA 01</span><strong>От идеи — к своей работе.</strong><a href="#furniture">Посмотреть процесс и авторство ↗</a></figcaption>
-</figure>
+<section class="hero-visual" id="hero-projects" aria-labelledby="heroProjectsTitle">
+<span class="hero-projects-tag">Примеры проектов</span>
+<h2 id="heroProjectsTitle">Сайт, игра или свой 3D-мир</h2>
+<div class="hero-projects-grid">
+<button class="hero-project-tile" data-hero-project="python" type="button" aria-label="Увеличить: Test it — тренажёр Python" data-shot="assets/testit.webp" data-shot-title="Test it — тренажёр Python" data-shot-caption="Скриншот работающего учебного интерфейса." data-shot-source="https://safal207.github.io/test-it-python/"><img src="assets/hero/python.webp" alt="Test it — тренажёр Python" width="480" height="320" loading="eager" decoding="async"/><span>Веб-приложение</span></button>
+<button class="hero-project-tile" data-hero-project="game" type="button" aria-label="Увеличить: Пробуждение — игровой кадр" data-shot="assets/awakening.webp" data-shot-title="Пробуждение — игровой кадр" data-shot-caption="Реальный кадр запущенной десктопной игры. C# / OpenGL." data-shot-source="https://github.com/safal207/Awakening/tree/a92bd1560215833a232362ad78de88335e51ac81"><img src="assets/hero/game.webp" alt="Пробуждение — игровой кадр" width="480" height="270" loading="eager" decoding="async"/><span>3D-игра</span></button>
+<button class="hero-project-tile" data-hero-project="room" type="button" aria-label="Увеличить: Room Control — 3D-сцена" data-shot="assets/design-lab/room-3d-preview.png" data-shot-title="Room Control — 3D-сцена" data-shot-caption="На карточке — кадр работающей 3D-сцены. В демо есть 2D и 3D. Реальные устройства не подключены; мощность расчётная." data-shot-source="https://safal207.github.io/room-control-studio/"><img src="assets/hero/room.webp" alt="Room Control: кадр работающей 3D-сцены с диваном, столом и светильниками" width="480" height="320" loading="eager" decoding="async"/><span>3D-сцена</span></button>
+</div>
+<p class="hero-projects-note">Проекты наставника и учебные демо. Нажми, чтобы рассмотреть.</p>
+</section>
 </div>
 </div>
 </div>
