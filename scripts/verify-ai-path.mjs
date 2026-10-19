@@ -1024,12 +1024,59 @@ async function mentorExample(page, width) {
   await noOverflow(page, 'mentor certificates ' + width);
   await certificates.screenshot({ path: `${artifacts}/ai-path-${width}-mentor-certificates.png`, animations: 'disabled',
     style: '.header, .selection-dock, .toast { visibility: hidden !important; }' });
+  const documents = page.locator('#mentor-documents');
+  const documentSpecs = [
+    { id: 'appreciation', title: 'Благодарность Университета ИИ', extension: 'pdf', sourceLabel: 'Открыть PDF ↗', facts: ['Университет искусственного интеллекта', 'образовательных материалов'] },
+    { id: 'diploma', title: 'Диплом о высшем образовании', extension: 'jpg', sourceLabel: 'Открыть фото ↗', facts: ['Владимирский государственный университет', '2010', 'Информатик-экономист', 'Прикладная информатика в экономике'] }
+  ];
+  assert(await documents.locator('article.mentor-certificate').count() === 2, 'Author section includes the supplied appreciation document and diploma');
+  for (const { id, title, extension, sourceLabel, facts } of documentSpecs) {
+    const card = documents.locator(`[data-mentor-document="${id}"]`);
+    const trigger = card.locator('button.project-shot');
+    const thumbnail = trigger.locator('img');
+    const prefix = `assets/mentor/documents/${id}`;
+    const cardText = await card.innerText();
+    assert((await card.locator('h4').innerText()).trim() === title && facts.every(fact => cardText.includes(fact)), `Document card names its verified subject, issuer and relevant qualification: ${id}`);
+    assert(await thumbnail.getAttribute('src') === prefix + '.webp' && await thumbnail.getAttribute('loading') === 'lazy' && (await thumbnail.getAttribute('alt') || '').includes('Сафонов'), `Document has its own lazy preview with an accessible owner description: ${id}`);
+    await thumbnail.scrollIntoViewIfNeeded();
+    await thumbnail.evaluate(image => image.decode());
+    assert(await thumbnail.evaluate(image => image.naturalWidth > 0 && image.naturalHeight > 0), `Document thumbnail decodes successfully: ${id}`);
+    const original = card.locator('.mentor-certificate-copy a');
+    const sourcePath = prefix + '.' + extension;
+    assert(await original.getAttribute('href') === sourcePath && (await original.innerText()).trim() === sourceLabel, `Document exposes the original in its actual format: ${id}`);
+    const sourceURL = new URL(await original.getAttribute('href'), base);
+    assert(sourceURL.origin === new URL(base).origin, 'Original document verification stays on the local acceptance server');
+    const response = await fetch(sourceURL);
+    const bytes = Buffer.from(await response.arrayBuffer());
+    const validFormat = extension === 'pdf'
+      ? /application\/pdf/i.test(response.headers.get('content-type') || '') && bytes.subarray(0, 5).toString('ascii') === '%PDF-'
+      : /image\/jpeg/i.test(response.headers.get('content-type') || '') && bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff;
+    assert(response.status === 200 && validFormat && bytes.length > 1000, `Original document is available as actual ${extension.toUpperCase()} bytes: ${id}`);
+    await trigger.focus();
+    await page.keyboard.press('Enter');
+    assert(await page.locator('#projectLightbox').evaluate(dialog => dialog.open), `Keyboard opens the document viewer: ${id}`);
+    const fullImage = page.locator('#galleryImage');
+    assert(await fullImage.getAttribute('src') === prefix + '-full.webp' && (await page.locator('#galleryTitle').innerText()).trim() === title, `Viewer opens and names the matching complete document: ${id}`);
+    await fullImage.evaluate(image => image.decode());
+    const caption = await page.locator('#galleryCaption').innerText();
+    assert(caption.includes('Сафонов Алексей Андреевич') && facts.every(fact => caption.includes(fact)), `Document caption preserves the verified owner and document facts: ${id}`);
+    assert(await page.locator('#gallerySource').getAttribute('href') === sourcePath && (await page.locator('#gallerySource').innerText()).trim() === sourceLabel, `Viewer replaces the previous source and format label for ${id}`);
+    if (id === 'appreciation') assert(!/\b(?:19|20)\d{2}\b/.test(cardText + caption) && await card.locator('time').count() === 0, 'Appreciation document is not assigned an unverified issue date');
+    else assert(!/PDF/i.test(cardText + caption + sourceLabel), 'Diploma photograph is not mislabeled as a PDF');
+    await noOverflow(page, 'mentor document viewer ' + id + ' ' + width);
+    if (width === 390) await page.screenshot({ path: `${artifacts}/ai-path-${width}-document-${id}-lightbox.png`, animations: 'disabled' });
+    await page.keyboard.press('Escape');
+    assert(!(await page.locator('#projectLightbox').evaluate(dialog => dialog.open)) && await trigger.evaluate(button => document.activeElement === button), `Escape closes the document and restores its trigger focus: ${id}`);
+  }
+  await noOverflow(page, 'mentor documents ' + width);
+  await documents.screenshot({ path: `${artifacts}/ai-path-${width}-mentor-documents.png`, animations: 'disabled',
+    style: '.header, .selection-dock, .toast { visibility: hidden !important; }' });
   const projectShot = page.locator('#examples .project-shot').first();
   await revealTarget(page, projectShot);
   await projectShot.focus();
   await page.keyboard.press('Enter');
-  assert(await page.locator('#projectLightbox').evaluate(dialog => dialog.open), 'Ordinary project preview still opens after viewing certificates');
-  assert(await page.locator('#gallerySource').getAttribute('href') === await projectShot.getAttribute('data-shot-source') && (await page.locator('#gallerySource').innerText()).trim() === 'Исходный проект ↗', 'Project preview restores its own source and default label after a certificate');
+  assert(await page.locator('#projectLightbox').evaluate(dialog => dialog.open), 'Ordinary project preview still opens after viewing author documents');
+  assert(await page.locator('#gallerySource').getAttribute('href') === await projectShot.getAttribute('data-shot-source') && (await page.locator('#gallerySource').innerText()).trim() === 'Исходный проект ↗', 'Project preview restores its own source and default label after a document');
   await page.keyboard.press('Escape');
   assert(await projectShot.evaluate(button => document.activeElement === button), 'Shared viewer still restores focus to an ordinary project');
   const demo = page.locator('#mentorExample');
