@@ -14,13 +14,13 @@
     },
     {
       "id": "game",
-      "source": "assets/awakening.webp",
-      "preview": "assets/hero/game.webp",
+      "source": "assets/awakening/city-day.webp",
+      "preview": "assets/hero/game-20261019.webp",
       "width": 480,
       "height": 270,
-      "bytes": 18348,
-      "source_sha256": "1fd2d9f167ad6be6468cdca22ebc56d94dfa6d59b87c7099f3d21eddc284ae17",
-      "preview_sha256": "4d87ef3e2f9d85b9336a9c8c0668672e637d451015e60ebe890480fda6d355ac"
+      "bytes": 21928,
+      "source_sha256": "cc784e5242f9bc45bacbbbcef81078cfae829971e21c79f969491ece8ee73389",
+      "preview_sha256": "dc664e5558e7ef140949408132357c7d9ab9d438596a286e69cc548c3a8c5a9b"
     },
     {
       "id": "room",
