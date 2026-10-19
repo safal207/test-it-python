@@ -5,7 +5,7 @@ This repo powers public AI PATH (Russian-language educational program chooser) a
 ## Before coding or reviewing
 
 1. Read the PR's stated objective and inspect the **current diff and head SHA**. Do not infer approval from old bot responses.
-2. **Do not silently remove or rename existing programs** or rewrite learning outcomes into guaranteed income/offers/funding. Verify 15 programs and questionnaire/URL selection remain usable.
+2. **Do not silently remove or rename existing programs** or rewrite learning outcomes into guaranteed income/offers/funding. Verify 22 programs (including the eight neural/data courses) and questionnaire/URL selection remain usable.
 3. Edit the smallest relevant file. Avoid mass reformatting `dist/ai-path/index.html`, which is large and contains source provenance and accessible gallery markup.
 4. Never commit private CRM/mentor student data, customer contacts, API keys, tokens, signed-in session material, or unapproved images. `vibe-coding/crm-demo.html` must use **fictional data only** with no external requests.
 5. Keep `<button>` for actions, `<a>` for navigation; keyboard, labels, Escape/focus behavior and reduced motion must remain accessible.

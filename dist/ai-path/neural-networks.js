@@ -134,8 +134,16 @@
       byId('nn-source-link').href='https://github.com/safal207/students/blob/'+ref+'/'+p.path.split('/').map(encodeURIComponent).join('/');
       byId('nn-selection-status').textContent='Выбран проект: '+p.title+'. '+p.model+'.';
       byId('nn-selected-project').dataset.selectedProject=id;
+      const course={start:'ml',photo:'ml-vision',objects:'ml-vision',text:'ml-text',audio:'ml-audio',tuning:'ml-tuning'}[id];
+      const query=new URLSearchParams(location.search),startURL=new URL('./',location.href);
+      startURL.searchParams.set('program',course);
+      startURL.searchParams.set('level',['zero','basic','project'].includes(query.get('level'))?query.get('level'):'zero');
+      startURL.searchParams.set('pace',['light','balanced','deep'].includes(query.get('pace'))?query.get('pace'):'balanced');
+      startURL.hash='selected';
+      document.querySelector('[data-nn-start]').href=startURL.href;
       setArchitecture(id);
     }
     grid.addEventListener('click',event=>{const button=event.target.closest('[data-nn-project]');if(!button||!grid.contains(button))return;selectProject(button.dataset.nnProject);byId('nn-selected-project').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'nearest'});});
-    selectProject('start');
+    const requestedTask=new URLSearchParams(location.search).get('task');
+    selectProject(projects.some(p=>p.id===requestedTask)?requestedTask:'start');
   })();

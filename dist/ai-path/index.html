@@ -134,7 +134,7 @@
 <header class="header">
 <div class="wrap nav">
 <a aria-label="AI PATH, на главную" class="logo" href="#top"><span class="mark">↗</span><span>AI<b>PATH</b></span></a>
-<nav aria-label="Основное меню" class="navlinks"><a href="#selector">Подобрать программу</a><a href="#programs">Меню программ</a><a href="studio.html">Портфолио школы</a><a href="studio.html#services">Разработка сайтов</a><a href="#mentor">Наставник</a></nav>
+<nav aria-label="Основное меню" class="navlinks"><a href="#selector">Подобрать программу</a><a href="#programs">Меню программ</a><a href="neural-courses.html" data-neural-courses>Нейросети</a><a href="studio.html">Портфолио школы</a><a href="studio.html#services">Разработка сайтов</a><a href="#mentor">Наставник</a></nav>
 <a class="navcta" id="headerAction" href="#selector">Подобрать маршрут ↗</a>
 </div>
 </header>
@@ -145,11 +145,12 @@
 <div>
 <span class="eyebrow"><span class="dot"></span> Онлайн-школа ИИ · личный наставник</span>
 <h1>Твоя идея.<br/>Твой первый<br/><em>проект с ИИ.</em></h1>
-<p class="lead">На личных встречах сделаем сайт, игру или творческую работу с ИИ. Разберём инструменты, проверим результат и соберём проект для портфолио.</p>
+<p class="lead">На личных встречах сделаем сайт, игру, творческую работу с ИИ или первую нейросеть. Разберём инструменты, проверим результат и соберём проект для портфолио.</p>
 <div class="buttons">
 <a class="btn primary" id="hero-programs" href="#programs">Открыть меню программ <span aria-hidden="true">↓</span></a>
 <a class="btn ghost" href="#selector">Помочь с выбором <span aria-hidden="true">↗</span></a>
 </div>
+<p class="hero-choice-note neural-course-entrance"><a href="neural-courses.html" data-neural-courses>Нейросети — 8 отдельных курсов ↗</a><span>От Python и первой модели до изображений, текстов и звука.</span></p>
 <p class="hero-choice-note">Нужен готовый сайт для бизнеса? <a href="studio.html#services">Обсудить разработку ↗</a>.</p>
 <div class="hero-foot"><span><strong>1:1</strong> с наставником</span><span><strong>4–16 недель</strong> базовый план</span><span><strong>Свой проект</strong> в портфолио</span></div>
 <div class="hero-mentor"><span class="mentor-mini" aria-hidden="true"><img src="assets/mentor/alexey-safonov-solvery.webp" alt="" width="39" height="39" decoding="async"/></span><span><strong>Алексей Сафонов</strong><span>QA-инженер и AI-наставник · <a href="#mentor">Об авторе школы ↗</a></span></span></div>
@@ -169,16 +170,16 @@
 </div>
 </div>
 <section class="catalog-section wrap program-menu" id="programs" aria-labelledby="programMenuTitle">
-<div class="menu-heading"><div><span class="tag">01 / Меню программ</span><h2 id="programMenuTitle">Что создадим вместе?</h2></div><p>Сайт, игра, книга или свой 3D-мир? Выбери проект, который хочется сделать, и попробуй задачи новой для себя роли.</p></div>
+<div class="menu-heading"><div><span class="tag">01 / Меню программ</span><h2 id="programMenuTitle">Что создадим вместе?</h2></div><p>Сайт, игра, книга, нейросеть или свой 3D-мир? Выбери проект, который хочется сделать, и попробуй задачи новой для себя роли.</p></div>
 <div class="catalog-toolbar">
-<div class="catalog-search"><label for="programSearch">Найти программу</label><div><input type="search" id="programSearch" placeholder="Например, сайт, видео или Python" autocomplete="off" aria-controls="programList"/><button type="button" id="clearProgramSearch" aria-label="Очистить поиск программ" hidden>Очистить</button></div></div>
-<div class="choices" id="catalogFilters" role="group" aria-label="Фильтр программ"><button type="button" class="chip" data-filter="all" aria-pressed="true">Все 15</button><button type="button" class="chip" data-filter="explore" aria-pressed="false">Пробую и выбираю</button><button type="button" class="chip" data-filter="visual" aria-pressed="false">Дизайн и истории</button><button type="button" class="chip" data-filter="build" aria-pressed="false">Сайты, программы и игры</button><button type="button" class="chip" data-filter="research" aria-pressed="false">Развитие проекта</button></div>
-<p class="catalog-count" id="catalogCount" role="status" aria-live="polite">15 программ</p>
+<div class="catalog-search"><label for="programSearch">Найти программу</label><div><input type="search" id="programSearch" placeholder="Например, нейросети, сайт или Python" autocomplete="off" aria-controls="programList"/><button type="button" id="clearProgramSearch" aria-label="Очистить поиск программ" hidden>Очистить</button></div></div>
+<div class="choices" id="catalogFilters" role="group" aria-label="Фильтр программ"><button type="button" class="chip" data-filter="all" aria-pressed="true">Все 22</button><button type="button" class="chip" data-filter="neural" aria-pressed="false">Нейросети · 8 курсов</button><button type="button" class="chip" data-filter="explore" aria-pressed="false">Пробую и выбираю</button><button type="button" class="chip" data-filter="visual" aria-pressed="false">Дизайн и истории</button><button type="button" class="chip" data-filter="build" aria-pressed="false">Сайты, программы и игры</button><button type="button" class="chip" data-filter="research" aria-pressed="false">Развитие проекта</button></div>
+<p class="catalog-count" id="catalogCount" role="status" aria-live="polite">22 программы</p>
 </div>
 <div class="programs" id="programList" role="group" aria-label="Выбор программы обучения"></div>
 <div id="catalogEmpty" class="catalog-empty" hidden><p>По этому запросу в категории ничего не нашлось.</p><button type="button" class="btn ghost" id="resetProgramSearch">Сбросить поиск и показать все программы</button></div>
-<div class="catalog-more"><button type="button" class="btn ghost" id="showAllPrograms" aria-controls="programList" aria-expanded="false">Показать ещё 9 программ</button><a href="#selector">Помочь с выбором: 3 вопроса ↗</a></div>
-<p class="menu-note">На обложках — AI-иллюстрации направлений. Роль — возможность попробовать задачи профессии; реальные проекты и авторство смотри в портфолио. Сроки — базовый ориентир, стоимость обсудим до старта.</p>
+<div class="catalog-more"><button type="button" class="btn ghost" id="showAllPrograms" aria-controls="programList" aria-expanded="false">Показать ещё 16 программ</button><a href="#selector">Помочь с выбором: 3 вопроса ↗</a></div>
+<p class="menu-note">На обложках — AI-иллюстрации направлений и учебные схемы. Роль — возможность попробовать задачи профессии; реальные проекты и авторство смотри в портфолио. Сроки — базовый ориентир, стоимость обсудим до старта.</p>
 <details class="menu-compare"><summary>Хочу сделать сайт — чем отличаются три программы?</summary>
 <div class="website-programs" id="website-programs"><h3>Какая программа подойдёт для сайта?</h3><div>
 <p><a href="?program=build#selected">AI Разработчик</a><strong>8 недель · 8 встреч</strong>Первый лендинг, небольшой сайт или приложение: структура, код, работающие кнопки, проверка и публикация.</p>
@@ -200,7 +201,8 @@
 <button class="chip goal-option" type="button" data-goal="explore" aria-pressed="true"><span class="goal-glyph" aria-hidden="true">✦</span><b>Хочу попробовать</b><small>Пока ищу своё направление</small></button>
 <button class="chip goal-option" type="button" data-goal="visual" aria-pressed="false"><span class="goal-glyph" aria-hidden="true">◈</span><b>Творческий проект</b><small>Книги, комиксы, видео, 3D и мебель</small></button>
 <button class="chip goal-option" type="button" data-goal="build" aria-pressed="false"><span class="goal-glyph" aria-hidden="true">⌘</span><b>Сайт, программу или игру</b><small>Лендинги, Python и GameDev</small></button>
-<button class="chip goal-option" type="button" data-goal="research" aria-pressed="false"><span class="goal-glyph" aria-hidden="true">↗</span><b>Развивать проект</b><small>Нейросети, хакатоны и исследования</small></button>
+<button class="chip goal-option" type="button" data-goal="neural" aria-pressed="false"><span class="goal-glyph" aria-hidden="true">◈</span><b>Изучать нейросети</b><small>Python, данные, изображения, тексты и звук</small></button>
+<button class="chip goal-option" type="button" data-goal="research" aria-pressed="false"><span class="goal-glyph" aria-hidden="true">↗</span><b>Развивать проект</b><small>Хакатоны, заявки и исследования</small></button>
 </div>
 <div class="topic-picker" id="topicPicker" hidden><p>Какой результат тебе интереснее?</p><div class="choices" id="interests" role="group" aria-label="Интересующее направление"></div></div>
 <div class="quiz-secondary">
@@ -562,6 +564,7 @@
       <div><span class="tag">Научная и ML-практика</span><h2>24 работы по <span class="accent">нейросетям</span></h2></div>
       <p>В учебном архиве — <strong>66 ноутбуков Jupyter</strong>. Из него отобраны 24 работы по пяти темам — это настоящие файлы, которые можно открыть на GitHub.</p>
     </div>
+    <p><a href="neural-courses.html" data-neural-courses>Все 8 курсов по нейросетям и каталог 66 ноутбуков →</a></p>
     <div class="nn-research-entry" aria-labelledby="neuralChooserTitle"><div><h3 id="neuralChooserTitle">Фото, тексты или звук — с чего начнём?</h3><p>Сравни шесть учебных задач: наглядная схема покажет, как устроена модель, какие данные ей нужны и что получится в конце.</p></div><a href="neural-networks.html" data-neural-entry>Выбрать задачу и разобрать схему →</a></div>
     <div class="ml-summary">
       <div><strong>24</strong><span>работы в подборке</span></div>
@@ -672,7 +675,8 @@
 <script src="program-3d.js?v=2"></script>
 <script src="content-sections.js?v=1"></script>
 <script src="course-navigation.js?v=1"></script>
-<script src="app.js?v=20261019-navigation"></script>
+<script src="neural-courses-data.js?v=1"></script>
+<script src="app.js?v=20261019-courses"></script>
 <script src="mentor-demo.js?v=1"></script>
 <script src="design-lab.js?v=1"></script>
 <dialog aria-labelledby="galleryTitle" id="projectLightbox">

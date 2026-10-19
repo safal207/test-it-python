@@ -6,6 +6,8 @@ on:
     paths:
       - "dist/ai-path/**"
       - "scripts/verify-ai-path.mjs"
+      - "scripts/build-neural-courses.mjs"
+      - "package.json"
       - "lighthouserc.cjs"
       - ".github/workflows/ai-path-lighthouse.yml"
   workflow_dispatch:
