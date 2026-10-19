@@ -42,6 +42,19 @@ async function ids(locator) {
 function sameMembers(actual, expected) {
   return actual.length === expected.length && [...actual].sort().join('|') === [...expected].sort().join('|');
 }
+function committedContext(url) {
+  const params = new URL(url).searchParams;
+  return Object.fromEntries(['program', 'level', 'pace'].map(key => [key, params.get(key)]));
+}
+async function schoolLink(page, locator, path, context, label) {
+  const target = new URL(await locator.getAttribute('href'), page.url());
+  const expected = new URL(path, base);
+  assert(target.origin === expected.origin && target.pathname === expected.pathname && target.hash === expected.hash, `${label} opens its intended school destination`);
+  if (context?.program) {
+    for (const key of ['program', 'level', 'pace']) assert(target.searchParams.get(key) === context[key], `${label} keeps the committed ${key}`);
+  }
+  return target.href;
+}
 async function noOverflow(page, stage) {
   const report = await page.evaluate(() => ({
     viewport: innerWidth, document: document.documentElement.scrollWidth,
@@ -229,7 +242,8 @@ async function catalogPresentation(page, width) {
     assert(card.covers === 1 && card.alt, `Program has one cover with an explicit alternative-text decision: ${card.id}`);
     assert(card.source === `assets/program-menu-v1/${card.id}.webp` && card.decoded, `Program illustration loads from its own local WebP: ${card.id}`);
     assert(card.provenance === 'AI-иллюстрация' && card.category?.length > 3, `Illustration names its category and is not presented as a project screenshot: ${card.id}`);
-    assert(card.indexedCover && card.role?.includes('Попробуешь роль') && card.role.length > 20, `Program has a numbered cover and an exploratory role at ${width}px: ${card.id}`);
+    assert(card.indexedCover && /^Попробуешь роль\s+\S/.test(card.role || '') && card.role.length > 20, `Program has a numbered cover and a readable exploratory role at ${width}px: ${card.id}`);
+    assert(/^Практика\s+\S/.test(card.skill || ''), `Skill label is separated from its content for accessible reading: ${card.id}`);
     assert(card.resultLabel === 'Создашь' && card.result?.length > 12 && card.skill?.length > 12 && card.result !== card.skill, `Program separately explains what the visitor will make and practise: ${card.id}`);
     assert(card.body && card.clipped.length === 0, `Program text fits its card at ${width}px: ${card.id} ${JSON.stringify(card.clipped)}`);
     assert(card.nestedActions === 0, `Program remains one keyboard action without nested controls: ${card.id}`);
@@ -774,7 +788,10 @@ async function vibeRoute(page, width) {
   assert(await page.locator('#selSteps li').count() === 16, 'Vibe Coding has sixteen steps');
   await curriculumPresentation(page, width, 'vibe');
   if (width === 1440) await downloadPlan(page, width, 'sixteen-modules', { minPages: 2 });
-  assert(await page.locator('#vibe a[href="vibe-coding/"]').count() === 1, 'Course linked from home');
+  await revealTarget(page, '#vibe');
+  const courseLink = page.locator('#vibe').getByRole('link', { name: 'Изучить 16 модулей ↗', exact: true });
+  assert(await courseLink.count() === 1, 'Course linked from home');
+  await schoolLink(page, courseLink, 'vibe-coding/', committedContext(page.url()), 'Detailed Vibe curriculum link');
   await noOverflow(page, 'vibe-deep-link-' + width);
 
   const course = await page.goto(base + 'vibe-coding/', { waitUntil: 'domcontentloaded' });
@@ -956,6 +973,14 @@ async function navigatorRoute(page, width) {
   if (width === 1440) await downloadPlan(page, width, 'navigator');
 }
 async function mentorExample(page, width) {
+  const photo = page.locator('img#mentorPhoto');
+  assert(await photo.count() === 1 && await photo.getAttribute('src') === 'assets/mentor/alexey-safonov-solvery.webp', 'Author profile uses the supplied Solvery photograph');
+  assert((await photo.getAttribute('alt') || '').includes('Алексей Сафонов'), 'Author photograph has a meaningful name');
+  await photo.evaluate(async image => { image.loading = 'eager'; await image.decode(); });
+  assert(await photo.evaluate(image => image.naturalWidth === 425 && image.naturalHeight === 531), 'Author photograph decodes at its original portrait dimensions');
+  assert(await page.locator('#mentor a[href="https://solvery.io/ru/mentor/5295"]').count() >= 1, 'Author card retains its verified Solvery profile link');
+  await page.locator('#mentor .mentor-card').screenshot({ path: `${artifacts}/ai-path-${width}-mentor-profile.png`, animations: 'disabled',
+    style: '.header, .selection-dock, .toast { visibility: hidden !important; }' });
   const demo = page.locator('#mentorExample');
   // Keep sticky page chrome out of tall component captures; viewport captures retain it.
   const componentStyle = '.header, .selection-dock, .toast { visibility: hidden !important; }';
@@ -1022,7 +1047,8 @@ async function parentResultGallery(page, width) {
     assert(await cover.evaluate(img => img.naturalWidth > 0 && img.naturalHeight > 0), `Parent result cover actually decodes: ${id}`);
     const badge = card.locator('.parent-concept-badge');
     assert(await badge.isVisible() && /AI-концепц/i.test(await badge.innerText()) && /AI-концепц/i.test(await cover.getAttribute('alt')), `Illustrative cover carries visible and accessible provenance: ${id}`);
-    assert(await card.locator('a.parent-example').getAttribute('href') === href, `Parent result links to its real example: ${id}`);
+    if (id === 'build') await schoolLink(page, card.locator('a.parent-example'), href, committedContext(page.url()), 'Parent website example');
+    else assert(await card.locator('a.parent-example').getAttribute('href') === href, `Parent result links to its real example: ${id}`);
     const process = card.locator('details.parent-process');
     const summary = process.locator('summary');
     assert(await process.locator('ol > li').count() === 3, `Parent result explains three planned project steps: ${id}`);
@@ -1220,10 +1246,12 @@ async function moriInteraction(page, width) {
 
 async function studioPortfolio(page, width) {
   const previous = page.url();
+  const context = committedContext(previous);
   const teaser = page.locator('#web-studio');
   assert(await teaser.count() === 1, 'Design Lab has one web-studio portfolio entrance');
-  const portfolioLink = teaser.locator('a[href="studio.html"]');
+  const portfolioLink = teaser.getByRole('link', { name: 'Открыть портфолио ↗', exact: true });
   assert(await portfolioLink.count() === 1, 'School teaser links directly to the portfolio');
+  const portfolioURL = await schoolLink(page, portfolioLink, 'studio.html', context, 'School portfolio entrance');
   const projects = ['flora', 'mori', 'dal'];
   assert(await teaser.locator('img, a[href^="examples/"]').count() === 0, 'School portfolio entrance does not duplicate case previews');
   assert(await teaser.evaluate(el => el.closest('#portfolio') !== null), 'Portfolio entrance stays in the visible overview');
@@ -1232,21 +1260,21 @@ async function studioPortfolio(page, width) {
     style: '.header, .selection-dock, .toast { visibility: hidden !important; }' });
   await portfolioLink.focus();
   await page.keyboard.press('Enter');
-  await page.waitForURL(new URL('studio.html', base).href);
+  await page.waitForURL(portfolioURL);
   const provenance = page.locator('#studio-provenance');
   assert(await provenance.isVisible() && /учебн/i.test(await provenance.innerText()) && /ИИ|AI[- ](?:концепц|иллюстрац|натюрморт|визуал|generated)/i.test(await provenance.innerText()), 'Portfolio visibly identifies teaching examples and AI imagery');
   assert(await page.locator('article[data-studio-project]').count() === projects.length, 'Portfolio contains three distinct worked examples');
   for (const id of projects) {
     const card = page.locator(`article[data-studio-project="${id}"]`);
     assert(await card.count() === 1, `Portfolio has one project card: ${id}`);
-    assert(await card.locator('a[data-studio-demo]').getAttribute('href') === `examples/${id}.html`, `Portfolio opens the corresponding actual demo: ${id}`);
-    assert(await card.locator('a[data-studio-program]').getAttribute('href') === './?program=designlab&level=zero&pace=balanced#selected', `Portfolio connects the project to its beginner learning program: ${id}`);
+    await schoolLink(page, card.locator('a[data-studio-demo]'), `examples/${id}.html`, context, `Portfolio ${id} demo`);
+    await schoolLink(page, card.locator('a[data-studio-program]'), '#selected', { ...context, program: 'designlab' }, `Portfolio ${id} program`);
   }
   await studioImages(page, 'portfolio ' + width);
   await noOverflow(page, 'studio portfolio ' + width);
   await page.screenshot({ path: `${artifacts}/ai-path-${width}-web-studio-portfolio.png`, fullPage: true, animations: 'disabled' });
-  assert(await page.locator('#studio-start').getAttribute('href') === './?program=designlab&level=zero&pace=balanced#selected', 'Portfolio closing Design Lab action names its matching school program');
-  assert(await page.locator('#studio-build').getAttribute('href') === './?program=build&level=zero&pace=balanced#selected', 'Portfolio closing website-development action preserves its separate school program');
+  await schoolLink(page, page.locator('#studio-start'), '#selected', { ...context, program: 'designlab' }, 'Portfolio closing Design Lab action');
+  await schoolLink(page, page.locator('#studio-build'), '#selected', { ...context, program: 'build' }, 'Portfolio closing website-development action');
   assert(/6 недел/.test(await page.locator('#studio-start').innerText()) && /8 недел/.test(await page.locator('#studio-build').innerText()), 'Closing learning choices explicitly distinguish their six- and eight-week schedules');
   if (width === 390) {
     for (const action of ['article[data-studio-project="flora"] a[data-studio-program]', '#studio-start', '#studio-build']) {
@@ -1473,6 +1501,115 @@ async function neuralNetworks(page, width) {
   if (program) await selected(page, program);
 }
 
+async function schoolNavigation(page) {
+  const build = { program: 'build', level: 'basic', pace: 'light' };
+  await page.goto(base + '?program=build&level=basic&pace=light#selected', { waitUntil: 'domcontentloaded' });
+  await selected(page, 'build');
+  await revealTarget(page, '#selRefs');
+  const previewLink = page.locator('#selRefs').getByRole('link', { name: 'Pocitel: учебный лендинг ↗', exact: true });
+  const previewURL = await schoolLink(page, previewLink, 'examples/pocitel.html', build, 'Selected plan café preview');
+  const popupEvent = page.waitForEvent('popup');
+  await previewLink.click();
+  const preview = await popupEvent;
+  const popupErrors = [];
+  preview.on('pageerror', error => popupErrors.push(error.message));
+  try {
+    await preview.waitForLoadState('domcontentloaded');
+    await preview.waitForURL(previewURL);
+    const portfolioURL = await schoolLink(preview, preview.locator('[data-demo-back]'), 'studio.html', build, 'Café preview return');
+    await preview.locator('[data-demo-back]').click();
+    await preview.waitForURL(portfolioURL);
+    const planURL = await schoolLink(preview, preview.locator('#studio-build'), '#selected', build, 'Portfolio return to development plan');
+    await preview.locator('#studio-build').click();
+    await preview.waitForURL(planURL);
+    await selected(preview, 'build');
+    const message = await preview.locator('#contactMessage').inputValue();
+    assert(message.includes(canonicalRoute(preview)) && message.includes('есть небольшая база') && message.includes('2–3 ч'), 'Plan→preview→portfolio→plan keeps preparation, pace and the matching contact draft');
+    assert(popupErrors.length === 0, 'Preview round trip has no unhandled browser errors');
+  } finally {
+    await preview.close();
+  }
+
+  const design = { program: 'designlab', level: 'project', pace: 'deep' };
+  await page.goto(base + '?program=designlab&level=project&pace=deep#selected', { waitUntil: 'domcontentloaded' });
+  await selected(page, 'designlab');
+  const portfolio = page.locator('#web-studio').getByRole('link', { name: 'Открыть портфолио ↗', exact: true });
+  const portfolioURL = await schoolLink(page, portfolio, 'studio.html', design, 'Design Lab portfolio');
+  await portfolio.click();
+  await page.waitForURL(portfolioURL);
+  const demo = page.locator('[data-studio-project="flora"] [data-studio-demo]');
+  const demoURL = await schoolLink(page, demo, 'examples/flora.html', design, 'Design Lab visual example');
+  await demo.click();
+  await page.waitForURL(demoURL);
+  const plan = page.locator('[data-demo-program]');
+  const planURL = await schoolLink(page, plan, '#selected', design, 'Visual example return to Design Lab');
+  await plan.click();
+  await page.waitForURL(planURL);
+  await selected(page, 'designlab');
+  assert(await page.locator('#levels [data-level="project"]').getAttribute('aria-pressed') === 'true' && await page.locator('#paces [data-pace="deep"]').getAttribute('aria-pressed') === 'true', 'Design Lab→portfolio→example→plan retains the existing project and chosen pace');
+  assert((await page.locator('#contactMessage').inputValue()).includes(canonicalRoute(page)), 'Returned Design Lab contact draft uses the restored route');
+  await revealTarget(page, '#website-programs');
+  const switchProgram = page.locator('#website-programs').getByRole('link', { name: 'AI Разработчик', exact: true });
+  const switchURL = await schoolLink(page, switchProgram, '#selected', { ...design, program: 'build' }, 'Website comparison alternative');
+  await switchProgram.click();
+  await page.waitForURL(switchURL);
+  await selected(page, 'build');
+  assert(await page.locator('#levels [data-level="project"]').getAttribute('aria-pressed') === 'true' && await page.locator('#paces [data-pace="deep"]').getAttribute('aria-pressed') === 'true', 'Static website comparison changes the program while preserving the chosen preparation and pace');
+}
+async function historySelection(page) {
+  const buildRoute = base + '?program=build&level=basic&pace=light#selected';
+  await page.goto(buildRoute, { waitUntil: 'domcontentloaded' });
+  await selected(page, 'build');
+  const buildTitle = (await page.locator('#selTitle').innerText()).trim();
+  await page.locator('#hero-programs').click();
+  await page.waitForURL(base + '?program=build&level=basic&pace=light#programs');
+  await page.locator('#showAllPrograms').click();
+  await page.locator('#programList [data-program="designlab"]').click();
+  await selected(page, 'designlab');
+  const designRoute = page.url();
+  const designTitle = (await page.locator('#selTitle').innerText()).trim();
+  const historyLength = await page.evaluate(() => history.length);
+
+  async function restored(id, title, route) {
+    await page.waitForURL(route);
+    await selected(page, id);
+    assert((await page.locator('#selTitle').innerText()).trim() === title, `Browser history restores the visible ${id} plan rather than only its URL`);
+    assert((await ids(page.locator('#programList .program[aria-pressed="true"]'))).join('|') === id, `Browser history restores the selected menu card: ${id}`);
+    const message = await page.locator('#contactMessage').inputValue();
+    const email = new URL(await page.locator('#contactMentor').getAttribute('href'));
+    assert(message.includes(title) && message.includes(canonicalRoute(page)) && email.searchParams.get('body') === message, `Restored ${id} plan and contact draft agree with the URL`);
+    assert(await page.locator('#levels [data-level="basic"]').getAttribute('aria-pressed') === 'true' && await page.locator('#paces [data-pace="light"]').getAttribute('aria-pressed') === 'true', `History restores the committed preparation and pace: ${id}`);
+    assert(await page.evaluate(() => history.length) === historyLength, 'Restoring a browser entry does not write another history entry');
+  }
+
+  await page.goBack({ waitUntil: 'domcontentloaded' });
+  await restored('build', buildTitle, buildRoute);
+  await page.goForward({ waitUntil: 'domcontentloaded' });
+  await restored('designlab', designTitle, designRoute);
+
+  // Changing only the fragment must leave unsubmitted answers separate from the plan.
+  await page.locator('#levels [data-level="project"]').click();
+  await page.locator('#paces [data-pace="deep"]').click();
+  const committedMessage = await page.locator('#contactMessage').inputValue();
+  await page.locator('#hero-programs').click();
+  const menuRoute = page.url();
+  await page.locator('.catalog-more a[href="#selector"]').click();
+  await page.goBack({ waitUntil: 'domcontentloaded' });
+  await page.waitForURL(menuRoute);
+  assert(await page.locator('#levels [data-level="project"]').getAttribute('aria-pressed') === 'true' && await page.locator('#paces [data-pace="deep"]').getAttribute('aria-pressed') === 'true', 'Fragment-only Back preserves unsubmitted quiz answers');
+  assert(await page.locator('#contactMessage').inputValue() === committedMessage && new URL(page.url()).searchParams.get('pace') === 'light', 'Fragment-only Back preserves the committed plan separately from draft answers');
+
+  await page.goto(base, { waitUntil: 'domcontentloaded' });
+  await page.locator('#hero-programs').click();
+  await page.locator('#programList [data-program="build"]').click();
+  await selected(page, 'build');
+  await page.goBack({ waitUntil: 'domcontentloaded' });
+  await page.waitForURL(base);
+  assert(await page.locator('#selected').isHidden() && await page.locator('#results').isHidden(), 'Back to a fresh entry clears the committed plan and stale recommendations');
+  assert(await page.locator('#programList .program[aria-pressed="true"]').count() === 0 && await page.locator('#selectionDock').isHidden(), 'Fresh history entry clears selected menu and dock state');
+  await page.goForward({ waitUntil: 'domcontentloaded' });
+  await selected(page, 'build');
+}
 async function desktopRegressions(page) {
   // Experience describes the current topic; unfinished changes must not rewrite a committed plan.
   await chooseQuiz(page, { goal: 'visual', interest: 'books', level: 'project', pace: 'balanced' });
@@ -1658,6 +1795,8 @@ try {
     await landingSites(page, width);
     await neuralNetworks(page, width);
     if (width === 1440) {
+      await schoolNavigation(page);
+      await historySelection(page);
       await desktopRegressions(page);
       await pdfLoadingAndRetry(context, width);
     }

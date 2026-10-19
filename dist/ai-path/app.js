@@ -325,12 +325,29 @@
   function weekLabel(n){return countLabel(n,'неделя','недели','недель')}
   function meetingLabel(n){return countLabel(n,'встреча','встречи','встреч')}
   function captureSelection(id){return {program:id,level:state.level,pace:state.pace}}
-  var params=new URLSearchParams(window.location.search);
-  if(own(levelLabels,params.get('level')))state.level=params.get('level');
-  if(own(paceLabels,params.get('pace')))state.pace=params.get('pace');
-  if(programById(params.get('program'))){
-    state.interest=params.get('program');state.goal=groupFor(state.interest);
+  function routeFromUrl(){
+    var params=new URLSearchParams(window.location.search);
+    return {program:programById(params.get('program'))?params.get('program'):null,
+      level:own(levelLabels,params.get('level'))?params.get('level'):'zero',
+      pace:own(paceLabels,params.get('pace'))?params.get('pace'):'balanced'};
+  }
+  var initialRoute=routeFromUrl();
+  state.level=initialRoute.level;state.pace=initialRoute.pace;
+  if(initialRoute.program){
+    state.interest=initialRoute.program;state.goal=groupFor(state.interest);
     state.selection=captureSelection(state.interest);
+  }
+  function restoreSelectionFromUrl(){
+    var route=routeFromUrl(),previous=state.selection;
+    // Fragment-only Back/Forward must not discard unfinished quiz answers.
+    if(!route.program&&!previous||previous&&route.program===previous.program&&route.level===previous.level&&route.pace===previous.pace)return;
+    state.level=route.level;state.pace=route.pace;
+    state.interest=route.program||'explore';state.goal=groupFor(state.interest);
+    state.selection=route.program?captureSelection(route.program):null;
+    closeResults();
+    syncButtons('goals','goal',state.goal);syncButtons('levels','level',state.level);syncButtons('paces','pace',state.pace);
+    renderInterests();quizSummary(false);renderSelection();syncCards();
+    // The browser already restored the URL. Never create or replace history here.
   }
   function urlForSelection(){
     if(!state.selection)return '';
@@ -472,12 +489,12 @@
       '<span class="program-category">'+esc(art.category)+'</span><span class="program-cover-index" aria-hidden="true">'+esc(p.num)+' <i>/</i> 15</span>'+
       '<span class="program-cover-note">AI-иллюстрация</span></span>';
     return '<button type="button" class="program'+(recommended?' recommended':'')+'" data-family="'+art.family+'" data-program="'+p.id+'" aria-pressed="'+sel+'">'+media+
-      '<span class="program-body"><span class="n">ТРЕК '+p.num+(recommended?' <span class="pill">Рекомендуем начать</span>':'')+'</span>'+
-      '<span class="program-name">'+esc(p.name)+'</span><span class="program-outcome-label">Создашь</span><span class="program-outcome program-result">'+esc(m.result)+'</span>'+
-      '<span class="program-role"><span>Попробуешь роль</span><strong>'+esc(m.role)+'</strong></span>'+
-      '<span class="program-skill"><span>Практика</span>'+esc(m.skills)+'</span>'+
-      '<span class="program-meta"><span>'+weekLabel(p.weeks)+'</span><span>'+meetingLabel(p.meetings)+'</span></span>'+
-      '<span class="program-level"><span>Для старта</span> '+esc(m.start)+'</span>'+
+      '<span class="program-body"><span class="n">ТРЕК '+p.num+(recommended?' <span class="pill">Рекомендуем начать</span>':'')+'</span> '+
+      '<span class="program-name">'+esc(p.name)+'</span> <span class="program-outcome-label">Создашь</span> <span class="program-outcome program-result">'+esc(m.result)+'</span> '+
+      '<span class="program-role"><span>Попробуешь роль</span> <strong>'+esc(m.role)+'</strong></span> '+
+      '<span class="program-skill"><span>Практика</span> '+esc(m.skills)+'</span> '+
+      '<span class="program-meta"><span>'+weekLabel(p.weeks)+'</span> <span>'+meetingLabel(p.meetings)+'</span></span> '+
+      '<span class="program-level"><span>Для старта</span> '+esc(m.start)+'</span> '+
       '<span class="program-footer"><span class="program-choice">'+(sel?'Выбрано ✓':p.id==='designlab'?'План и 3D-превью ↗':'Посмотреть план ↗')+'</span></span></span></button>';
   }
   function syncCards(){
@@ -549,7 +566,7 @@
   }
   function renderSelection(){
     $('selected').hidden=!state.selection;$('backToResults').hidden=!state.result;
-    renderSelectionNavigation();if(!state.selection){document.dispatchEvent(new CustomEvent('ai-path:program-selected',{detail:{program:null}}));return;}
+    renderSelectionNavigation();if(!state.selection){document.dispatchEvent(new CustomEvent('ai-path:program-selected',{detail:{program:null}}));if(window.AIPathNavigation)window.AIPathNavigation.refresh(null);return;}
     var selected=state.selection,p=programById(selected.program),m=presentation[p.id];
     $('selTitle').textContent=p.name;$('selText').textContent=p.short;
     $('selected').dataset.family=cardArt[p.id].family;
@@ -578,6 +595,7 @@
     else{$('selConceptImage').removeAttribute('src')}
     renderContact();syncCards();updateSelectionDock();
     document.dispatchEvent(new CustomEvent('ai-path:program-selected',{detail:{program:p.id}}));
+    if(window.AIPathNavigation)window.AIPathNavigation.refresh(state.selection);
   }
   function selectProgram(id){
     if(!programById(id))return;
@@ -723,6 +741,7 @@
   renderInterests();quizSummary(false);
   $('programList').innerHTML=programs.map(function(p){return cardMarkup(p,false)}).join('');
   filterCatalog();closeResults();renderSelection();
+  window.addEventListener('popstate',restoreSelectionFromUrl);
 })();
 
 
