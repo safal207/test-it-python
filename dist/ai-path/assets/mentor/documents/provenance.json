@@ -1,0 +1,69 @@
+{
+  "publication_authorization": "The owner requested adding their thank-you document and diploma photo from their portfolio to the school website.",
+  "documents": [
+    {
+      "id": "appreciation",
+      "recipient": "Сафонов Алексей Андреевич",
+      "retrieved_on": "2026-10-19",
+      "original": {
+        "file": "appreciation.pdf",
+        "bytes": 1146251,
+        "sha256": "4ce100ddcf9a81bfd58fa55e347e5942fb1802eead12430cb0e78b84ccad074c"
+      },
+      "preview": {
+        "file": "appreciation.webp",
+        "bytes": 43690,
+        "sha256": "a9d7486c42f43e3e55ca991584d2a0e6384dfe0d11a4bda8fdc98a4c88e3ebc2",
+        "width": 720,
+        "height": 517
+      },
+      "full_image": {
+        "file": "appreciation-full.webp",
+        "bytes": 161572,
+        "sha256": "edf8ae3b7a8cb3db13cb9b8855ee4299bbc20febc9d020c7af9ea4bc36bb86b8",
+        "width": 1800,
+        "height": 1293
+      },
+      "title": "Благодарность",
+      "issuer": "Университет искусственного интеллекта",
+      "reason": "За инициативу, генерацию новых идей и разработку образовательных материалов для Университета искусственного интеллекта",
+      "issued_on": null,
+      "source_document": "https://drive.google.com/file/d/1PNduji3bxOcQytYWAIq5qgqnLchHitVn/view?usp=drivesdk",
+      "verification": "Recipient, issuer and reason visually verified against the complete PDF. No issue date is printed on the document; PDF creation metadata is not represented as an issue date.",
+      "transformation": "Original one-page PDF preserved byte for byte. Complete page rendered with pdftoppm to a maximum dimension of 1800 px, then encoded as WebP; preview resized to 720 px wide. No cropping, retouching or generative editing."
+    },
+    {
+      "id": "diploma",
+      "recipient": "Сафонов Алексей Андреевич",
+      "retrieved_on": "2026-10-19",
+      "original": {
+        "file": "diploma.jpg",
+        "bytes": 34247,
+        "sha256": "8c56d8cfd77c2e6c6d3df46815529926d3b80c4df6c47fecdd2c39cb0d6058cc"
+      },
+      "preview": {
+        "file": "diploma.webp",
+        "bytes": 40758,
+        "sha256": "d51f8e776aca51a575ef409b7a78e57389b6c1b0865a2fc49067b80870a4d486",
+        "width": 600,
+        "height": 450
+      },
+      "full_image": {
+        "file": "diploma-full.webp",
+        "bytes": 49866,
+        "sha256": "e5959e2b4af7263c57bbaf47f9378ee3ef50f3460f13fdb38070e8759aadd5d1",
+        "width": 600,
+        "height": 450
+      },
+      "title": "Диплом о высшем образовании",
+      "issuer": "Владимирский государственный университет",
+      "qualification": "Информатик-экономист",
+      "specialty": "Прикладная информатика в экономике",
+      "graduation_year": 2010,
+      "source_portfolio": "https://hh.ru/resume/14e01b10ff1010ef840039ed1f6b4a544e7568",
+      "source_photo_id": "651750436",
+      "verification": "Photo opened in the owner’s hh portfolio. Recipient, institution, qualification, specialty and year visually verified. Only the year is stated on the site.",
+      "transformation": "Original 600×450 JPEG from the hh portfolio preserved byte for byte. Complete photograph encoded as WebP for both preview and viewer without upscaling, cropping, retouching or generative editing."
+    }
+  ]
+}
