@@ -788,6 +788,7 @@ async function vibeRoute(page, width) {
   assert(await page.locator('#selSteps li').count() === 16, 'Vibe Coding has sixteen steps');
   await curriculumPresentation(page, width, 'vibe');
   if (width === 1440) await downloadPlan(page, width, 'sixteen-modules', { minPages: 2 });
+  await revealTarget(page, '#vibe');
   const courseLink = page.locator('#vibe').getByRole('link', { name: 'Изучить 16 модулей ↗', exact: true });
   assert(await courseLink.count() === 1, 'Course linked from home');
   await schoolLink(page, courseLink, 'vibe-coding/', committedContext(page.url()), 'Detailed Vibe curriculum link');
@@ -1504,6 +1505,7 @@ async function schoolNavigation(page) {
   const build = { program: 'build', level: 'basic', pace: 'light' };
   await page.goto(base + '?program=build&level=basic&pace=light#selected', { waitUntil: 'domcontentloaded' });
   await selected(page, 'build');
+  await revealTarget(page, '#selRefs');
   const previewLink = page.locator('#selRefs').getByRole('link', { name: 'Pocitel: учебный лендинг ↗', exact: true });
   const previewURL = await schoolLink(page, previewLink, 'examples/pocitel.html', build, 'Selected plan café preview');
   const popupEvent = page.waitForEvent('popup');
