@@ -1605,7 +1605,7 @@ async function careerResearch(page, width) {
     assert(await page.locator('#researchWorkspace').isVisible() && await records.count() === 0, 'A fresh research workspace contains no invented vacancies');
     for (const number of [1, 2, 3]) assert(await page.locator('#direction' + number).inputValue() === '', 'Research directions start as the visitor’s own blank hypotheses');
     assert(await page.locator('#workspaceStatus').getAttribute('aria-live') === 'polite', 'Research save and clear outcomes are announced accessibly');
-    await schoolLink(page, page.locator('header a[href*="program=career"]'), './#selected', context, 'Research workspace return to plan');
+    await schoolLink(page, page.locator('header').getByRole('link', { name: 'План программы ↗', exact: true }), './#selected', context, 'Research workspace return to plan');
     const storageBefore = await page.evaluate(() => JSON.stringify(Object.entries(localStorage).sort()));
     await screenshot(page, width, 'career-research-hero');
     const models = ['codex', 'claude', 'grok', 'deepseek', 'qwen'];
@@ -1741,7 +1741,7 @@ async function careerResearch(page, width) {
     await page.reload({ waitUntil: 'domcontentloaded' });
     assert(await records.count() === 0 && await page.locator('#chosenDirection').inputValue() === '', 'Cleared research stays blank after reload');
     assert(page.url() === workspaceURL && blocked.length === 0, 'Research actions stay on the page without submitting data or requesting external services: ' + blocked.join(', '));
-    const back = page.locator('header a[href*="program=career"]');
+    const back = page.locator('header').getByRole('link', { name: 'План программы ↗', exact: true });
     const backURL = await schoolLink(page, back, './#selected', context, 'Research return after completing the local workflow');
     await back.focus();
     await page.keyboard.press('Enter');
