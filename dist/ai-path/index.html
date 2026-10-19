@@ -98,7 +98,7 @@
 </style>
 <link href="choice.css?v=20261019-certificates" rel="stylesheet"/>
 <link href="program-cards.css?v=menu-1" rel="stylesheet"/>
-<link href="program-plan.css?v=choice-2" rel="stylesheet"/>
+<link href="program-plan.css?v=enquiry-1" rel="stylesheet"/>
 <link href="parent-gallery.css?v=1" rel="stylesheet"/>
 <link href="web-studio.css?v=1" rel="stylesheet"/>
 <link href="site-services.css" rel="stylesheet"/>
@@ -150,7 +150,7 @@
 <a class="btn primary" id="hero-programs" href="#courses">Выбрать курс по нейросетям <span aria-hidden="true">↓</span></a>
 <a class="btn ghost" href="#selector">Помочь с выбором <span aria-hidden="true">↗</span></a>
 </div>
-<div class="neural-course-entrance" aria-labelledby="neuralStartTitle"><h2 id="neuralStartTitle">С какого шага начнём?</h2><div class="neural-start-actions"><button type="button" data-start-track="ml-python">С нуля <span>Python и данные →</span></button><button type="button" data-start-track="ml">Уже знаю Python <span>Первая нейросеть →</span></button></div><a href="neural-courses.html" data-neural-courses>Темы и материалы всех 8 курсов ↗</a></div>
+<div class="neural-course-entrance" aria-labelledby="neuralStartTitle"><h2 id="neuralStartTitle">С какого шага начнём?</h2><div class="neural-start-actions"><button type="button" data-start-track="ml-python" data-start-level="zero">С нуля <span>Python и данные →</span></button><button type="button" data-start-track="ml" data-start-level="basic">Уже знаю Python <span>Первая нейросеть →</span></button></div><a href="neural-courses.html" data-neural-courses>Темы и материалы всех 8 курсов ↗</a></div>
 <div class="hero-foot"><span><strong>1:1</strong> с наставником</span><span><strong>4–16 недель</strong> базовый план</span><span><strong>Свой проект</strong> в портфолио</span></div>
 <div class="hero-mentor"><span class="mentor-mini" aria-hidden="true"><img src="assets/mentor/alexey-safonov-solvery.webp" alt="" width="39" height="39" decoding="async"/></span><span><strong>Алексей Сафонов</strong><span>QA-инженер и AI-наставник · <a href="#mentor">Об авторе школы ↗</a></span></span></div>
 </div>
@@ -169,7 +169,7 @@
 </div>
 </div>
 <section class="catalog-section wrap program-menu" id="programs" aria-labelledby="programMenuTitle">
-<div class="menu-heading"><div><span class="tag">01 / 22 программы обучения</span><h2 id="programMenuTitle">Выбери курс и создай проект</h2></div><p>В карточке — результат, срок и подготовка. Открой план, затем обсудим старт. Другие направления доступны в категориях и по кнопке «Ещё 14 программ».</p></div>
+<div class="menu-heading"><div><span class="tag">01 / 22 программы обучения</span><h2 id="programMenuTitle">Выбери курс и создай проект</h2></div><p>1. Выбери курс. 2. Посмотри план и результат. 3. Укажи подготовку и нагрузку — запрос наставнику соберётся на этой странице. Другие направления — в категориях и по кнопке «Ещё 14 программ».</p></div>
 <div class="catalog-toolbar">
 <div class="catalog-search"><label for="programSearch">Найти программу</label><div><input type="search" id="programSearch" placeholder="Например, нейросети, сайт или Python" autocomplete="off" aria-controls="programList"/><button type="button" id="clearProgramSearch" aria-label="Очистить поиск программ" hidden>Очистить</button></div></div>
 <div class="choices" id="catalogFilters" role="group" aria-label="Фильтр программ"><button type="button" class="chip" data-filter="all" aria-pressed="true">Все 22</button><button type="button" class="chip" data-filter="neural" aria-pressed="false">Нейросети · 8 курсов</button><button type="button" class="chip" data-filter="explore" aria-pressed="false">Пробую и выбираю</button><button type="button" class="chip" data-filter="visual" aria-pressed="false">Дизайн и истории</button><button type="button" class="chip" data-filter="build" aria-pressed="false">Сайты, программы и игры</button><button type="button" class="chip" data-filter="research" aria-pressed="false">Развитие проекта</button></div>
@@ -227,7 +227,7 @@
 <div class="wrap">
 <div class="selection-hero">
 <div class="selection-heading"><span class="tag">Твоя выбранная программа</span><h3 id="selTitle" tabindex="-1">AI Навигатор</h3><p class="detail-lead" id="selText"></p>
-<div class="offer-early-action"><a class="btn primary" id="startJump" href="#start">Обсудить мой старт ↗</a><span>Сначала знакомство и условия, затем решение об обучении.</span></div></div>
+<div class="offer-early-action"><a class="btn primary" id="startJump" href="#start">План подходит — обсудить стоимость ↗</a><span>Проверь параметры заявки. Полный бюджет и расписание согласуем до старта.</span></div></div>
 <div class="selection-visual"><figure class="selected-example" id="selPreview" hidden><img id="selImage" alt="" width="800" height="500" loading="lazy" decoding="async"/><figcaption id="selImageCaption"></figcaption></figure>
 <figure class="selected-concept" id="selConcept" hidden><img id="selConceptImage" alt="" width="720" height="440" loading="lazy" decoding="async"/><figcaption>Иллюстрация направления</figcaption></figure></div>
 </div>
@@ -257,7 +257,7 @@
 </div>
 </div>
 </section>
-<nav class="plan-nav" aria-label="Разделы выбранного плана"><a href="#selected-result">Что создадим <span aria-hidden="true">↘</span></a><a href="#selected-curriculum">Этапы обучения <span aria-hidden="true">↘</span></a><a href="#start">Обсудить старт <span aria-hidden="true">↗</span></a></nav>
+<nav class="plan-nav" aria-label="Разделы выбранного плана"><a href="#selected-result">1. Результат <span aria-hidden="true">↘</span></a><a href="#selected-curriculum">2. Программа <span aria-hidden="true">↘</span></a><a href="#start">3. Заявка и стоимость <span aria-hidden="true">↗</span></a></nav>
 <div class="detail">
 <div class="detail-main">
 <p class="program-fit"><strong>Кому подойдёт</strong> <span id="selFit"></span></p>
@@ -274,17 +274,21 @@
 </div>
 <div class="detail-aside">
 <div class="start-panel" id="start" role="region" aria-labelledby="startTitle" tabindex="-1">
-<span class="tag">Следующий шаг</span><h4 id="startTitle" tabindex="-1">Начнём со знакомства</h4>
-<p class="start-intro">Расскажи о своей идее. Обсудим, подходит ли направление, что нужно для старта и какой объём реалистичен.</p>
-<div class="start-summary"><span>Твой выбор</span><strong id="startProgram"></strong><p id="startMeta"></p></div>
+<span class="tag">03 / Заявка наставнику</span><h4 id="startTitle" tabindex="-1">Обсудим твой курс</h4>
+<p class="start-intro">Проверь курс, подготовку и нагрузку. В запрос уже включены вопросы о полной стоимости, расписании и поддержке.</p>
+<div class="start-summary"><span>Выбранный курс</span><strong id="startProgram"></strong><p id="startMeta"></p><p id="enquiryReadiness"></p><a href="#programs" class="enquiry-change">Изменить курс ↑</a></div>
+<div class="enquiry-settings" role="group" aria-label="Параметры заявки"><div><label for="enquiryLevel">Твоя подготовка</label><select id="enquiryLevel" aria-describedby="enquiryReadiness"><option value="zero">Начинаю с нуля</option><option value="basic">Есть небольшая база</option><option value="project">Есть свой проект</option></select></div><div><label for="enquiryPace">Твоё время в неделю</label><select id="enquiryPace" aria-describedby="enquiryPaceHelp"><option value="light">2–3 часа</option><option value="balanced">4–6 часов</option><option value="deep">7+ часов</option></select></div></div>
+<p class="enquiry-help" id="enquiryPaceHelp">Включая встречи и самостоятельную практику. Объём проекта подстроим под доступное время.</p>
 <label for="projectIdea">Что хочешь создать? <span>Необязательно</span></label><textarea id="projectIdea" rows="3" maxlength="240" placeholder="Например: хочу написать короткую книгу или сделать первое приложение" aria-describedby="ideaPrivacy"></textarea>
 <p class="idea-privacy" id="ideaPrivacy">Идея добавится в черновик письма. Сайт её не отправляет и не сохраняет после перезагрузки.</p>
-<a class="btn primary" id="contactMentor" href="mailto:safal0645@gmail.com">Открыть письмо с моим планом ↗</a>
-<p class="contact-note">Откроется почтовое приложение. Проверь текст и отправь письмо, когда будешь готов. Время встречи согласуем в ответе.</p>
+<div class="enquiry-price"><span>Стоимость обучения</span><strong>Индивидуальный расчёт</strong><p>До решения об обучении согласуем полную стоимость, длительность встреч, расписание и поддержку. Возможные расходы на AI-сервисы уточним отдельно.</p></div>
+<div class="enquiry-actions"><a class="btn primary" id="contactMentor" href="mailto:safal0645@gmail.com">Запросить план и стоимость по почте ↗</a><button class="btn ghost" id="copyMessage" type="button">Скопировать заявку</button></div>
+<p class="contact-note">Кнопка откроет черновик в почтовом приложении. Проверь его и отправь. Если почта не настроена, скопируй заявку и отправь на safal0645@gmail.com или через Solvery.</p>
+<details class="message-fallback"><summary>Проверить текст заявки</summary><label for="contactMessage">Твой запрос наставнику</label><textarea id="contactMessage" readonly rows="7"></textarea></details>
+<p class="enquiry-status" id="enquiryStatus" role="status" aria-live="polite"></p>
+<div class="enquiry-next"><strong>Что будет дальше</strong><ol><li>Алексей ответит на твоё обращение.</li><li>На знакомстве обсудите задачу, график и полную стоимость.</li><li>После согласования условий решишь, начинать ли обучение.</li></ol></div>
 <div class="start-alternative"><a class="btn ghost" id="introSolvery" href="https://solvery.io/ru/mentor/5295" target="_blank" rel="noopener noreferrer">Знакомство 15 минут на Solvery ↗</a><p>Бесплатное знакомство доступно через профиль Solvery. Там же можно прочитать отзывы.</p></div>
 <blockquote class="mentor-quote"><p>«Алексей хорошо объясняет»</p><footer>Александр Матасов · <a href="https://solvery.io/ru/mentor/5295" target="_blank" rel="noopener noreferrer">отзыв о QA-менторстве</a> · июнь 2022</footer></blockquote>
-<details class="message-fallback"><summary>Посмотреть и скопировать запрос</summary><p>Текст можно вставить в заявку на Solvery или отправить на <a href="mailto:safal0645@gmail.com">safal0645@gmail.com</a>.</p><label for="contactMessage">Твой запрос наставнику</label><textarea id="contactMessage" readonly rows="7"></textarea><button class="btn ghost" id="copyMessage" type="button">Скопировать текст</button></details>
-<p class="start-terms"><strong>До решения об обучении:</strong> запроси полную стоимость выбранного маршрута, длительность встреч, расписание и условия поддержки. Отдельно уточним возможные расходы на AI-сервисы. Эти вопросы уже включены в черновик письма.</p>
 </div>
 <dl class="offer-facts"><div><dt>Формат</dt><dd>Персональные встречи, практика на своём проекте и разбор результата.</dd></div><div><dt>Компьютер и AI-сервисы</dt><dd>Проверим, какие инструменты подойдут твоей задаче и устройству. Возможные расходы на подписки обсудим отдельно.</dd></div></dl>
 <div class="notices"><span aria-hidden="true">ⓘ</span><span>Это учебный маршрут. Итоговый объём зависит от подготовки и практики; трудоустройство и квалификация за несколько недель не гарантируются.</span></div>
@@ -667,7 +671,7 @@
 </div>
 </div>
 </main>
-<div class="selection-dock" id="selectionDock" role="region" aria-label="Твоя выбранная программа" hidden><div class="dock-copy"><span>Твой маршрут</span><strong id="dockName"></strong></div><div class="dock-actions"><a class="quiet-link" id="dockPlan" href="#selected">Мой план</a><a class="btn primary" id="dockStart" href="#start">Обсудить старт ↗</a></div></div>
+<div class="selection-dock" id="selectionDock" role="region" aria-label="Твоя выбранная программа" hidden><div class="dock-copy"><span>Твой маршрут</span><strong id="dockName"></strong></div><div class="dock-actions"><a class="quiet-link" id="dockPlan" href="#selected">Мой план</a><a class="btn primary" id="dockStart" href="#start">Заявка и стоимость ↗</a></div></div>
 <footer class="wrap footer">
 <div><strong style="color:#e4e9f3">AI PATH</strong> · онлайн-школа ИИ и цифрового творчества · 2026</div>
 <div>Наставник: Алексей Сафонов · <a class="contact-email" href="mailto:safal0645@gmail.com">safal0645@gmail.com</a></div>
@@ -678,7 +682,7 @@
 <script src="content-sections.js?v=1"></script>
 <script src="course-navigation.js?v=1"></script>
 <script src="neural-courses-data.js?v=home-courses-1"></script>
-<script src="app.js?v=home-courses-1"></script>
+<script src="app.js?v=enquiry-1"></script>
 <script src="mentor-demo.js?v=1"></script>
 <script src="design-lab.js?v=1"></script>
 <dialog aria-labelledby="galleryTitle" id="projectLightbox">
