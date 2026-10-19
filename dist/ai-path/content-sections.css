@@ -46,6 +46,9 @@
 .portfolio-crosslink{color:#bac8da;line-height:1.8;margin:0 0 28px}
 #awakening,#athenaion{scroll-margin-top:105px}
 #awakening #chooseAwakening{font-size:12px;min-height:44px;margin:12px 0}
+.awakening-shots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:8px;background:#0b101b}
+.awakening-shots .project-shot{aspect-ratio:16/9;border:1px solid var(--line);border-radius:8px;min-height:60px}
+.awakening-shots .shot-zoom{left:5px;right:5px;bottom:5px;padding:5px;font-size:11px;text-align:center}
 .takeaway-box>summary{cursor:pointer;font-size:14px;font-weight:650;line-height:1.7}
 .program-curriculum>summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:15px}
 .program-curriculum>summary::-webkit-details-marker{display:none}

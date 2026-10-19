@@ -1,0 +1,97 @@
+{
+  "repository": "safal207/Awakening",
+  "source_ref": "e7d816954daf4341710bfc554ca27d49a754a20b",
+  "source_branch": "codex/awakening-concept-visuals",
+  "source_status": "Development branch, open PR #15; not main.",
+  "source": "https://github.com/safal207/Awakening/tree/e7d816954daf4341710bfc554ca27d49a754a20b",
+  "capture_date_utc": "2026-10-19",
+  "method": "Real native OpenGL framebuffer captures from the unmodified tests/GraphicsSmoke harness. Scripted camera/time; not a story playthrough.",
+  "capture_log": "graphics-smoke-glsl450.log",
+  "environment": {
+    "renderer": "llvmpipe (LLVM 20.1.2, 256 bits)",
+    "display": "Xvfb 21.1.12; 1920x1200x24; GLX; localhost TCP transport",
+    "dotnet": "8.0.426",
+    "compatibility_environment": {
+      "LIBGL_ALWAYS_SOFTWARE": "1",
+      "force_glsl_version": "450"
+    },
+    "actual_msaa_samples": 0,
+    "gl_version": "4.5 Core Mesa 25.2.8"
+  },
+  "source_changes": false,
+  "graphics_checks": {
+    "scenes": 11,
+    "shadow_contrast_changed_pixels": 55675,
+    "minimize_restore": "PASS",
+    "exit_code": 0
+  },
+  "limitations": "Software-rendered capture. No physical GPU/controller/performance or story-playthrough claim; zero-duration visual-profile is not a benchmark.",
+  "transformation": "Complete frames encoded as WebP quality 88 method 6. Previews resized to 480x270 with Lanczos, WebP quality 85 method 6. No crop, composite, retouching or generative editing. Original PNG bytes retained.",
+  "images": [
+    {
+      "id": "city-day",
+      "raw": "awakening/originals/city-day.png",
+      "raw_bytes": 775083,
+      "raw_sha256": "9067ea716e6100b01850c377a56e6c0bde1e3a9d74d69b2ac662189145e4a20f",
+      "file": "awakening/city-day.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 92442,
+      "sha256": "cc784e5242f9bc45bacbbbcef81078cfae829971e21c79f969491ece8ee73389",
+      "preview": "hero/game-20261019.webp",
+      "preview_width": 480,
+      "preview_height": 270,
+      "preview_bytes": 21928,
+      "preview_sha256": "dc664e5558e7ef140949408132357c7d9ab9d438596a286e69cc548c3a8c5a9b",
+      "capture_frame": "hero-city.png"
+    },
+    {
+      "id": "city-park",
+      "raw": "awakening/originals/city-park.png",
+      "raw_bytes": 573907,
+      "raw_sha256": "ece47f0918c1d246af96e6eb73ef11706a2ece29baf0d105dc418ee75e1b5f76",
+      "file": "awakening/city-park.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 81958,
+      "sha256": "cfad475000a4eb9f6c3660a45a978151426b7bb8b501a739cafae871f6fe14dc",
+      "preview": "awakening/city-park-thumb.webp",
+      "preview_width": 480,
+      "preview_height": 270,
+      "preview_bytes": 20250,
+      "preview_sha256": "b92af5dd912040266d07c5fa2bfb17cbc97fcc84fc8be9dc20166a04480005c9",
+      "capture_frame": "city-park.png"
+    },
+    {
+      "id": "city-night",
+      "raw": "awakening/originals/city-night.png",
+      "raw_bytes": 561583,
+      "raw_sha256": "45edd0706b64984b712cc90d67840eb2b4558bd0e82269acb734759cd0601e52",
+      "file": "awakening/city-night.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 71940,
+      "sha256": "e0ed4d07b4e2e6c36f832e46dbf5ef717bd6968821b43b09a1b7af8bc35a4005",
+      "preview": "awakening/city-night-thumb.webp",
+      "preview_width": 480,
+      "preview_height": 270,
+      "preview_bytes": 17878,
+      "preview_sha256": "fe0c0e39397223071d74554c489e0a243a436009516c493ce60844b8ced674a6",
+      "capture_frame": "city-night.png"
+    }
+  ],
+  "captured_at_utc": {
+    "city-day": "2026-10-19T16:32:18Z",
+    "city-night": "2026-10-19T16:32:23Z",
+    "city-park": "2026-10-19T16:32:24Z"
+  },
+  "initial_source_ref": "e7d816954daf4341710bfc554ca27d49a754a20b",
+  "final_source_ref": "e7d816954daf4341710bfc554ca27d49a754a20b",
+  "build": {
+    "command": "dotnet build tests/GraphicsSmoke/GraphicsSmoke.csproj --configuration Release",
+    "result": "PASS; 0 warnings; 0 errors"
+  },
+  "capture_command": "dotnet bin/graphics-smoke/Release/net8.0/GraphicsSmoke.dll",
+  "source_harness": "https://github.com/safal207/Awakening/blob/e7d816954daf4341710bfc554ca27d49a754a20b/tests/GraphicsSmoke/VisualProbe.cs.txt",
+  "compatibility_limitation": "Default Mesa GLSL compilation failed on integer returns in a float visibility() function. The successful run used the driver option force_glsl_version=450, with no game or harness changes. This is not a portable OpenGL 3.3 compatibility claim."
+}

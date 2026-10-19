@@ -9,7 +9,7 @@ const neuralCourseIds = ['ml-python', 'ml', 'ml-data', 'ml-vision', 'ml-text', '
 const projectPreviewSources = {
   build: 'assets/testit.webp', space: 'assets/architectural.webp', furniture: 'assets/furniture/luma01-hero.webp',
   create: 'assets/rustclip.webp', comics: 'assets/comics/issue-02-cover.webp', qa: 'assets/testit.webp',
-  game: 'assets/awakening.webp', designlab: 'assets/design-lab/room-3d-preview.png'
+  game: 'assets/awakening/city-day.webp', designlab: 'assets/design-lab/room-3d-preview.png'
 };
 const groups = {
   neural: neuralCourseIds, explore: ['explore'], visual: ['furniture', 'space', 'designlab', 'comics', 'books', 'create'],
@@ -141,15 +141,15 @@ async function compactLanding(page, width) {
   const heroProjects = page.locator('#hero-projects');
   const heroProjectSpecs = [
     { id: 'python', image: 'assets/testit.webp', title: /Test it.*Python/, source: 'https://safal207.github.io/test-it-python/' },
-    { id: 'game', image: 'assets/awakening.webp', title: /Пробуждение/, source: 'https://github.com/safal207/Awakening/tree/a92bd1560215833a232362ad78de88335e51ac81' },
+    { id: 'game', image: 'assets/awakening/city-day.webp', preview: 'assets/hero/game-20261019.webp', title: /Пробуждение/, source: 'https://github.com/safal207/Awakening/tree/e7d816954daf4341710bfc554ca27d49a754a20b' },
     { id: 'room', image: 'assets/design-lab/room-3d-preview.png', title: /Room Control/, source: 'https://safal207.github.io/room-control-studio/' }
   ];
   const heroButtons = heroProjects.locator('button[data-hero-project]');
   assert(await heroProjects.locator('button').count() === 3 && await heroProjects.locator('button[data-hero-project]:visible').count() === 3 && sameMembers(await heroButtons.evaluateAll(buttons => buttons.map(button => button.dataset.heroProject)), heroProjectSpecs.map(project => project.id)), 'Hero offers three visible native buttons for real Python, game and room projects');
   assert(await page.locator('.hero img[src="assets/furniture/luma01-hero.webp"]').count() === 0, 'Hero showcase replaces the lone furniture concept');
-  for (const { id } of heroProjectSpecs) {
+  for (const { id, preview } of heroProjectSpecs) {
     const thumbnail = heroProjects.locator(`[data-hero-project="${id}"] img`);
-    assert(await thumbnail.getAttribute('src') === `assets/hero/${id}.webp` && await thumbnail.getAttribute('loading') !== 'lazy', `Hero loads the matching lightweight project preview eagerly: ${id}`);
+    assert(await thumbnail.getAttribute('src') === (preview || `assets/hero/${id}.webp`) && await thumbnail.getAttribute('loading') !== 'lazy', `Hero loads the matching lightweight project preview eagerly: ${id}`);
     await thumbnail.evaluate(image => image.decode());
     assert(await thumbnail.evaluate(image => image.naturalWidth > 0 && image.naturalHeight > 0), `Hero project preview decodes: ${id}`);
   }
@@ -803,6 +803,33 @@ async function preservedContent(page, complete) {
     assert(await img.evaluate(el => el.naturalWidth > 0), 'Visible image decodes successfully');
   }
   await noOverflow(page, 'all images decoded');
+}
+async function awakeningScreenshots(page, width) {
+  await revealTarget(page, '#awakening');
+  const card = page.locator('#awakening');
+  const source = 'https://github.com/safal207/Awakening/tree/e7d816954daf4341710bfc554ca27d49a754a20b';
+  const shots = card.locator('button[data-shot]');
+  assert(sameMembers(await shots.evaluateAll(items => items.map(item => item.dataset.shot)), ['city-day', 'city-park', 'city-night'].map(name => `assets/awakening/${name}.webp`)), 'Game case exposes three distinct views of the upgraded build');
+  assert((await card.innerText()).includes('alpha') && await card.locator('a.link').getAttribute('href') === source, 'Game case names its development status and links to the exact pictured build');
+  for (const button of await shots.all()) {
+    await button.locator('img').evaluate(image => image.decode());
+    assert(await button.getAttribute('data-shot-source') === source, 'Each new screenshot retains the exact source revision');
+    await button.focus();
+    await page.keyboard.press('Enter');
+    await page.locator('#galleryImage').evaluate(image => image.decode());
+    assert(await page.locator('#projectLightbox').evaluate(dialog => dialog.open) && await page.locator('#galleryImage').getAttribute('src') === await button.getAttribute('data-shot'), 'Keyboard opens the chosen current game frame');
+    assert(await page.locator('#gallerySource').getAttribute('href') === source && /alpha/.test(await page.locator('#galleryCaption').innerText()), 'Full frame retains its source and alpha caption');
+    await page.keyboard.press('Escape');
+    assert(await button.evaluate(el => document.activeElement === el), 'Closing the frame returns focus to its own thumbnail');
+  }
+  await card.locator('img').evaluateAll(images => Promise.all(images.map(image => image.decode())));
+  await noOverflow(page, 'updated Awakening case ' + width);
+  await card.screenshot({ path: `${artifacts}/ai-path-${width}-awakening.png`, animations: 'disabled',
+    style: '.header, .selection-dock, .toast { visibility: hidden !important; }' });
+  await card.locator('#chooseAwakening').click();
+  await selected(page, 'game');
+  assert(await page.locator('#selImage').getAttribute('src') === 'assets/awakening/city-day.webp' && /alpha/.test(await page.locator('#selImageCaption').innerText()), 'Game plan shows the same current build with its development status');
+  assert(await page.locator('#selRefs a').first().getAttribute('href') === source, 'Game plan points to the source matching its new screenshot');
 }
 async function booksRoute(page, width) {
   await chooseQuiz(page, { goal: 'visual', interest: 'books', level: 'zero' });
@@ -1969,7 +1996,7 @@ async function desktopRegressions(page) {
   }
   await revealTarget(page, '#chooseAwakening');
   assert(await page.locator('#chooseAwakening').evaluate(el => el.closest('#examples') !== null), 'Awakening action is kept with its single detailed project case');
-  assert(await page.locator('#examples img[src="assets/awakening.webp"]').count() === 1 && await page.locator('.awakening-grid').count() === 0, 'Awakening keeps one detailed case image instead of a second full feature');
+  assert(await page.locator('#awakening > .project-shot').count() === 1 && await page.locator('#awakening .awakening-shots .project-shot').count() === 2 && await page.locator('.awakening-grid').count() === 0, 'Awakening keeps three current views in one detailed project case');
   await page.locator('#chooseAwakening').click();
   await selected(page, 'game');
   assert((await page.locator('#selTitle').innerText()).includes('Пробуждение'), 'Awakening CTA preserves the game route');
@@ -2072,6 +2099,7 @@ try {
     await selected(page, 'furniture');
     assert(new URL(page.url()).searchParams.get('pace') === 'light', 'Selected route survives reload');
     await preservedContent(page, width === 1440);
+    await awakeningScreenshots(page, width);
     await catalogPresentation(page, width);
     await catalogSearch(page, width);
     await booksRoute(page, width);

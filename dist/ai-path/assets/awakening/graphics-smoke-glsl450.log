@@ -1,0 +1,26 @@
+ATTENTION: default value of option force_glsl_version overridden by environment.
+Runtime profile started for 600s. Report: artifacts/manhattan-refresh/visual-profile.json
+GPU: llvmpipe (LLVM 20.1.2, 256 bits)
+MSAA samples: 0
+Menu click, preview drag, drag capture and release: passed (scripted input)
+Preview pixels: shirt=9618, skin=4068, bounds passed
+Captured menu-1280
+Preview pixels: shirt=5387, skin=2302, bounds passed
+Captured settings-960
+Preview pixels: shirt=21711, skin=9151, bounds passed
+Captured ending-1920
+Preview pixels: shirt=15066, skin=6355, bounds passed
+Captured menu-tall
+Captured hero-turnaround
+Shadow contrast: 55675 affected pixels; texture bytes=25163968
+Captured hero-city
+Captured city-evening
+Captured city-night
+Captured city-park
+Interior entry and small movement: passed
+Captured hero-interior
+Captured hero-face
+Minimized window size: (900, 900)
+Minimize/render/restore: passed
+Runtime profile complete. Report: artifacts/manhattan-refresh/visual-profile.json
+Duration: 0.0s, frames: 1, avg FPS: 60.0, p95 frame: 16.67ms, allocated/frame: 280.0 B
