@@ -1523,6 +1523,53 @@ async function landingSites(page, width) {
   if (program) await selected(page, program);
 }
 
+async function courseEnquiry(page, width) {
+  await page.goto(base + '?program=ml&level=project&pace=light#selected', {waitUntil:'domcontentloaded'});
+  await page.locator('.hero [data-start-track="ml"]').click();
+  await selected(page, 'ml');
+  assert(new URL(page.url()).searchParams.get('level') === 'basic' && await page.locator('#enquiryLevel').inputValue() === 'basic', 'Knowing Python opens the first-model plan with matching preparation');
+  await page.locator('.hero [data-start-track="ml-python"]').click();
+  await selected(page, 'ml-python');
+  assert(new URL(page.url()).searchParams.get('level') === 'zero', 'The from-zero starter explicitly selects beginner preparation');
+  await page.locator('#startJump').click();
+  assert((await page.locator('#startMeta').innerText()).includes('6 недель') && (await page.locator('#startMeta').innerText()).includes('6 встреч'), 'Request summary includes schedule and meetings beside the chosen course');
+  const price = page.locator('.enquiry-price');
+  assert((await price.innerText()).includes('Индивидуальный расчёт') && await price.evaluate(el => Boolean(el.compareDocumentPosition(document.querySelector('#contactMentor')) & Node.DOCUMENT_POSITION_FOLLOWING)), 'Pricing conditions appear before the contact action without an invented total');
+  const fallback = page.locator('#start details.message-fallback');
+  assert(!(await fallback.evaluate(el => el.open)) && await page.locator('#copyMessage').isVisible(), 'Copying a request does not require opening the text disclosure');
+  await page.locator('#projectIdea').fill('Учебная таблица для первого проекта');
+  await page.locator('#enquiryLevel').focus();
+  await page.locator('#enquiryLevel').selectOption('basic');
+  await page.locator('#enquiryPace').focus();
+  await page.locator('#enquiryPace').selectOption('deep');
+  const current = new URL(page.url());
+  assert(current.searchParams.get('program') === 'ml-python' && current.searchParams.get('level') === 'basic' && current.searchParams.get('pace') === 'deep' && current.hash === '#start', 'Request controls update the committed route while keeping the request panel as the destination');
+  assert((await page.locator('#selTime').innerText()).includes('7+') && await page.locator('#enquiryPace').evaluate(el => document.activeElement === el), 'Changing availability updates the plan and retains native-control focus');
+  const message = await page.locator('#contactMessage').inputValue();
+  assert(message.includes('есть небольшая база') && message.includes('7+ ч') && message.includes('Учебная таблица для первого проекта') && message.includes(canonicalRoute(page)), 'The request includes actual preparation, pace, idea and the current canonical plan');
+  assert(new URL(await page.locator('#contactMentor').getAttribute('href')).searchParams.get('body') === message, 'Email draft agrees with the current on-page request');
+  await page.locator('#copyMessage').click();
+  await page.waitForFunction(async value => await navigator.clipboard.readText() === value, message);
+  assert(!(await fallback.evaluate(el => el.open)), 'Successful copy leaves optional preview collapsed');
+  await page.locator('#start').screenshot({path:`${artifacts}/ai-path-${width}-course-enquiry-ready.png`,animations:'disabled',style:'.header, .selection-dock, .toast {visibility:hidden!important}'});
+  await page.evaluate(() => Object.defineProperty(navigator.clipboard, 'writeText', {configurable:true, value:async () => {throw new Error('Simulated clipboard denial');}}));
+  try {
+    await page.locator('#copyMessage').click();
+    assert(await fallback.evaluate(el => el.open), 'Clipboard failure opens the real request text for manual copying');
+    assert(await page.locator('#contactMessage').evaluate(el => document.activeElement === el && el.selectionStart === 0 && el.selectionEnd === el.value.length), 'Clipboard fallback visibly focuses and selects the complete request');
+  } finally {await page.evaluate(() => {delete navigator.clipboard.writeText;});}
+  await noOverflow(page, 'course enquiry ' + width);
+  await page.locator('#start').screenshot({path:`${artifacts}/ai-path-${width}-course-enquiry.png`,animations:'disabled',style:'.header, .selection-dock, .toast {visibility:hidden!important}'});
+  await page.locator('.enquiry-change').click();
+  assert(new URL(page.url()).hash === '#programs', 'Changing the course returns to the same-page catalogue');
+  await page.locator('#programList [data-program="ml-text"]').click();
+  await selected(page, 'ml-text');
+  assert(await page.locator('#projectIdea').inputValue() === '' && !(await page.locator('#contactMessage').inputValue()).includes('Учебная таблица'), 'A different course does not inherit another course’s project idea');
+  assert(new URL(page.url()).searchParams.get('pace') === 'deep' && await page.locator('#enquiryPace').inputValue() === 'deep', 'An explicit course change carries the chosen availability');
+  await page.reload({waitUntil:'domcontentloaded'});
+  assert(await page.locator('#enquiryLevel').inputValue() === 'basic' && await page.locator('#enquiryPace').inputValue() === 'deep', 'Reload restores the request parameters from the shared plan URL');
+  if (width === 1440) await downloadPlan(page, width, 'enquiry');
+}
 async function neuralCourses(page, width) {
   const previous = page.url();
   await page.goto(base, { waitUntil: 'domcontentloaded' });
@@ -2037,6 +2084,7 @@ try {
     if (width === 390) await cosmosExample(page, width);
     await studioPortfolio(page, width);
     await landingSites(page, width);
+    await courseEnquiry(page, width);
     await neuralCourses(page, width);
     await neuralNetworks(page, width);
     if (width === 1440) {

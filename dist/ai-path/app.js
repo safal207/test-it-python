@@ -361,9 +361,9 @@
     u.searchParams.set('program',state.selection.program);u.searchParams.set('level',state.selection.level);u.searchParams.set('pace',state.selection.pace);u.hash='selected';
     return u.toString();
   }
-  function updateSelectionUrl(){
+  function updateSelectionUrl(fragment){
     var u=new URL(window.location.href);
-    u.searchParams.set('program',state.selection.program);u.searchParams.set('level',state.selection.level);u.searchParams.set('pace',state.selection.pace);u.hash='selected';
+    u.searchParams.set('program',state.selection.program);u.searchParams.set('level',state.selection.level);u.searchParams.set('pace',state.selection.pace);u.hash=fragment||'selected';
     window.history.replaceState({},'',u.pathname+u.search+u.hash);
   }
   function textForSelection(){
@@ -420,7 +420,7 @@
     $('headerAction').href=hasSelection?'#selected':'#courses';
     $('headerAction').textContent=hasSelection?'Мой план ↗':'Выбрать курс ↓';
     $('closingAction').href=hasSelection?'#start':'#selector';
-    $('closingAction').textContent=hasSelection?'Обсудить мой старт':'Подобрать маршрут';
+    $('closingAction').textContent=hasSelection?'Обсудить стоимость':'Подобрать маршрут';
     $('dockPlan').href='#selected';$('dockStart').href='#start';$('startJump').href='#start';
     $('dockName').textContent=hasSelection?programById(state.selection.program).name:'';
     updateSelectionDock();
@@ -592,7 +592,10 @@
     $('selKit').innerHTML=starterKits[p.id].takeaways.map(function(item){return '<li>'+esc(item)+'</li>'}).join('');
     $('starterTemplate').textContent=starterTextForSelection();
     $('startProgram').textContent=p.name;
-    $('startMeta').textContent='Уровень: '+levelLabels[selected.level]+'. Срок, встречи и нагрузка — в фактах плана.';
+    $('startMeta').textContent=weekLabel(p.weeks)+' · '+meetingLabel(p.meetings)+' 1:1 · '+paceLabels[selected.pace]+' в неделю.';
+    $('enquiryReadiness').textContent='Для старта: '+p.level+'.';
+    $('enquiryLevel').value=selected.level;$('enquiryPace').value=selected.pace;
+    $('enquiryStatus').textContent='';
     $('projectIdea').value=projectIdeas[p.id]||'';
     $('selSteps').innerHTML=p.steps.map(function(s,i){return '<li'+(p.id==='designlab'?' id="designlab-week-'+(i+1)+'"':'')+'><span class="step-no">'+(i+1)+'</span><span>'+esc(s)+'</span></li>'}).join('');
     $('selRefs').innerHTML=p.refs.map(function(r){return '<a href="'+esc(r[1])+'"'+(r[1].charAt(0)==='#'?'':' target="_blank" rel="noopener noreferrer"')+'>'+esc(r[0])+' ↗</a>'}).join('');
@@ -656,7 +659,18 @@
   $('copyMessage').addEventListener('click',async function(){
     if(!state.selection)return;
     try{await copyText(textForSelection());toast('Текст обращения скопирован. Можно отправить его Алексею.')}
-    catch(e){$('contactMessage').focus();$('contactMessage').select();toast('Выделили текст обращения — скопируйте его вручную.')}
+    catch(e){$('contactMessage').closest('details').open=true;$('contactMessage').focus();$('contactMessage').select();toast('Выделили текст обращения — скопируйте его вручную.')}
+  });
+
+  ['enquiryLevel','enquiryPace'].forEach(function(id){
+    $(id).addEventListener('change',function(){
+      if(!state.selection||!own(levelLabels,$('enquiryLevel').value)||!own(paceLabels,$('enquiryPace').value))return;
+      state.interest=state.selection.program;state.goal=groupFor(state.interest);
+      state.level=$('enquiryLevel').value;state.pace=$('enquiryPace').value;state.selection=captureSelection(state.interest);
+      closeResults();syncButtons('goals','goal',state.goal);syncButtons('levels','level',state.level);syncButtons('paces','pace',state.pace);
+      renderInterests();quizSummary(false);renderSelection();updateSelectionUrl('start');
+      $('enquiryStatus').textContent='Параметры обновлены в плане и черновике заявки.';
+    });
   });
 
   $('projectIdea').addEventListener('input',function(){
@@ -742,7 +756,13 @@
   });
   $('nbSeeAll').addEventListener('click',function(){notebookExpanded=!notebookExpanded;renderNotebooks()});
   document.querySelectorAll('[data-start-track]').forEach(function(b){
-    b.addEventListener('click',function(){selectProgram(b.dataset.startTrack)});
+    b.addEventListener('click',function(){
+      if(own(levelLabels,b.dataset.startLevel)){
+        state.level=b.dataset.startLevel;state.interest=b.dataset.startTrack;state.goal=groupFor(state.interest);
+        syncButtons('goals','goal',state.goal);syncButtons('levels','level',state.level);renderInterests();
+      }
+      selectProgram(b.dataset.startTrack);
+    });
   });
   renderNotebooks();
   syncButtons('goals','goal',state.goal);
