@@ -1,0 +1,402 @@
+{
+  "repository": "safal207/students",
+  "ref": "d848e04c8f8d6e3e8e42ce15fbd98c00612e0e17",
+  "notebooks": [
+    {
+      "path": "AudioNet/Сафонов\"Аудио_Распознавание_птиц_по_пению_ipynb\".ipynb",
+      "title": "Распознавание пения птиц",
+      "course": "ml-audio",
+      "status": "archive"
+    },
+    {
+      "path": "AudioNet/Сафонов_Обработка_сигналов\"\".ipynb",
+      "title": "Обработка аудиосигналов",
+      "course": "ml-audio",
+      "status": "archive"
+    },
+    {
+      "path": "CV/Conv2D_Arguments.ipynb",
+      "title": "Conv2D: параметры свёртки",
+      "course": "ml-vision",
+      "status": "archive"
+    },
+    {
+      "path": "CV/База_Cifar10_(accuracy=85_)_и_Cifar100((accuracy=56_)).ipynb",
+      "title": "CIFAR-10 и CIFAR-100",
+      "course": "ml-vision",
+      "status": "archive"
+    },
+    {
+      "path": "CV/Задача_классификация_авто_по_фото_(3_марки_авто)_Результат_точность_77_\".ipynb",
+      "title": "Распознавание марок авто",
+      "course": "ml-vision",
+      "status": "archive"
+    },
+    {
+      "path": "CV/Распознавание_изображений_из_набора_данных_MNIST,_с_помощью_свёрточных_нейронных_сетей.ipynb",
+      "title": "MNIST: свёрточные сети",
+      "course": "ml-vision",
+      "status": "archive"
+    },
+    {
+      "path": "CV/Сафонов\"objects_detection_ssdlite_mobilenet_v2_ipynb\".ipynb",
+      "title": "Обнаружение объектов: MobileNetV2",
+      "course": "ml-vision",
+      "status": "archive"
+    },
+    {
+      "path": "CV/Сафонов_\"rock_paper_scissors_cnn_ipynb\".ipynb",
+      "title": "Камень, ножницы, бумага · CNN",
+      "course": "ml-vision",
+      "status": "archive"
+    },
+    {
+      "path": "CV/Сафонов_Домашнее_задание_№3\"_Лучшая_точность_для_сегментации_Стройки_val_точность_60_95_.ipynb",
+      "title": "Сегментация изображений",
+      "course": "ml-vision",
+      "status": "archive"
+    },
+    {
+      "path": "Classification/Light_Обучающая_Тестовая_\"Сафонов_А_А_MNIST_цифры_.ipynb",
+      "title": "MNIST: обучение и тест",
+      "course": "ml",
+      "status": "archive"
+    },
+    {
+      "path": "Classification/Pro_Сафонов_Цель_=_90_точности_база_МИНЫ_на_тестовой_выбоке.ipynb",
+      "title": "Классификация по показаниям датчиков · Sonar",
+      "course": "ml",
+      "status": "archive"
+    },
+    {
+      "path": "Classification/Сафонов_Домашнее_задание_№2\".ipynb",
+      "title": "Классификация: практическая задача",
+      "course": "ml",
+      "status": "archive"
+    },
+    {
+      "path": "Genetica/САфонов_генетика\".ipynb",
+      "title": "САфонов генетика",
+      "course": "ml-tuning",
+      "status": "archive"
+    },
+    {
+      "path": "Linux/colab_linux.ipynb",
+      "title": "colab linux",
+      "course": "ml-python",
+      "status": "archive"
+    },
+    {
+      "path": "Linux/Работа_с_Linux_кодамндами_в_Colab.ipynb",
+      "title": "Работа с Linux кодамндами в Colab",
+      "course": "ml-python",
+      "status": "archive"
+    },
+    {
+      "path": "Linux/Работа_с_Linux_командами_в_Colab.ipynb",
+      "title": "Работа с Linux командами в Colab",
+      "course": "ml-python",
+      "status": "archive"
+    },
+    {
+      "path": "LoadData/Импорт_и_экспорт_данных_через_Google_Colab.ipynb",
+      "title": "Импорт и экспорт данных через Google Colab",
+      "course": "ml-python",
+      "status": "archive"
+    },
+    {
+      "path": "ML/reproducible_mlp_xor_numpy.ipynb",
+      "title": "Первая MLP на NumPy: XOR, обучение и независимый тест",
+      "course": "ml",
+      "status": "starter"
+    },
+    {
+      "path": "ML/Сафонов_А_А_ML_Анализ_HH_ru_резюме_и_ЦИАН_анализ_стоимости_квартир.ipynb",
+      "title": "Сафонов А А ML Анализ HH ru резюме и ЦИАН анализ стоимости квартир",
+      "course": "ml-data",
+      "status": "archive"
+    },
+    {
+      "path": "ML/Сафонов_А_А_Теория_вероятности_2\"\".ipynb",
+      "title": "Сафонов А А Теория вероятности 2",
+      "course": "ml-data",
+      "status": "archive"
+    },
+    {
+      "path": "ML/Сафонов_А_А_Теория_вероятности_и_статистика_1\".ipynb",
+      "title": "Сафонов А А Теория вероятности и статистика 1",
+      "course": "ml-data",
+      "status": "archive"
+    },
+    {
+      "path": "Matplotlib/matplotlib.ipynb",
+      "title": "matplotlib",
+      "course": "ml-python",
+      "status": "archive"
+    },
+    {
+      "path": "Matplotlib/Сафонов_Апрельский_курс_2020_Light_Python_Домашнее_задание_5.ipynb",
+      "title": "Сафонов Апрельский курс 2020 Light Python Домашнее задание 5",
+      "course": "ml-python",
+      "status": "archive"
+    },
+    {
+      "path": "MatrixAndFunctions/Сафонов_А_А_Матрицы_и_функции\".ipynb",
+      "title": "Сафонов А А Матрицы и функции",
+      "course": "ml-python",
+      "status": "archive"
+    },
+    {
+      "path": "NLP/NLP_SafonovAlex_DenseRNN_,Conv1d,LSTM,_GRU_для_обработки_текстов\".ipynb",
+      "title": "Dense, RNN, Conv1D, LSTM, GRU",
+      "course": "ml-text",
+      "status": "archive"
+    },
+    {
+      "path": "NLP/NLP_Анализ_тональности_Решение_через_Conv1d_(accuracy_0_8533).ipynb",
+      "title": "Тональность текстов · Conv1D",
+      "course": "ml-text",
+      "status": "archive"
+    },
+    {
+      "path": "NLP/NLP_Анализ_тональности_Решение_через_Embedding_+_GRU(accuracy_0_83).ipynb",
+      "title": "Тональность текстов · GRU",
+      "course": "ml-text",
+      "status": "archive"
+    },
+    {
+      "path": "NLP/NLP_Анализ_тональности_Решение_через_Embedding_+_LSTM(accuracy_0_86).ipynb",
+      "title": "Тональность текстов · LSTM",
+      "course": "ml-text",
+      "status": "archive"
+    },
+    {
+      "path": "NLP/NLP_Анализ_тональности_Решение_через_Embedding_+_RNN_(accuracy_0_58)_\"dl_nlp_imdb_simple_rnn_ipynb\".ipynb",
+      "title": "Тональность текстов · RNN",
+      "course": "ml-text",
+      "status": "archive"
+    },
+    {
+      "path": "NLP/NLP_Определение_автора_по_отрывкам_текста_Dense,RNN_,Conv1d,LSTM,_GRU_для_обработки_текстов\".ipynb",
+      "title": "Определение автора текста",
+      "course": "ml-text",
+      "status": "archive"
+    },
+    {
+      "path": "NLP/NLP_Определение_тональности_текста_отзывов_на_фильмы_из_IMDb_(Internet_Movie_Database).ipynb",
+      "title": "Отзывы IMDb · NLP",
+      "course": "ml-text",
+      "status": "archive"
+    },
+    {
+      "path": "NLP/dl_nlp_yelp_polarity.ipynb",
+      "title": "Yelp: классификация отзывов",
+      "course": "ml-text",
+      "status": "archive"
+    },
+    {
+      "path": "NLP/Определение_тональности_текстов_YELP_через_Conv1D_сеть_точность_94_.ipynb",
+      "title": "Yelp: анализ тональности · Conv1D",
+      "course": "ml-text",
+      "status": "archive"
+    },
+    {
+      "path": "NLP/Определение_тональности_текстов_YELP_через_LSTM_сеть_точность_95_.ipynb",
+      "title": "Yelp: анализ тональности · LSTM",
+      "course": "ml-text",
+      "status": "archive"
+    },
+    {
+      "path": "Numpy/Numpy.ipynb",
+      "title": "Numpy",
+      "course": "ml-python",
+      "status": "archive"
+    },
+    {
+      "path": "Numpy/Основы_Python_numpy,_plot.ipynb",
+      "title": "Основы Python numpy, plot",
+      "course": "ml-python",
+      "status": "archive"
+    },
+    {
+      "path": "Numpy/Сафонов_Апрельский_курс_2020_Light_Python_Домашнее_задание_2.ipynb",
+      "title": "Сафонов Апрельский курс 2020 Light Python Домашнее задание 2",
+      "course": "ml-python",
+      "status": "archive"
+    },
+    {
+      "path": "OOP/Дополнительный_семинар_ООП.ipynb",
+      "title": "Дополнительный семинар ООП",
+      "course": "ml-python",
+      "status": "archive"
+    },
+    {
+      "path": "Pandas/Pandas.ipynb",
+      "title": "Pandas",
+      "course": "ml-python",
+      "status": "archive"
+    },
+    {
+      "path": "Pandas/Сафонов_Pandas.ipynb",
+      "title": "Сафонов Pandas",
+      "course": "ml-python",
+      "status": "archive"
+    },
+    {
+      "path": "Pandas/Сафонов_Апрельский_курс_2020_Light_Занятие_4_Pandas_(часть_2).ipynb",
+      "title": "Сафонов Апрельский курс 2020 Light Занятие 4 Pandas (часть 2)",
+      "course": "ml-python",
+      "status": "archive"
+    },
+    {
+      "path": "Pandas/Сафонов_соревнование_\"kaggle_mnist_ipynb\".ipynb",
+      "title": "Сафонов соревнование kaggle mnist ipynb",
+      "course": "ml-python",
+      "status": "archive"
+    },
+    {
+      "path": "SeletNetAI/Апрельский_курс_(2020)_Pro_Занятие_16_Часть_2_Подбор_архитектуры.ipynb",
+      "title": "Поиск архитектуры нейросети",
+      "course": "ml-tuning",
+      "status": "archive"
+    },
+    {
+      "path": "SeletNetAI/Оптимизация_гиперпараметров_нейросети_с_помощью_Keras_Tuner_\"fashion_mnist_keras_tuner_ipynb\".ipynb",
+      "title": "Keras Tuner и Fashion MNIST",
+      "course": "ml-tuning",
+      "status": "archive"
+    },
+    {
+      "path": "Stock/\"DownJoins\"Сафонов_Временные_ряды_\"_36.ipynb",
+      "title": "DownJoinsСафонов Временные ряды 36",
+      "course": "ml-series",
+      "status": "archive"
+    },
+    {
+      "path": "Stock/SP500_\"Сафонов_Временные_ряды.ipynb",
+      "title": "SP500 Сафонов Временные ряды",
+      "course": "ml-series",
+      "status": "archive"
+    },
+    {
+      "path": "Stock/Временные_ряды_Прогнозирование_акций_Лукойла_(Time_series_Prediction_shares_of_LUKOIL).ipynb",
+      "title": "Временные ряды Прогнозирование акций Лукойла (Time series Prediction shares of LUKOIL)",
+      "course": "ml-series",
+      "status": "archive"
+    },
+    {
+      "path": "Terra-ai/Сафонов_А_А_\"Интенсив_8_12_10_12_Домашнее_задание_№1\".ipynb",
+      "title": "Сафонов А А Интенсив 8 12 10 12 Домашнее задание №1",
+      "course": "ml-vision",
+      "status": "archive"
+    },
+    {
+      "path": "Trafic/Сафонов_\"Интенсив_8_12_11_12_Домашнее_задание_№3_\".ipynb",
+      "title": "Сафонов Интенсив 8 12 11 12 Домашнее задание №3",
+      "course": "ml-series",
+      "status": "archive"
+    },
+    {
+      "path": "Trafic/Трафик_компании.ipynb",
+      "title": "Трафик компании",
+      "course": "ml-series",
+      "status": "archive"
+    },
+    {
+      "path": "interactive_story.ipynb",
+      "title": "interactive story",
+      "course": "ml-python",
+      "status": "archive"
+    },
+    {
+      "path": "medicina/\"Используем_модель_EfficientNet_B7_для_распознавания_tuberculosis\".ipynb",
+      "title": "Используем модель EfficientNet B7 для распознавания tuberculosis",
+      "course": "ml-vision",
+      "status": "archive"
+    },
+    {
+      "path": "medicina/\"Используем_модель_ResNet_152_для_распознавания_tuberculosis\".ipynb",
+      "title": "Используем модель ResNet 152 для распознавания tuberculosis",
+      "course": "ml-vision",
+      "status": "archive"
+    },
+    {
+      "path": "medicina/\"Рез_т_val_acc_0_86_VGG19_для_распознавания_tuberculosis\"\"\".ipynb",
+      "title": "Рез т val acc 0 86 VGG19 для распознавания tuberculosis",
+      "course": "ml-vision",
+      "status": "archive"
+    },
+    {
+      "path": "medicina/\"Рез_т_val_acc_80_VGG16_для_распознавания_tuberculosis\"\"\".ipynb",
+      "title": "Рез т val acc 80 VGG16 для распознавания tuberculosis",
+      "course": "ml-vision",
+      "status": "archive"
+    },
+    {
+      "path": "medicina/\"Результат_val_acc_0_869_модель_InceptionResNetV2_для_распознавания_tuberculosis\"\".ipynb",
+      "title": "Результат val acc 0 869 модель InceptionResNetV2 для распознавания tuberculosis",
+      "course": "ml-vision",
+      "status": "archive"
+    },
+    {
+      "path": "medicina/MobileNetV2_для_распознавания_tuberculosis\".ipynb",
+      "title": "MobileNetV2 для распознавания tuberculosis",
+      "course": "ml-vision",
+      "status": "archive"
+    },
+    {
+      "path": "medicina/MobileNet_для_распознавания_tuberculosis\".ipynb",
+      "title": "MobileNet для распознавания tuberculosis",
+      "course": "ml-vision",
+      "status": "archive"
+    },
+    {
+      "path": "medicina/NASNetLarge_для_распознавания_tuberculosis\".ipynb",
+      "title": "NASNetLarge для распознавания tuberculosis",
+      "course": "ml-vision",
+      "status": "archive"
+    },
+    {
+      "path": "medicina/VGG19для_распознавания_tuberculosis\".ipynb",
+      "title": "VGG19для распознавания tuberculosis",
+      "course": "ml-vision",
+      "status": "archive"
+    },
+    {
+      "path": "medicina/Рез_т_val_acc_0_88696_DenseNet201_для_распознавания_tuberculosis\"\".ipynb",
+      "title": "Рез т val acc 0 88696 DenseNet201 для распознавания tuberculosis",
+      "course": "ml-vision",
+      "status": "archive"
+    },
+    {
+      "path": "parsong/Сафонов_А_А_Парсинг_данных\".ipynb",
+      "title": "Сафонов А А Парсинг данных",
+      "course": "ml-python",
+      "status": "archive"
+    },
+    {
+      "path": "python/Сафонов_Python,_Домашнее_задание_1.ipynb",
+      "title": "Сафонов Python, Домашнее задание 1",
+      "course": "ml-python",
+      "status": "archive"
+    },
+    {
+      "path": "python/Сафонов_Python_Домашнее_задание_6.ipynb",
+      "title": "Сафонов Python Домашнее задание 6",
+      "course": "ml-python",
+      "status": "archive"
+    },
+    {
+      "path": "seaborn/seaborn.ipynb",
+      "title": "seaborn",
+      "course": "ml-python",
+      "status": "archive"
+    },
+    {
+      "path": "Создание_простого_веб_сервера_и_настройка_параметров_работы.ipynb",
+      "title": "Создание простого веб сервера и настройка параметров работы",
+      "course": "ml-python",
+      "status": "archive"
+    }
+  ]
+}

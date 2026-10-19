@@ -4,14 +4,15 @@ import { chromium } from 'playwright';
 
 const base = 'http://127.0.0.1:4179/ai-path/';
 const artifacts = 'artifacts/ai-path-qa';
-const programIds = ['explore', 'build', 'space', 'furniture', 'create', 'comics', 'qa', 'game', 'ml', 'hack', 'grant', 'frontier', 'books', 'designlab', 'vibe'];
+const programIds = ['explore', 'build', 'space', 'furniture', 'create', 'comics', 'qa', 'game', 'ml', 'hack', 'grant', 'frontier', 'books', 'designlab', 'vibe', 'ml-python', 'ml-data', 'ml-vision', 'ml-text', 'ml-audio', 'ml-series', 'ml-tuning'];
+const neuralCourseIds = ['ml-python', 'ml', 'ml-data', 'ml-vision', 'ml-text', 'ml-audio', 'ml-series', 'ml-tuning'];
 const projectPreviewSources = {
   build: 'assets/testit.webp', space: 'assets/architectural.webp', furniture: 'assets/furniture/luma01-hero.webp',
   create: 'assets/rustclip.webp', comics: 'assets/comics/issue-02-cover.webp', qa: 'assets/testit.webp',
   game: 'assets/awakening.webp', designlab: 'assets/design-lab/room-3d-preview.png'
 };
 const groups = {
-  explore: ['explore'], visual: ['furniture', 'space', 'designlab', 'comics', 'books', 'create'],
+  neural: neuralCourseIds, explore: ['explore'], visual: ['furniture', 'space', 'designlab', 'comics', 'books', 'create'],
   build: ['build', 'designlab', 'vibe', 'qa', 'game'], research: ['ml', 'hack', 'grant', 'frontier']
 };
 const server = spawn('python3', ['-m', 'http.server', '4179', '--bind', '127.0.0.1', '--directory', 'dist'], {
@@ -131,7 +132,7 @@ async function schoolEntry(context, width) {
     await page.keyboard.press('Enter');
     await page.waitForURL(base);
     await page.locator('#programList .program').first().waitFor({ state: 'attached' });
-    assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'Root school entrance opens all 15 programs');
+    assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'Root school entrance opens all 22 programs');
   } finally {
     await page.close();
   }
@@ -217,7 +218,7 @@ async function compactLanding(page, width) {
   const nextProgram = await page.locator('#programList .program[hidden]').first().getAttribute('data-program');
   await page.locator('#showAllPrograms').focus();
   await page.keyboard.press('Enter');
-  assert(sameMembers(await ids(page.locator('#programList .program:visible')), programIds), 'Keyboard show-all action exposes every one of the 15 programs');
+  assert(sameMembers(await ids(page.locator('#programList .program:visible')), programIds), 'Keyboard show-all action exposes every one of the 22 programs');
   assert(await page.locator(`#programList [data-program="${nextProgram}"]`).evaluate(el => document.activeElement === el), 'Show-all moves keyboard focus to the first newly available program');
   await revealTarget(page, '#website-programs');
   const websitePrograms = await page.locator('#website-programs').innerText();
@@ -275,12 +276,13 @@ async function catalogPresentation(page, width) {
       indexedCover: card.querySelector('.program-cover-index[aria-hidden="true"]')?.textContent.trim().length > 0,
       nestedActions: card.querySelectorAll('button, a, input, select, textarea, [tabindex]').length };
   }));
-  assert(sameMembers(report.map(card => card.id), programIds), 'Visual menu preserves all 15 distinct programs');
+  assert(sameMembers(report.map(card => card.id), programIds), 'Visual menu preserves all 22 distinct programs');
   assert(new Set(report.map(card => card.source)).size === programIds.length, 'Every program has its own illustration');
   for (const card of report) {
     assert(card.covers === 1 && card.alt, `Program has one cover with an explicit alternative-text decision: ${card.id}`);
-    assert(card.source === `assets/program-menu-v1/${card.id}.webp` && card.decoded, `Program illustration loads from its own local WebP: ${card.id}`);
-    assert(card.provenance === 'AI-иллюстрация' && card.category?.length > 3, `Illustration names its category and is not presented as a project screenshot: ${card.id}`);
+    const diagram = card.id.startsWith('ml-');
+    assert(card.source === (diagram ? `assets/neural-courses/${card.id}.svg` : `assets/program-menu-v1/${card.id}.webp`) && card.decoded, `Program illustration loads from its own local WebP: ${card.id}`);
+    assert(card.provenance === (diagram ? 'Учебная схема' : 'AI-иллюстрация') && card.category?.length > 3, `Illustration names its category and is not presented as a project screenshot: ${card.id}`);
     assert(card.indexedCover && /^Попробуешь роль\s+\S/.test(card.role || '') && card.role.length > 20, `Program has a numbered cover and a readable exploratory role at ${width}px: ${card.id}`);
     assert(/^Практика\s+\S/.test(card.skill || ''), `Skill label is separated from its content for accessible reading: ${card.id}`);
     assert(card.resultLabel === 'Создашь' && card.result?.length > 12 && card.skill?.length > 12 && card.result !== card.skill, `Program separately explains what the visitor will make and practise: ${card.id}`);
@@ -308,7 +310,7 @@ async function catalogSearch(page, width) {
   async function resultsMatch(expected, label) {
     const actual = await ids(visibleCards);
     assert(sameMembers(actual, expected), `${label}: ${actual.join(', ')}`);
-    assert((await page.locator('#catalogCount').innerText()).includes(`${expected.length} из 15`), `Visible count agrees with ${label}`);
+    assert((await page.locator('#catalogCount').innerText()).includes(`${expected.length} из ${programIds.length}`), `Visible count agrees with ${label}`);
     assert(await empty.isVisible() === (expected.length === 0), `Empty-state visibility agrees with ${label}`);
     assert(await page.locator('#programList .program').count() === programIds.length, 'Searching and filtering never removes or duplicates a program');
   }
@@ -330,7 +332,7 @@ async function catalogSearch(page, width) {
   await reset.focus();
   await page.keyboard.press('Space');
   assert(await search.inputValue() === '' && await page.locator('#catalogFilters [data-filter="all"]').getAttribute('aria-pressed') === 'true', 'Empty-state reset clears both query and category');
-  await resultsMatch(programIds, 'Reset restores all 15 programs');
+  await resultsMatch(programIds, 'Reset restores all 22 programs');
 
   const role = (await page.locator('#programList [data-program="furniture"] .program-role').innerText()).replace(/^Попробуешь роль\s*:?\s*/, '').trim();
   await search.fill(role);
@@ -399,7 +401,7 @@ async function selected(page, id) {
     assert(visual.projectAlt.length > 12 && visual.projectCaption === visual.projectAlt, `Selected project preview retains its attribution: ${id}`);
     assert(visual.conceptSrc === null, `Project preview clears a previous conceptual illustration: ${id}`);
   } else {
-    assert(visual.visible.join('|') === 'selConcept' && visual.conceptSrc === `assets/program-covers/${id}.svg`, `Selected program shows its own conceptual illustration: ${id}`);
+    assert(visual.visible.join('|') === 'selConcept' && visual.conceptSrc === (id.startsWith('ml-') ? `assets/neural-courses/${id}.svg` : `assets/program-covers/${id}.svg`), `Selected program shows its own conceptual illustration: ${id}`);
     assert(visual.conceptAlt === '' && visual.conceptCaption.includes('Иллюстрация'), `Conceptual art is explicitly distinguished from a project result: ${id}`);
     assert(visual.projectSrc === null && visual.projectAlt === '' && visual.projectCaption === '', `Conceptual route clears previous project imagery and attribution: ${id}`);
   }
@@ -730,7 +732,7 @@ async function comparison(page, { width, captureStage } = {}) {
 async function websiteChoice(page, width) {
   // Start with the visitor's goal rather than an existing program URL or catalogue filter.
   await page.locator('#goals [data-goal="build"]').click();
-  assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'Website goal retains the complete 15-program catalogue');
+  assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'Website goal retains the complete 22-program catalogue');
   const choices = page.locator('#interests [data-interest]');
   const interests = await choices.evaluateAll(elements => elements.map(el => el.dataset.interest));
   assert(sameMembers(interests, groups.build) && await page.locator('#interests [data-interest="designlab"]').isVisible(), 'Site, program or game goal exposes Design Lab alongside development and Vibe Coding');
@@ -866,7 +868,7 @@ async function vibeRoute(page, width) {
 
   await page.goto(base + '?program=vibe#selected', { waitUntil: 'domcontentloaded' });
   await selected(page, 'vibe');
-  assert(await page.locator('#programList .program').count() === 15, 'Existing catalog preserved');
+  assert(await page.locator('#programList .program').count() === programIds.length, 'Existing catalog preserved');
 }
 
 async function program3dContract(page, width) {
@@ -1520,6 +1522,78 @@ async function landingSites(page, width) {
   if (program) await selected(page, program);
 }
 
+async function neuralCourses(page, width) {
+  const previous = page.url();
+  await page.goto(base, { waitUntil: 'domcontentloaded' });
+  const entrance = page.locator('.hero a[data-neural-courses]');
+  assert(await entrance.isVisible(), 'Neural courses have a visible entrance on the first screen');
+  await page.locator('#catalogFilters [data-filter="neural"]').click();
+  assert(sameMembers(await ids(page.locator('#programList .program:visible')), neuralCourseIds), 'Dedicated neural filter exposes all eight courses without expanding the menu');
+  await page.locator('#programList .program:visible img').evaluateAll(images => Promise.all(images.map(async img => {img.loading = 'eager'; await img.decode();})));
+  await noOverflow(page, 'eight neural course cards ' + width);
+  await page.locator('#programs').screenshot({ path: `${artifacts}/ai-path-${width}-neural-course-menu.png`, animations: 'disabled', style: '.header, .selection-dock {visibility:hidden!important}' });
+  await page.locator('#catalogFilters [data-filter="all"]').click();
+  await page.locator('#programSearch').fill('нейронки');
+  assert(sameMembers(await ids(page.locator('#programList .program:visible')), neuralCourseIds), 'Every neural course can be found with the colloquial search term');
+  await chooseQuiz(page, {goal:'neural', interest:'ml-text', level:'zero', pace:'light'});
+  await selected(page, 'ml-python');
+  assert((await ids(page.locator('#recommendationList .program'))).includes('ml-text'), 'Beginner preparation preserves the requested text course as an alternative');
+  await chooseQuiz(page, {goal:'neural', interest:'ml-audio', level:'basic', pace:'deep'});
+  await selected(page, 'ml-audio');
+  // Carry the current level and pace into the course guide and each explicit target.
+  await entrance.click();
+  await page.waitForURL('**/neural-courses.html?*');
+  assert(await page.locator('[data-neural-course]').count() === 8, 'Guide has eight standalone course cards');
+  const manifest = JSON.parse(await readFile('dist/ai-path/data/neural-notebooks.json', 'utf8'));
+  const expectedCounts = {'ml-python':21, ml:4, 'ml-data':3, 'ml-vision':18, 'ml-text':10, 'ml-audio':2, 'ml-series':5, 'ml-tuning':3};
+  const links = await page.locator('[data-course-notebook]').evaluateAll(elements => elements.map(el => ({url:el.href, course:el.dataset.courseNotebook, status:el.dataset.notebookStatus})));
+  assert(links.length === 66 && new Set(links.map(link => link.url)).size === 66, 'All 66 original notebooks have exactly one course assignment');
+  for (const n of manifest.notebooks) {
+    const target = `https://github.com/${manifest.repository}/blob/${manifest.ref}/${n.path.split('/').map(encodeURIComponent).join('/')}`;
+    assert(links.some(link => link.url === target && link.course === n.course && link.status === n.status), 'Course link preserves source path and readiness: ' + n.path);
+  }
+  assert(links.filter(link => link.status === 'starter').length === 1, 'Historical notebooks are not presented as executed starter examples');
+  for (const id of neuralCourseIds) {
+    const card = page.locator(`[data-neural-course="${id}"]`);
+    assert(await card.locator('[data-course-notebook]').count() === expectedCounts[id], 'Notebook coverage matches the source inventory: ' + id);
+    await card.scrollIntoViewIfNeeded();
+    await card.locator('img').evaluate(async img => { img.loading = 'eager'; await img.decode(); });
+    const planLink = card.locator('[data-course-plan]');
+    const url = new URL(await planLink.getAttribute('href'), page.url());
+    assert(url.searchParams.get('program') === id && url.searchParams.get('level') === 'basic' && url.searchParams.get('pace') === 'deep', 'Course action changes only the target while retaining preparation and pace: ' + id);
+  }
+  await page.screenshot({path:`${artifacts}/ai-path-${width}-neural-course-guide.png`,fullPage:true,animations:'disabled'});
+  const details = page.locator('#ml-vision details');
+  await details.locator('summary').focus();
+  await page.keyboard.press('Enter');
+  assert(await details.getAttribute('open') !== null && await details.locator('[data-course-notebook]').first().isVisible(), 'Course syllabus and source materials open by keyboard');
+  await noOverflow(page, 'expanded neural course guide ' + width);
+  await page.locator('#ml-vision').screenshot({path:`${artifacts}/ai-path-${width}-neural-course-syllabus.png`,animations:'disabled'});
+  if (width === 390) {
+    await page.emulateMedia({colorScheme:'dark'});
+    await page.locator('#ml-text').screenshot({path:`${artifacts}/ai-path-${width}-neural-course-dark.png`,animations:'disabled'});
+    await page.emulateMedia({colorScheme:'light'});
+  }
+  await page.locator('[data-course-plan="ml-series"]').click();
+  await selected(page, 'ml-series');
+  assert(new URL(page.url()).searchParams.get('pace') === 'deep' && (await page.locator('#selSteps').textContent()).includes('хронологическое'), 'Course plan opens its own curriculum and preserves the pace');
+  if (width === 1440) await downloadPlan(page, width, 'neural-course');
+  await page.goto(base + 'neural-networks.html?task=text', {waitUntil:'domcontentloaded'});
+  assert(await page.locator('#nn-selected-project').getAttribute('data-selected-project') === 'text', 'Course architecture shortcut opens the requested text model');
+  assert(new URL(await page.locator('[data-nn-start]').getAttribute('href'),page.url()).searchParams.get('program') === 'ml-text', 'Text architecture offers its own text course, not a generic plan');
+  await page.goto(base + 'neural-networks.html?task=unknown', {waitUntil:'domcontentloaded'});
+  assert(await page.locator('#nn-selected-project').getAttribute('data-selected-project') === 'start', 'Unknown architecture task falls back to the starter');
+  if (width === 1440) {
+    const plainContext = await page.context().browser().newContext({javaScriptEnabled:false});
+    try {
+      const plain = await plainContext.newPage();
+      await plain.goto(base + 'neural-courses.html');
+      assert(await plain.locator('[data-neural-course]').count() === 8 && await plain.locator('[data-course-notebook]').count() === 66, 'Course curricula and full source index are available without JavaScript');
+    } finally { await plainContext.close(); }
+  }
+  await page.goto(previous, {waitUntil:'domcontentloaded'});
+}
+
 async function neuralNetworks(page, width) {
   const previous = page.url();
   const sourceRoot = 'https://github.com/safal207/students/blob/d848e04c8f8d6e3e8e42ce15fbd98c00612e0e17/';
@@ -1761,7 +1835,7 @@ async function desktopRegressions(page) {
   assert(page.url() === bookURL && await page.locator('#selTitle').innerText() === bookTitle && await page.locator('#contactMessage').inputValue() === bookMessage, 'Changing the draft goal preserves the committed book title, project-level URL and contact draft');
   assert(new URL(page.url()).searchParams.get('program') === 'books' && new URL(page.url()).searchParams.get('level') === 'project', 'Book selection retains its explicit project experience until the new answers are submitted');
   await page.locator('#showRecommendation').click();
-  await selected(page, 'qa');
+  await selected(page, 'ml-python');
   assert(new URL(page.url()).searchParams.get('level') === 'zero', 'Submitting the new ML goal uses its reset beginner experience and recommends preparation');
   const preparationURL = page.url();
   const preparationTitle = await page.locator('#selTitle').innerText();
@@ -1771,7 +1845,7 @@ async function desktopRegressions(page) {
   assert(page.url() === preparationURL && await page.locator('#selTitle').innerText() === preparationTitle, 'Unsubmitted interest changes preserve the committed preparation plan');
 
   await chooseQuiz(page, { goal: 'research', interest: 'ml', level: 'zero' });
-  await selected(page, 'qa');
+  await selected(page, 'ml-python');
   assert((await ids(page.locator('#recommendationList .program'))).includes('ml'), 'Beginner keeps the desired ML destination among alternatives');
   assert((await page.locator('#resultReason').innerText()).trim().length > 25, 'Beginner recommendation explains the preparation route');
   await page.locator('#recommendationList [data-program="ml"]').click();
@@ -1861,7 +1935,7 @@ try {
     const response = await page.goto(base, { waitUntil: 'domcontentloaded' });
     assert(response?.status() === 200, 'Page returns HTTP 200');
     await page.locator('#programList .program').first().waitFor({ state: 'attached' });
-    assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'All 15 programs are available');
+    assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'All 22 programs are available');
     const trackNumbers = await page.locator('#programList .program').evaluateAll(cards => Object.fromEntries(cards.map(card => [card.dataset.program, card.querySelector('.n').textContent.match(/ТРЕК\s*(\d+)/)?.[1]])));
     for (const [index, id] of programIds.entries()) assert(Number(trackNumbers[id]) === index + 1, `Track number stays stable: ${id}`);
     assert(!(await page.locator('#selected').isVisible()) && !(await page.locator('#results').isVisible()), 'Fresh entry does not claim the visitor already selected a program');
@@ -1930,6 +2004,7 @@ try {
     if (width === 390) await cosmosExample(page, width);
     await studioPortfolio(page, width);
     await landingSites(page, width);
+    await neuralCourses(page, width);
     await neuralNetworks(page, width);
     if (width === 1440) {
       await schoolNavigation(page);

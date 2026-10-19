@@ -4,7 +4,7 @@
 
   var script = document.currentScript;
   var root = new URL('.', script && script.src || window.location.href);
-  var programs = ['explore', 'build', 'space', 'furniture', 'create', 'comics', 'qa', 'game', 'ml', 'hack', 'grant', 'frontier', 'books', 'designlab', 'vibe'];
+  var programs = ['explore', 'build', 'space', 'furniture', 'create', 'comics', 'qa', 'game', 'ml', 'hack', 'grant', 'frontier', 'books', 'designlab', 'vibe', 'ml-python', 'ml-data', 'ml-vision', 'ml-text', 'ml-audio', 'ml-series', 'ml-tuning'];
   var levels = ['zero', 'basic', 'project'];
   var paces = ['light', 'balanced', 'deep'];
   var originals = new WeakMap();
