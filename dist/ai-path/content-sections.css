@@ -1,12 +1,17 @@
 /* One entry journey, with project details available when requested. */
 .legacy-anchor{display:block;scroll-margin-top:105px}
-.hero-project{margin:0;position:relative;overflow:hidden;border:1px solid #455044;border-radius:24px;background:#182124}
-.hero-project>img{display:block;width:100%;height:490px;object-fit:cover;object-position:center 47%}
-.hero-project figcaption{display:flex;flex-direction:column;gap:9px;padding:23px 26px;background:linear-gradient(125deg,#26322c,#151e29)}
-.hero-project figcaption>span{font-size:11px;color:#b6c4b6;letter-spacing:.06em}
-.hero-project figcaption>strong{font-size:23px;letter-spacing:-.03em}
-.hero-project figcaption>a{font-size:12px;color:var(--accent);line-height:1.6}
+.hero-visual{min-width:0;padding:24px;border:1px solid #455044;border-radius:24px;background:linear-gradient(125deg,#202e2a,#151e29)}
+.hero-projects-tag{display:block;font-size:11px;line-height:1.4;color:#b6c4b6;letter-spacing:.06em}
+.hero-visual h2{margin:12px 0 20px;font-size:28px;line-height:1.2;letter-spacing:-.035em}
+.hero-projects-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;min-width:0}
+.hero-project-tile{display:flex;flex-direction:column;min-width:0;padding:0;border:1px solid #42534c;border-radius:12px;overflow:hidden;background:#111c24;color:#eef4ed;text-align:center;cursor:pointer;transition:border-color .18s ease,transform .18s ease}
+.hero-project-tile img{display:block;width:100%;height:150px;object-fit:contain;background:#101924}
+.hero-project-tile>span{display:flex;align-items:center;justify-content:center;min-height:44px;padding:8px 4px;font-size:12px;font-weight:650;line-height:1.4;overflow-wrap:anywhere}
+.hero-project-tile:hover{border-color:var(--accent);transform:translateY(-2px)}
+.hero-project-tile:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+.hero-projects-note{margin:16px 0 0;font-size:12px;line-height:1.6;color:#bac8c2}
 .hero-grid{align-items:center;padding-top:55px;padding-bottom:55px}
+.hero-grid>div{min-width:0}
 #selector{padding-top:48px}
 .content-disclosure{border:1px solid #354354;border-radius:18px;background:#131d2b;margin-top:14px;margin-bottom:14px;scroll-margin-top:105px}
 .content-disclosure>summary{display:flex;gap:20px;align-items:center;justify-content:space-between;cursor:pointer;padding:25px 28px;list-style:none}
@@ -50,9 +55,14 @@
 .program-curriculum:not([open]){padding-top:22px;padding-bottom:22px}
 .program-curriculum .curriculum-top{margin-top:18px}
 @media(max-width:760px){
- .hero-project>img{height:300px;object-position:center 50%}
- .hero-project figcaption{padding:19px 21px}
- .hero-project figcaption>strong{font-size:21px}
+ .hero-visual{padding:15px;border-radius:18px}
+ .hero-projects-tag{font-size:10px}
+ .hero-visual h2{margin:9px 0 14px;font-size:22px}
+ .hero-projects-grid{gap:7px}
+ .hero-project-tile{border-radius:9px}
+ .hero-project-tile img{height:76px}
+ .hero-project-tile>span{min-height:40px;padding:6px 3px;font-size:10px}
+ .hero-projects-note{margin-top:12px;font-size:11px;line-height:1.5}
  .hero-grid{padding-top:34px;padding-bottom:34px}
  .content-disclosure>summary{padding:20px}
  .content-disclosure>summary strong{font-size:18px}
@@ -65,3 +75,4 @@
  .portfolio-entry{padding:23px}
  .portfolio-overview{padding-top:45px}
 }
+@media(prefers-reduced-motion:reduce){.hero-project-tile{transition:none}.hero-project-tile:hover{transform:none}}

@@ -137,6 +137,45 @@ async function schoolEntry(context, width) {
   }
 }
 async function compactLanding(page, width) {
+  const heroProjects = page.locator('#hero-projects');
+  const heroProjectSpecs = [
+    { id: 'python', image: 'assets/testit.webp', title: /Test it.*Python/, source: 'https://safal207.github.io/test-it-python/' },
+    { id: 'game', image: 'assets/awakening.webp', title: /Пробуждение/, source: 'https://github.com/safal207/Awakening/tree/a92bd1560215833a232362ad78de88335e51ac81' },
+    { id: 'room', image: 'assets/design-lab/room-3d-preview.png', title: /Room Control/, source: 'https://safal207.github.io/room-control-studio/' }
+  ];
+  const heroButtons = heroProjects.locator('button[data-hero-project]');
+  assert(await heroProjects.locator('button').count() === 3 && await heroProjects.locator('button[data-hero-project]:visible').count() === 3 && sameMembers(await heroButtons.evaluateAll(buttons => buttons.map(button => button.dataset.heroProject)), heroProjectSpecs.map(project => project.id)), 'Hero offers three visible native buttons for real Python, game and room projects');
+  assert(await page.locator('.hero img[src="assets/furniture/luma01-hero.webp"]').count() === 0, 'Hero showcase replaces the lone furniture concept');
+  for (const { id } of heroProjectSpecs) {
+    const thumbnail = heroProjects.locator(`[data-hero-project="${id}"] img`);
+    assert(await thumbnail.getAttribute('src') === `assets/hero/${id}.webp` && await thumbnail.getAttribute('loading') !== 'lazy', `Hero loads the matching lightweight project preview eagerly: ${id}`);
+    await thumbnail.evaluate(image => image.decode());
+    assert(await thumbnail.evaluate(image => image.naturalWidth > 0 && image.naturalHeight > 0), `Hero project preview decodes: ${id}`);
+  }
+  const heroBounds = await heroProjects.evaluate(panel => {
+    const { left, right, height } = panel.getBoundingClientRect();
+    return { left, right, height, cards: [...panel.querySelectorAll('button[data-hero-project]')].map(button => {
+      const { left, right, top, width, height } = button.getBoundingClientRect();
+      return { left, right, top, width, height };
+    }) };
+  });
+  assert(heroBounds.left >= -1 && heroBounds.right <= width + 1 && heroBounds.cards.every(card => card.width > 0 && card.height > 0 && card.left >= heroBounds.left - 1 && card.right <= heroBounds.right + 1), `All three hero projects fit within the panel and viewport at ${width}px`);
+  if (width <= 390) assert(heroBounds.height <= 290 && heroBounds.cards.every((card, index) => Math.abs(card.top - heroBounds.cards[0].top) <= 1 && (index === 0 || heroBounds.cards[index - 1].right <= card.left + 1)), `Mobile hero projects stay in three columns in one compact row: ${heroBounds.height}px at ${width}px`);
+  await heroProjects.screenshot({ path: `${artifacts}/ai-path-${width}-hero-projects.png`, animations: 'disabled',
+    style: '.header, .selection-dock, .toast { visibility: hidden !important; }' });
+  const heroURL = page.url();
+  for (const { id, image, title, source } of heroProjectSpecs) {
+    const trigger = heroProjects.locator(`button[data-hero-project="${id}"]`);
+    await trigger.focus();
+    await page.keyboard.press('Enter');
+    assert(await page.locator('#projectLightbox').evaluate(dialog => dialog.open), `Keyboard opens the hero project preview: ${id}`);
+    const fullImage = page.locator('#galleryImage');
+    assert(await fullImage.getAttribute('src') === image && title.test(await page.locator('#galleryTitle').innerText()) && await page.locator('#gallerySource').getAttribute('href') === source, `Hero viewer shows the matching original project and source: ${id}`);
+    await fullImage.evaluate(image => image.decode());
+    await page.keyboard.press('Escape');
+    assert(!(await page.locator('#projectLightbox').evaluate(dialog => dialog.open)) && await trigger.evaluate(button => document.activeElement === button), `Escape closes the hero preview and restores its trigger focus: ${id}`);
+    assert(page.url() === heroURL && !(await page.locator('#selected').isVisible()) && !(await page.locator('#results').isVisible()) && !(await page.locator('#selectionDock').isVisible()), `Previewing ${id} does not navigate or manufacture a program choice`);
+  }
   const libraryIds = ['projects-library', 'creative-library', 'design-library', 'parent-library', 'resource-library'];
   const initial = await page.evaluate(() => {
     const hero = document.querySelector('.hero').getBoundingClientRect();

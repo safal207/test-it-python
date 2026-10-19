@@ -1,0 +1,36 @@
+{
+  "purpose": "Lightweight homepage previews derived from the existing project screenshots. Each gallery opens the full source image and retains its original source link and attribution.",
+  "transformation": "Complete screenshot resized to 480 px wide and encoded as WebP. No cropping, compositing, retouching or generative editing.",
+  "previews": [
+    {
+      "id": "python",
+      "source": "assets/testit.webp",
+      "preview": "assets/hero/python.webp",
+      "width": 480,
+      "height": 320,
+      "bytes": 13672,
+      "source_sha256": "20b07742b8b0fbf89b42109741ca0eb756f1d9ccf8c803bed4ce3ccdb92b057d",
+      "preview_sha256": "96b10bdf29094923bd511a8bcf6356a94af6016a2911854ad72d09fc3b06152b"
+    },
+    {
+      "id": "game",
+      "source": "assets/awakening.webp",
+      "preview": "assets/hero/game.webp",
+      "width": 480,
+      "height": 270,
+      "bytes": 18348,
+      "source_sha256": "1fd2d9f167ad6be6468cdca22ebc56d94dfa6d59b87c7099f3d21eddc284ae17",
+      "preview_sha256": "4d87ef3e2f9d85b9336a9c8c0668672e637d451015e60ebe890480fda6d355ac"
+    },
+    {
+      "id": "room",
+      "source": "assets/design-lab/room-3d-preview.png",
+      "preview": "assets/hero/room.webp",
+      "width": 480,
+      "height": 320,
+      "bytes": 11152,
+      "source_sha256": "e79cfffd3aebf558181562a52413ffae61deb14c9cb872a2c14922c2b676eb7d",
+      "preview_sha256": "65b5286be0dd816c9edec81d0e01382713c2d55d72736ac2eef4427719bd7bbd"
+    }
+  ]
+}
