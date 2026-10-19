@@ -1878,6 +1878,33 @@ async function neuralCourses(page, width) {
     const url = new URL(await planLink.getAttribute('href'), page.url());
     assert(url.searchParams.get('program') === id && url.searchParams.get('level') === 'basic' && url.searchParams.get('pace') === 'deep', 'Course action changes only the target while retaining preparation and pace: ' + id);
   }
+  const practice = page.locator('#kaggle-practice');
+  const practicePaths = await practice.locator('article[data-practice-path]').evaluateAll(cards => cards.map(card => card.dataset.practicePath));
+  assert(sameMembers(practicePaths, ['train', 'finetune', 'kaggle']), 'Kaggle practice distinguishes training, fine-tuning and competition preparation without adding a ninth course');
+  const practicePlans = await practice.locator('a[data-practice-plan]').evaluateAll(anchors => anchors.map(link => ({program:link.dataset.practicePlan, href:link.href})));
+  assert(sameMembers(practicePlans.map(link => link.program), ['ml', 'ml-vision', 'ml-data']), 'Each practice path points to its existing course');
+  for (const link of practicePlans) {
+    const target = new URL(link.href);
+    const school = new URL(base);
+    assert(target.origin === school.origin && target.pathname === school.pathname && target.hash === '#selected' && target.searchParams.get('program') === link.program, 'Practice plan opens the intended school program: ' + link.program);
+    assert(target.searchParams.get('level') === 'basic' && target.searchParams.get('pace') === 'deep', 'Practice plan retains the incoming preparation and pace: ' + link.program);
+  }
+  const examples = await practice.locator('[data-kaggle-example]').evaluateAll(anchors => anchors.map(link => link.href));
+  assert(sameMembers(examples, [
+    'https://www.kaggle.com/competitions/digit-recognizer',
+    'https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques'
+  ]), 'Beginner competition examples link to their official Kaggle pages');
+  const kaggleSteps = practice.locator('details#kaggle-steps');
+  const kaggleSummary = kaggleSteps.locator(':scope > summary');
+  assert(!(await kaggleSteps.evaluate(el => el.open)), 'The optional competition steps start collapsed');
+  await kaggleSummary.focus();
+  await page.keyboard.press('Enter');
+  assert(await kaggleSteps.evaluate(el => el.open) && await kaggleSteps.locator('ol > li:visible').count() === 4, 'Keyboard activation reveals all four steps to a first submission');
+  await noOverflow(page, 'Kaggle practice ' + width);
+  await practice.screenshot({path:`${artifacts}/ai-path-${width}-kaggle-practice.png`,animations:'disabled'});
+  await kaggleSummary.focus();
+  await page.keyboard.press('Space');
+  assert(!(await kaggleSteps.evaluate(el => el.open)), 'The competition steps also close by keyboard');
   await page.screenshot({path:`${artifacts}/ai-path-${width}-neural-course-guide.png`,fullPage:true,animations:'disabled'});
   const details = page.locator('#ml-vision details');
   await details.locator('summary').focus();
@@ -1890,6 +1917,13 @@ async function neuralCourses(page, width) {
     await page.locator('#ml-text').screenshot({path:`${artifacts}/ai-path-${width}-neural-course-dark.png`,animations:'disabled'});
     await page.emulateMedia({colorScheme:'light'});
   }
+  const guideURL = page.url();
+  await practice.locator('[data-practice-plan="ml-data"]').focus();
+  await page.keyboard.press('Enter');
+  await selected(page, 'ml-data');
+  assert(new URL(page.url()).searchParams.get('level') === 'basic' && new URL(page.url()).searchParams.get('pace') === 'deep', 'Keyboard practice action opens the tabular ML plan with the selected preparation and pace');
+  await page.goBack({waitUntil:'domcontentloaded'});
+  assert(page.url() === guideURL, 'Returning from the practice plan restores the course guide URL');
   await page.locator('[data-course-plan="ml-series"]').click();
   await selected(page, 'ml-series');
   assert(new URL(page.url()).searchParams.get('pace') === 'deep' && (await page.locator('#selSteps').textContent()).includes('хронологическое'), 'Course plan opens its own curriculum and preserves the pace');
@@ -1897,6 +1931,9 @@ async function neuralCourses(page, width) {
   await page.goto(base + 'neural-networks.html?task=text', {waitUntil:'domcontentloaded'});
   assert(await page.locator('#nn-selected-project').getAttribute('data-selected-project') === 'text', 'Course architecture shortcut opens the requested text model');
   assert(new URL(await page.locator('[data-nn-start]').getAttribute('href'),page.url()).searchParams.get('program') === 'ml-text', 'Text architecture offers its own text course, not a generic plan');
+  const kaggleGuide = page.locator('[data-kaggle-guide]');
+  assert(await kaggleGuide.count() === 1, 'Architecture guide offers one direct entrance to training and Kaggle practice');
+  await schoolLink(page, kaggleGuide, 'neural-courses.html#kaggle-practice', null, 'Kaggle practice guide');
   await page.goto(base + 'neural-networks.html?task=unknown', {waitUntil:'domcontentloaded'});
   assert(await page.locator('#nn-selected-project').getAttribute('data-selected-project') === 'start', 'Unknown architecture task falls back to the starter');
   if (width === 1440) {
@@ -1905,6 +1942,7 @@ async function neuralCourses(page, width) {
       const plain = await plainContext.newPage();
       await plain.goto(base + 'neural-courses.html');
       assert(await plain.locator('[data-neural-course]').count() === 8 && await plain.locator('[data-course-notebook]').count() === 66, 'Course curricula and full source index are available without JavaScript');
+      assert(await plain.locator('#kaggle-practice article[data-practice-path]').count() === 3 && await plain.locator('#kaggle-steps ol > li').count() === 4, 'Training paths and competition steps are available without JavaScript');
     } finally { await plainContext.close(); }
   }
   await page.goto(previous, {waitUntil:'domcontentloaded'});

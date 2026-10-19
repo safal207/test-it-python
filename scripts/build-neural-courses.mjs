@@ -42,6 +42,23 @@ const cards = courses.map((c, i) => {
   </details></div>
 </article>`;
 }).join('\n');
+const practice = `<section class="nc-practice" id="kaggle-practice" aria-labelledby="practice-title">
+<p class="nc-eyebrow">От учебного эксперимента к первой отправке</p><h2 id="practice-title">Обучение, дообучение и Kaggle</h2>
+<p>Выбери, что хочешь попробовать. Это варианты практики в существующих курсах: подготовку, один итоговый проект и объём участия согласуем с наставником.</p>
+<div class="nc-practice-grid">
+<article data-practice-path="train"><h3>Обучить свою модель</h3><div class="nc-practice-flow" aria-label="Путь обучения с нуля"><span>Данные</span><span>Обучение</span><span>Свои веса</span></div><p>Соберём небольшую MLP, посмотрим, как меняются веса, и проверим результат на новых примерах.</p><p class="nc-caption">Результат: ноутбук с обучением, метрикой и разбором ошибок.</p><a class="nc-practice-link" data-practice-plan="ml" href="${esc(plan('ml'))}">Курс «Первая модель» →</a></article>
+<article data-practice-path="finetune"><h3>Дообучить готовую сеть</h3><div class="nc-practice-flow" aria-label="Путь адаптации готовой модели"><span>Готовые веса</span><span>Свои данные</span><span>Новые веса</span></div><p>На задаче с изображениями обучим новый выходной слой, затем сравним дообучение части сети на той же проверочной выборке.</p><p class="nc-caption">Результат: сравнение модели с замороженной основой и модели после дообучения. Задача и проверочные данные одинаковы.</p><a class="nc-practice-link" data-practice-plan="ml-vision" href="${esc(plan('ml-vision'))}">Курс компьютерного зрения →</a></article>
+<article data-practice-path="kaggle"><h3>Подготовить решение Kaggle</h3><div class="nc-practice-flow" aria-label="Путь к участию в соревновании"><span>Задача</span><span>Проверка</span><span>Файл прогнозов</span></div><p>После основ выберем задачу Getting Started, построим простое решение для сравнения и подготовим файл прогнозов по её требованиям.</p><p class="nc-caption">Результат: воспроизводимый ноутбук, submission-файл и журнал экспериментов. Для таблиц нейросеть необязательна.</p><a class="nc-practice-link" data-practice-plan="ml-data" href="${esc(plan('ml-data'))}">Начать с табличного ML →</a></article>
+</div>
+<details class="nc-details" id="kaggle-steps"><summary>Как дойдём до первой отправки</summary><ol>
+<li>Прочитаем задачу, метрику, формат ответа и правила соревнования; проверим допуск, внешние данные, готовые веса и применение ИИ.</li>
+<li>Отделим проверочную выборку и запустим простую модель — исходный результат для сравнения.</li>
+<li>Изменим один подход, сравним на проверочной части, разберём ошибки и сохраним код. Дообучение выбираем там, где оно подходит задаче и разрешено правилами.</li>
+<li>Проверим submission-файл. Ты принимаешь правила и отправляешь решение из своего аккаунта; после приёма сохраним результат и оформим кейс.</li>
+</ol></details>
+<p class="nc-practice-examples">Примеры для выбора: <a data-kaggle-example href="https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques" target="_blank" rel="noopener noreferrer">House Prices · регрессия по таблицам ↗</a> <a data-kaggle-example href="https://www.kaggle.com/competitions/digit-recognizer" target="_blank" rel="noopener noreferrer">Digit Recognizer · изображения цифр ↗</a></p>
+<p class="nc-caption">Getting Started — учебные соревнования для знакомства с платформой. Условия и доступность проверяем перед стартом; место и призы не входят в обещанный результат. Подход к дообучению: <a href="https://www.tensorflow.org/tutorials/images/transfer_learning" target="_blank" rel="noopener noreferrer">официальный пример TensorFlow ↗</a>.</p>
+</section>`;
 const html = `<!doctype html>
 <html lang="ru">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="theme-color" content="#35443a">
@@ -53,11 +70,12 @@ const html = `<!doctype html>
 <header class="nc-header"><a class="nc-brand" href="./">AI <b>PATH</b></a><nav aria-label="Меню курсов"><a href="./#programs" data-course-back>Все программы школы</a><a href="neural-networks.html">Как устроены сети</a></nav></header>
 <main class="nc-main"><section class="nc-intro" aria-labelledby="page-title"><p class="nc-eyebrow">Обучение с наставником · 8 курсов</p><h1 id="page-title">Нейросети.<br><em>Выбери свою задачу.</em></h1>
 <p class="nc-lead">От первого Python-кода до моделей для изображений, текстов и звука. У каждого курса — своя программа, требования к подготовке и один понятный итоговый проект.</p>
-<div class="nc-actions"><a class="nc-button" href="#ml-python">Начинаю с нуля ↓</a><a class="nc-secondary" href="#ml">Python уже знаю ↓</a></div>
+<div class="nc-actions"><a class="nc-button" href="#ml-python">Начинаю с нуля ↓</a><a class="nc-secondary" href="#ml">Python уже знаю ↓</a><a class="nc-secondary" href="#kaggle-practice">Хочу попробовать Kaggle ↓</a></div>
 <p class="nc-caption">Сроки — базовый план для одного проекта. Темп, набор данных, инструменты и стоимость согласуем до старта.</p></section>
 <section class="nc-route" aria-labelledby="route-title"><h2 id="route-title">Как выбрать последовательность</h2><ol><li><strong>Подготовка</strong><span>Python, массивы, таблицы и графики.</span></li><li><strong>Первая модель</strong><span>Как сеть учится и как проверить ответ.</span></li><li><strong>Одна специализация</strong><span>Таблицы, изображения, тексты, звук или ряды.</span></li><li><strong>Улучшение модели</strong><span>Подбор архитектуры после первого эксперимента.</span></li></ol><p>Проходить все восемь подряд не обязательно. Табличный ML доступен после Python; специализацию выбираем по твоей задаче.</p></section>
 <nav class="nc-jumps" aria-label="Быстрый выбор курса">${courses.map((c,i) => `<a href="#${c.id}">${String(i+1).padStart(2,'0')} · ${esc(c.name)}</a>`).join('')}</nav>
 <div class="nc-grid" id="courses">${cards}</div>
+${practice}
 <section class="nc-archive" id="archive" aria-labelledby="archive-title"><p class="nc-eyebrow">Все материалы на месте</p><h2 id="archive-title">66 ноутбуков распределены по курсам</h2><p>В каталог вошли все 24 работы прежней подборки и остальные 42 ноутбука: подготовка, статистика, временные ряды, перенос обучения и дополнительные задания. Каждый файл закреплён за одним курсом.</p>
 <p>Один стартовый NumPy-пример выполняется в CI исходного репозитория. Остальные 65 — исторический архив. Сохранённые выводы и точность в названиях файлов не подтверждают текущую воспроизводимость. Перед практикой проверим окружение и данные.</p>
 <a href="https://github.com/${manifest.repository}/tree/${manifest.ref}" target="_blank" rel="noopener noreferrer">Открыть полный архив источника ↗</a> · <a href="./#research">Прежняя подборка 24 работ →</a></section>
