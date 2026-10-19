@@ -39,7 +39,7 @@
 .portfolio-entry a,.portfolio-crosslink a{color:var(--accent);font-size:13px;line-height:1.7}
 .portfolio-entry a{padding:6px 0}
 .portfolio-crosslink{color:#bac8da;line-height:1.8;margin:0 0 28px}
-#awakening{scroll-margin-top:105px}
+#awakening,#athenaion{scroll-margin-top:105px}
 #awakening #chooseAwakening{font-size:12px;min-height:44px;margin:12px 0}
 .takeaway-box>summary{cursor:pointer;font-size:14px;font-weight:650;line-height:1.7}
 .program-curriculum>summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:15px}

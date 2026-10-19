@@ -726,7 +726,7 @@ async function websiteChoice(page, width) {
   }
 }
 async function preservedContent(page, complete) {
-  assert(await page.locator('#examples article.project').count() === 6, 'Six source-backed project cards');
+  assert(await page.locator('#examples article.project').count() === 7, 'Seven source-backed project cards');
   assert(await page.locator('#comics article.project').count() === 3, 'Three existing comic examples');
   assert(await page.locator('#furniture article.project').count() === 3, 'Three source-backed LUMA 01 views');
   assert(await page.locator('#frontier .frontier-card').count() === 4, 'Four official lab pathways');
