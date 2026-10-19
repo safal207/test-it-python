@@ -1,0 +1,85 @@
+name: Capture current Awakening gameplay
+on:
+  push:
+    branches: [ci/awakening-capture-20261019]
+permissions:
+  contents: read
+concurrency:
+  group: awakening-capture-20261019
+  cancel-in-progress: false
+jobs:
+  capture:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+      LIBGL_ALWAYS_SOFTWARE: '1'
+      SOURCE_SHA: 729669b7cf65d33762b468a8d9c2fd63030a28ef
+    steps:
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Install desktop capture dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb xauth imagemagick xdotool mesa-utils libgl1-mesa-dri libglx-mesa0 libxrandr2 libxinerama1 libxcursor1 libxi6
+      - name: Build the exact source without modifying the game
+        run: |
+          git clone --filter=blob:none --no-checkout https://github.com/safal207/Awakening.git "$RUNNER_TEMP/awakening"
+          git -C "$RUNNER_TEMP/awakening" checkout "$SOURCE_SHA"
+          test "$(git -C "$RUNNER_TEMP/awakening" rev-parse HEAD)" = "$SOURCE_SHA"
+          mkdir -p "$GITHUB_WORKSPACE/evidence"
+          git -C "$RUNNER_TEMP/awakening" status --porcelain > "$GITHUB_WORKSPACE/evidence/source-status-before.txt"
+          dotnet build "$RUNNER_TEMP/awakening/Probuzhdenie.csproj" --configuration Release > "$GITHUB_WORKSPACE/evidence/build.log" 2>&1
+          dotnet --info > "$GITHUB_WORKSPACE/evidence/dotnet-info.txt"
+      - name: Record real runtime frames
+        run: |
+          export EVIDENCE_DIR="$GITHUB_WORKSPACE/evidence"
+          timeout 120s xvfb-run -a -s '-screen 0 1440x960x24 +extension GLX +render -noreset' bash <<'SH'
+          set -euo pipefail
+          cd "$RUNNER_TEMP/awakening"
+          glxinfo -B > "$EVIDENCE_DIR/glxinfo.txt"
+          dotnet bin/Release/net8.0/Probuzhdenie.dll --runtime-profile --profile-seconds 55 --profile-output "$EVIDENCE_DIR/game-runtime.json" > "$EVIDENCE_DIR/game.log" 2>&1 &
+          game_pid=$!
+          trap 'kill "$game_pid" 2>/dev/null || true' EXIT
+          window=''
+          for i in $(seq 1 60); do
+            kill -0 "$game_pid" || { cat "$EVIDENCE_DIR/game.log"; exit 1; }
+            window=$(xdotool search --onlyvisible --name 'Пробуждение' 2>/dev/null | head -n 1 || true)
+            [ -z "$window" ] || break
+            sleep 0.5
+          done
+          [ -n "$window" ] || { cat "$EVIDENCE_DIR/game.log"; exit 1; }
+          xdotool getwindowgeometry --shell "$window" > "$EVIDENCE_DIR/window-geometry.txt"
+          started=$SECONDS
+          for second in 4 9 14 19 24 29 34 39; do
+            remaining=$((second - (SECONDS - started)))
+            if [ "$remaining" -gt 0 ]; then sleep "$remaining"; fi
+            kill -0 "$game_pid"
+            import -window "$window" "$EVIDENCE_DIR/awakening-runtime-${second}s.png"
+            date -u +'%Y-%m-%dT%H:%M:%SZ' > "$EVIDENCE_DIR/awakening-runtime-${second}s.txt"
+          done
+          wait "$game_pid"
+          test -s "$EVIDENCE_DIR/game-runtime.json"
+          SH
+          git -C "$RUNNER_TEMP/awakening" status --porcelain > "$GITHUB_WORKSPACE/evidence/source-status-after.txt"
+      - name: Record provenance and PNG checksums
+        run: |
+          python - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          root=Path(os.environ['GITHUB_WORKSPACE'])/'evidence'
+          files=[]
+          for p in sorted(root.glob('awakening-runtime-*.png')):
+              files.append({'file':p.name,'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'capturedAt':p.with_suffix('.txt').read_text().strip(),'capture':'ImageMagick import -window; unchanged runtime pixels'})
+          data={'repository':'safal207/Awakening','sourceCommit':os.environ['SOURCE_SHA'],'workflowCommit':os.environ['GITHUB_SHA'],'workflowRun':os.environ['GITHUB_RUN_ID'],'runtime':'Unmodified .NET8/OpenTK desktop game under Xvfb/Mesa software OpenGL','mode':'existing --runtime-profile automation; seed424242; no manual game source edits','files':files}
+          (root/'provenance.json').write_text(json.dumps(data,indent=2)+'\n')
+          assert len(files)==8
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: awakening-current-runtime-729669b
+          path: evidence/
+          if-no-files-found: error
+          retention-days: 14
