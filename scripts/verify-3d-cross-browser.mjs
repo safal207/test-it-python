@@ -120,7 +120,7 @@ async function exposeProgramMenu(page) {
     await more.focus();
     await page.keyboard.press('Enter');
   }
-  assert(await page.locator('#programList [data-program]:visible').count() === 15, 'Show-more action exposes all 15 program choices');
+  assert(await page.locator('#programList [data-program]:visible').count() === 22, 'Show-more action exposes all 22 program choices');
   assert(await more.getAttribute('aria-expanded') === 'true', 'Expanded program menu announces its complete state');
 }
 async function iframeContract(page, width) {
