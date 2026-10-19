@@ -417,8 +417,8 @@
   function renderSelectionNavigation(){
     var hasSelection=Boolean(state.selection);
     document.body.classList.toggle('has-selection',hasSelection);
-    $('headerAction').href=hasSelection?'#selected':'#selector';
-    $('headerAction').textContent=hasSelection?'Мой план ↗':'Подобрать маршрут';
+    $('headerAction').href=hasSelection?'#selected':'#programs';
+    $('headerAction').textContent=hasSelection?'Мой план ↗':'Выбрать курс ↓';
     $('closingAction').href=hasSelection?'#start':'#selector';
     $('closingAction').textContent=hasSelection?'Обсудить мой старт':'Подобрать маршрут';
     $('dockPlan').href='#selected';$('dockStart').href='#start';$('startJump').href='#start';
@@ -520,14 +520,16 @@
       var haystack=normalizeSearch([p.name,m.result,m.role,m.skills,cardArt[id].category,groups.neural.indexOf(id)!==-1?'нейронки нейронные сети neural networks machine learning ML':''].join(' '));
       var matches=(state.filter==='all'||groups[state.filter].indexOf(id)!==-1)&&(!query||haystack.indexOf(query)!==-1);
       if(matches)count++;
-      var visible=matches&&(!limited||shown<6);button.hidden=!visible;if(visible)shown++;
+      var visible=matches&&(!limited||groups.neural.indexOf(id)!==-1);button.hidden=!visible;if(visible)shown++;
     });
     syncButtons('catalogFilters','filter',state.filter);
     $('catalogCount').textContent=shown<count?'Показано '+shown+' из '+count+' программ':'Показано '+count+' из '+programs.length+' программ';
     $('catalogEmpty').hidden=count!==0;
+    $('neuralCatalogIntro').hidden=Boolean(query)||!(limited||state.filter==='neural');
+    $('programList').classList.toggle('neural-menu',limited||state.filter==='neural');
     $('clearProgramSearch').hidden=!state.query;
     $('showAllPrograms').hidden=shown===count;
-    $('showAllPrograms').textContent='Показать ещё '+(count-shown)+' программ';
+    $('showAllPrograms').textContent='Ещё '+(count-shown)+' программ: сайты, игры, дизайн ↓';
     $('showAllPrograms').setAttribute('aria-expanded',String(!limited));
   }
   function recommendationForAnswers(){
@@ -632,6 +634,7 @@
     renderComparison();renderSelection();updateSelectionUrl();focusSection('resultTitle');
   });
   $('compareToggle').addEventListener('click',function(){if(!state.result)return;var expanded=$('compareToggle').getAttribute('aria-expanded')==='true';$('compareToggle').setAttribute('aria-expanded',String(!expanded));$('comparison').hidden=expanded});
+  $('hero-programs').addEventListener('click',function(){state.filter='all';state.query='';state.catalogExpanded=false;$('programSearch').value='';filterCatalog()});
   $('catalogFilters').addEventListener('click',function(e){var b=e.target.closest('button[data-filter]');if(!b||!(b.dataset.filter==='all'||own(groups,b.dataset.filter)))return;state.filter=b.dataset.filter;state.catalogExpanded=false;filterCatalog()});
   $('programSearch').addEventListener('input',function(){state.query=this.value;state.catalogExpanded=false;filterCatalog()});
   $('clearProgramSearch').addEventListener('click',function(){state.query='';$('programSearch').value='';filterCatalog();$('programSearch').focus()});
@@ -746,7 +749,10 @@
   syncButtons('levels','level',state.level);
   syncButtons('paces','pace',state.pace);
   renderInterests();quizSummary(false);
-  $('programList').innerHTML=programs.map(function(p){return cardMarkup(p,false)}).join('');
+  // One catalogue: show the complete neural course sequence first, retaining
+  // every other program and its original track number in the expanded menu.
+  var catalogPrograms=groups.neural.map(programById).concat(programs.filter(function(p){return groups.neural.indexOf(p.id)===-1}));
+  $('programList').innerHTML=catalogPrograms.map(function(p){return cardMarkup(p,false)}).join('');
   filterCatalog();closeResults();renderSelection();
   window.addEventListener('popstate',restoreSelectionFromUrl);
 })();

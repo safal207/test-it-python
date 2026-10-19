@@ -207,7 +207,8 @@ async function iframeContract(page, width) {
   await startFrame(page);
   await exposeProgramMenu(page);
   await page.locator('#catalogFilters [data-filter="all"]').click();
-  assert(await page.locator('#programList [data-program]:visible').count() === 6, 'Resetting the catalogue filter restores its initial six choices');
+  assert(await page.locator('#programList [data-program]:visible').count() === 8, 'Resetting the catalogue filter restores its eight neural courses');
+  await page.locator('#catalogFilters [data-filter="build"]').click();
   await page.locator('#programList [data-program="build"]').click();
   assert(await panel.isHidden() && await panel.locator('iframe').count() === 0, 'Another program disposes 3D and hides its panel');
   assert(await page.locator('.selection-visual').isVisible(), 'Another program restores its regular result preview');

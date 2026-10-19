@@ -187,12 +187,12 @@ async function compactLanding(page, width) {
       menuSection: document.querySelector('#programs').tagName === 'SECTION' };
   });
   assert(initial.menuSection && await page.locator('#programs').isVisible(), 'Fresh landing exposes the program menu as a visible section');
-  assert(await page.locator('#programList .program:visible').count() === 6 && await page.locator('#showAllPrograms').isVisible(), 'Fresh menu starts with six programs and a clear action to see the rest');
+  assert(sameMembers(await ids(page.locator('#programList .program:visible')), neuralCourseIds) && await page.locator('#showAllPrograms').isVisible(), 'Fresh menu exposes all eight neural courses and a clear action for the other programs');
   assert(sameMembers(initial.disclosures.map(item => item.id), libraryIds) && initial.disclosures.every(item => !item.open), 'Fresh landing keeps all five detail libraries closed');
   assert(initial.menuGap >= -1 && initial.menuGap < 100 && initial.quizAfterMenu, 'Visual program menu immediately follows the hero, with the guided quiz after it');
   assert(await page.locator('.first-project-section, #navigatorStart').count() === 0, 'Fresh landing removes the duplicate Navigator offer while keeping its old URL anchor');
   assert(await page.locator('#portfolio').isVisible() && await page.locator('#web-studio').isVisible(), 'Compact portfolio overview remains visible without opening a library');
-  if (width === 1440) assert(initial.height < 8500, `Fresh desktop landing fits the compact page budget with its six-card menu: ${initial.height}px`);
+  if (width === 1440) assert(initial.height < 8500, `Fresh desktop landing fits the compact page budget with its eight-course menu: ${initial.height}px`);
   await page.locator('#programList .program:visible img').evaluateAll(images => Promise.all(images.map(async image => {
     image.loading = 'eager'; await image.decode();
   })));
@@ -210,7 +210,7 @@ async function compactLanding(page, width) {
   await page.goto(base + route + '#selected', { waitUntil: 'domcontentloaded' });
   await selected(page, 'build');
   const before = new URL(page.url());
-  assert(await page.locator('#programList .program:visible').count() === 6, 'Deep-linked plan keeps the menu at its compact six-card starting state');
+  assert(sameMembers(await ids(page.locator('#programList .program:visible')), neuralCourseIds), 'Deep-linked plan retains the eight visible neural courses');
   await page.locator('#hero-programs').focus();
   await page.keyboard.press('Enter');
   assert(await page.locator('#programs').isVisible(), 'Keyboard hero entrance reaches the visible program menu');
@@ -1004,6 +1004,7 @@ async function navigatorRoute(page, width) {
   assert(Number.parseInt(await page.locator('#selDuration').innerText(), 10) === 4 && Number.parseInt(await page.locator('#selMeetings').innerText(), 10) === 4, 'Navigator details retain the four-week, four-meeting base plan');
   assert(/2 пробных/.test(await page.locator('#selOutcome').innerText()) && await page.locator('#selSteps li').count() === 4, 'Navigator retains its two trials and four learning steps');
   await revealTarget(page, '#programList');
+  if (await page.locator('#showAllPrograms').isVisible()) await page.locator('#showAllPrograms').click();
   await page.locator('#programList [data-program="explore"]').focus();
   await page.keyboard.press('Enter');
   await selected(page, 'explore');
@@ -1526,7 +1527,35 @@ async function neuralCourses(page, width) {
   const previous = page.url();
   await page.goto(base, { waitUntil: 'domcontentloaded' });
   const entrance = page.locator('.hero a[data-neural-courses]');
-  assert(await entrance.isVisible(), 'Neural courses have a visible entrance on the first screen');
+  const cta = await page.locator('#hero-programs').boundingBox();
+  assert(cta && cta.y >= 0 && cta.y + cta.height <= page.viewportSize().height, 'Fresh first viewport contains the complete course action');
+  assert((await page.locator('.hero h1').innerText()).includes('Нейросети'), 'Hero names neural networks before the visitor scrolls');
+  await page.screenshot({path:`${artifacts}/ai-path-${width}-home-course-hero.png`,animations:'disabled'});
+  assert(await entrance.isVisible(), 'Hero offers the full syllabus as a secondary link');
+  assert((await ids(page.locator('#programList .program:visible'))).join('|') === neuralCourseIds.join('|'), 'All eight neural courses appear in learning order without a search, filter or show-more click');
+  assert(await page.locator('#neuralCatalogIntro').isVisible(), 'Initial course group has an explicit neural-network heading');
+  await page.locator('#catalogFilters [data-filter="visual"]').click();
+  await page.locator('#programSearch').fill('книга');
+  await page.locator('#hero-programs').click();
+  assert(sameMembers(await ids(page.locator('#programList .program:visible')), neuralCourseIds) && await page.locator('#programSearch').inputValue() === '', 'Hero course action restores the eight neural courses after another filter and search');
+  await page.locator('#headerAction').focus();
+  await page.keyboard.press('Enter');
+  assert(new URL(page.url()).hash === '#programs', 'Fresh desktop and mobile header navigates directly to courses');
+  await page.locator('#programs').evaluate(el => el.scrollIntoView({block:'start',behavior:'instant'}));
+  await page.screenshot({path:`${artifacts}/ai-path-${width}-home-course-entry.png`,animations:'disabled'});
+  for (const id of ['ml-python', 'ml']) {
+    await page.locator(`.hero [data-start-track="${id}"]`).focus();
+    await page.keyboard.press('Enter');
+    await selected(page, id);
+    assert(await page.locator('#selTitle').evaluate(el => document.activeElement === el), 'Hero starter opens and focuses the corresponding plan: ' + id);
+  }
+  await page.goto(base, { waitUntil: 'domcontentloaded' });
+  await page.locator('#programList .program').first().waitFor({state:'attached'});
+  await page.locator('#programList .program:visible img').evaluateAll(images => Promise.all(images.map(async img => {img.loading = 'eager'; await img.decode();})));
+  await page.locator('#programs').screenshot({path:`${artifacts}/ai-path-${width}-home-courses.png`,animations:'disabled',style:'.header, .selection-dock {visibility:hidden!important}'});
+  await page.locator('#programList [data-program="ml-audio"]').click();
+  await selected(page, 'ml-audio');
+  assert(new URL(page.url()).searchParams.get('program') === 'ml-audio', 'An initially visible specialization opens its own plan directly from home');
   await page.locator('#catalogFilters [data-filter="neural"]').click();
   assert(sameMembers(await ids(page.locator('#programList .program:visible')), neuralCourseIds), 'Dedicated neural filter exposes all eight courses without expanding the menu');
   await page.locator('#programList .program:visible img').evaluateAll(images => Promise.all(images.map(async img => {img.loading = 'eager'; await img.decode();})));
@@ -1812,6 +1841,7 @@ async function historySelection(page) {
 
   await page.goto(base, { waitUntil: 'domcontentloaded' });
   await page.locator('#hero-programs').click();
+  await page.locator('#showAllPrograms').click();
   await page.locator('#programList [data-program="build"]').click();
   await selected(page, 'build');
   await page.goBack({ waitUntil: 'domcontentloaded' });
@@ -1941,7 +1971,7 @@ try {
     assert(!(await page.locator('#selected').isVisible()) && !(await page.locator('#results').isVisible()), 'Fresh entry does not claim the visitor already selected a program');
     assert(!new URL(page.url()).searchParams.has('program'), 'Fresh entry does not manufacture a selection in the URL');
     assert(!(await page.locator('#selectionDock').isVisible()), 'Fresh entry has no sticky selection action');
-    assert(await page.locator('#headerAction').getAttribute('href') === '#selector', 'Fresh header starts the selection quiz');
+    assert(await page.locator('#headerAction').getAttribute('href') === '#programs', 'Fresh header opens the visible course catalogue');
     if (width === 1440) await responsivePageBounds(page);
     await compactLanding(page, width);
     await screenshot(page, width, 'hero');
@@ -1975,6 +2005,7 @@ try {
     const candidates = await ids(page.locator('#recommendationList .program'));
     const keyboardProgram = candidates[1];
     await revealTarget(page, '#programList');
+    if (await page.locator('#showAllPrograms').isVisible()) await page.locator('#showAllPrograms').click();
     await page.locator(`#programList [data-program="${keyboardProgram}"]`).focus();
     await page.keyboard.press('Space');
     await selected(page, keyboardProgram);

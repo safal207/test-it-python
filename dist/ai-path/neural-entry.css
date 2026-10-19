@@ -1,3 +1,14 @@
 .nn-research-entry{background:#29312c;border:1px solid #47534b;border-radius:18px;padding:24px;margin:0 0 28px;display:flex;align-items:center;justify-content:space-between;gap:28px;color:#c4ccc6}.nn-research-entry h3{font-size:21px;line-height:1.3;font-weight:500;letter-spacing:-.03em;margin:0 0 10px}.nn-research-entry p{color:#a7b3aa;font-size:14px;line-height:1.65;margin:0;max-width:650px}.nn-research-entry a{flex:none;background:#35443a;color:#c4ccc6;border:1px solid #9bb4a2;border-radius:10px;padding:12px 17px;font-size:13px;line-height:1.5;font-weight:500;text-decoration:none;min-height:48px;display:inline-flex;align-items:center}.nn-research-entry a:focus-visible{outline:3px solid #9bb4a2;outline-offset:4px}@media(max-width:900px){.nn-research-entry{align-items:start;flex-direction:column;gap:20px}.nn-research-entry a{flex:none;max-width:100%}}@media(max-width:480px){.nn-research-entry{padding:20px}.nn-research-entry a{width:100%;font-size:13px}.nn-research-entry h3{font-size:20px}}
-.neural-course-entrance{display:flex;flex-direction:column;gap:4px;margin-top:22px;padding:14px 16px;border:1px solid var(--line,#cbd3c5);border-radius:10px;background:#18251f;color:#dce9d6}
-.neural-course-entrance a{font-weight:700;color:#d7fa82}.neural-course-entrance span{font-size:13px}
+.neural-course-entrance{margin-top:24px;padding:18px;border:1px solid #46594e;border-radius:16px;background:#18251f;color:#dce9d6}
+.neural-course-entrance h2{margin:0 0 12px;font-size:15px;line-height:1.5;letter-spacing:0;color:#e5eddf}
+.neural-start-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.neural-start-actions button{display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-width:0;min-height:74px;padding:12px;border:1px solid #5c705f;border-radius:10px;background:#23352a;color:#c5d3c7;text-align:left;font:inherit;font-size:12px;line-height:1.5;cursor:pointer}
+.neural-start-actions span{color:#e5efdb;font-size:13px;font-weight:650}
+.neural-start-actions button:hover{background:#2e4435;border-color:#aac48f}
+.neural-course-entrance>a{display:inline-flex;align-items:center;min-height:44px;margin-top:8px;color:#c7d9b5;font-size:12px;line-height:1.5;text-underline-offset:4px}
+.neural-course-entrance button:focus-visible,.neural-course-entrance a:focus-visible{outline:3px solid #d5e7b5;outline-offset:4px}
+.neural-catalog-intro{margin:0 0 22px;padding:18px 22px;border-left:3px solid #b7cc9d;border-radius:0 12px 12px 0;background:#1b2a24}
+.neural-catalog-intro h3{margin:0 0 7px;color:#e1ebd7;font-size:21px;line-height:1.4;letter-spacing:-.02em}
+.neural-catalog-intro p{margin:0;color:#bfcdc1;font-size:13px;line-height:1.7}
+@media(min-width:1280px){.programs.neural-menu{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.neural-menu .program-body{padding:18px}.neural-menu .program-name{font-size:21px;margin-bottom:10px}.neural-menu .program-outcome{margin-bottom:10px}.neural-menu .program-role{padding-top:10px}.neural-menu .program-meta{gap:5px;padding-top:12px}.neural-menu .program-meta>span{padding-inline:7px}.neural-menu .program-level{margin-bottom:12px}}
+@media(max-width:480px){.neural-course-entrance{padding:15px}.neural-start-actions{gap:8px}.neural-start-actions button{padding:10px}.neural-catalog-intro{padding:16px}.neural-catalog-intro h3{font-size:19px}}
