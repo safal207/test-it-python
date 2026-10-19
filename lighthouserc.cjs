@@ -7,6 +7,7 @@ module.exports = {
         "http://localhost/ai-path/vibe-coding/",
         "http://localhost/ai-path/neural-networks.html",
         "http://localhost/ai-path/neural-courses.html",
+        "http://localhost/ai-path/career-research.html",
         "http://localhost/ai-path/studio.html",
         "http://localhost/ai-path/examples/pocitel.html"
       ],

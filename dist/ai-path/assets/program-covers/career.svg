@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 440" role="img" aria-labelledby="title desc">
+<title id="title">Выбор направления через исследование вакансий</title>
+<desc id="desc">Учебная схема: собрать источники, сравнить требования трёх направлений и проверить выбор пробными задачами. Это схема процесса, а не реальные данные рынка.</desc>
+<rect width="720" height="440" rx="24" fill="#101b29"/>
+<text x="36" y="48" fill="#d7fa82" font-family="Arial,sans-serif" font-size="14" letter-spacing="2">ВЫБОР НАПРАВЛЕНИЯ С ИИ</text>
+<g fill="#1b2b3d" stroke="#60738d" stroke-width="1.5"><rect x="36" y="78" width="190" height="130" rx="16"/><rect x="265" y="78" width="190" height="130" rx="16"/><rect x="494" y="78" width="190" height="130" rx="16"/></g>
+<g fill="#eff4fc" font-family="Arial,sans-serif" text-anchor="middle"><text x="131" y="113" font-size="18">Источники</text><text x="360" y="113" font-size="18">Сравнение</text><text x="589" y="113" font-size="18">Проба работы</text></g>
+<g stroke="#a9bdd2" stroke-width="4" stroke-linecap="round"><path d="M69 140h118m-118 17h91m-91 17h107"/><path d="M300 140h120m-120 17h81m-81 17h101"/></g>
+<g fill="#d7fa82"><circle cx="554" cy="154" r="20"/><path d="m544 154 7 7 14-15" fill="none" stroke="#172324" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g>
+<path d="M610 140h42m-42 17h31m-31 17h36M235 144h20m209 0h20" fill="none" stroke="#a9bdd2" stroke-width="4" stroke-linecap="round"/>
+<path d="m249 139 6 5-6 5m229-10 6 5-6 5" fill="none" stroke="#d7fa82" stroke-width="2"/>
+<path d="M360 221v25M130 264v-18h460v18" fill="none" stroke="#7e91aa" stroke-width="2"/>
+<g fill="#202d3d" stroke="#647993"><rect x="36" y="265" width="190" height="72" rx="14"/><rect x="265" y="265" width="190" height="72" rx="14"/><rect x="494" y="265" width="190" height="72" rx="14"/></g>
+<g fill="#d9e5f4" font-family="Arial,sans-serif" text-anchor="middle" font-size="17"><text x="131" y="307">Интерес</text><text x="360" y="307">Навыки</text><text x="589" y="307">Условия</text></g>
+<text x="360" y="386" fill="#d7fa82" font-family="Arial,sans-serif" font-size="20" text-anchor="middle">Твой выбор → план на 30 дней</text>
+<text x="360" y="416" fill="#afc0d4" font-family="Arial,sans-serif" font-size="12" text-anchor="middle">Учебная схема · выводы проверяем по первоисточникам</text>
+</svg>

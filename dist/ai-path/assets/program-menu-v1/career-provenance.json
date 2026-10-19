@@ -1,0 +1,29 @@
+{
+  "id": "career",
+  "purpose": "AI-generated conceptual illustration for an educational course about researching and choosing a direction. Not a vacancy, employer endorsement, completed student project, job offer or guaranteed outcome.",
+  "generated_on": "2026-10-19",
+  "generator": "Built-in image_gen tool",
+  "source_image": {
+    "width": 1536,
+    "height": 1024,
+    "bytes": 1935074,
+    "sha256": "26fb7dfe99869a958c9aebe213ec3fd2543006a9fb156e40d456679634542ee1",
+    "generated_file": "exec-80d3958e-b07e-4bd9-9855-c28e9117c098.png"
+  },
+  "style_reference": {
+    "file": "explore.webp",
+    "use": "Visually inspected for collection style; the generation call used a text prompt without image references.",
+    "sha256": "5f21538970a7f6a90865daa073e392a86f81f00df64578fd3fb82b3f821c34e6"
+  },
+  "prompt": "Use case: stylized-concept\nAsset type: new AI-generated conceptual course-menu cover for choosing a study or career direction through research; not an actual project screenshot, vacancy or employment result.\nPrimary request: an elegant miniature tactile career-research diorama on a round warm cream and beige ceramic plinth. A small open laptop displaying three blank geometric vacancy-card panels without writing, a substantial sage magnifying glass, a small simple compass without letters or numerals, three upright blank candidate-path cards in pastel lavender, muted coral and mint, plus a few tiny check tokens with simple checkmark motifs. The objects suggest exploring and comparing directions thoughtfully. Keep a single coherent arrangement, clear shapes and no dense diagram.\nStyle and palette: premium handcrafted 3D editorial miniature, soft matte cream ceramic and clay textures, pale beige plinth, dark midnight teal-navy studio background, restrained pastel purple, coral and mint accents. Clean charming educational product photography with soft studio light and gentle natural shadows. Match the visual language of a cream ceramic educational miniature collection.\nComposition: landscape 3:2, ideally1536x1024. Strong centered subject with an8percent safe margin on all sides and generous dark background. Modest three-quarter camera view, all significant objects clearly visible.\nAvoid: every letter, word, number, logo, watermark, border, human face, person, currency, salary or job-offer icon, trophy, real employer brand, promise of work or guaranteed outcomes. All screen panels and cards must remain blank except for abstract geometric shapes. This is conceptual art only, not a precise diagram.",
+  "preview": {
+    "file": "career.webp",
+    "width": 960,
+    "height": 640,
+    "bytes": 40572,
+    "sha256": "4139f62a1600df02923b621113b9b274f30a4be0267c4fc89bbfd48c634a6433",
+    "webp_quality": 86
+  },
+  "transformation": "Complete generated image resized to 960×640 and encoded as WebP only. No cropping, compositing, retouching, redraw or generative editing.",
+  "inspection": "Single output inspected: cream miniature plinth with blank geometric vacancy/candidate cards, laptop, magnifying glass, compass and check tokens; no text, numerals, logos, faces, currency or claimed employment results."
+}

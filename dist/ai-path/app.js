@@ -22,7 +22,7 @@
   // Quiz answers are a draft; selection stores the answers agreed at the last choice.
   // Editing the quiz must not silently change an already shared programme.
   var state={goal:'explore',interest:'explore',level:'zero',pace:'balanced',selection:null,result:null,filter:'all',query:'',catalogExpanded:false};
-  var groups={explore:['explore'],visual:['furniture','space','designlab','comics','books','create'],build:['build','designlab','vibe','qa','game'],neural:window.AIPathNeuralCourses.map(function(c){return c.id}),research:['ml','hack','grant','frontier']};
+  var groups={explore:['explore','career'],visual:['furniture','space','designlab','comics','books','create'],build:['build','designlab','vibe','qa','game'],neural:window.AIPathNeuralCourses.map(function(c){return c.id}),research:['ml','hack','grant','frontier']};
   var goalLabels={explore:'попробовать разные направления',visual:'создавать книги и визуальные проекты',build:'создавать сайты, приложения и игры',research:'развивать проект и исследовать'};
   var interestLabels={designlab:'Интерактивные сайты и 3D',explore:'Пока выбираю направление',furniture:'Мебель и предметы',space:'Комнаты и пространства',comics:'Комиксы и истории',books:'Книга и Amazon KDP',create:'Короткие видео',build:'Лендинг, сайт или приложение',qa:'Python и тестирование',game:'3D-игры',vibe:'Вайбкодинг, MVP и клиенты',ml:'Нейросети и данные',hack:'Хакатоны',grant:'Грантовая заявка',frontier:'Исследовательский проект'};
   var levelLabels={zero:'с нуля',basic:'есть небольшая база',project:'есть свой проект'};
@@ -321,6 +321,13 @@
     if(i===-1)programs.push(c);else programs[i]=c;
     interestLabels[c.id]=c.name;presentation[c.id]=c.presentation;starterKits[c.id]=c.kit;choiceGuide[c.id]=c.guideInfo;alternatives[c.id]=c.next;
   });
+  // Career discovery is a separate course; the existing project and neural tracks retain their IDs.
+  programs.push({id:'career',num:'23',glyph:'⌕',name:'Выбор направления с ИИ',short:'Исследуй 15–20 вакансий, сравни три направления и проверь выбор короткими пробами работы с помощью Codex, Claude, Grok, DeepSeek или Qwen.',weeks:4,meetings:4,level:'Можно с нуля; нужен браузер и один доступный ИИ-инструмент',outcome:'Карта трёх направлений с источниками, таблица 15–20 вакансий со ссылками и датами, сравнение требований, три пробные задачи и личный план на 30 дней. Это небольшое исследование выбранного рынка, а не прогноз зарплаты или гарантия трудоустройства.',steps:['Неделя 1 — интересы, ограничения и три гипотезы направления; план поиска и правила проверки источников.','Неделя 2 — сбор и ручная проверка 15–20 вакансий: даты, требования, условия и отдельные поля зарплаты.','Неделя 3 — анализ повторяющихся навыков, проверка выводов другим агентом и сравнение трёх направлений.','Неделя 4 — короткая проба работы в каждом направлении, обсуждение результатов и план следующих 30 дней.'],refs:[['Курс и рабочая тетрадь','career-research.html'],['Открыть исследование','career-research.html#researchWorkspace']]});
+  interestLabels.career='Выбрать направление по вакансиям';
+  presentation.career={headline:'Выбери направление по вакансиям и пробам работы',first:'Назвать три интересных направления и записать свои ограничения: время, формат работы, город и начальные навыки.'};
+  starterKits.career={takeaways:['Карта трёх направлений и таблица 15–20 вакансий с источниками и датами.','Сравнение требований и три короткие пробы реальной работы.','Обоснование выбора и личный план на 30 дней.'],prompts:['Мне интересны три направления: ____.','Мои ограничения по времени, месту и стартовым навыкам: ____.','Проверю каждое направление по вакансиям и пробной задаче так: ____.']};
+  choiceGuide.career={fit:'Выбирай, если хочешь понять, какие задачи встречаются в вакансиях и какое направление тебе подходит.',readiness:['Можно без кода; подготовь три интересных направления и свои ограничения.','Достаточно одного доступного ИИ-инструмента; наличие поиска и чтения ссылок проверим до начала.'],core:'Соберём 15–20 вакансий с источниками, сравним три направления, выполним короткие пробы и составим план на 30 дней.',extra:'Возможности ИИ и доступ к вакансиям проверяем отдельно. Выбор делает ученик; зарплата, спрос и трудоустройство не гарантируются.'};
+  alternatives.career=['explore','build'];
   goalLabels.neural='изучать нейросети и работать с данными';
   var $=function(id){return document.getElementById(id)};
   var esc=function(str){return String(str).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
@@ -438,7 +445,7 @@
   }
   function invalidateResults(){closeResults();quizSummary(true)}
   function renderInterests(){
-    $('topicPicker').hidden=state.goal==='explore';
+    $('topicPicker').hidden=groups[state.goal].length<2;
     $('interests').innerHTML=groups[state.goal].map(function(id){return '<button type="button" class="chip" data-interest="'+id+'" aria-pressed="'+(id===state.interest)+'">'+esc(interestLabels[id])+'</button>'}).join('');
     renderLevelHint();
   }
@@ -489,6 +496,8 @@
     vibe:{result:'Сайт продукта, учебную CRM и план проверки спроса',role:'автора цифрового продукта',skills:'MVP · обратная связь · предложение',start:'Можно с нуля',alt:'Первый веб-продукт, учебная доска CRM и жетоны обратной связи'}
   };
   window.AIPathNeuralCourses.forEach(function(c){menuCards[c.id]=c.menu;cardArt[c.id]={category:'Нейросети и данные',family:'research'};});
+  cardArt.career={category:'Выбор направления',family:'start'};
+  menuCards.career={result:'Карту направлений, исследование вакансий и план на 30 дней',role:'исследователя карьерных направлений',skills:'Вакансии · ИИ-агенты · проверка источников',start:'Можно с нуля; достаточно одного ИИ-инструмента',alt:'Исследовательский стол: карточки вакансий, лупа и три пути выбора',search:'карьера вакансии профессия работа codex claude grok deepseek qwen'};
   function cardMarkup(p,recommended){
     var m=menuCards[p.id],art=cardArt[p.id],sel=Boolean(state.selection&&state.selection.program===p.id);
     var media='<span class="program-media program-media--illustration">'+
@@ -517,7 +526,7 @@
     var limited=state.filter==='all'&&!query&&!state.catalogExpanded;
     document.querySelectorAll('#programList [data-program]').forEach(function(button){
       var id=button.dataset.program,p=programById(id),m=menuCards[id];
-      var haystack=normalizeSearch([p.name,m.result,m.role,m.skills,cardArt[id].category,groups.neural.indexOf(id)!==-1?'нейронки нейронные сети neural networks machine learning ML':''].join(' '));
+      var haystack=normalizeSearch([p.name,m.result,m.role,m.skills,m.search||'',cardArt[id].category,groups.neural.indexOf(id)!==-1?'нейронки нейронные сети neural networks machine learning ML':''].join(' '));
       var matches=(state.filter==='all'||groups[state.filter].indexOf(id)!==-1)&&(!query||haystack.indexOf(query)!==-1);
       if(matches)count++;
       var visible=matches&&(!limited||groups.neural.indexOf(id)!==-1);button.hidden=!visible;if(visible)shown++;
@@ -535,6 +544,7 @@
   function recommendationForAnswers(){
     var target=state.interest,primary=target,options=alternatives[target].slice();
     var reason='Тебе интересно '+goalLabels[state.goal]+'. «'+programById(target).name+'» соответствует выбранной теме: '+interestLabels[target].toLowerCase()+'.';
+    if(target==='career')reason='Ты хочешь выбрать направление по задачам работодателей. Сначала исследуем вакансии и проверим интерес короткими пробами, затем выберем дальнейшее обучение.';
     if(target==='explore')reason='Ты пока выбираешь направление. AI Навигатор даёт две небольшие пробы, чтобы затем выбрать следующий проект.';
     if(groups.neural.indexOf(target)!==-1&&target!=='ml-python'&&state.level==='zero'){
       primary='ml-python';options=[target,'explore'];
