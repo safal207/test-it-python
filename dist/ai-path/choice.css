@@ -182,3 +182,18 @@
 .mentor-mini{overflow:hidden;background:#c9c6c2}
 .mentor-mini img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 27%}
 @media(max-width:760px){.mentor-portrait{width:156px;margin-bottom:18px;border-radius:16px}}
+
+/* Original training documents supplied by the school author. */
+.mentor-certificates{margin-top:24px;padding:28px;border:1px solid var(--line);border-radius:20px;background:#121a28;scroll-margin-top:100px}
+.mentor-certificates h3{margin:0 0 10px;font-size:24px;line-height:1.3;letter-spacing:-.03em;color:#edf3fa}
+.mentor-certificates-intro{margin:0 0 22px;max-width:760px;font-size:13px;line-height:1.7;color:#b9c7d5}
+.mentor-certificate-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.mentor-certificate{min-width:0;overflow-wrap:anywhere;border:1px solid #3b485a;border-radius:14px;overflow:hidden;background:#172130}
+.mentor-certificate .project-shot{aspect-ratio:auto;height:260px;padding:12px;background:#efeeea}
+.mentor-certificate .project-shot img{object-fit:contain}
+.mentor-certificate-copy{padding:18px}
+.mentor-certificate h4{margin:0 0 9px;color:#ecf0f6;font-size:18px;line-height:1.4;letter-spacing:-.015em}
+.mentor-certificate p{margin:0 0 13px;color:#b9c7d5;font-size:12px;line-height:1.7}
+.mentor-certificate a{display:inline-flex;align-items:center;min-height:44px;color:var(--accent);font-size:13px;font-weight:650;text-decoration:underline;text-underline-offset:4px}
+.mentor-certificate a:focus-visible{outline:3px solid var(--accent);outline-offset:4px;border-radius:3px}
+@media(max-width:760px){.mentor-certificates{padding:20px}.mentor-certificates h3{font-size:22px}.mentor-certificate-grid{grid-template-columns:minmax(0,1fr);gap:18px}.mentor-certificate .project-shot{height:230px}.mentor-certificate-copy{padding:16px}}

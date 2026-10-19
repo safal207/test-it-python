@@ -1,0 +1,79 @@
+{
+  "publication_authorization": "Owner requested publication of neural-network certificates from their hh portfolio on the school website.",
+  "certificates": [
+    {
+      "id": "neural-networks",
+      "title": "Data Science и нейронные сети",
+      "recipient": "Сафонов Алексей Андреевич",
+      "issuer": "Университет искусственного интеллекта",
+      "issued_on": "2020-12-11",
+      "type": "Сертификат об успешном прохождении интенсива",
+      "topics": [
+        "Компьютерное зрение",
+        "Обработка текстов с помощью нейронных сетей",
+        "Полносвязные и рекуррентные нейронные сети для прогнозирования временных рядов"
+      ],
+      "source_portfolio": "https://hh.ru/resume/14e01b10ff1010ef840039ed1f6b4a544e7568",
+      "source_document": "https://drive.google.com/file/d/1JpFivLzWEHxZk7JMBRjoFLIUqRLF2eiu/view",
+      "retrieved_on": "2026-10-19",
+      "original_pdf": {
+        "file": "neural-networks.pdf",
+        "bytes": 2434581,
+        "sha256": "b334d08dd8654a24d8bb293e90bda648ea0ae46840f5298c778a08b6f655502b"
+      },
+      "preview": {
+        "file": "neural-networks.webp",
+        "bytes": 67208,
+        "sha256": "1dac9e56356e84262a20551fb015395e78e8410251bf969dbfa2cac6f1e31d7f",
+        "width": 720,
+        "height": 1012
+      },
+      "full_image": {
+        "file": "neural-networks-full.webp",
+        "bytes": 159444,
+        "sha256": "19222c9da4f2187bc46a38b9f9d2377b80dd60fb7f26d3e3b0fa6016e3d313d5",
+        "width": 1281,
+        "height": 1800
+      },
+      "transformation": "Original one-page PDF preserved byte for byte. Complete page rendered with pdftoppm to a maximum dimension of 1800 px, then encoded as WebP; preview resized to 720 px wide. No cropping, retouching or generative editing.",
+      "verification": "Recipient, issuer, title, topics and issue date visually checked against the complete PDF page. The document issue date is used instead of the 2019 listing year shown in hh."
+    },
+    {
+      "id": "computer-vision",
+      "title": "Data Science и компьютерное зрение",
+      "recipient": "Сафонов Алексей Андреевич",
+      "issuer": "Университет искусственного интеллекта",
+      "issued_on": "2020-11-28",
+      "type": "Сертификат об успешном прохождении интенсива",
+      "topics": [
+        "Основы программирования на Python",
+        "Свёрточные сети: обработка изображений с помощью нейронных сетей",
+        "Сегментация изображений"
+      ],
+      "source_portfolio": "https://hh.ru/resume/14e01b10ff1010ef840039ed1f6b4a544e7568",
+      "source_document": "https://drive.google.com/file/d/1jscbq104JXj9TTFu3YGnRyRlAQNniJUX/view",
+      "retrieved_on": "2026-10-19",
+      "original_pdf": {
+        "file": "computer-vision.pdf",
+        "bytes": 1768114,
+        "sha256": "791c14a579a176d90b7947a3f5daa6df7969f028656555f26d2a8fd84d8c9e14"
+      },
+      "preview": {
+        "file": "computer-vision.webp",
+        "bytes": 67648,
+        "sha256": "892c297332cc752f7f767515c588f3f2c3d670ee5297307bea27fb61e237b4c3",
+        "width": 720,
+        "height": 1017
+      },
+      "full_image": {
+        "file": "computer-vision-full.webp",
+        "bytes": 159008,
+        "sha256": "6f065266c70eb75df401d16b8be9a28e35b286d3b72eeed0d35c5549f5f776e7",
+        "width": 1274,
+        "height": 1800
+      },
+      "transformation": "Original one-page PDF preserved byte for byte. Complete page rendered with pdftoppm to a maximum dimension of 1800 px, then encoded as WebP; preview resized to 720 px wide. No cropping, retouching or generative editing.",
+      "verification": "Recipient, issuer, title, topics and issue date visually checked against the complete PDF page. The document issue date is used instead of the 2019 listing year shown in hh."
+    }
+  ]
+}

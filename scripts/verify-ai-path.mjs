@@ -981,6 +981,57 @@ async function mentorExample(page, width) {
   assert(await page.locator('#mentor a[href="https://solvery.io/ru/mentor/5295"]').count() >= 1, 'Author card retains its verified Solvery profile link');
   await page.locator('#mentor .mentor-card').screenshot({ path: `${artifacts}/ai-path-${width}-mentor-profile.png`, animations: 'disabled',
     style: '.header, .selection-dock, .toast { visibility: hidden !important; }' });
+  const certificates = page.locator('#mentor-certificates');
+  const certificateSpecs = [
+    ['neural-networks', 'Data Science и нейронные сети', '2020-12-11', '11 декабря 2020 года'],
+    ['computer-vision', 'Data Science и компьютерное зрение', '2020-11-28', '28 ноября 2020 года']
+  ];
+  assert(await certificates.locator('article.mentor-certificate').count() === 2, 'Author section contains exactly the two supplied certificates');
+  for (const [id, title, date, captionDate] of certificateSpecs) {
+    const card = certificates.locator(`[data-certificate="${id}"]`);
+    const trigger = card.locator('button.project-shot');
+    const thumbnail = trigger.locator('img');
+    const prefix = `assets/mentor/certificates/${id}`;
+    assert((await card.locator('h4').innerText()).trim() === title && await card.locator('time').getAttribute('datetime') === date, `Certificate identifies its actual subject and issue date: ${id}`);
+    assert(await thumbnail.getAttribute('src') === prefix + '.webp' && await thumbnail.getAttribute('loading') === 'lazy', `Certificate has its own lazy thumbnail: ${id}`);
+    assert((await thumbnail.getAttribute('alt') || '').includes(title), `Certificate thumbnail has a subject-specific accessible description: ${id}`);
+    await thumbnail.scrollIntoViewIfNeeded();
+    await thumbnail.evaluate(image => image.decode());
+    assert(await thumbnail.evaluate(image => image.naturalWidth > 0 && image.naturalHeight > image.naturalWidth), `Certificate thumbnail decodes as a portrait document: ${id}`);
+    const pdf = card.locator('.mentor-certificate-copy a');
+    assert(await pdf.getAttribute('href') === prefix + '.pdf', `Certificate links directly to its local original PDF: ${id}`);
+    const pdfURL = new URL(await pdf.getAttribute('href'), base);
+    assert(pdfURL.origin === new URL(base).origin, 'Certificate verification only requests the local acceptance server');
+    const response = await fetch(pdfURL);
+    const bytes = Buffer.from(await response.arrayBuffer());
+    assert(response.status === 200 && /application\/pdf/i.test(response.headers.get('content-type') || '') && bytes.subarray(0, 5).toString('ascii') === '%PDF-' && bytes.length > 1000, `Original certificate is available as PDF bytes rather than an HTML placeholder: ${id}`);
+    await trigger.focus();
+    await page.keyboard.press('Enter');
+    assert(await page.locator('#projectLightbox').evaluate(dialog => dialog.open), `Keyboard opens the certificate viewer: ${id}`);
+    const fullImage = page.locator('#galleryImage');
+    assert(await fullImage.getAttribute('src') === prefix + '-full.webp', `Viewer opens the matching full-resolution certificate: ${id}`);
+    await fullImage.evaluate(image => image.decode());
+    assert((await page.locator('#galleryTitle').innerText()).includes(title), `Viewer names the selected certificate: ${id}`);
+    const caption = await page.locator('#galleryCaption').innerText();
+    assert(caption.includes('Сафонов Алексей Андреевич') && caption.includes('Университет искусственного интеллекта') && caption.includes(captionDate), `Certificate caption preserves the author, issuer and date: ${id}`);
+    assert(await page.locator('#gallerySource').getAttribute('href') === prefix + '.pdf' && (await page.locator('#gallerySource').innerText()).trim() === 'Открыть PDF ↗', `Viewer offers the corresponding original PDF: ${id}`);
+    assert(await page.locator('#galleryClose').getAttribute('aria-label') === 'Закрыть изображение', 'Shared viewer has an accurate close-button label');
+    await noOverflow(page, 'certificate viewer ' + id + ' ' + width);
+    if (width === 390) await page.screenshot({ path: `${artifacts}/ai-path-${width}-certificate-${id}-lightbox.png`, animations: 'disabled' });
+    await page.keyboard.press('Escape');
+    assert(!(await page.locator('#projectLightbox').evaluate(dialog => dialog.open)) && await trigger.evaluate(button => document.activeElement === button), `Escape closes the certificate and restores keyboard focus: ${id}`);
+  }
+  await noOverflow(page, 'mentor certificates ' + width);
+  await certificates.screenshot({ path: `${artifacts}/ai-path-${width}-mentor-certificates.png`, animations: 'disabled',
+    style: '.header, .selection-dock, .toast { visibility: hidden !important; }' });
+  const projectShot = page.locator('#examples .project-shot').first();
+  await revealTarget(page, projectShot);
+  await projectShot.focus();
+  await page.keyboard.press('Enter');
+  assert(await page.locator('#projectLightbox').evaluate(dialog => dialog.open), 'Ordinary project preview still opens after viewing certificates');
+  assert(await page.locator('#gallerySource').getAttribute('href') === await projectShot.getAttribute('data-shot-source') && (await page.locator('#gallerySource').innerText()).trim() === 'Исходный проект ↗', 'Project preview restores its own source and default label after a certificate');
+  await page.keyboard.press('Escape');
+  assert(await projectShot.evaluate(button => document.activeElement === button), 'Shared viewer still restores focus to an ordinary project');
   const demo = page.locator('#mentorExample');
   // Keep sticky page chrome out of tall component captures; viewport captures retain it.
   const componentStyle = '.header, .selection-dock, .toast { visibility: hidden !important; }';
