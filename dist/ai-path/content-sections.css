@@ -36,7 +36,7 @@
 .website-programs strong{font-size:12px;color:#e5edf5;margin:5px 0 9px}
 .website-programs>small{display:block;color:#aebed2;font-size:11px;line-height:1.8;margin-top:20px}
 .portfolio-overview{padding-top:65px;padding-bottom:25px}
-.portfolio-entries{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.portfolio-entries{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
 .portfolio-entry{border:1px solid #3e4a50;border-radius:18px;padding:28px;background:linear-gradient(130deg,#202c2c,#172030);min-width:0}
 .portfolio-entry h3{font-size:25px;line-height:1.25;letter-spacing:-.035em;margin:15px 0}
 .portfolio-entry p{color:#bac8da;font-size:14px;line-height:1.8}
