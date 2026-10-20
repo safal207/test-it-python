@@ -7,6 +7,8 @@ const wrap = document.querySelector('#sceneWrap');
 const journey = document.querySelector('#experience');
 const slider = document.querySelector('#progress');
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+const shortScreen = matchMedia('(max-height: 680px)');
+const followsScroll = () => !reduced.matches && !shortScreen.matches && document.body.dataset.renderer !== 'fallback';
 const stages = [
   ['Чертёж', 'Начинаем с планировки. Вид сверху помогает увидеть зоны и проходы.'],
   ['План получает объём', 'Стены поднимаются из тех же линий. У плана появляется высота.'],
@@ -47,12 +49,12 @@ function scrollProgress() {
 }
 let scrollFrame = 0;
 addEventListener('scroll', () => {
-  if (reduced.matches || scrollFrame) return;
+  if (!followsScroll() || scrollFrame) return;
   scrollFrame = requestAnimationFrame(() => { scrollFrame = 0; update(scrollProgress()); });
 }, { passive: true });
 // Keep native scrolling and direct controls on the same timeline, without smooth-scroll races.
 function choose(value) {
-  if (!reduced.matches) {
+  if (followsScroll()) {
     const top = scrollY + journey.getBoundingClientRect().top;
     scrollTo({ top: top + value * Math.max(1, journey.offsetHeight - innerHeight), behavior: 'instant' });
   }
@@ -62,15 +64,26 @@ slider.addEventListener('input', () => choose(Number(slider.value) / 100));
 document.querySelectorAll('[data-stage]').forEach(button => {
   button.addEventListener('click', () => choose(Number(button.dataset.stage) / 100));
 });
-reduced.addEventListener('change', () => {
-  if (!reduced.matches) update(scrollProgress());
-});
+function motionMode() {
+  document.querySelector('#controlHint').textContent = followsScroll()
+    ? '↓ Прокручивай страницу или выбери этап'
+    : 'Выбирай этап кнопками или ползунком';
+  if (followsScroll()) update(scrollProgress());
+}
+reduced.addEventListener('change', motionMode);
+shortScreen.addEventListener('change', motionMode);
 
 function fallback() {
+  renderScene = () => {};
   canvas.hidden = true;
+  document.querySelector('#planOverlay')?.setAttribute('hidden', '');
   document.querySelector('#sceneFallback').hidden = false;
-  document.querySelector('#renderStatus').textContent = '3D недоступен на этом устройстве. План и описание этапов остаются доступны.';
+  document.querySelector('#renderStatus').textContent = '3D недоступен в этом браузере. Показан статичный план; разбор всех этапов — ниже.';
   document.body.dataset.renderer = 'fallback';
+  slider.disabled = true;
+  document.querySelectorAll('[data-stage]').forEach(button => { button.disabled = true; });
+  document.querySelector('#controlHint').textContent = 'Статичный план — анимация недоступна';
+  update(0);
   document.body.dataset.ready = 'true';
 }
 
@@ -84,7 +97,7 @@ function setup() {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.25;
+  renderer.toneMappingExposure = 1;
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 80);
   const plan = new THREE.Group();
@@ -93,7 +106,7 @@ function setup() {
   const details = new THREE.Group();
   scene.add(plan, walls, furniture, details);
   const surfaceMaterials = [];
-  const white = new THREE.Color('#eeeae1');
+  const white = new THREE.Color('#b4c0b3');
   const green = new THREE.Color('#71806a');
   const linen = new THREE.Color('#c7b9a3');
   let sage = false;
@@ -136,31 +149,44 @@ function setup() {
     group.add(mesh);
     return mesh;
   }
-  function line(points, color = '#59685d', opacity = 1) {
-    const mat = new THREE.LineBasicMaterial({ color, transparent: true, opacity });
-    const mesh = new THREE.Line(new THREE.BufferGeometry().setFromPoints(points.map(p => new THREE.Vector3(...p))), mat);
-    plan.add(mesh);
-    return mesh;
+  // Project the SAME world coordinates into SVG: line weights and labels stay
+  // readable in CSS pixels while the camera turns from plan into space.
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const blueprint = document.createElementNS(svgNS, 'svg');
+  blueprint.id = 'planOverlay'; blueprint.classList.add('plan-overlay');
+  blueprint.setAttribute('aria-hidden', 'true');
+  wrap.append(blueprint);
+  const drawings = [], labels = [];
+  function line(points, color = '#314a3b', opacity = 1, kind = 'furniture') {
+    const path = document.createElementNS(svgNS, 'path');
+    path.setAttribute('class', kind);
+    path.setAttribute('fill', kind === 'furniture' && points.length === 5 ? '#fdfbf5' : 'none');
+    path.setAttribute('stroke', color);
+    path.setAttribute('stroke-width', kind === 'wall' ? '3' : kind === 'dimension' ? '1' : '1.7');
+    path.setAttribute('vector-effect', 'non-scaling-stroke');
+    path.setAttribute('stroke-linejoin', 'round');
+    path.setAttribute('opacity', String(opacity));
+    blueprint.append(path); drawings.push({ element: path, points });
+    return path;
   }
-  function rectangle(x, z, w, d, color) {
-    line([[x-w/2,.045,z-d/2],[x+w/2,.045,z-d/2],[x+w/2,.045,z+d/2],[x-w/2,.045,z+d/2],[x-w/2,.045,z-d/2]], color);
+  function rectangle(x, z, w, d, color, kind) {
+    line([[x-w/2,.045,z-d/2],[x+w/2,.045,z-d/2],[x+w/2,.045,z+d/2],[x-w/2,.045,z+d/2],[x-w/2,.045,z-d/2]], color, 1, kind);
   }
-  function label(text, x, z, width = 2.2) {
-    const c = document.createElement('canvas'); c.width = 512; c.height = 96;
-    const ctx = c.getContext('2d');
-    if (!ctx) return;
-    ctx.fillStyle = '#4e5e53'; ctx.font = '500 32px Arial'; ctx.textAlign = 'center';
-    ctx.fillText(text, 256, 59);
-    const map = new THREE.CanvasTexture(c);
-    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(width, width * 96 / 512), new THREE.MeshBasicMaterial({ map, transparent: true, depthWrite: false, side: THREE.DoubleSide }));
-    mesh.rotation.x = -Math.PI / 2; mesh.position.set(x, .06, z); plan.add(mesh);
+  function label(text, x, z) {
+    const element = document.createElementNS(svgNS, 'text');
+    element.textContent = text; element.setAttribute('class', 'plan-label');
+    element.setAttribute('font-family', 'Arial, sans-serif'); element.setAttribute('font-weight', '600');
+    element.setAttribute('font-size', '13'); element.setAttribute('text-anchor', 'middle');
+    element.setAttribute('fill', '#253e2f'); element.setAttribute('stroke', '#f3f0e8');
+    element.setAttribute('stroke-width', '4'); element.setAttribute('paint-order', 'stroke');
+    blueprint.append(element); labels.push({ element, point: [x, .06, z] });
   }
   // Floor plan: the footprint is shared with every object below.
   const grid = new THREE.GridHelper(18, 36, '#d3d4c9', '#e4e4d9');
   grid.position.y = -.025;
   plan.add(grid);
-  rectangle(0, 0, 10, 8, '#3d4c43');
-  rectangle(0, 0, 9.7, 7.7, '#879183');
+  rectangle(0, 0, 10, 8, '#314a3b', 'wall');
+  rectangle(0, 0, 9.7, 7.7, '#647d69', 'dimension');
   rectangle(-1.4, 1.35, 4.9, 2.1);
   rectangle(-3.2, .5, 1.3, 3.0);
   rectangle(-1.15, -.55, 2.1, 1.2);
@@ -168,14 +194,11 @@ function setup() {
   rectangle(1.9, -1.15, 3.5, 1.25);
   rectangle(-3.25, -3.7, 2.2, .45);
   for (let i = 0; i < 3; i++) rectangle(.65 + i * 1.2, -.05, .55, .55);
-  line([[-5,.06,4.65],[5,.06,4.65]]);
-  line([[5.65,.06,-4],[5.65,.06,4]]);
-  for (const x of [-5, 5]) line([[x,.06,4.5],[x,.06,4.8]]);
-  for (const z of [-4, 4]) line([[5.5,.06,z],[5.8,.06,z]]);
-  label('10.00 m', 0, 4.95, 1.3);
-  label('LIVING', -1.5, 3.15, 1.6);
-  label('KITCHEN', 2.1, -2.2, 1.7);
-  label('OPEN HOUSE / 01', 0, -5.2, 2.8);
+  line([[-5,.06,4.35],[5,.06,4.35]], '#647d69', 1, 'dimension');
+  for (const x of [-5, 5]) line([[x,.06,4.2],[x,.06,4.5]], '#647d69', 1, 'dimension');
+  label('10 м', 0, 4.65);
+  label('Гостиная', -1.5, 3.2);
+  label('Кухня', 2.1, -2.2);
 
   const floor = new THREE.Group(); scene.add(floor);
   box(floor, 0, -.13, 0, 10.4, .24, 8.4, cream, .04);
@@ -296,14 +319,14 @@ function setup() {
   }
   plant(-4.25,-2.5,1.15); plant(4.25,.1,.8);
   // Lighting and long, soft sun shadows.
-  scene.add(new THREE.HemisphereLight('#fff5df','#c1b9a8',2.3));
-  const sun = new THREE.DirectionalLight('#fff1d1',3.5);
+  scene.add(new THREE.HemisphereLight('#fff5df','#c1b9a8',1.8));
+  const sun = new THREE.DirectionalLight('#fff1d1',3);
   sun.position.set(-5,9,5); sun.castShadow = true;
   sun.shadow.mapSize.set(1024,1024);
   Object.assign(sun.shadow.camera,{left:-9,right:9,top:9,bottom:-9,near:.1,far:28});
   sun.shadow.bias = -.0006; sun.shadow.normalBias = .025; sun.shadow.radius = 4;
   scene.add(sun);
-  const fill = new THREE.DirectionalLight('#e3edff',1.5); fill.position.set(4,6,3); scene.add(fill);
+  const fill = new THREE.DirectionalLight('#e3edff',1); fill.position.set(4,6,3); scene.add(fill);
   const fire = new THREE.PointLight('#ffad54',0,5,2); fire.position.set(-3.25,.9,-3); scene.add(fire);
   const sunStrip = new THREE.Mesh(new THREE.PlaneGeometry(5.2, .55), new THREE.MeshBasicMaterial({color:'#fff2c4', transparent:true, opacity:.08, depthWrite:false}));
   sunStrip.rotation.x = -Math.PI/2; sunStrip.rotation.z = -.4; sunStrip.position.set(-2,.04,-1); scene.add(sunStrip);
@@ -322,7 +345,7 @@ function setup() {
     const light = ease(.78,1,p);
     plan.visible = p < .38;
     plan.traverse(o => {
-      if (o.material) { o.material.transparent = true; o.material.opacity = 1 - ease(.16,.38,p); }
+      if (o.material) { o.material.transparent = true; o.material.opacity = .3 * (1 - ease(.16,.38,p)); }
     });
     walls.visible = p > .1; walls.scale.y = Math.max(.001, volume);
     floor.visible = p > .1;
@@ -337,32 +360,47 @@ function setup() {
     lamps.forEach(l => { l.intensity = 5 * light; });
     sun.color.set(light > .5 ? '#ffe8bc' : '#fff6e5');
     const tilt = ease(.08,.52,p), enter = ease(.58,1,p);
+    const compact = clamp((1000 - width) / 450);
+    cameraEnd.set(7.8, 5.2 + 5 * compact, 10.5);
     camera.position.copy(cameraTop).lerp(cameraIso,tilt).lerp(cameraEnd,enter);
-    // Portrait screens pull back rather than crop away the room.
-    const portrait = Math.max(1, 1 / camera.aspect);
-    camera.position.multiplyScalar(Math.min(2.1,Math.pow(portrait,.45 + .55 * tilt)));
     camera.fov = 40;
-    look.set(0, .45 * volume, -.2);
+    look.set(0, 1.15 * volume, -.2);
     camera.lookAt(look); camera.updateProjectionMatrix();
-    // Fit the same room into portrait and landscape viewports. A fixed distance
-    // crops the back corners on phones, especially near the final camera angle.
-    for (let attempt = 0; attempt < 3; attempt++) {
+    // Solve the tightest distance along this view direction, instead of only
+    // pulling back (which could leave the room as a tiny object on phones).
+    offset.copy(camera.position).sub(look).normalize();
+    let near = 7, far = 60;
+    for (let attempt = 0; attempt < 16; attempt++) {
+      const distance = (near + far) / 2;
+      camera.position.copy(look).addScaledVector(offset, distance);
       camera.updateMatrixWorld();
       let extent = 0;
-      const padding = 1 - volume;
-      for (const x of [-5.3 - padding, 5.3 + padding]) {
-        for (const z of [-4.3 - padding, 4.3 + padding]) {
+      for (const x of [-5.4, 5.4]) {
+        for (const z of [-4.3 - .5 * (1 - volume), 4.3 + .5 * (1 - volume)]) {
           for (const y of [0, 3.3 * volume]) {
             projected.set(x, y, z).project(camera);
             extent = Math.max(extent, Math.abs(projected.x), Math.abs(projected.y));
           }
         }
       }
-      if (extent <= .94) break;
-      offset.copy(camera.position).sub(look).multiplyScalar(extent / .92);
-      camera.position.copy(look).add(offset);
+      if (extent > .94) near = distance; else far = distance;
     }
+    camera.position.copy(look).addScaledVector(offset, far);
     renderer.render(scene,camera);
+    blueprint.toggleAttribute('hidden', p >= .38);
+    blueprint.style.opacity = String(1 - ease(.16,.38,p));
+    blueprint.setAttribute('viewBox', `0 0 ${width} ${height}`);
+    function screen(point) {
+      projected.set(...point).project(camera);
+      return [(projected.x + 1) * width / 2, (1 - projected.y) * height / 2];
+    }
+    for (const { element, points } of drawings) {
+      element.setAttribute('d', points.map((point, i) => `${i ? 'L' : 'M'}${screen(point).map(n => n.toFixed(2)).join(',')}`).join(' '));
+    }
+    for (const { element, point } of labels) {
+      const [x, y] = screen(point); element.setAttribute('x', x); element.setAttribute('y', y);
+      element.setAttribute('font-size', width < 500 ? '13' : '15');
+    }
   }
   renderScene = draw;
   function resize() {
@@ -387,4 +425,4 @@ function setup() {
   document.body.dataset.ready = 'true';
 }
 try { setup(); } catch { fallback(); }
-update(reduced.matches ? 0 : scrollProgress());
+if (document.body.dataset.renderer !== 'fallback') { motionMode(); update(followsScroll() ? scrollProgress() : 0); }
