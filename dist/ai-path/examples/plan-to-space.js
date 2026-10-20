@@ -359,7 +359,8 @@ function setup() {
         }
       }
       if (extent <= .94) break;
-      camera.position.copy(look).add(offset.copy(camera.position).sub(look).multiplyScalar(extent / .92));
+      offset.copy(camera.position).sub(look).multiplyScalar(extent / .92);
+      camera.position.copy(look).add(offset);
     }
     renderer.render(scene,camera);
   }
