@@ -6,6 +6,7 @@ on:
     paths:
       - "dist/ai-path/**"
       - "scripts/verify-ai-path.mjs"
+      - "scripts/verify-plan-to-space.mjs"
       - "scripts/build-neural-courses.mjs"
       - "package.json"
       - ".github/workflows/ai-path-smoke.yml"
@@ -37,6 +38,9 @@ jobs:
           node --check dist/ai-path/app.js
           node --check dist/ai-path/plan-pdf.js
           node --check scripts/verify-ai-path.mjs
+          node --check scripts/verify-plan-to-space.mjs
+      - name: Verify Plan to Space scroll scene and accessible controls
+        run: node scripts/verify-plan-to-space.mjs
       - name: Verify site with real browser interactions at desktop and mobile
         run: node scripts/verify-ai-path.mjs
       - uses: actions/upload-artifact@v4

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750">
+<defs><pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0H0V30" fill="none" stroke="#dedfd4" stroke-width="1"/></pattern></defs>
+<rect width="1200" height="750" fill="#f3f0e8"/><rect x="48" y="120" width="1104" height="510" fill="url(#grid)"/>
+<g fill="none" stroke="#637264" stroke-width="3"><path d="M100 230H470V515H100ZM110 240H460V505H110Z"/><path d="M130 380H285V470H130ZM130 380V340H175V470M195 380V470M240 380V470"/><rect x="210" y="290" width="85" height="55" rx="5"/><rect x="320" y="255" width="120" height="40"/><rect x="325" y="345" width="110" height="45"/><path d="M95 550H475M100 540V560M470 540V560"/></g>
+<text x="265" y="580" text-anchor="middle" fill="#657666" font-family="Arial" font-size="17" letter-spacing="4">ПЛАН</text>
+<path d="M520 370H590M570 350L590 370L570 390" fill="none" stroke="#997c4e" stroke-width="3"/>
+<g stroke-linejoin="round"><path d="M655 400L860 275L1120 414L909 551Z" fill="#ac8b61"/><path d="M655 400V225L860 108V275Z" fill="#e5dfcf"/><path d="M860 108L1120 247V414L860 275Z" fill="#eee8da"/>
+<path d="M680 338V239L758 194V292Z" fill="#b4c5b7"/><path d="M790 314V190L841 162V284Z" fill="#525b4c"/>
+<path d="M892 282L1058 369L1090 349L921 262Z" fill="#e2d4bb"/><path d="M892 282V337L1058 424V369Z" fill="#778771"/><path d="M1058 424L1090 403V349L1058 369Z" fill="#53644f"/>
+<path d="M711 407L839 333L1000 421L868 506Z" fill="#c9bea3"/>
+<path d="M730 411V369L859 443V486Z" fill="#c1b39c"/><path d="M730 369L756 354L885 428L859 443Z" fill="#e4d7bf"/><path d="M859 486L885 470V428L859 443Z" fill="#a99b84"/>
+<path d="M789 365L841 335L912 375L859 406Z" fill="#ece2c9"/><path d="M789 365V384L859 424V406Z" fill="#b9aa8a"/><path d="M859 406L912 375V394L859 424Z" fill="#d2c3a4"/>
+<path d="M955 337L1018 303L1090 343L1027 379Z" fill="#eee4ce"/><path d="M955 337V366L1027 408V379Z" fill="#a08157"/><path d="M1027 379L1090 343V371L1027 408Z" fill="#87683e"/>
+</g><text x="890" y="580" text-anchor="middle" fill="#657666" font-family="Arial" font-size="17" letter-spacing="4">ПРОСТРАНСТВО</text>
+<text x="60" y="65" fill="#283b30" font-family="Georgia" font-size="37">От плана к пространству</text><text x="60" y="701" fill="#657666" font-family="Arial" font-size="17" letter-spacing="2">AI PATH / ПРОКРУТКА УПРАВЛЯЕТ 3D-СЦЕНОЙ</text></svg>
