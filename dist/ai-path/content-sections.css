@@ -37,10 +37,10 @@
 .website-programs>small{display:block;color:#aebed2;font-size:11px;line-height:1.8;margin-top:20px}
 .portfolio-overview{padding-top:65px;padding-bottom:25px}
 .portfolio-entries{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
-.portfolio-entry{border:1px solid #3e4a50;border-radius:18px;padding:28px;background:linear-gradient(130deg,#202c2c,#172030);min-width:0}
-.portfolio-entry h3{font-size:25px;line-height:1.25;letter-spacing:-.035em;margin:15px 0}
-.portfolio-entry p{color:#bac8da;font-size:14px;line-height:1.8}
-.portfolio-entry>div{display:flex;flex-direction:column;gap:8px;margin-top:21px}
+.portfolio-entry{border:1px solid #3e4a50;border-radius:18px;padding:22px;background:linear-gradient(130deg,#202c2c,#172030);min-width:0}
+.portfolio-entry h3{font-size:23px;line-height:1.25;letter-spacing:-.035em;margin:10px 0}
+.portfolio-entry p{color:#bac8da;font-size:14px;line-height:1.7;margin:10px 0}
+.portfolio-entry>div{display:flex;flex-direction:column;gap:6px;margin-top:12px}
 .portfolio-entry a,.portfolio-crosslink a{color:var(--accent);font-size:13px;line-height:1.7}
 .portfolio-entry a{padding:6px 0}
 .portfolio-crosslink{color:#bac8da;line-height:1.8;margin:0 0 28px}

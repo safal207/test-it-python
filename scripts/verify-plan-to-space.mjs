@@ -62,7 +62,23 @@ async function setStage(page, progress) {
 }
 
 async function sceneDigest(page) {
-  const bytes = await page.locator('#scene').screenshot({animations: 'disabled'});
+  const snapshot = () => page.evaluate(() => ({
+    scrollY,
+    stageScrollTop: document.querySelector('.stage').scrollTop,
+    progress: document.body.dataset.progress
+  }));
+  const before = await snapshot();
+  const bounds = await page.locator('#scene').boundingBox();
+  const viewport = page.viewportSize();
+  assert.ok(bounds && viewport && bounds.width > 0 && bounds.height > 0 &&
+    bounds.x >= 0 && bounds.y >= 0 &&
+    bounds.x + bounds.width <= viewport.width && bounds.y + bounds.height <= viewport.height,
+  `Scene snapshot must fit in the viewport without scrolling: ${JSON.stringify({bounds, viewport, before})}`);
+  // Element screenshots scroll into view; that would mutate the native scene timeline.
+  const bytes = await page.screenshot({clip: bounds, animations: 'disabled'});
+  await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  const after = await snapshot();
+  assert.deepEqual(after, before, `Scene snapshot preserves scroll and progress: ${JSON.stringify({before, after, bounds, viewport})}`);
   return createHash('sha256').update(bytes).digest('hex');
 }
 
