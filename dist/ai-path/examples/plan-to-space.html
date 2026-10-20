@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f3f0e8">
+  <meta name="description" content="Интерактивный проект AI PATH: прокручивай страницу и наблюдай, как плоский план превращается в объёмный интерьер. Пять этапов: план, объём, мебель, материалы и свет.">
+  <title>От плана к пространству — AI PATH / Design Lab</title>
+  <link rel="canonical" href="https://safal207.github.io/test-it-python/ai-path/examples/plan-to-space.html">
+  <link rel="stylesheet" href="plan-to-space.css">
+  <script defer src="../course-navigation.js"></script>
+  <script type="module" src="plan-to-space.js"></script>
+</head>
+<body>
+  <main>
+    <section class="experience" id="experience" aria-labelledby="projectTitle">
+      <div class="stage">
+        <header class="site-header">
+          <a class="wordmark" href="../" aria-label="AI PATH — главная страница школы"><span class="brand-mark" aria-hidden="true">↗</span>AI <b>PATH</b></a>
+          <span class="header-label">DESIGN LAB / ИНТЕРАКТИВНЫЙ ПРОЕКТ</span>
+          <a class="back-link" id="backToSchool" href="../#portfolio">← В школу</a>
+        </header>
+
+        <div class="intro">
+          <div><p class="eyebrow">План. Пространство. Атмосфера.</p><h1 id="projectTitle">От плана <em>к пространству.</em></h1></div>
+          <p class="intro-caption">Одна комната.<br>Пять решений, которые её меняют.</p>
+        </div>
+
+        <div class="scene-layout">
+          <div class="scene-wrap" id="sceneWrap">
+            <span class="scene-label" aria-hidden="true">LIVING STUDY / 01</span>
+            <canvas id="scene" role="img" aria-label="Трёхмерная гостиная с кухней: вид меняется от плоского чертежа до интерьера при прокрутке или выборе этапа."></canvas>
+            <div id="sceneFallback" class="scene-fallback" hidden role="img" aria-label="План гостиной с кухней: слева диван и стол, справа кухонный остров и обеденная зона.">
+              <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                <defs><pattern id="planGrid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#d8d8ca" stroke-width=".65"/></pattern></defs>
+                <rect width="800" height="600" fill="#f3f0e8"/><rect x="70" y="70" width="660" height="440" fill="url(#planGrid)"/>
+                <g fill="none" stroke="#53675a" stroke-width="3"><path d="M120 450V120H680V450H525M430 450H120"/><path d="M132 438V132H668V438H525M430 438H132" stroke-width="1"/><path d="M190 120H315M190 132H315" stroke-width="5"/>
+                  <rect x="185" y="210" width="75" height="185" rx="5"/><path d="M260 250H300V395H185M185 260H260M185 310H260M185 360H260"/><rect x="330" y="270" width="90" height="80" rx="8"/>
+                  <rect x="485" y="150" width="150" height="65"/><path d="M535 150V215M585 150V215"/><rect x="490" y="270" width="145" height="60" rx="3"/><circle cx="515" cy="355" r="13"/><circle cx="560" cy="355" r="13"/><circle cx="605" cy="355" r="13"/>
+                  <path d="M430 450V365A85 85 0 0 1 515 450" stroke-width="1"/>
+                </g>
+                <g font-family="Arial,sans-serif" font-size="13" letter-spacing="3" fill="#53675a"><text x="250" y="180">ГОСТИНАЯ</text><text x="515" y="400">КУХНЯ</text><text x="320" y="95">УЧЕБНЫЙ ПЛАН</text></g>
+                <g fill="none" stroke="#9b9f8f" stroke-width="1"><path d="M120 475V495M680 475V495M120 485H680M90 120H105M90 450H105M98 120V450"/></g>
+              </svg>
+            </div>
+            <p class="render-status" id="renderStatus" role="status" aria-live="polite">Подготавливаем сцену…</p>
+          </div>
+
+          <aside class="scene-note" aria-labelledby="stageTitle">
+            <span class="stage-number" id="stageNumber">01 / 05</span>
+            <h2 id="stageTitle">Чертёж</h2>
+            <p id="stageDescription">Линии задают границы комнаты, расположение мебели и путь через пространство.</p>
+            <div class="note-rule" aria-hidden="true"></div>
+            <p class="note-caption">Двигайся вперёд и назад.<br>Все этапы связаны одной сценой.</p>
+          </aside>
+        </div>
+
+        <div class="controls">
+          <div class="progress-heading"><label for="progress">Этап превращения</label><output id="percent" for="progress">0%</output></div>
+          <input id="progress" type="range" min="0" max="100" step="1" value="0" aria-describedby="controlHint">
+          <div class="stage-buttons" role="group" aria-label="Выбрать этап интерьера">
+            <button type="button" data-stage="0" aria-pressed="true"><span aria-hidden="true">01</span>План</button>
+            <button type="button" data-stage="25" aria-pressed="false"><span aria-hidden="true">02</span>Объём</button>
+            <button type="button" data-stage="50" aria-pressed="false"><span aria-hidden="true">03</span>Мебель</button>
+            <button type="button" data-stage="75" aria-pressed="false"><span aria-hidden="true">04</span>Материалы</button>
+            <button type="button" data-stage="100" aria-pressed="false"><span aria-hidden="true">05</span>Свет</button>
+          </div>
+          <p class="control-hint" id="controlHint"><span aria-hidden="true">↓</span> Прокручивай страницу или выбери этап</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="lesson" aria-labelledby="lessonTitle">
+      <div class="lesson-intro"><p class="eyebrow">Разобрать. Изменить. Собрать своё.</p><h2 id="lessonTitle">За атмосферой —<br><em>последовательность решений.</em></h2><p>Этот учебный проект показывает, как планировка, геометрия, предметы, материалы и свет складываются в одну сцену. В Design Lab можно разобрать её устройство и попробовать собственную версию.</p><a class="primary-link" id="learnLink" href="../?program=designlab&amp;level=zero&amp;pace=balanced#selected">Посмотреть программу Design Lab <span aria-hidden="true">↗</span></a></div>
+      <ol class="lesson-steps">
+        <li><span>01</span><div><h3>Планировка</h3><p>Границы, зоны и проходы. Начинаем с вида сверху.</p></div></li>
+        <li><span>02</span><div><h3>Объём</h3><p>Высота стен и положение камеры превращают линии в пространство.</p></div></li>
+        <li><span>03</span><div><h3>Предметы</h3><p>Диван, стол и кухня помогают почувствовать масштаб комнаты.</p></div></li>
+        <li><span>04</span><div><h3>Материалы</h3><p>Дерево, ткань и камень добавляют цвет и характер.</p></div></li>
+        <li><span>05</span><div><h3>Освещение</h3><p>Направление света и тени связывают все элементы в интерьер.</p></div></li>
+      </ol>
+    </section>
+
+    <footer class="project-footer"><div><strong>AI PATH / Plan to Space</strong><p>Учебная процедурная сцена, не проект для строительства. Вдохновлено присланной механикой превращения плана в интерьер; геометрия и код сцены созданы заново.</p></div><a href="https://github.com/safal207/test-it-python/tree/main/dist/ai-path/examples" target="_blank" rel="noopener noreferrer">Исходники на GitHub ↗</a></footer>
+    <noscript><div class="noscript-note">Для интерактивной 3D-сцены нужен JavaScript. Последовательность создания интерьера описана выше: планировка → объём → предметы → материалы → освещение.</div></noscript>
+  </main>
+</body>
+</html>

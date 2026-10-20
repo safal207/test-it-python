@@ -7,3 +7,7 @@ Loaded only when the visitor requests a PDF. Both files are hosted with the site
 
 - `DejaVuSans.ttf` source SHA-256: `ae7b7855e115a5966d8b1b3f80f254ccc117ec86f9965e202ee2940453837280`; embedded subset: `1cd018d7a7e8c4c8d534581b6eec99cbc1f7aa049a3b27568891b46563858f23`.
 - `DejaVuSans-Bold.ttf` source SHA-256: `5c1247acef7f2b8522a31742c76d6adcb5569bacc0be7ceaa4dc39dd252ce895`; embedded subset: `7284c8e0b550ee9b72dd8ad245103f43f5d4ab9b5507c2ec24ab8b1c033c16a8`.
+
+## Interactive interior
+
+`three.module.min.js` and `three-rounded-box.js`: Three.js 0.170.0, fetched from the npm `three@0.170.0` distribution. The rounded-box module has only its import changed to the local module path. MIT license in `three-LICENSE.txt`. These assets load only on the Plan to Space demo; no external CDN is used.
