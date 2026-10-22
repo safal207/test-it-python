@@ -535,6 +535,7 @@
     $('catalogCount').textContent=shown<count?'Показано '+shown+' из '+count+' программ':'Показано '+count+' из '+programs.length+' программ';
     $('catalogEmpty').hidden=count!==0;
     $('neuralCatalogIntro').hidden=Boolean(query)||!(limited||state.filter==='neural');
+    document.querySelector('.neural-course-entrance').hidden=$('neuralCatalogIntro').hidden;
     $('programList').classList.toggle('neural-menu',limited||state.filter==='neural');
     $('clearProgramSearch').hidden=!state.query;
     $('showAllPrograms').hidden=shown===count;
@@ -750,7 +751,7 @@
     var featured=[notebooks[0],notebooks[2],notebooks[7],notebooks[14],notebooks[17],notebooks[23]];
     var visible=notebookFilter==='all'&&!notebookExpanded?featured:filtered;
     $('nbGrid').innerHTML=visible.map(function(n){
-      return '<a class="nb-card" role="listitem" href="'+esc(n.url)+'" target="_blank" rel="noopener noreferrer"><span class="nb-type">'+esc(n.group)+'</span><strong>'+esc(n.title)+'</strong><span class="nb-open">Открыть ноутбук на GitHub ↗</span></a>';
+      return '<div role="listitem"><a class="nb-card" href="'+esc(n.url)+'" target="_blank" rel="noopener noreferrer"><span class="nb-type">'+esc(n.group)+'</span><strong>'+esc(n.title)+'</strong><span class="nb-open">Открыть ноутбук на GitHub ↗</span></a></div>';
     }).join('');
     document.querySelectorAll('#nbFilters button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.nbcat===notebookFilter))});
     $('nbCount').textContent='Показано '+visible.length+' из 24 выбранных · в архиве 66';

@@ -79,11 +79,6 @@
       if(kind==='test'){let s=svgRect(5,11,43,48,'var(--nn-soft)',4)+svgLine(63,5,63,65,.35);[[78,18],[96,18],[78,35],[96,35],[78,52],[96,52]].forEach(p=>{s+=svgCircle(p[0],p[1],3.5);});return s+svgLine(16,25,38,25,.6)+svgLine(16,35,38,35,.6)+svgLine(16,45,32,45,.6);}
       return '';
     }
-    function miniArchitecture(id){
-      const kinds={start:['points','layer','single'],photo:['pixels','conv','triple'],text:['tokens','lstm','single'],objects:['pixels','pyramid','boxes'],audio:['wave','features','merged'],tuning:['variants','compare','test']}[id];
-      let shapes='';kinds.forEach((kind,index)=>{shapes+='<g transform="translate('+(4+index*96)+' 24) scale(.67 .9)">'+architectureGlyph(kind)+'</g>';if(index<kinds.length-1)shapes+=svgLine(86+index*96,57,99+index*96,57,.6)+'<path d="M'+(95+index*96)+' 53L'+(99+index*96)+' 57L'+(95+index*96)+' 61" fill="none" stroke="currentColor" stroke-width="1.3"/>';});
-      return '<span class="nn-mini-arch" aria-hidden="true"><svg viewBox="0 0 280 112" xmlns="http://www.w3.org/2000/svg">'+shapes+'</svg></span>';
-    }
     let activeArchitecture='start',architectureStep=0,lastArchitectureWidth=0;
     function drawArchitecture(){
       const host=byId('nn-arch-scene');
@@ -123,7 +118,8 @@
     if(typeof ResizeObserver!=='undefined')new ResizeObserver(()=>{const width=Math.round(byId('nn-arch-scene').getBoundingClientRect().width);if(width>0&&width!==lastArchitectureWidth)drawArchitecture();}).observe(byId('nn-arch-scene'));
 
     const grid=byId('nn-choice-grid');
-    grid.innerHTML=projects.map(p=>'<button class="nn-project" type="button" data-nn-project="'+p.id+'" aria-pressed="false" aria-controls="nn-selected-project"><span class="nn-project-top"><span>'+escape(p.tag)+'</span></span>'+miniArchitecture(p.id)+'<span class="nn-project-title">'+escape(p.title)+'</span><span class="nn-sample">'+escape(p.sample)+'</span><span class="nn-model-label">'+escape(p.model)+'</span><span class="nn-open-label">Модель и шаги ↓</span></button>').join('');
+    // Cards are already laid out in HTML; hydration must not insert a grid after first paint.
+    grid.querySelectorAll('[data-nn-project]').forEach(button=>{button.disabled=false;});
     function selectProject(id){
       const p=projects.find(item=>item.id===id);if(!p)return;
       grid.querySelectorAll('[data-nn-project]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.nnProject===id)));
