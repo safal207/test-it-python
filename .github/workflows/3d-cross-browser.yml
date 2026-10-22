@@ -24,7 +24,7 @@ jobs:
     # Keep this image version aligned with the playwright npm package below.
     container:
       image: mcr.microsoft.com/playwright:v1.55.0-noble
-      options: --init --ipc=host
+      options: --user 1001 --init --ipc=host
     timeout-minutes: 12
     strategy:
       fail-fast: false
