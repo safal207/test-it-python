@@ -50,6 +50,8 @@ for (const button of lightButtons) button.addEventListener('click', () => {
   updateControls(); updateUrl(); selectedStatus();
 });
 function showFailure() {
+  const focused = document.activeElement;
+  const hidFocusedControl = focused === canvas || focused === reset;
   scene?.dispose(); scene = null;
   canvas.hidden = true; poster.hidden = false; launch.hidden = false; reset.hidden = true;
   panel.dataset.state = 'error';
@@ -57,6 +59,7 @@ function showFailure() {
   launchLabel.textContent = 'Попробовать ещё раз';
   launchNote.textContent = '3D не запустилось. Попробуй ещё раз или обнови страницу. Для сцены нужен WebGL.';
   status.textContent = '3D сейчас недоступно. Выбор материала и света можно сохранить в ссылке.';
+  if (hidFocusedControl && !start.disabled) start.focus({ preventScroll: true });
 }
 start.addEventListener('click', async () => {
   if (launching || scene) return;
@@ -78,7 +81,14 @@ start.addEventListener('click', async () => {
     status.textContent = '3D готово. Меняй материал и свет. На сцене также работают стрелки клавиатуры.';
     canvas.focus({ preventScroll: true });
   } catch { showFailure(); }
-  finally { launching = false; start.disabled = false; }
+  finally {
+    launching = false; start.disabled = false;
+    const focused = document.activeElement;
+    // Disabling launch can leave focus on the body; preserve any control used while loading.
+    if (panel.dataset.state === 'error' && [document.body, start, canvas, reset].includes(focused)) {
+      start.focus({ preventScroll: true });
+    }
+  }
 });
 reset.addEventListener('click', () => { scene?.resetView(); status.textContent = 'Исходный ракурс восстановлен. Материал и свет сохранены.'; });
 document.querySelector('#copy-link').addEventListener('click', async () => {

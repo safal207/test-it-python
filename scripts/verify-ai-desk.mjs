@@ -229,6 +229,8 @@ try {
   assert.equal(await page.locator('#scene-poster').isVisible(), true, 'Failed module leaves a useful poster');
   assert.equal(await page.locator('#desk-canvas').isHidden(), true, 'Failed module does not leave a misleading empty canvas');
   assert.equal(await page.locator('#start-scene').isEnabled(), true, 'Failed module permits a retry');
+  assert.equal(await page.locator('#start-scene').evaluate(button => button === document.activeElement), true,
+    'Initial import failure restores focus to the enabled retry button');
   assert.match(await page.locator('#start-scene').innerText(), /Попробовать ещё раз/);
   assert.match(await page.locator('#scene-status').innerText(), /недоступно/);
   await selectedControls(page, 'white', 'evening');
@@ -244,6 +246,76 @@ try {
   results.push({mode: 'failed-module-recovery', status: 'PASS', sceneRequests, expectedFailures: observed.expectedFailures});
   console.log('PASS AI Desk recovery: one injected module failure, readable fallback, fresh retry, selected configuration retained');
   await context.close(); activePage = undefined;
+
+  // The user can change configuration during a slow import. Failure must not steal that focus.
+  activeCase = 'loading-focus-preservation';
+  const loadingContext = await browser.newContext({viewport: {width: 390, height: 844}, deviceScaleFactor: 1, reducedMotion: 'reduce'});
+  const loadingPage = await loadingContext.newPage(); activePage = loadingPage;
+  const loadingObserved = observe(loadingPage, true);
+  let releaseImport;
+  const heldImport = new Promise(resolve => { releaseImport = resolve; });
+  await loadingPage.route('**/ai-desk-scene.js*', async route => {
+    await heldImport;
+    await route.abort('failed');
+  });
+  await loadingPage.goto(`${demo}?${course}&material=oak&light=day`, {waitUntil: 'networkidle'});
+  const pendingImport = loadingPage.waitForRequest('**/ai-desk-scene.js*');
+  try {
+    await loadingPage.locator('#start-scene').click();
+    await pendingImport;
+    await loadingPage.locator('button[data-material="walnut"]').click();
+    await loadingPage.locator('button[data-lighting="evening"]').click();
+  } finally {
+    releaseImport();
+  }
+  await loadingPage.waitForFunction(() => document.querySelector('#scene-panel').dataset.state === 'error');
+  assert.equal(await loadingPage.locator('button[data-lighting="evening"]').evaluate(button => button === document.activeElement), true,
+    'Import failure preserves focus on the setting the user changed while loading');
+  assert.equal(await loadingPage.locator('#start-scene').isEnabled(), true);
+  await selectedControls(loadingPage, 'walnut', 'evening');
+  assertSelectedURL(loadingPage, 'walnut', 'evening');
+  assert.equal(loadingObserved.expectedFailures.length, 1);
+  assert.deepEqual(loadingObserved.failures, [], 'No unexpected browser errors in delayed import failure');
+  results.push({mode: 'loading-focus-preservation', status: 'PASS', focusedControl: 'evening-light', retainedConfiguration: 'walnut/evening'});
+  console.log('PASS AI Desk loading focus: late import failure preserves the active setting and configuration');
+  await loadingContext.close(); activePage = undefined;
+
+  // Exercise actual WebGL loss, not a fabricated DOM event. Each case gets a fresh document/context.
+  for (const focusedControl of ['#desk-canvas', '#reset-view', 'button[data-material="walnut"]']) {
+    activeCase = `context-loss-${focusedControl === '#desk-canvas' ? 'canvas' : focusedControl === '#reset-view' ? 'reset' : 'material'}`;
+    const lossContext = await browser.newContext({viewport: {width: 390, height: 844}, deviceScaleFactor: 1, reducedMotion: 'reduce'});
+    const lossPage = await lossContext.newPage(); activePage = lossPage;
+    const lossObserved = observe(lossPage);
+    await lossPage.goto(`${demo}?${course}&material=walnut&light=evening`, {waitUntil: 'networkidle'});
+    await launchScene(lossPage);
+    await lossPage.locator(focusedControl).focus();
+    assert.equal(await lossPage.locator(focusedControl).evaluate(element => element === document.activeElement), true);
+    await lossPage.evaluate(() => {
+      const canvas = document.querySelector('#desk-canvas');
+      const gl = canvas.getContext('webgl2') || canvas.getContext('webgl');
+      const extension = gl?.getExtension('WEBGL_lose_context');
+      if (!extension) throw new Error('Actual WebGL context-loss extension is required for acceptance');
+      extension.loseContext();
+    });
+    await lossPage.waitForFunction(() => document.querySelector('#scene-panel').dataset.state === 'error');
+    assert.equal(await lossPage.locator('#desk-canvas').isHidden(), true, 'Lost context returns to the preview');
+    assert.equal(await lossPage.locator('#scene-poster').isVisible(), true);
+    assert.equal(await lossPage.locator('#start-scene').isVisible(), true);
+    assert.equal(await lossPage.locator('#start-scene').isEnabled(), true);
+    const expectedFocus = focusedControl === '#desk-canvas' || focusedControl === '#reset-view' ? '#start-scene' : focusedControl;
+    assert.equal(await lossPage.locator(expectedFocus).evaluate(element => element === document.activeElement), true,
+      `Context loss moves focus only when its former control is hidden: ${focusedControl}`);
+    await selectedControls(lossPage, 'walnut', 'evening');
+    assertSelectedURL(lossPage, 'walnut', 'evening');
+    assert.match(await lossPage.locator('#scene-status').innerText(), /недоступно/);
+    await noOverflow(lossPage, `390px ${activeCase}`);
+    if (focusedControl === '#desk-canvas') await lossPage.screenshot({path: `${artifacts}/ai-desk-390-context-loss-focus.png`, fullPage: true, animations: 'disabled'});
+    assert.deepEqual(lossObserved.failures, [], 'No unexpected browser errors in real context-loss recovery');
+    results.push({mode: 'webgl-context-loss-focus', status: 'PASS', focusedControl, expectedFocus, retainedConfiguration: 'walnut/evening'});
+    console.log(`PASS AI Desk real context loss: ${focusedControl} → ${expectedFocus}; configuration retained`);
+    // No retry is required while this document's WebGL context remains deliberately lost.
+    await lossContext.close(); activePage = undefined;
+  }
   await writeFile(`${artifacts}/ai-desk-results.json`, JSON.stringify({testedAt: new Date().toISOString(), results}, null, 2) + '\n');
 } catch (error) {
   if (activePage && !activePage.isClosed()) await activePage.screenshot({path: `${artifacts}/ai-desk-${activeCase}-failure.png`, fullPage: true, animations: 'disabled'}).catch(() => {});
