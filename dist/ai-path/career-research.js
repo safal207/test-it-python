@@ -8,7 +8,7 @@
   const recordFields = ['Title', 'Url', 'Date', 'Published', 'Direction', 'Salary', 'Currency', 'Period', 'Tax', 'Skills', 'Quote', 'Inference'];
   const today = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
   const empty = () => ({ version: 1, context: {}, directions: [1, 2, 3].map(id => ({ id: String(id) })), vacancies: [] });
-  let state = empty(), editing = null;
+  let state = empty(), editing = null, vacancyBaseline = '';
   const status = message => { $('workspaceStatus').textContent = message; };
   const text = (value, limit = 2200) => typeof value === 'string' ? value.slice(0, limit) : '';
   function sourceUrl(value) {
@@ -112,9 +112,22 @@
     renderSummary(); renderRecords();
   }
   function resetRecordForm() {
-    editing = null; $('vacancyForm').reset(); $('vacancyDate').value = today; $('vacancyError').textContent = ''; $('addVacancy').textContent = 'Добавить вакансию'; $('cancelEdit').hidden = true;
+    editing = null; $('vacancyForm').reset(); $('vacancyDate').value = today; $('vacancyError').textContent = ''; $('addVacancy').textContent = 'Добавить вакансию'; $('cancelEdit').textContent = 'Очистить черновик'; $('cancelEdit').hidden = true;
+    vacancyBaseline = vacancyDraft();
+  }
+  function vacancyDraft() { return JSON.stringify(recordFields.map(field => $('vacancy' + field).value)); }
+  function readyToSave() {
+    if (vacancyDraft() === vacancyBaseline) return true;
+    const message = 'В форме есть незавершённая вакансия. Сначала нажми «' + $('addVacancy').textContent + '» или «' + $('cancelEdit').textContent + '», затем сохрани тетрадь или скачай отчёт.';
+    $('vacancyError').textContent = message; status(message); $('addVacancy').focus();
+    return false;
   }
   function markChanged() { status('Есть несохранённые изменения. Нажми «Сохранить на этом устройстве» или скачай отчёт.'); }
+  function markVacancyDraft() {
+    const changed = vacancyDraft() !== vacancyBaseline;
+    $('cancelEdit').hidden = !editing && !changed;
+    if (changed) status('Черновик вакансии ещё не добавлен в тетрадь. Заверши запись кнопкой под формой перед сохранением или экспортом.');
+  }
   $('vacancyDate').max = today; $('vacancyPublished').max = today;
   try {
     const raw = localStorage.getItem(storageKey);
@@ -139,6 +152,8 @@
   $('directionForm').addEventListener('input', () => { render(); markChanged(); });
   $('directionForm').addEventListener('change', () => { render(); markChanged(); });
   $('directionFilter').addEventListener('change', renderRecords);
+  $('vacancyForm').addEventListener('input', markVacancyDraft);
+  $('vacancyForm').addEventListener('change', markVacancyDraft);
   $('vacancyForm').addEventListener('submit', event => {
     event.preventDefault(); collectPlan();
     const record = { id: editing || 'v' + Date.now() + '-' + Math.random().toString(36).slice(2, 7) };
@@ -149,19 +164,21 @@
     if (editing) state.vacancies = state.vacancies.map(item => item.id === editing ? record : item); else state.vacancies.push(record);
     resetRecordForm(); render(); markChanged(); $('vacancyTitle').focus();
   });
-  $('cancelEdit').addEventListener('click', resetRecordForm);
+  $('cancelEdit').addEventListener('click', () => { resetRecordForm(); status('Черновик вакансии очищен. Записи в тетради не изменены.'); $('vacancyTitle').focus(); });
   $('vacancyList').addEventListener('click', event => {
     const button = event.target.closest('button[data-edit-vacancy],button[data-remove-vacancy]'); if (!button) return;
     if (button.dataset.editVacancy) {
       const record = state.vacancies.find(item => item.id === button.dataset.editVacancy); editing = record.id;
       recordFields.forEach(field => { $('vacancy' + field).value = record[field.toLowerCase()] || ''; });
-      $('addVacancy').textContent = 'Сохранить изменения вакансии'; $('cancelEdit').hidden = false; $('vacancyError').textContent = ''; $('vacancyTitle').focus();
+      vacancyBaseline = vacancyDraft();
+      $('addVacancy').textContent = 'Сохранить изменения вакансии'; $('cancelEdit').textContent = 'Отменить изменение'; $('cancelEdit').hidden = false; $('vacancyError').textContent = ''; $('vacancyTitle').focus();
     } else {
       state.vacancies = state.vacancies.filter(item => item.id !== button.dataset.removeVacancy);
       if (editing === button.dataset.removeVacancy) resetRecordForm(); render(); markChanged(); $('directionFilter').focus();
     }
   });
   $('saveResearch').addEventListener('click', () => {
+    if (!readyToSave()) return;
     collectPlan();
     try { localStorage.setItem(storageKey, JSON.stringify(state)); status('Тетрадь сохранена на этом устройстве. После следующих изменений сохрани снова.'); }
     catch (_) { status('Браузер не разрешил сохранение. Скачай JSON или Markdown, чтобы не потерять работу.'); }
@@ -173,8 +190,9 @@
     status('Отчёт подготовлен к скачиванию. Сохранение в браузере выполняется отдельной кнопкой.');
   }
   const md = value => String(value || 'Не заполнено').replace(/[\\`*_[\]<>#|]/g, '\\$&');
-  $('exportResearchJson').addEventListener('click', () => download(JSON.stringify(report(), null, 2), 'application/json;charset=utf-8', 'json'));
+  $('exportResearchJson').addEventListener('click', () => { if (readyToSave()) download(JSON.stringify(report(), null, 2), 'application/json;charset=utf-8', 'json'); });
   $('exportResearchMarkdown').addEventListener('click', () => {
+    if (!readyToSave()) return;
     const data = report(), lines = ['# Исследование направлений', '', 'Экспорт: ' + data.exportedAt, '', data.note, '', '## Ограничения', 'Время: ' + md(data.context.researchTime), 'География: ' + md(data.context.researchLocation), 'Опыт: ' + md(data.context.researchExperience)];
     data.directions.forEach(direction => { const group = data.summary.groups.find(item => item.id === direction.id); lines.push('', '## ' + md(name(direction.id)), 'Уникальных вакансий: ' + group.count, 'Требования в выборке: ' + md(group.skills.map(([skill, count]) => skill + ' — ' + count + '/' + group.count).join('; ')), 'Проба: ' + md(direction.trial), 'Результат: ' + md(direction.trialResult), 'Интерес: ' + md(direction.interest) + '/5; готовность: ' + md(direction.readiness) + '/5'); });
     lines.push('', '## Источники');

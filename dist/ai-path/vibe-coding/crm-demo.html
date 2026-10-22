@@ -63,25 +63,27 @@ const $=id=>document.getElementById(id);
 const currency=n=>new Intl.NumberFormat('ru-RU',{style:'currency',currency:'RUB',maximumFractionDigits:0}).format(n);
 const save=()=>{try{sessionStorage.setItem(key,JSON.stringify(data))}catch{}};
 const feedback=t=>{$('feedback').textContent=t};
+function renderSummary(){
+const active=data.filter(item=>item.stage!=='won'&&item.stage!=='lost');
+$('leadCount').textContent=String(data.length);$('activeCount').textContent=String(active.length);$('pipelineValue').textContent=currency(active.reduce((total,item)=>total+item.value,0));
+}
 function render(){
 $('rows').replaceChildren();
-let active=0,total=0;
 for(const item of data){
-if(item.stage!=='won'&&item.stage!=='lost'){active++;total+=item.value}
 const tr=document.createElement('tr');
 for(const value of [item.label,item.source]){const td=document.createElement('td');td.textContent=value;tr.append(td)}
 const stageTd=document.createElement('td'),select=document.createElement('select');select.className='select';select.setAttribute('aria-label','Стадия '+item.label);
 for(const [v,label] of Object.entries(stages)){const option=document.createElement('option');option.value=v;option.textContent=label;if(item.stage===v)option.selected=true;select.append(option)}
-select.addEventListener('change',()=>{item.stage=select.value;save();render();feedback('Стадия изменена')});
+select.addEventListener('change',()=>{item.stage=select.value;save();renderSummary();feedback('Стадия изменена')});
 stageTd.append(select);tr.append(stageTd);
 const amount=document.createElement('td');amount.textContent=currency(item.value);tr.append(amount);
 const next=document.createElement('td');next.textContent=item.next;tr.append(next);
 const action=document.createElement('td'),deleteButton=document.createElement('button');deleteButton.type='button';deleteButton.className='remove';deleteButton.textContent='Удалить';deleteButton.setAttribute('aria-label','Удалить '+item.label);
-deleteButton.addEventListener('click',()=>{data=data.filter(x=>x!==item);save();render();feedback('Учебная сделка удалена')});action.append(deleteButton);tr.append(action);
+deleteButton.addEventListener('click',()=>{const index=data.indexOf(item);data=data.filter(x=>x!==item);save();render();const buttons=$('rows').querySelectorAll('.remove');(buttons[Math.min(index,buttons.length-1)]||$('leadLabel')).focus();feedback('Учебная сделка удалена')});action.append(deleteButton);tr.append(action);
 $('rows').append(tr);
 }
 if(data.length===0){const tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=6;td.className='empty';td.textContent='Учебных сделок пока нет. Добавь первую выше.';tr.append(td);$('rows').append(tr)}
-$('leadCount').textContent=String(data.length);$('activeCount').textContent=String(active);$('pipelineValue').textContent=currency(total);
+renderSummary();
 }
 $('leadForm').addEventListener('submit',event=>{
 event.preventDefault();const form=event.currentTarget;

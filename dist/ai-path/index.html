@@ -6,7 +6,7 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="dark" name="color-scheme"/>
 <meta content="#090c15" name="theme-color"/>
-<meta content="Онлайн-школа ИИ и цифрового творчества AI PATH. Выбери одну из 15 программ и создай свой сайт, книгу, комикс или 3D-проект с индивидуальным наставником." name="description"/>
+<meta content="AI PATH — 23 программы по нейросетям, сайтам и цифровому творчеству. Выбери свой маршрут, посмотри реальные проекты и начни практику с личным наставником." name="description"/>
 <meta content="AI PATH — онлайн-школа ИИ и цифрового творчества" property="og:title"/>
 <meta content="От идеи до собственного проекта: подбор по интересам и опыту, реальные примеры работ и персональное AI-наставничество." property="og:description"/>
 <link rel="canonical" href="https://safal207.github.io/test-it-python/ai-path/"/>
@@ -129,28 +129,34 @@
 <style id="ai-path-vibe-feature">.vibe-highlight{display:grid;grid-template-columns:1.18fr .82fr;gap:22px;padding:clamp(25px,4vw,48px);border-radius:25px;border:1px solid rgba(213,250,136,.24);background:radial-gradient(ellipse at 100% 0%,rgba(178,172,240,.14),transparent 62%),linear-gradient(135deg,#212c33,#111825);box-shadow:0 15px 65px rgba(0,0,0,.22)}.vibe-highlight>*{min-width:0}.vibe-highlight h2{font-size:clamp(32px,4vw,52px);letter-spacing:-.06em;margin:14px 0}.vibe-highlight p{max-width:660px;color:#b3c3d2;font-size:15px;line-height:1.7;margin:0 0 20px}.vibe-highlight .vibe-note{font-size:12px;color:#a6b4c7;margin-top:21px;margin-bottom:0}.vibe-tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:24px}.vibe-tags span{padding:7px 10px;font-size:12px;border-radius:999px;border:1px solid rgba(213,250,136,.21);background:rgba(213,250,136,.05);color:#d7e7c2}.vibe-flow{display:flex;flex-direction:column;gap:11px;justify-content:center}.vibe-flow span{border:1px solid rgba(220,230,230,.16);background:#131d2a;border-radius:14px;padding:17px 18px;color:var(--accent);font-size:12px;display:flex;align-items:center;gap:13px;letter-spacing:.08em}.vibe-flow strong{font-size:16px;color:#eaf0f5;letter-spacing:-.02em}@media(max-width:760px){.vibe-highlight{grid-template-columns:1fr}.vibe-flow{display:grid;grid-template-columns:1fr 1fr;gap:7px}.vibe-flow span{padding:11px;font-size:10px;flex-direction:column;align-items:flex-start;gap:4px}.vibe-flow strong{font-size:12px}}</style>
 <link rel="stylesheet" href="neural-entry.css?v=home-courses-1">
 <link rel="stylesheet" href="content-sections.css?v=career-20261019">
+<link rel="stylesheet" href="school-design.css?v=20261022">
 </head>
 <body>
+<a class="school-skip" href="#top">К содержанию</a>
 <header class="header">
 <div class="wrap nav">
 <a aria-label="AI PATH, на главную" class="logo" href="#top"><span class="mark">↗</span><span>AI<b>PATH</b></span></a>
 <nav aria-label="Основное меню" class="navlinks"><a href="#selector">Подобрать программу</a><a href="#programs">Меню программ</a><a href="neural-courses.html" data-neural-courses>Нейросети</a><a href="studio.html">Портфолио школы</a><a href="studio.html#services">Разработка сайтов</a><a href="#mentor">Наставник</a></nav>
 <a class="navcta" id="headerAction" href="#courses">Выбрать курс ↓</a>
+<button class="school-menu-toggle" id="schoolMenuToggle" type="button" aria-expanded="false" aria-controls="schoolMenu" hidden>Меню <span aria-hidden="true">☰</span></button>
 </div>
+<nav class="school-menu" id="schoolMenu" aria-label="Разделы школы" hidden>
+<a href="#programs">Все программы</a><a href="#selector">Помочь с выбором</a><a href="neural-courses.html" data-neural-courses>Курсы по нейросетям</a><a href="studio.html">Портфолио школы</a><a href="#mentor">Наставник и формат</a><a href="studio.html#services">Разработка сайтов</a>
+</nav>
 </header>
-<main id="top">
+<main id="top" tabindex="-1">
 <noscript><div class="wrap notices"><p>Для подбора программы включи JavaScript. Примеры работ доступны ниже. Обсудить обучение: <a href="mailto:safal0645@gmail.com">safal0645@gmail.com</a>.</p></div></noscript>
 <div class="hero">
 <div class="wrap hero-grid">
 <div>
 <span class="eyebrow"><span class="dot"></span> Онлайн-школа ИИ · личный наставник</span>
 <h1>Нейросети.<br/>Сайты. 3D.<br/><em>Создай своё.</em></h1>
-<p class="lead">8 отдельных курсов по нейросетям — от Python до моделей для изображений, текстов и звука. Выбери задачу и собери учебный проект вместе с наставником.</p>
+<p class="lead">От первой строки Python до своего сайта, нейросети или 3D-сцены. Выбери задачу и создай работающий проект на личных занятиях с наставником.</p>
 <div class="buttons">
-<a class="btn primary" id="hero-programs" href="#courses">Выбрать курс по нейросетям <span aria-hidden="true">↓</span></a>
+<a class="btn primary" id="hero-programs" href="#courses">Выбрать свою программу <span aria-hidden="true">↓</span></a>
 <a class="btn ghost" href="#selector">Помочь с выбором <span aria-hidden="true">↗</span></a>
 </div>
-<div class="neural-course-entrance" aria-labelledby="neuralStartTitle"><h2 id="neuralStartTitle">С какого шага начнём?</h2><div class="neural-start-actions"><button type="button" data-start-track="ml-python" data-start-level="zero">С нуля <span>Python и данные →</span></button><button type="button" data-start-track="ml" data-start-level="basic">Уже знаю Python <span>Первая нейросеть →</span></button></div><a href="neural-courses.html" data-neural-courses>Темы и материалы всех 8 курсов ↗</a></div>
+<p class="hero-choice-note">23 программы · 8 курсов по нейросетям · можно с нуля</p>
 <div class="hero-foot"><span><strong>1:1</strong> с наставником</span><span><strong>4–16 недель</strong> базовый план</span><span><strong>Свой проект</strong> в портфолио</span></div>
 <div class="hero-mentor"><span class="mentor-mini" aria-hidden="true"><img src="assets/mentor/alexey-safonov-solvery.webp" alt="" width="39" height="39" decoding="async"/></span><span><strong>Алексей Сафонов</strong><span>QA-инженер и AI-наставник · <a href="#mentor">Об авторе школы ↗</a></span></span></div>
 </div>
@@ -159,9 +165,9 @@
 <span class="hero-projects-tag">Примеры проектов</span>
 <h2 id="heroProjectsTitle">Сайты, игры и 3D</h2>
 <div class="hero-projects-grid">
+<button class="hero-project-tile" data-hero-project="room" type="button" aria-label="Увеличить: Room Control — 3D-сцена" data-shot="assets/design-lab/room-3d-preview.png" data-shot-title="Room Control — 3D-сцена" data-shot-caption="На карточке — кадр работающей 3D-сцены. В демо есть 2D и 3D. Реальные устройства не подключены; мощность расчётная." data-shot-source="https://safal207.github.io/room-control-studio/"><img src="assets/hero/room.webp" alt="Room Control: кадр работающей 3D-сцены с диваном, столом и светильниками" width="480" height="320" loading="eager" decoding="async"/><span>3D-сцена</span></button>
 <button class="hero-project-tile" data-hero-project="python" type="button" aria-label="Увеличить: Test it — тренажёр Python" data-shot="assets/testit.webp" data-shot-title="Test it — тренажёр Python" data-shot-caption="Скриншот работающего учебного интерфейса." data-shot-source="https://safal207.github.io/test-it-python/"><img src="assets/hero/python.webp" alt="Test it — тренажёр Python" width="480" height="320" loading="eager" decoding="async"/><span>Веб-приложение</span></button>
 <button class="hero-project-tile" data-hero-project="game" type="button" aria-label="Увеличить: Пробуждение — город и герой" data-shot="assets/awakening/city-day.webp" data-shot-title="Пробуждение — город и герой" data-shot-caption="Реальный кадр alpha-прототипа из ветки разработки: город и герой, C# / OpenGL." data-shot-source="https://github.com/safal207/Awakening/tree/e7d816954daf4341710bfc554ca27d49a754a20b"><img src="assets/hero/game-20261019.webp" alt="Пробуждение — город и герой" width="480" height="270" loading="eager" decoding="async"/><span>3D-игра</span></button>
-<button class="hero-project-tile" data-hero-project="room" type="button" aria-label="Увеличить: Room Control — 3D-сцена" data-shot="assets/design-lab/room-3d-preview.png" data-shot-title="Room Control — 3D-сцена" data-shot-caption="На карточке — кадр работающей 3D-сцены. В демо есть 2D и 3D. Реальные устройства не подключены; мощность расчётная." data-shot-source="https://safal207.github.io/room-control-studio/"><img src="assets/hero/room.webp" alt="Room Control: кадр работающей 3D-сцены с диваном, столом и светильниками" width="480" height="320" loading="eager" decoding="async"/><span>3D-сцена</span></button>
 </div>
 <p class="hero-projects-note">Проекты наставника и учебные демо. Нажми, чтобы рассмотреть.</p>
 </section>
@@ -178,6 +184,7 @@
 </div>
 <div class="home-courses" id="courses">
 <div class="neural-catalog-intro" id="neuralCatalogIntro"><h3>Нейросети · 8 отдельных курсов</h3><p>Python → первая модель → специализация → улучшение модели. Проходить все восемь подряд не обязательно.</p></div>
+<div class="neural-course-entrance" aria-labelledby="neuralStartTitle"><h2 id="neuralStartTitle">Первый шаг в нейросетях</h2><div class="neural-start-actions"><button type="button" data-start-track="ml-python" data-start-level="zero">С нуля <span>Python и данные →</span></button><button type="button" data-start-track="ml" data-start-level="basic">Уже знаю Python <span>Первая нейросеть →</span></button></div><a href="neural-courses.html" data-neural-courses>Темы и материалы всех 8 курсов ↗</a></div>
 <div class="programs" id="programList" role="group" aria-label="Выбор программы обучения"></div>
 </div>
 <div id="catalogEmpty" class="catalog-empty" hidden><p>По этому запросу в категории ничего не нашлось.</p><button type="button" class="btn ghost" id="resetProgramSearch">Сбросить поиск и показать все программы</button></div>
@@ -685,9 +692,10 @@
 <script src="plan-pdf.js?v=choice-2"></script>
 <script src="program-3d.js?v=2"></script>
 <script src="content-sections.js?v=1"></script>
+<script src="school-navigation.js?v=20261022"></script>
 <script src="course-navigation.js?v=career-1"></script>
 <script src="neural-courses-data.js?v=home-courses-1"></script>
-<script src="app.js?v=career-20261019"></script>
+<script src="app.js?v=school-20261022"></script>
 <script src="mentor-demo.js?v=1"></script>
 <script src="design-lab.js?v=1"></script>
 <dialog aria-labelledby="galleryTitle" id="projectLightbox">

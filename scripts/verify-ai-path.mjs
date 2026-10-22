@@ -104,7 +104,7 @@ async function responsivePageBounds(page) {
   const original = page.viewportSize();
   try {
     // Include narrow text pressure and both sides of the main layout boundaries.
-    for (const width of [320, 359, 360, 361, 379, 380, 381, 759, 760, 761, 1019, 1020, 1021, 1049, 1050, 1051, 1099, 1100, 1101]) {
+    for (const width of [320, 359, 360, 361, 379, 380, 381, 679, 680, 681, 759, 760, 761, 1019, 1020, 1021, 1049, 1050, 1051, 1099, 1100, 1101, 1279, 1280, 1281]) {
       await page.setViewportSize({ width, height: 844 });
       await page.evaluate(async () => {
         await document.fonts.ready;
@@ -115,6 +115,82 @@ async function responsivePageBounds(page) {
   } finally {
     await page.setViewportSize(original);
   }
+}
+async function schoolMetadata(page) {
+  const description = await page.locator('meta[name="description"]').getAttribute('content');
+  assert(new RegExp(`\\b${programIds.length}\\b`).test(description), 'Search description agrees with the 23-program catalogue');
+  const sitemap = await readFile('dist/ai-path/sitemap.xml', 'utf8');
+  const urls = await page.evaluate(xml => {
+    const doc = new DOMParser().parseFromString(xml, 'application/xml');
+    return doc.querySelector('parsererror') ? null : [...doc.querySelectorAll('loc')].map(node => node.textContent);
+  }, sitemap);
+  const origin = 'https://safal207.github.io/test-it-python/ai-path/';
+  const paths = ['', 'vibe-coding/', 'studio.html', 'neural-courses.html', 'career-research.html', 'neural-networks.html',
+    'examples/flora.html', 'examples/mori.html', 'examples/dal.html', 'examples/my-cosmos.html',
+    'examples/pocitel.html', 'examples/plan-to-space.html', 'examples/ai-desk.html'];
+  assert(urls && new Set(urls).size === urls.length && paths.every(path => urls.includes(origin + path)), 'Sitemap lists every public school and showcase route without duplicates');
+  for (const name of ['flora', 'mori', 'dal', 'my-cosmos', 'ai-desk']) {
+    const html = await readFile(`dist/ai-path/examples/${name}.html`, 'utf8');
+    assert(html.includes(`<link rel="canonical" href="${origin}examples/${name}.html">`), 'Example identifies its canonical published address: ' + name);
+  }
+}
+async function schoolNavigationAccess(page, width) {
+  await page.goto(base, { waitUntil: 'domcontentloaded' });
+  await page.locator('#programList .program').first().waitFor({ state: 'attached' });
+  await page.keyboard.press('Tab');
+  const skip = page.locator('.school-skip');
+  assert(await skip.evaluate(link => document.activeElement === link), 'First Tab exposes the skip-to-content link');
+  await assertUncovered(skip, 'Focused skip link');
+  await page.keyboard.press('Enter');
+  assert(await page.locator('#top').evaluate(main => document.activeElement === main), 'Skip link moves keyboard focus to the main content');
+  const toggle = page.locator('#schoolMenuToggle');
+  const menu = page.locator('#schoolMenu');
+  assert(await toggle.getAttribute('aria-controls') === 'schoolMenu' && await toggle.getAttribute('aria-expanded') === 'false' && !(await menu.isVisible()), 'Closed navigation exposes its correct accessible state');
+  if (width <= 1100) {
+    assert(await toggle.isVisible(), 'Compact header offers a visible menu action');
+    await toggle.focus();
+    await page.keyboard.press('Enter');
+    assert(await toggle.getAttribute('aria-expanded') === 'true' && await menu.isVisible(), 'Keyboard opens compact navigation');
+    await page.keyboard.press('Tab');
+    assert(await menu.evaluate(nav => nav.contains(document.activeElement)), 'Tab reaches the open navigation links');
+    await noOverflow(page, 'open compact menu ' + width);
+    await page.screenshot({ path: `${artifacts}/ai-path-${width}-school-menu.png`, animations: 'disabled' });
+    await page.keyboard.press('Escape');
+    assert(!(await menu.isVisible()) && await toggle.getAttribute('aria-expanded') === 'false' && await toggle.evaluate(button => document.activeElement === button), 'Escape closes the menu and restores toggle focus');
+    await page.keyboard.press('Space');
+    const target = menu.locator('a[href^="#"]').first();
+    const hash = await target.getAttribute('href');
+    await target.focus();
+    await page.keyboard.press('Enter');
+    assert(new URL(page.url()).hash === hash && !(await menu.isVisible()) && await toggle.getAttribute('aria-expanded') === 'false', 'Choosing a section closes the menu and navigates to that section');
+  } else {
+    assert(!(await toggle.isVisible()) && await page.locator('.navlinks').isVisible(), 'Wide header uses its visible desktop navigation');
+    const original = page.viewportSize();
+    for (const boundary of [1099, 1100, 1101]) {
+      await page.setViewportSize({ width: boundary, height: 844 });
+      await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+      assert(await toggle.isVisible() === (boundary <= 1100), 'Menu switches at the compact header boundary: ' + boundary);
+      await noOverflow(page, 'header boundary ' + boundary);
+    }
+    await page.setViewportSize(original);
+  }
+  if (width === 390) {
+    const original = page.viewportSize();
+    await page.setViewportSize({ width: 320, height: 280 });
+    await toggle.focus();
+    await page.keyboard.press('Enter');
+    const lastLink = menu.locator('a').last();
+    await lastLink.scrollIntoViewIfNeeded();
+    await assertUncovered(lastLink, 'Last menu link remains reachable on a short screen');
+    assert(await menu.evaluate(nav => nav.scrollHeight > nav.clientHeight && nav.scrollTop > 0), 'Short menu scrolls internally to reveal every destination');
+    await noOverflow(page, 'short screen menu');
+    await page.screenshot({ path: `${artifacts}/ai-path-320x280-short-school-menu.png`, animations: 'disabled' });
+    await page.keyboard.press('Escape');
+    assert(!(await menu.isVisible()) && await toggle.evaluate(button => document.activeElement === button), 'Short screen menu still closes with Escape');
+    await page.setViewportSize(original);
+  }
+  await page.goto(base, { waitUntil: 'domcontentloaded' });
+  await page.locator('#programList .program').first().waitFor({ state: 'attached' });
 }
 async function schoolEntry(context, width) {
   const page = await context.newPage();
@@ -157,11 +233,17 @@ async function compactLanding(page, width) {
     const { left, right, height } = panel.getBoundingClientRect();
     return { left, right, height, cards: [...panel.querySelectorAll('button[data-hero-project]')].map(button => {
       const { left, right, top, width, height } = button.getBoundingClientRect();
-      return { left, right, top, width, height };
+      const label = button.querySelector('span');
+      const labelBounds = label.getBoundingClientRect();
+      return { left, right, top, width, height, bottom: top + height,
+        label: label.textContent.trim(), labelSize: parseFloat(getComputedStyle(label).fontSize),
+        labelFits: labelBounds.left >= left && labelBounds.right <= right && labelBounds.bottom <= top + height };
     }) };
   });
   assert(heroBounds.left >= -1 && heroBounds.right <= width + 1 && heroBounds.cards.every(card => card.width > 0 && card.height > 0 && card.left >= heroBounds.left - 1 && card.right <= heroBounds.right + 1), `All three hero projects fit within the panel and viewport at ${width}px`);
-  if (width <= 390) assert(heroBounds.height <= 290 && heroBounds.cards.every((card, index) => Math.abs(card.top - heroBounds.cards[0].top) <= 1 && (index === 0 || heroBounds.cards[index - 1].right <= card.left + 1)), `Mobile hero projects stay in three columns in one compact row: ${heroBounds.height}px at ${width}px`);
+  assert(heroBounds.cards.every(card => card.label && card.labelSize >= 12 && card.labelFits), `Hero preview labels remain readable and contained at ${width}px`);
+  assert(heroBounds.cards.every((card, index) => heroBounds.cards.slice(index + 1).every(other =>
+    card.right <= other.left + 1 || other.right <= card.left + 1 || card.bottom <= other.top + 1 || other.bottom <= card.top + 1)), `Hero previews never overlap at ${width}px`);
   await heroProjects.screenshot({ path: `${artifacts}/ai-path-${width}-hero-projects.png`, animations: 'disabled',
     style: '.header, .selection-dock, .toast { visibility: hidden !important; }' });
   const heroURL = page.url();
@@ -1692,6 +1774,8 @@ async function careerResearch(page, width) {
       await fillVacancy({ title: 'Синтетический дубль URL HH', url: 'https://hh.ru/vacancy/123456789?from=employer' });
       await page.locator('#addVacancy').click();
       assert(await records.count() === 5 && /уже есть/.test(await page.locator('#vacancyError').innerText()), 'HH entry-point parameters do not turn one vacancy ID into two sources');
+      await page.locator('#cancelEdit').click();
+      assert(await page.locator('#vacancyTitle').inputValue() === '', 'Discarding the rejected duplicate clears its draft before saving the accepted sample');
       const hhRecord = records.filter({ has: page.locator('a[href="https://hh.ru/vacancy/123456789"]') });
       assert(await hhRecord.count() === 1, 'HH source is canonicalized by its vacancy ID without requesting the external URL');
       await hhRecord.locator('[data-remove-vacancy]').click();
@@ -1811,12 +1895,12 @@ async function courseEnquiry(page, width) {
 async function neuralCourses(page, width) {
   const previous = page.url();
   await page.goto(base, { waitUntil: 'domcontentloaded' });
-  const entrance = page.locator('.hero a[data-neural-courses]');
+  const entrance = page.locator('#courses a[data-neural-courses]');
   const cta = await page.locator('#hero-programs').boundingBox();
   assert(cta && cta.y >= 0 && cta.y + cta.height <= page.viewportSize().height, 'Fresh first viewport contains the complete course action');
   assert((await page.locator('.hero h1').innerText()).includes('Нейросети'), 'Hero names neural networks before the visitor scrolls');
   await page.screenshot({path:`${artifacts}/ai-path-${width}-home-course-hero.png`,animations:'disabled'});
-  assert(await entrance.isVisible(), 'Hero offers the full syllabus as a secondary link');
+  assert(await entrance.isVisible(), 'Course entrance offers the full syllabus as a secondary link');
   assert((await ids(page.locator('#programList .program:visible'))).join('|') === neuralCourseIds.join('|'), 'All eight neural courses appear in learning order without a search, filter or show-more click');
   assert(await page.locator('#neuralCatalogIntro').isVisible(), 'Initial course group has an explicit neural-network heading');
   await page.locator('#catalogFilters [data-filter="visual"]').click();
@@ -1831,10 +1915,10 @@ async function neuralCourses(page, width) {
   assert(firstCourse && firstCourse.y >= stickyHeader.y + stickyHeader.height && firstCourse.y + 180 <= page.viewportSize().height, 'Course action exposes the first card below the sticky header, beyond the filter toolbar');
   await page.screenshot({path:`${artifacts}/ai-path-${width}-home-course-entry.png`,animations:'disabled'});
   for (const id of ['ml-python', 'ml']) {
-    await page.locator(`.hero [data-start-track="${id}"]`).focus();
+    await page.locator(`#courses [data-start-track="${id}"]`).focus();
     await page.keyboard.press('Enter');
     await selected(page, id);
-    assert(await page.locator('#selTitle').evaluate(el => document.activeElement === el), 'Hero starter opens and focuses the corresponding plan: ' + id);
+    assert(await page.locator('#selTitle').evaluate(el => document.activeElement === el), 'Course starter opens and focuses the corresponding plan: ' + id);
   }
   await page.goto(base, { waitUntil: 'domcontentloaded' });
   await page.locator('#programList .program').first().waitFor({state:'attached'});
@@ -2297,7 +2381,8 @@ try {
     assert(!new URL(page.url()).searchParams.has('program'), 'Fresh entry does not manufacture a selection in the URL');
     assert(!(await page.locator('#selectionDock').isVisible()), 'Fresh entry has no sticky selection action');
     assert(await page.locator('#headerAction').getAttribute('href') === '#courses', 'Fresh header opens the visible course catalogue');
-    if (width === 1440) await responsivePageBounds(page);
+    if (width === 1440) { await schoolMetadata(page); await responsivePageBounds(page); }
+    await schoolNavigationAccess(page, width);
     await compactLanding(page, width);
     await screenshot(page, width, 'hero');
     await screenshot(page, width, 'quiz', '#selector');
