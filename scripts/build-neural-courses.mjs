@@ -65,6 +65,7 @@ const html = `<!doctype html>
 <title>Нейросети — 8 отдельных курсов с практикой | AI PATH</title>
 <meta name="description" content="Python, первая нейросеть, табличный ML, компьютерное зрение, NLP, звук, временные ряды и подбор архитектуры. Программы курсов и все 66 учебных ноутбуков.">
 <link rel="canonical" href="https://safal207.github.io/test-it-python/ai-path/neural-courses.html">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="stylesheet" href="neural-courses.css"><script src="course-navigation.js?v=2" defer></script></head>
 <body><a class="nc-skip" href="#courses">К курсам</a>
 <header class="nc-header"><a class="nc-brand" href="./">AI <b>PATH</b></a><nav aria-label="Меню курсов"><a href="./#programs" data-course-back>Все программы школы</a><a href="neural-networks.html">Как устроены сети</a></nav></header>

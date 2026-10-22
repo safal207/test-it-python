@@ -1608,12 +1608,14 @@ async function landingSites(page, width) {
     const card = page.locator(`[data-id="${id}"]`);
     assert(Number(await card.getAttribute('data-price')) === price && Number(await card.getAttribute('data-base')) === original, `Pocitel preserves source-menu prices for ${id}`);
     assert((await card.locator('.price').innerText()).includes(`Выгода ${original - price} TL`), `Pocitel displays the correct saving for ${id}`);
+    assert(await card.locator('[data-pairing]').getAttribute('aria-label') === `Добавить к выбору: ${await card.getAttribute('data-name')}`, `Pocitel accessible action includes its visible label and dish name: ${id}`);
   }
   assert(await page.locator('#pairing-cards .pairing:visible').count() === 4 && await page.locator('#selection-total').innerText() === '0 TL', 'Pocitel starts with four choices and an empty total');
   const first = page.locator('[data-pairing="classic"]');
   await first.focus();
   await page.keyboard.press('Space');
   assert(await first.getAttribute('aria-pressed') === 'true' && await page.locator('#selection-total').innerText() === '345 TL', 'Keyboard choice updates its pressed state and total');
+  assert(await first.getAttribute('aria-label') === 'Убрать из выбора: Турецкая классика' && await first.locator('span').innerText() === 'Убрать из выбора', 'Selected pairing keeps its accessible action aligned with the visible removal label');
   await page.locator('[data-filter="fresh"]').click();
   assert(await page.locator('#pairing-cards .pairing:visible').count() === 1 && await page.locator('#selection-total').innerText() === '345 TL', 'Filtering preserves a selected item that is temporarily hidden');
   await page.locator('[data-pairing="fresh"]').click();
@@ -1629,6 +1631,7 @@ async function landingSites(page, width) {
   await page.locator('#clear-selection').click();
   assert(await page.locator('#selection-total').innerText() === '0 TL' && await page.locator('#clear-selection').isDisabled() && await page.locator('#selection-empty').isVisible(), 'Clear restores the empty state');
   assert(await first.evaluate(element => document.activeElement === element), 'Clear returns keyboard focus to an available choice');
+  assert(await first.getAttribute('aria-label') === 'Добавить к выбору: Турецкая классика' && await first.locator('span').innerText() === 'Добавить к выбору', 'Clearing restores matching visible and accessible add labels');
   assert(await page.locator('form').count() === 0, 'Educational selection does not include a customer order submission form');
   await page.locator('#pairings').screenshot({ path: `${artifacts}/ai-path-${width}-pocitel-menu.png`, animations: 'disabled' });
   await page.locator('[data-demo-program]').click();

@@ -21,8 +21,9 @@
       const button = card.querySelector('[data-pairing]');
       card.classList.toggle('selected', active);
       button.setAttribute('aria-pressed', String(active));
-      button.setAttribute('aria-label', `${active ? 'Убрать' : 'Добавить'}: ${card.dataset.name}`);
-      button.querySelector('span').textContent = active ? 'Убрать из выбора' : 'Добавить к выбору';
+      const action = active ? 'Убрать из выбора' : 'Добавить к выбору';
+      button.setAttribute('aria-label', `${action}: ${card.dataset.name}`);
+      button.querySelector('span').textContent = action;
       button.querySelector('b').textContent = active ? '−' : '+';
     });
   }
