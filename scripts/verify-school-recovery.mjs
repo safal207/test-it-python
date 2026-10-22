@@ -93,6 +93,10 @@ async function researchRecovery(page, width) {
   await page.reload({ waitUntil: 'domcontentloaded' });
   assert.equal(await page.locator('#vacancyList h4').innerText(), 'Синтетическая вакансия: исправленный заголовок', 'Completing the edit then saving survives reload');
   await title.fill('Неполный черновик для отмены');
+  await page.locator('[data-edit-vacancy]').click();
+  assert.equal(await title.inputValue(), 'Неполный черновик для отмены', 'Opening an existing record cannot overwrite the pending new vacancy');
+  await hasFocus(page.locator('#addVacancy'), 'Blocked record switch points back to completing the existing draft');
+  assert.match(await page.locator('#vacancyError').innerText(), /незавершённая вакансия/, 'Blocked record switch explains how to recover');
   await page.locator('#cancelEdit').click();
   assert.equal(await title.inputValue(), '', 'Discarding a new draft clears only the vacancy form');
   assert.equal(await page.locator('#vacancyList [data-vacancy-id]').count(), 1, 'Discarding draft preserves the completed record');

@@ -1,0 +1,765 @@
+{
+  "schema_version": "audit-any-website-v1",
+  "audit_id": "AI-PATH-SCHOOL-2026-10-22",
+  "generated_at": "2026-10-22T20:04:53+00:00",
+  "target": {
+    "url": "https://safal207.github.io/test-it-python/ai-path/",
+    "canonical_origin": "https://safal207.github.io",
+    "kind": "mixed",
+    "access": "code_plus_live",
+    "primary_journeys": [
+      "Understand school and inspect real projects",
+      "Choose among23 programs and8 neural courses",
+      "Customize a plan and prepare an enquiry without sending it",
+      "Save/export a local research workbook",
+      "Use interactive project demos and return to school"
+    ]
+  },
+  "scope": {
+    "included_routes": [
+      "/",
+      "/?program=ml#selected",
+      "neural-courses.html",
+      "career-research.html",
+      "studio.html",
+      "vibe-coding/crm-demo.html",
+      "examples/plan-to-space.html",
+      "examples/ai-desk.html"
+    ],
+    "excluded_routes": [
+      "External mentor/signup/payment services",
+      "Other repositories and external live projects beyond links/provenance",
+      "Authenticated student or customer records"
+    ],
+    "roles": [
+      "anonymous"
+    ],
+    "locales": [
+      "ru"
+    ],
+    "profiles": [
+      "Observed:Cloud Chrome1363×936",
+      "Planned:Chromium mobile/tablet/desktop and relevant boundaries",
+      "Planned:existing Firefox/WebKit bounded Design Lab suite"
+    ],
+    "authority_mode": "authorized_test",
+    "prohibited_actions": [
+      "Real enquiries/messages,purchases,account changes",
+      "Private CRM/student data",
+      "Credential or permission changes",
+      "Bypass failed required CI"
+    ],
+    "stop_conditions": [
+      "Unexpected external side effect",
+      "Head mismatch or required test failure",
+      "Access requires new authorization"
+    ]
+  },
+  "source_identity": {
+    "marker_kind": "commit_sha",
+    "initial_marker": "54a9e87cbcf7a7aed45451ad7a2ee92af00e344b",
+    "final_marker": "54a9e87cbcf7a7aed45451ad7a2ee92af00e344b",
+    "initial_check": "PASS",
+    "final_check": "INCOMPLETE",
+    "initial_observed_at": "2026-10-22T20:04:53+00:00",
+    "final_observed_at": "2026-10-22T20:04:53+00:00",
+    "normalization_notes": "Repository baseline tree a0d7af00545fedc0e1e98aef5953cc1bd0b4827e. dist/ai-path is authored static source; neural courses have a generator parity check. Live observations are timestamped separately and were not byte-bound to this commit. Remediation HEAD/CI/publication must be recorded separately; do not relabel baseline findings as observations of the new release."
+  },
+  "depth": "STANDARD",
+  "evidence_grade": "F2",
+  "review_depth": "L4",
+  "lenses": [
+    {
+      "name": "functional_data",
+      "status": "PARTIAL",
+      "notes": "Source checks and one live draft reproduction; complete post-fix acceptance pending."
+    },
+    {
+      "name": "state_time_recovery",
+      "status": "PARTIAL",
+      "notes": "Draft/save/reload observed; broader URL/history/PDF failure recovery reserved for CI."
+    },
+    {
+      "name": "ux_information_architecture",
+      "status": "PARTIAL",
+      "notes": "Live first screen and selected program inspected; hierarchy preferences separated from defects."
+    },
+    {
+      "name": "responsive_interaction",
+      "status": "PARTIAL",
+      "notes": "Source breakpoints inspected; post-fix viewport matrix pending."
+    },
+    {
+      "name": "accessibility_inclusion",
+      "status": "PARTIAL",
+      "notes": "Native semantic source review; no screen-reader conformance assessment."
+    },
+    {
+      "name": "content_localization",
+      "status": "PARTIAL",
+      "notes": "Russian offer/copy inspected; all23 program identities must be preserved."
+    },
+    {
+      "name": "seo_discoverability",
+      "status": "PARTIAL",
+      "notes": "Pinned metadata and sitemap inspected; no search-ranking/indexation outcome measured."
+    },
+    {
+      "name": "performance_reliability",
+      "status": "NOT_RUN",
+      "notes": "Exact-head Lighthouse not yet run; field Core Web Vitals unavailable."
+    },
+    {
+      "name": "privacy_security_trust",
+      "status": "PARTIAL",
+      "notes": "Only synthetic local data; no security scan, real enquiry, purchase or account change."
+    },
+    {
+      "name": "causal_product_impact",
+      "status": "PARTIAL",
+      "notes": "Directional friction only; no analytics or controlled experiment."
+    },
+    {
+      "name": "evidence_provenance",
+      "status": "PARTIAL",
+      "notes": "Repository baseline pinned; live observations lack saved hash-bound artifacts; release HEAD not yet frozen."
+    }
+  ],
+  "coverage": [
+    {
+      "coverage_id": "C-HOME-LIVE",
+      "route": "/",
+      "template": "school landing",
+      "journey": "Orient, choose neural starter, open program plan",
+      "viewport": "1363×936 CSS px",
+      "input_mode": "pointer and keyboard",
+      "role": "anonymous",
+      "locale": "ru",
+      "theme": "dark",
+      "state": "First visit, selected Python route and expanded curriculum",
+      "status": "PARTIAL",
+      "evidence_refs": [
+        "E-LIVE-HERO"
+      ],
+      "limitations": [
+        "No full-device or assistive-technology conformance claim."
+      ]
+    },
+    {
+      "coverage_id": "C-HOME-SOURCE",
+      "route": "/",
+      "template": "school landing",
+      "journey": "Inspect navigation, metadata and native notebook links",
+      "viewport": "source inspection",
+      "input_mode": "read-only source inspection",
+      "role": "anonymous",
+      "locale": "ru",
+      "theme": "dark",
+      "state": "Pinned source inspection",
+      "status": "PARTIAL",
+      "evidence_refs": [
+        "E-SOURCE-HOME",
+        "E-SOURCE-LINK"
+      ],
+      "limitations": [
+        "No full-device or assistive-technology conformance claim."
+      ]
+    },
+    {
+      "coverage_id": "C-CAREER",
+      "route": "career-research.html",
+      "template": "local workbook",
+      "journey": "Draft, save, reload",
+      "viewport": "1363×936 CSS px",
+      "input_mode": "pointer and keyboard",
+      "role": "anonymous",
+      "locale": "ru",
+      "theme": "dark",
+      "state": "Synthetic title lost after global save/reload",
+      "status": "PARTIAL",
+      "evidence_refs": [
+        "E-LIVE-DRAFT",
+        "E-SOURCE-DRAFT"
+      ],
+      "limitations": [
+        "No full-device or assistive-technology conformance claim."
+      ]
+    },
+    {
+      "coverage_id": "C-CRM",
+      "route": "vibe-coding/crm-demo.html",
+      "template": "fictional CRM",
+      "journey": "Edit stage, delete row, preserve keyboard position",
+      "viewport": "source inspection",
+      "input_mode": "read-only source inspection",
+      "role": "anonymous",
+      "locale": "ru",
+      "theme": "dark",
+      "state": "Source handlers inspected",
+      "status": "PARTIAL",
+      "evidence_refs": [
+        "E-SOURCE-CRM"
+      ],
+      "limitations": [
+        "No full-device or assistive-technology conformance claim."
+      ]
+    },
+    {
+      "coverage_id": "C-SEO",
+      "route": "sitemap.xml",
+      "template": "discovery metadata",
+      "journey": "Public route discovery",
+      "viewport": "source inspection",
+      "input_mode": "read-only source inspection",
+      "role": "anonymous",
+      "locale": "ru",
+      "theme": "dark",
+      "state": "Pinned sitemap inventory",
+      "status": "PARTIAL",
+      "evidence_refs": [
+        "E-SOURCE-SEO"
+      ],
+      "limitations": [
+        "No full-device or assistive-technology conformance claim."
+      ]
+    },
+    {
+      "coverage_id": "C-STUDIO-LIVE",
+      "route": "studio.html",
+      "template": "portfolio",
+      "journey": "Distinguish learning from development services",
+      "viewport": "1363×936 CSS px",
+      "input_mode": "read-only DOM and screenshot",
+      "role": "anonymous",
+      "locale": "ru",
+      "theme": "dark",
+      "state": "Baseline portfolio",
+      "status": "PARTIAL",
+      "evidence_refs": [
+        "E-LIVE-STUDIO"
+      ],
+      "limitations": [
+        "Only one observed viewport; no external enquiry."
+      ]
+    },
+    {
+      "coverage_id": "C-RETEST-HOME",
+      "route": "/",
+      "template": "school landing",
+      "journey": "Catalog,quiz,plan,PDF,history,nav,lightbox",
+      "viewport": "320/390/768/1024/1440 and relevant breakpoint neighborhoods; short-height, reflow, reduced/normal motion",
+      "input_mode": "pointer and keyboard",
+      "role": "anonymous",
+      "locale": "ru",
+      "theme": "dark",
+      "state": "Expected exact-head CI matrix",
+      "status": "NOT_RUN",
+      "evidence_refs": [
+        "E-RETEST"
+      ],
+      "limitations": [
+        "No full-device or assistive-technology conformance claim."
+      ]
+    },
+    {
+      "coverage_id": "C-RETEST-SECONDARY",
+      "route": "neural-courses.html; career-research.html; studio.html; vibe-coding/crm-demo.html",
+      "template": "course directory,workbook,portfolio,demo",
+      "journey": "Native notebook links,local draft recovery,portfolio navigation,CRM keyboard",
+      "viewport": "Representative mobile and desktop profiles",
+      "input_mode": "pointer and keyboard",
+      "role": "anonymous",
+      "locale": "ru",
+      "theme": "dark",
+      "state": "Expected exact-head CI matrix",
+      "status": "NOT_RUN",
+      "evidence_refs": [
+        "E-RETEST"
+      ],
+      "limitations": [
+        "No full-device or assistive-technology conformance claim."
+      ]
+    },
+    {
+      "coverage_id": "C-RETEST-3D",
+      "route": "examples/plan-to-space.html; examples/ai-desk.html",
+      "template": "interactive 3D demos",
+      "journey": "Stages,controls,fallback and return routes",
+      "viewport": "Existing scene-specific CI matrix",
+      "input_mode": "pointer and keyboard",
+      "role": "anonymous",
+      "locale": "ru",
+      "theme": "dark",
+      "state": "Expected existing focused CI suites",
+      "status": "NOT_RUN",
+      "evidence_refs": [
+        "E-RETEST"
+      ],
+      "limitations": [
+        "No full-device or assistive-technology conformance claim."
+      ]
+    }
+  ],
+  "verdict": {
+    "state": "INCOMPLETE",
+    "gate": "BLOCK",
+    "summary": "Baseline audit observations are complete for the recorded sample. Remediation release verdict is pending exact-head browser acceptance, Lighthouse, manual desktop/mobile review and deployed-byte verification. The release record belongs to the PR; this immutable baseline packet does not authorize skipping any gate."
+  },
+  "evidence_ledger": [
+    {
+      "evidence_id": "E-SOURCE-HOME",
+      "type": "source",
+      "status": "OBSERVED",
+      "captured_at": "2026-10-22T20:04:53+00:00",
+      "url": "https://github.com/safal207/test-it-python/blob/54a9e87cbcf7a7aed45451ad7a2ee92af00e344b/dist/ai-path/index.html",
+      "route": "index.html",
+      "viewport": "source inspection",
+      "role": "anonymous",
+      "locale": "ru",
+      "state": "Baseline before remediation",
+      "source_marker": "54a9e87cbcf7a7aed45451ad7a2ee92af00e344b",
+      "locator": "dist/ai-path/index.html @ 54a9e87cbcf7a7aed45451ad7a2ee92af00e344b",
+      "integrity": "VERIFIED",
+      "proves": "Description says 15 programs; catalog heading/filter declares23. At <=760px desktop navlinks are hidden; no replacement mobile menu in baseline HTML.",
+      "does_not_prove": "Production behavior after changes, whole-site correctness or measured user/business impact."
+    },
+    {
+      "evidence_id": "E-LIVE-HERO",
+      "type": "rendered",
+      "status": "OBSERVED",
+      "captured_at": "2026-10-22T20:04:53+00:00",
+      "url": "https://safal207.github.io/test-it-python/ai-path/",
+      "route": "/",
+      "viewport": "1363×936 CSS px",
+      "role": "anonymous",
+      "locale": "ru",
+      "state": "Baseline before remediation",
+      "source_marker": "live observation 2026-10-22; commit-byte parity not captured",
+      "locator": "Work Mode audit interaction: E-LIVE-HERO",
+      "integrity": "UNVERIFIED",
+      "proves": "Live first screen has broad neural/sites/3D heading, neural-only lead and quick-start controls, and three small equal proof thumbnails.",
+      "does_not_prove": "Production behavior after changes, whole-site correctness or measured user/business impact."
+    },
+    {
+      "evidence_id": "E-LIVE-DRAFT",
+      "type": "interaction",
+      "status": "OBSERVED",
+      "captured_at": "2026-10-22T20:04:53+00:00",
+      "url": "https://safal207.github.io/test-it-python/ai-path/career-research.html",
+      "route": "career-research.html",
+      "viewport": "1363×936 CSS px",
+      "role": "anonymous",
+      "locale": "ru",
+      "state": "Baseline before remediation",
+      "source_marker": "live observation 2026-10-22; commit-byte parity not captured",
+      "locator": "Work Mode audit interaction: E-LIVE-DRAFT",
+      "integrity": "UNVERIFIED",
+      "proves": "Fill only title with synthetic text, click global save, observe saved message, reload: title.value is empty. One baseline attempt reported by root.",
+      "does_not_prove": "Production behavior after changes, whole-site correctness or measured user/business impact."
+    },
+    {
+      "evidence_id": "E-SOURCE-DRAFT",
+      "type": "source",
+      "status": "OBSERVED",
+      "captured_at": "2026-10-22T20:04:53+00:00",
+      "url": "https://github.com/safal207/test-it-python/blob/54a9e87cbcf7a7aed45451ad7a2ee92af00e344b/dist/ai-path/career-research.js",
+      "route": "career-research.js",
+      "viewport": "source inspection",
+      "role": "anonymous",
+      "locale": "ru",
+      "state": "Baseline before remediation",
+      "source_marker": "54a9e87cbcf7a7aed45451ad7a2ee92af00e344b",
+      "locator": "dist/ai-path/career-research.js @ 54a9e87cbcf7a7aed45451ad7a2ee92af00e344b",
+      "integrity": "VERIFIED",
+      "proves": "Global save/export collect the plan and committed vacancies; unfinished vacancyForm values are not collected.",
+      "does_not_prove": "Production behavior after changes, whole-site correctness or measured user/business impact."
+    },
+    {
+      "evidence_id": "E-SOURCE-LINK",
+      "type": "source",
+      "status": "OBSERVED",
+      "captured_at": "2026-10-22T20:04:53+00:00",
+      "url": "https://github.com/safal207/test-it-python/blob/54a9e87cbcf7a7aed45451ad7a2ee92af00e344b/dist/ai-path/app.js",
+      "route": "app.js",
+      "viewport": "source inspection",
+      "role": "anonymous",
+      "locale": "ru",
+      "state": "Baseline before remediation",
+      "source_marker": "54a9e87cbcf7a7aed45451ad7a2ee92af00e344b",
+      "locator": "dist/ai-path/app.js @ 54a9e87cbcf7a7aed45451ad7a2ee92af00e344b",
+      "integrity": "VERIFIED",
+      "proves": "renderNotebooks emits anchors with role=listitem, overriding their native link role.",
+      "does_not_prove": "Production behavior after changes, whole-site correctness or measured user/business impact."
+    },
+    {
+      "evidence_id": "E-SOURCE-CRM",
+      "type": "source",
+      "status": "OBSERVED",
+      "captured_at": "2026-10-22T20:04:53+00:00",
+      "url": "https://github.com/safal207/test-it-python/blob/54a9e87cbcf7a7aed45451ad7a2ee92af00e344b/dist/ai-path/vibe-coding/crm-demo.html",
+      "route": "vibe-coding/crm-demo.html",
+      "viewport": "source inspection",
+      "role": "anonymous",
+      "locale": "ru",
+      "state": "Baseline before remediation",
+      "source_marker": "54a9e87cbcf7a7aed45451ad7a2ee92af00e344b",
+      "locator": "dist/ai-path/vibe-coding/crm-demo.html @ 54a9e87cbcf7a7aed45451ad7a2ee92af00e344b",
+      "integrity": "VERIFIED",
+      "proves": "Stage change/delete call render(), which replaceChildren() on rows; no focus restoration in baseline.",
+      "does_not_prove": "Production behavior after changes, whole-site correctness or measured user/business impact."
+    },
+    {
+      "evidence_id": "E-SOURCE-SEO",
+      "type": "source",
+      "status": "OBSERVED",
+      "captured_at": "2026-10-22T20:04:53+00:00",
+      "url": "https://github.com/safal207/test-it-python/blob/54a9e87cbcf7a7aed45451ad7a2ee92af00e344b/dist/ai-path/sitemap.xml",
+      "route": "sitemap.xml",
+      "viewport": "source inspection",
+      "role": "anonymous",
+      "locale": "ru",
+      "state": "Baseline before remediation",
+      "source_marker": "54a9e87cbcf7a7aed45451ad7a2ee92af00e344b",
+      "locator": "dist/ai-path/sitemap.xml @ 54a9e87cbcf7a7aed45451ad7a2ee92af00e344b",
+      "integrity": "VERIFIED",
+      "proves": "Baseline sitemap omits career-research, neural-courses, plan-to-space and ai-desk routes.",
+      "does_not_prove": "Production behavior after changes, whole-site correctness or measured user/business impact."
+    },
+    {
+      "evidence_id": "E-LIVE-STUDIO",
+      "type": "rendered",
+      "status": "OBSERVED",
+      "captured_at": "2026-10-22T20:04:53+00:00",
+      "url": "https://safal207.github.io/test-it-python/ai-path/studio.html",
+      "route": "studio.html",
+      "viewport": "1363×936 CSS px",
+      "role": "anonymous",
+      "locale": "ru",
+      "state": "Baseline portfolio screenshot and DOM reviewed",
+      "source_marker": "live observation 2026-10-22; commit-byte parity not captured",
+      "locator": "Root audit session: studio screenshot and DOM",
+      "integrity": "UNVERIFIED",
+      "proves": "Separate course and service actions and provenance are present; no new issue confirmed in this view.",
+      "does_not_prove": "Complete route coverage, all links, mobile layout or business impact."
+    },
+    {
+      "evidence_id": "E-RETEST",
+      "type": "other",
+      "status": "NOT_RUN",
+      "captured_at": "2026-10-22T20:04:53+00:00",
+      "url": "https://github.com/safal207/test-it-python/actions",
+      "route": "representative school routes",
+      "viewport": "planned CI matrix",
+      "role": "anonymous",
+      "locale": "ru",
+      "state": "Remediation acceptance pending",
+      "source_marker": "remediation HEAD not yet frozen",
+      "locator": "scripts/verify-ai-path.mjs; scripts/verify-school-recovery.mjs; scripts/verify-plan-to-space.mjs; scripts/verify-ai-desk.mjs; Lighthouse workflow",
+      "integrity": "UNVERIFIED",
+      "proves": "No execution claim. Required follow-up matrix is defined.",
+      "does_not_prove": "Passing tests, publication or artifact identity."
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "SCHOOL-01",
+      "title": "Hero hierarchy and project visibility",
+      "domain": "visual",
+      "claim_level": "PRODUCT_SIGNAL",
+      "verification_verdict": "PREFERENCE_ONLY",
+      "severity": "minor",
+      "confidence": 0.9,
+      "priority": "P2",
+      "reach": "component",
+      "reproduction_status": "REPRODUCED",
+      "conditions": {
+        "route": "/",
+        "viewport": "1363×936 CSS px",
+        "role": "anonymous",
+        "locale": "ru",
+        "state": "Baseline before remediation"
+      },
+      "reproduction_steps": [
+        "Open homepage at1363×936.",
+        "Inspect first-screen hierarchy and project previews."
+      ],
+      "observed": "At1363×936, proof images are small within three equal columns; the broad school promise is followed by neural-only copy and multiple competing entry actions.",
+      "expected": "Make the school scope understandable and expose one clear primary action with legible proof.",
+      "expectation_authority": "User-requested school audit and polish; task invariant: discoverable choices, truthful feedback and reachable native controls.",
+      "evidence_refs": [
+        "E-LIVE-HERO",
+        "E-SOURCE-HOME"
+      ],
+      "causal_parent": null,
+      "causal_gap": "Behavior and impact after remediation require exact-head retest; no conversion analytics supplied.",
+      "competing_explanations": [
+        "Neural specialization is an intentional priority; keep it as the initial course set.",
+        "Larger images are a design preference until user comprehension is measured."
+      ],
+      "evidence_against": [],
+      "impact_class": "QUALITATIVE",
+      "impact_summary": "Potential friction is bounded to this journey; no abandonment, revenue or conversion magnitude measured.",
+      "recommendation_direction": "Keep navy/lime identity; use one leading proof image with two supporting examples; relocate neural quick-start into its catalog context; broaden hero copy without removing the eight-course entrance.",
+      "acceptance_criteria": [
+        "All23 programs and8 neural routes remain usable.",
+        "Three genuine project previews remain visible and open their attributed lightboxes.",
+        "Review matched1440/390/320 screenshots; no cropped labels or horizontal overflow."
+      ],
+      "next_discriminating_test": "Run the specified regression on the frozen remediation HEAD and inspect current desktop/mobile artifacts.",
+      "authority_boundary": "User authorized school fixes and publication. Use synthetic local data only; do not send enquiries, purchase, modify accounts or bypass CI."
+    },
+    {
+      "finding_id": "SCHOOL-02",
+      "title": "Small-screen navigation lacks an equivalent menu",
+      "domain": "responsive",
+      "claim_level": "DEFECT_CANDIDATE",
+      "verification_verdict": "NEEDS_EVIDENCE",
+      "severity": "moderate",
+      "confidence": 0.8,
+      "priority": "P2",
+      "reach": "component",
+      "reproduction_status": "PARTIAL",
+      "conditions": {
+        "route": "/",
+        "viewport": "source inspection; rendered retest pending",
+        "role": "anonymous",
+        "locale": "ru",
+        "state": "Baseline before remediation"
+      },
+      "reproduction_steps": [
+        "Inspect baseline header markup and <=760 CSS.",
+        "Retest small-screen menu, keyboard, short height and touch after implementation."
+      ],
+      "observed": "Baseline CSS hides desktop navigation at<=760px without a replacement menu in the HTML.",
+      "expected": "Keep programs, portfolio and mentor navigation reachable without traversing the full landing page.",
+      "expectation_authority": "User-requested school audit and polish; task invariant: discoverable choices, truthful feedback and reachable native controls.",
+      "evidence_refs": [
+        "E-SOURCE-HOME"
+      ],
+      "causal_parent": null,
+      "causal_gap": "Behavior and impact after remediation require exact-head retest; no conversion analytics supplied.",
+      "competing_explanations": [
+        "Anchor links elsewhere on the page provide a longer recovery path.",
+        "Actual clipping at intermediate widths remains untested."
+      ],
+      "evidence_against": [],
+      "impact_class": "QUALITATIVE",
+      "impact_summary": "Potential friction is bounded to this journey; no abandonment, revenue or conversion magnitude measured.",
+      "recommendation_direction": "Add a native menu disclosure and skip link with Escape and focus restoration.",
+      "acceptance_criteria": [
+        "Menu toggle has name, aria-expanded and aria-controls.",
+        "Links work at320/390 and boundary1100/1101 widths.",
+        "Escape returns focus; menu fits short screens; skip link reaches main content."
+      ],
+      "next_discriminating_test": "Run the specified regression on the frozen remediation HEAD and inspect current desktop/mobile artifacts.",
+      "authority_boundary": "User authorized school fixes and publication. Use synthetic local data only; do not send enquiries, purchase, modify accounts or bypass CI."
+    },
+    {
+      "finding_id": "SCHOOL-03",
+      "title": "Global save can omit an unfinished vacancy draft",
+      "domain": "functional",
+      "claim_level": "DEFECT_CANDIDATE",
+      "verification_verdict": "NEEDS_EVIDENCE",
+      "severity": "moderate",
+      "confidence": 0.95,
+      "priority": "P2",
+      "reach": "component",
+      "reproduction_status": "REPRODUCED",
+      "conditions": {
+        "route": "career-research.html",
+        "viewport": "Cloud Chrome;1363×936 CSS px",
+        "role": "anonymous",
+        "locale": "ru",
+        "state": "Baseline before remediation"
+      },
+      "reproduction_steps": [
+        "Open fresh career-research page.",
+        "Enter synthetic title Учебная проверка сохранения.",
+        "Click Сохранить на этом устройстве and observe success.",
+        "Reload and inspect title.value (empty)."
+      ],
+      "observed": "The global save reports success after a title is typed in vacancyForm; after reload, that title is empty.",
+      "expected": "A successful save must not imply unfinished form input was preserved; either preserve it or explain how to complete/discard it.",
+      "expectation_authority": "User-requested school audit and polish; task invariant: discoverable choices, truthful feedback and reachable native controls.",
+      "evidence_refs": [
+        "E-LIVE-DRAFT",
+        "E-SOURCE-DRAFT"
+      ],
+      "causal_parent": null,
+      "causal_gap": "Behavior and impact after remediation require exact-head retest; no conversion analytics supplied.",
+      "competing_explanations": [
+        "Separate local add/save may be intentional, but the global success message is ambiguous.",
+        "Browser storage failure could also lose data; baseline source narrows the draft-omission mechanism."
+      ],
+      "evidence_against": [],
+      "impact_class": "QUALITATIVE",
+      "impact_summary": "Potential friction is bounded to this journey; no abandonment, revenue or conversion magnitude measured.",
+      "recommendation_direction": "Block global save/export while a vacancy draft is dirty, focus the local action, and provide explicit clear/cancel recovery.",
+      "acceptance_criteria": [
+        "Unfinished new or edited vacancy blocks misleading global saved/export feedback.",
+        "Completing or clearing the draft unblocks save/export.",
+        "Committed data survives reload; invalid draft does not overwrite a committed record."
+      ],
+      "next_discriminating_test": "Run the specified regression on the frozen remediation HEAD and inspect current desktop/mobile artifacts.",
+      "authority_boundary": "User authorized school fixes and publication. Use synthetic local data only; do not send enquiries, purchase, modify accounts or bypass CI."
+    },
+    {
+      "finding_id": "SCHOOL-04",
+      "title": "Notebook anchors override native link semantics",
+      "domain": "accessibility",
+      "claim_level": "DEFECT_CANDIDATE",
+      "verification_verdict": "NEEDS_EVIDENCE",
+      "severity": "minor",
+      "confidence": 0.95,
+      "priority": "P2",
+      "reach": "component",
+      "reproduction_status": "PARTIAL",
+      "conditions": {
+        "route": "/?program=ml#selected",
+        "viewport": "source inspection; rendered retest pending",
+        "role": "anonymous",
+        "locale": "ru",
+        "state": "Baseline before remediation"
+      },
+      "reproduction_steps": [
+        "Inspect renderNotebooks at baseline app.js.",
+        "Verify runtime link roles and keyboard after implementation."
+      ],
+      "observed": "renderNotebooks uses <a role=listitem> for notebook navigation.",
+      "expected": "Notebook destinations should retain their native link role inside a list.",
+      "expectation_authority": "User-requested school audit and polish; task invariant: discoverable choices, truthful feedback and reachable native controls.",
+      "evidence_refs": [
+        "E-SOURCE-LINK"
+      ],
+      "causal_parent": null,
+      "causal_gap": "Behavior and impact after remediation require exact-head retest; no conversion analytics supplied.",
+      "competing_explanations": [
+        "Anchors remain clickable with a pointer; source alone does not prove a specific screen-reader failure."
+      ],
+      "evidence_against": [],
+      "impact_class": "QUALITATIVE",
+      "impact_summary": "Potential friction is bounded to this journey; no abandonment, revenue or conversion magnitude measured.",
+      "recommendation_direction": "Wrap native notebook anchors in list-item containers.",
+      "acceptance_criteria": [
+        "Notebook cards are discoverable as links.",
+        "List semantics and card layout remain intact.",
+        "Keyboard can focus/open each card."
+      ],
+      "next_discriminating_test": "Run the specified regression on the frozen remediation HEAD and inspect current desktop/mobile artifacts.",
+      "authority_boundary": "User authorized school fixes and publication. Use synthetic local data only; do not send enquiries, purchase, modify accounts or bypass CI."
+    },
+    {
+      "finding_id": "SCHOOL-05",
+      "title": "CRM row updates replace the focused control",
+      "domain": "interaction",
+      "claim_level": "DEFECT_CANDIDATE",
+      "verification_verdict": "NEEDS_EVIDENCE",
+      "severity": "moderate",
+      "confidence": 0.9,
+      "priority": "P2",
+      "reach": "component",
+      "reproduction_status": "PARTIAL",
+      "conditions": {
+        "route": "vibe-coding/crm-demo.html",
+        "viewport": "source inspection; rendered retest pending",
+        "role": "anonymous",
+        "locale": "ru",
+        "state": "Baseline before remediation"
+      },
+      "reproduction_steps": [
+        "Inspect baseline render/change/delete handlers.",
+        "Exercise stage change and deletion through keyboard on frozen remediation HEAD."
+      ],
+      "observed": "Stage change and deletion rebuild all rows with replaceChildren and do not restore focus.",
+      "expected": "Keyboard focus should stay on the edited row or move to a logical remaining control after deletion.",
+      "expectation_authority": "User-requested school audit and polish; task invariant: discoverable choices, truthful feedback and reachable native controls.",
+      "evidence_refs": [
+        "E-SOURCE-CRM"
+      ],
+      "causal_parent": null,
+      "causal_gap": "Behavior and impact after remediation require exact-head retest; no conversion analytics supplied.",
+      "competing_explanations": [
+        "Mouse users may not notice focus loss.",
+        "Actual browser focus behavior still needs runtime reproduction."
+      ],
+      "evidence_against": [],
+      "impact_class": "QUALITATIVE",
+      "impact_summary": "Potential friction is bounded to this journey; no abandonment, revenue or conversion magnitude measured.",
+      "recommendation_direction": "Update without replacing the active select or restore stable row focus; focus next/previous delete control or empty-form input after deletion.",
+      "acceptance_criteria": [
+        "Changing stage preserves focused select and new value.",
+        "Deleting a row focuses a surviving row action.",
+        "Deleting last row focuses the new-record input.",
+        "Only fictional demo data is used; no external requests."
+      ],
+      "next_discriminating_test": "Run the specified regression on the frozen remediation HEAD and inspect current desktop/mobile artifacts.",
+      "authority_boundary": "User authorized school fixes and publication. Use synthetic local data only; do not send enquiries, purchase, modify accounts or bypass CI."
+    },
+    {
+      "finding_id": "SCHOOL-06",
+      "title": "Discovery metadata is out of date",
+      "domain": "seo",
+      "claim_level": "OBSERVATION",
+      "verification_verdict": "NEEDS_EVIDENCE",
+      "severity": "minor",
+      "confidence": 1,
+      "priority": "P2",
+      "reach": "component",
+      "reproduction_status": "REPRODUCED",
+      "conditions": {
+        "route": "/ and sitemap.xml",
+        "viewport": "source inspection; rendered retest pending",
+        "role": "anonymous",
+        "locale": "ru",
+        "state": "Baseline before remediation"
+      },
+      "reproduction_steps": [
+        "Read pinned baseline meta description and sitemap.",
+        "Compare with current route inventory and program contract."
+      ],
+      "observed": "Homepage description says15 programs while catalog says23; four public school/demo routes are missing from sitemap.",
+      "expected": "Metadata should describe the current offer and list intended public routes consistently.",
+      "expectation_authority": "User-requested school audit and polish; task invariant: discoverable choices, truthful feedback and reachable native controls.",
+      "evidence_refs": [
+        "E-SOURCE-HOME",
+        "E-SOURCE-SEO"
+      ],
+      "causal_parent": null,
+      "causal_gap": "Behavior and impact after remediation require exact-head retest; no conversion analytics supplied.",
+      "competing_explanations": [
+        "A sitemap does not need every URL and omission alone does not prove lost indexing.",
+        "Search engines may discover pages through internal links."
+      ],
+      "evidence_against": [],
+      "impact_class": "QUALITATIVE",
+      "impact_summary": "Potential friction is bounded to this journey; no abandonment, revenue or conversion magnitude measured.",
+      "recommendation_direction": "Update count, sitemap and missing canonical metadata on public demo pages.",
+      "acceptance_criteria": [
+        "Homepage metadata says23 and matches catalog.",
+        "Sitemap includes neural-courses, career-research, plan-to-space and ai-desk.",
+        "Canonical URLs match actual public paths; no removed routes."
+      ],
+      "next_discriminating_test": "Run the specified regression on the frozen remediation HEAD and inspect current desktop/mobile artifacts.",
+      "authority_boundary": "User authorized school fixes and publication. Use synthetic local data only; do not send enquiries, purchase, modify accounts or bypass CI."
+    }
+  ],
+  "limitations": [
+    "No claim that the entire school is defect-free or equals a leading global brand.",
+    "No accessibility certification,legal compliance,penetration test or security guarantee.",
+    "No physical phone testing,screen-reader testing,field performance or conversion/revenue measurement.",
+    "Live observations were provided by the root audit session and are not stored as integrity-bound screenshots in this repository.",
+    "Source candidates for mobile navigation,notebook semantics and CRM focus must not be promoted to production behavior claims without runtime evidence.",
+    "Remediation tests and deployment are NOT_RUN in this baseline packet."
+  ],
+  "next_action": {
+    "class": "RUN_DISCRIMINATING_TEST",
+    "action": "Freeze the remediation HEAD,run required CI,inspect desktop and320/390 screenshots and verify the published source after authorized merge.",
+    "owner_or_authority": "Root implementation/review agent acting within the user-requested school fixes; repository rules remain binding.",
+    "evidence_input": "This pinned baseline audit,current diff and scripts/verify-ai-path.mjs plus verify-school-recovery.mjs and focused3D suites.",
+    "completion_signal": "Record exact40-character HEAD,passing browser/Lighthouse run IDs,manual screenshot review,final identity check and public-byte matches in the release section.",
+    "guardrail_signal": "All23 programs,8 neural routes,real screenshot provenance and external-action boundaries preserved.",
+    "stop_condition": "Any failed required test,head movement,unresolved load-bearing review issue or unavailable deployment identity.",
+    "on_success": "Append a separate exact-release verification packet and report the scoped published outcome.",
+    "on_failure": "Keep release blocked,fix the specific failure and recollect evidence on the new HEAD."
+  }
+}

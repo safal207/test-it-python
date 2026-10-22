@@ -118,7 +118,7 @@
   function vacancyDraft() { return JSON.stringify(recordFields.map(field => $('vacancy' + field).value)); }
   function readyToSave() {
     if (vacancyDraft() === vacancyBaseline) return true;
-    const message = 'В форме есть незавершённая вакансия. Сначала нажми «' + $('addVacancy').textContent + '» или «' + $('cancelEdit').textContent + '», затем сохрани тетрадь или скачай отчёт.';
+    const message = 'В форме есть незавершённая вакансия. Сначала заверши запись кнопкой «' + $('addVacancy').textContent + '» или выбери «' + $('cancelEdit').textContent + '», затем продолжай.';
     $('vacancyError').textContent = message; status(message); $('addVacancy').focus();
     return false;
   }
@@ -168,6 +168,7 @@
   $('vacancyList').addEventListener('click', event => {
     const button = event.target.closest('button[data-edit-vacancy],button[data-remove-vacancy]'); if (!button) return;
     if (button.dataset.editVacancy) {
+      if (!readyToSave()) return;
       const record = state.vacancies.find(item => item.id === button.dataset.editVacancy); editing = record.id;
       recordFields.forEach(field => { $('vacancy' + field).value = record[field.toLowerCase()] || ''; });
       vacancyBaseline = vacancyDraft();

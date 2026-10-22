@@ -137,9 +137,15 @@ async function schoolMetadata(page) {
 async function schoolNavigationAccess(page, width) {
   await page.goto(base, { waitUntil: 'domcontentloaded' });
   await page.locator('#programList .program').first().waitFor({ state: 'attached' });
+  await page.bringToFront();
   await page.keyboard.press('Tab');
   const skip = page.locator('.school-skip');
   assert(await skip.evaluate(link => document.activeElement === link), 'First Tab exposes the skip-to-content link');
+  // Focus can update before its CSS transform is painted in the browser container.
+  await page.waitForFunction(() => {
+    const link = document.querySelector('.school-skip');
+    return document.activeElement === link && link.matches(':focus') && link.getBoundingClientRect().top >= 0;
+  }, null, { timeout: 2000 });
   await assertUncovered(skip, 'Focused skip link');
   await page.keyboard.press('Enter');
   assert(await page.locator('#top').evaluate(main => document.activeElement === main), 'Skip link moves keyboard focus to the main content');
@@ -1847,6 +1853,7 @@ async function careerResearch(page, width) {
 
 async function courseEnquiry(page, width) {
   await page.goto(base + '?program=ml&level=project&pace=light#selected', {waitUntil:'domcontentloaded'});
+  await page.locator('#catalogFilters [data-filter="neural"]').click();
   await page.locator('#courses [data-start-track="ml"]').click();
   await selected(page, 'ml');
   assert(new URL(page.url()).searchParams.get('level') === 'basic' && await page.locator('#enquiryLevel').inputValue() === 'basic', 'Knowing Python opens the first-model plan with matching preparation');
@@ -1943,6 +1950,9 @@ async function neuralCourses(page, width) {
   assert((await ids(page.locator('#recommendationList .program'))).includes('ml-text'), 'Beginner preparation preserves the requested text course as an alternative');
   await chooseQuiz(page, {goal:'neural', interest:'ml-audio', level:'basic', pace:'deep'});
   await selected(page, 'ml-audio');
+  // Clear the catalogue query through its real control to reveal the group-specific guide link.
+  await page.locator('#clearProgramSearch').click();
+  assert(await entrance.isVisible(), 'Clearing the neural search restores its starter and full-guide entrance');
   // Carry the current level and pace into the course guide and each explicit target.
   await entrance.click();
   await page.waitForURL('**/neural-courses.html?*');
@@ -2325,6 +2335,11 @@ async function desktopRegressions(page) {
   assert((await page.locator('#selOutcome').innerText()).includes('PDF'), 'Comic program preserves its concrete PDF deliverable');
 
   for (const button of await page.locator('[data-start-track]').all()) {
+    if (await button.evaluate(el => Boolean(el.closest('.neural-course-entrance'))) && !(await button.isVisible())) {
+      if (await page.locator('#clearProgramSearch').isVisible()) await page.locator('#clearProgramSearch').click();
+      await page.locator('#catalogFilters [data-filter="neural"]').click();
+      assert(await button.isVisible(), 'Selecting the neural category reveals its contextual starter action');
+    }
     await revealTarget(page, button);
     const id = await button.getAttribute('data-start-track');
     await button.click();
