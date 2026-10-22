@@ -1847,10 +1847,10 @@ async function careerResearch(page, width) {
 
 async function courseEnquiry(page, width) {
   await page.goto(base + '?program=ml&level=project&pace=light#selected', {waitUntil:'domcontentloaded'});
-  await page.locator('.hero [data-start-track="ml"]').click();
+  await page.locator('#courses [data-start-track="ml"]').click();
   await selected(page, 'ml');
   assert(new URL(page.url()).searchParams.get('level') === 'basic' && await page.locator('#enquiryLevel').inputValue() === 'basic', 'Knowing Python opens the first-model plan with matching preparation');
-  await page.locator('.hero [data-start-track="ml-python"]').click();
+  await page.locator('#courses [data-start-track="ml-python"]').click();
   await selected(page, 'ml-python');
   assert(new URL(page.url()).searchParams.get('level') === 'zero', 'The from-zero starter explicitly selects beginner preparation');
   await page.locator('#startJump').click();
@@ -1911,8 +1911,11 @@ async function neuralCourses(page, width) {
   await page.keyboard.press('Enter');
   assert(new URL(page.url()).hash === '#courses', 'Fresh desktop and mobile header navigates directly to courses');
   const firstCourse = await page.locator('#programList .program:visible').first().boundingBox();
+  const starterPanel = await page.locator('#courses .neural-course-entrance').boundingBox();
   const stickyHeader = await page.locator('.header').boundingBox();
-  assert(firstCourse && firstCourse.y >= stickyHeader.y + stickyHeader.height && firstCourse.y + 180 <= page.viewportSize().height, 'Course action exposes the first card below the sticky header, beyond the filter toolbar');
+  assert(starterPanel && starterPanel.y >= stickyHeader.y + stickyHeader.height, 'Course action places its starter choices below the sticky header');
+  for (const id of ['ml-python', 'ml']) await assertUncovered(page.locator(`#courses [data-start-track="${id}"]`), 'Course entry exposes the complete starter action: ' + id);
+  assert(firstCourse && firstCourse.y >= starterPanel.y + starterPanel.height && firstCourse.y - (starterPanel.y + starterPanel.height) <= 32 && firstCourse.y <= page.viewportSize().height, 'The full eight-course catalogue follows the starter choices without a large gap and begins in the same viewport');
   await page.screenshot({path:`${artifacts}/ai-path-${width}-home-course-entry.png`,animations:'disabled'});
   for (const id of ['ml-python', 'ml']) {
     await page.locator(`#courses [data-start-track="${id}"]`).focus();
