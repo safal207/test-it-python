@@ -7,6 +7,7 @@ on:
       - "dist/ai-path/**"
       - "scripts/verify-ai-path.mjs"
       - "scripts/verify-plan-to-space.mjs"
+      - "scripts/verify-ai-desk.mjs"
       - "scripts/build-neural-courses.mjs"
       - "package.json"
       - ".github/workflows/ai-path-smoke.yml"
@@ -39,6 +40,9 @@ jobs:
           node --check dist/ai-path/plan-pdf.js
           node --check scripts/verify-ai-path.mjs
           node --check scripts/verify-plan-to-space.mjs
+          node --check scripts/verify-ai-desk.mjs
+      - name: Verify AI Desk 3D configuration, responsive controls and recovery
+        run: node scripts/verify-ai-desk.mjs
       - name: Verify Plan to Space scroll scene and accessible controls
         run: node scripts/verify-plan-to-space.mjs
       - name: Verify site with real browser interactions at desktop and mobile
@@ -47,6 +51,8 @@ jobs:
         if: always()
         with:
           name: ai-path-responsive-previews
-          path: artifacts/ai-path-qa/
+          path: |
+            artifacts/ai-path-qa/
+            artifacts/ai-desk-qa/
           if-no-files-found: warn
           retention-days: 14
