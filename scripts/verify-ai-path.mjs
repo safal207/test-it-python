@@ -146,9 +146,12 @@ async function schoolNavigationAccess(page, width) {
     const link = document.querySelector('.school-skip');
     return document.activeElement === link && link.matches(':focus') && link.getBoundingClientRect().top >= 0;
   }, null, { timeout: 2000 });
+  assert(await skip.evaluate(link => getComputedStyle(link).opacity === '1'), 'Focused skip link is visibly rendered');
   await assertUncovered(skip, 'Focused skip link');
   await page.keyboard.press('Enter');
   assert(await page.locator('#top').evaluate(main => document.activeElement === main), 'Skip link moves keyboard focus to the main content');
+  await page.waitForFunction(() => getComputedStyle(document.querySelector('.school-skip')).opacity === '0', null, { timeout: 2000 });
+  assert(await skip.evaluate(link => getComputedStyle(link).pointerEvents === 'none'), 'Inactive skip link is invisible and cannot cover page controls');
   const toggle = page.locator('#schoolMenuToggle');
   const menu = page.locator('#schoolMenu');
   assert(await toggle.getAttribute('aria-controls') === 'schoolMenu' && await toggle.getAttribute('aria-expanded') === 'false' && !(await menu.isVisible()), 'Closed navigation exposes its correct accessible state');
@@ -1884,6 +1887,11 @@ async function courseEnquiry(page, width) {
   await page.waitForFunction(async value => await navigator.clipboard.readText() === value, message);
   assert(!(await fallback.evaluate(el => el.open)), 'Successful copy leaves optional preview collapsed');
   await page.locator('#start').screenshot({path:`${artifacts}/ai-path-${width}-course-enquiry-ready.png`,animations:'disabled',style:'.header, .selection-dock, .toast {visibility:hidden!important}'});
+  await page.locator('#start').evaluate(el => el.scrollIntoView({block:'start',behavior:'instant'}));
+  assert(await page.locator('.school-skip').evaluate(link => !link.matches(':focus') && getComputedStyle(link).opacity === '0'), 'Skip link stays invisible while using the enquiry');
+  await page.screenshot({path:`${artifacts}/ai-path-${width}-course-enquiry-ready-viewport.png`,animations:'disabled'});
+  await page.locator('#contactMentor').scrollIntoViewIfNeeded();
+  await page.screenshot({path:`${artifacts}/ai-path-${width}-course-enquiry-ready-action.png`,animations:'disabled'});
   await page.evaluate(() => Object.defineProperty(navigator.clipboard, 'writeText', {configurable:true, value:async () => {throw new Error('Simulated clipboard denial');}}));
   try {
     await page.locator('#copyMessage').click();
@@ -2072,6 +2080,11 @@ async function neuralNetworks(page, width) {
   assert(await page.locator('[role="tab"], .nn-backlog').count() === 0, 'Public guide contains no internal preparation board');
   const cards = page.locator('#nn-choice-grid [data-nn-project]');
   assert(sameMembers(await cards.evaluateAll(elements => elements.map(el => el.dataset.nnProject)), projects.map(([id]) => id)), 'Guide exposes the six distinct project choices');
+  const initialCards = await page.evaluate(html => [...new DOMParser().parseFromString(html, 'text/html').querySelectorAll('#nn-choice-grid [data-nn-project]')]
+    .map(card => ({id:card.dataset.nnProject, text:card.textContent.replace(/\s+/g, ' ').trim(), disabled:card.disabled})), await readFile('dist/ai-path/neural-networks.html', 'utf8'));
+  const hydratedCards = await cards.evaluateAll(elements => elements.map(card => ({id:card.dataset.nnProject, text:card.textContent.replace(/\s+/g, ' ').trim(), disabled:card.disabled})));
+  assert(sameMembers(initialCards.map(card => card.id), projects.map(([id]) => id)) && initialCards.every(card => card.disabled), 'All six readable model cards are in initial HTML before the controller enables them');
+  assert(initialCards.every(initial => hydratedCards.some(card => card.id === initial.id && card.text === initial.text && !card.disabled)), 'Hydration enables the existing cards without changing their text or inserting a late grid');
   assert(await details.getAttribute('data-selected-project') === 'start', 'Guide initially explains the beginner model');
   for (const card of await cards.all()) {
     assert(await card.evaluate(el => el.tagName === 'BUTTON' && el.type === 'button' && el.querySelectorAll('button, a, input, select, textarea').length === 0), 'Each model card is one native keyboard action');
