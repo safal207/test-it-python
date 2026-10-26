@@ -38,7 +38,7 @@ try {
       assert(await course.locator('ol li').count()>=4,'Course '+id+' includes real weekly curriculum');
       await course.locator('summary').click();
     }
-    await page.waitForFunction(()=>!document.querySelector('#demoStatus').textContent.includes('Загрузка'),{timeout:12000});
+    await page.waitForFunction(()=>!document.querySelector('#demoStatus').textContent.includes('Загрузка'),null,{timeout:12000});
     const status=await page.locator('#demoStatus').innerText();
     if(status.includes('модель готова')){
       for(const mode of ['device','building','physics','cell']){
@@ -48,7 +48,7 @@ try {
         assert((await page.locator('#sceneText').innerText()).length>50,'Scene '+mode+' explains the model');
         if(mode==='device'||mode==='building'){
           assert(await page.locator('#explodeControl').isVisible(),'Explode control visible for '+mode);
-          await page.locator('#explode').fill('50');
+          await page.locator('#explode').evaluate(el => { el.value='50'; el.dispatchEvent(new Event('input',{bubbles:true})); });
           assert.equal(await page.locator('#explodeValue').innerText(),'50%');
         } else assert(!await page.locator('#explodeControl').isVisible(),'No irrelevant explode control in '+mode);
       }
