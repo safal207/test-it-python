@@ -99,7 +99,7 @@ try {
     if(width===1440){
       const negative=await context.newPage();
       await negative.route('**/3d-academy-curriculum.json',route=>route.abort());
-      await negative.goto(new URL('3d-academy-practice.html',base),{waitUntil:'domcontentloaded'});
+      await negative.goto(new URL('3d-academy-practice.html',base).href,{waitUntil:'domcontentloaded'});
       assert(await negative.locator('#loadError').isVisible(),'Missing curriculum shows accessible failure message');
       assert(!await negative.locator('#workbench').isVisible(),'Failed load does not render broken controls');
       await negative.close();
