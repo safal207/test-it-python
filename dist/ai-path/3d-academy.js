@@ -192,7 +192,8 @@ if (renderer) {
     });
     if('ResizeObserver' in window)new ResizeObserver(resize).observe(canvas);
     else window.addEventListener('resize',resize);
-    activate('cell');resize();fallback.hidden=true;
+    const chosenScene=new URLSearchParams(location.search).get('scene');
+    activate(['cell','physics','device','building'].includes(chosenScene)?chosenScene:'cell');resize();fallback.hidden=true;
   } catch {
     renderer.dispose();
     fallback.hidden=false;
