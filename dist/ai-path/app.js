@@ -432,7 +432,6 @@
     $('dockName').textContent=hasSelection?programById(state.selection.program).name:'';
     updateSelectionDock();
   }
-  function toast(s){var e=$('toast');e.textContent=s;e.classList.add('show');window.clearTimeout(toast.t);toast.t=window.setTimeout(function(){e.classList.remove('show')},3500)}
   function focusSection(id){var el=$(id);el.focus({preventScroll:true});el.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start'})}
   function syncButtons(group,key,value){document.querySelectorAll('#'+group+' button').forEach(function(btn){btn.setAttribute('aria-pressed',String(btn.dataset[key]===value))})}
   function quizSummary(changed){
@@ -607,6 +606,9 @@
     $('enquiryReadiness').textContent='Для старта: '+p.level+'.';
     $('enquiryLevel').value=selected.level;$('enquiryPace').value=selected.pace;
     $('enquiryStatus').textContent='';
+    $('enquiryCopyStatus').textContent='';
+    $('starterCopyStatus').textContent='';
+    $('planDownloadStatus').textContent='';
     $('projectIdea').value=projectIdeas[p.id]||'';
     $('selSteps').innerHTML=p.steps.map(function(s,i){return '<li'+(p.id==='designlab'?' id="designlab-week-'+(i+1)+'"':'')+'><span class="step-no">'+(i+1)+'</span><span>'+esc(s)+'</span></li>'}).join('');
     $('selRefs').innerHTML=p.refs.map(function(r){return '<a href="'+esc(r[1])+'"'+(r[1].charAt(0)==='#'?'':' target="_blank" rel="noopener noreferrer"')+'>'+esc(r[0])+' ↗</a>'}).join('');
@@ -664,13 +666,13 @@
   $('copyLink').addEventListener('click',async function(){
     if(!state.selection)return;
     var value=urlForSelection();
-    try{await copyText(value);toast('Ссылка на выбранную программу скопирована')}
-    catch(e){window.prompt('Скопируйте ссылку:',value)}
+    try{await copyText(value);$('planDownloadStatus').textContent='Ссылка на выбранную программу скопирована.';$('planDownloadStatus').removeAttribute('data-state')}
+    catch(e){$('planDownloadStatus').textContent='Буфер обмена недоступен. Скопируйте ссылку из открывшегося окна.';$('planDownloadStatus').dataset.state='error';window.prompt('Скопируйте ссылку:',value)}
   });
   $('copyMessage').addEventListener('click',async function(){
     if(!state.selection)return;
-    try{await copyText(textForSelection());toast('Текст обращения скопирован. Можно отправить его Алексею.')}
-    catch(e){$('contactMessage').closest('details').open=true;$('contactMessage').focus();$('contactMessage').select();toast('Выделили текст обращения — скопируйте его вручную.')}
+    try{await copyText(textForSelection());$('enquiryCopyStatus').textContent='Текст обращения скопирован. Можно отправить его Алексею.';$('enquiryCopyStatus').removeAttribute('data-state')}
+    catch(e){$('contactMessage').closest('details').open=true;$('contactMessage').focus();$('contactMessage').select();$('enquiryCopyStatus').textContent='Выделили текст обращения — скопируйте его вручную.';$('enquiryCopyStatus').dataset.state='error'}
   });
 
   ['enquiryLevel','enquiryPace'].forEach(function(id){
@@ -681,6 +683,7 @@
       closeResults();syncButtons('goals','goal',state.goal);syncButtons('levels','level',state.level);syncButtons('paces','pace',state.pace);
       renderInterests();quizSummary(false);renderSelection();updateSelectionUrl('start');
       $('enquiryStatus').textContent='Параметры обновлены в плане и черновике заявки.';
+      $('enquiryCopyStatus').textContent='';
     });
   });
 
@@ -689,13 +692,14 @@
     var idea=$('projectIdea').value.slice(0,240);
     if($('projectIdea').value!==idea)$('projectIdea').value=idea;
     projectIdeas[state.selection.program]=idea;
+    $('enquiryCopyStatus').textContent='';
     renderContact();
   });
   $('copyStarter').addEventListener('click',async function(){
     if(!state.selection)return;
     var value=starterTextForSelection();
-    try{await copyText(value);toast('Шаблон скопирован. Заполни его своей идеей.')}
-    catch(e){window.prompt('Скопируй шаблон для старта:',value)}
+    try{await copyText(value);$('starterCopyStatus').textContent='Шаблон скопирован. Заполни его своей идеей.';$('starterCopyStatus').removeAttribute('data-state')}
+    catch(e){$('starterCopyStatus').textContent='Буфер обмена недоступен. Скопируй шаблон из открывшегося окна.';$('starterCopyStatus').dataset.state='error';window.prompt('Скопируй шаблон для старта:',value)}
   });
   function releaseDownloadUrl(url){
     URL.revokeObjectURL(url);
@@ -707,17 +711,16 @@
     if(button.disabled)return;
     var plan=planDataForSelection(),link=document.createElement('a'),url;
     button.disabled=true;button.setAttribute('aria-busy','true');button.textContent='Готовлю PDF…';
-    $('planDownloadStatus').textContent='Готовлю PDF с выбранной программой…';
+    $('planDownloadStatus').textContent='Готовлю PDF с выбранной программой…';$('planDownloadStatus').removeAttribute('data-state');
     try{
       var file=await window.AIPathPlanPdf.create(plan);
       url=URL.createObjectURL(file);downloadUrls.push(url);
       link.href=url;link.download='ai-path-'+plan.id+'-plan.pdf';
       link.hidden=true;document.body.appendChild(link);link.click();
       $('planDownloadStatus').textContent='PDF подготовлен для скачивания.';
-      toast('PDF подготовлен для скачивания.');
     }catch(e){
       var message='Не удалось создать PDF. Проверь соединение и попробуй ещё раз.';
-      $('planDownloadStatus').textContent=message;toast(message);
+      $('planDownloadStatus').textContent=message;$('planDownloadStatus').dataset.state='error';
     }
     finally{
       button.disabled=false;button.removeAttribute('aria-busy');button.textContent='Скачать мой план · PDF ↓';

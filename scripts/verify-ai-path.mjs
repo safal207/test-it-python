@@ -589,6 +589,7 @@ async function contact(page) {
   await page.locator('#copyMessage').click();
   await page.waitForFunction(async expected => await navigator.clipboard.readText() === expected, message);
   assert(await page.evaluate(() => navigator.clipboard.readText()) === message, 'Copy message writes the visible draft');
+  assert((await page.locator('#enquiryCopyStatus').innerText()).includes('скопирован'), 'Copied request confirms success next to its action');
   await page.evaluate(() => navigator.clipboard.writeText('qa-before-link'));
   await page.locator('#copyLink').click();
   await page.waitForFunction(async () => (await navigator.clipboard.readText()).startsWith('https://'));
@@ -596,6 +597,7 @@ async function contact(page) {
   const current = new URL(page.url());
   for (const key of ['program', 'level', 'pace']) assert(copied.searchParams.get(key) === current.searchParams.get(key), `Copied route retains ${key}`);
   assert(copied.hash === '#selected', 'Copied route opens the selected program');
+  assert((await page.locator('#planDownloadStatus').innerText()).includes('Ссылка на выбранную программу скопирована'), 'Copied route confirms success in the plan panel');
   await noOverflow(page, 'contact fallback expanded');
 }
 function canonicalRoute(page) {
@@ -1886,6 +1888,10 @@ async function courseEnquiry(page, width) {
   await page.locator('#copyMessage').click();
   await page.waitForFunction(async value => await navigator.clipboard.readText() === value, message);
   assert(!(await fallback.evaluate(el => el.open)), 'Successful copy leaves optional preview collapsed');
+  const copyFeedback = page.locator('#enquiryCopyStatus');
+  assert((await copyFeedback.innerText()).includes('Текст обращения скопирован'), 'Request copy success is reported inline in the request panel');
+  assert(await copyFeedback.evaluate(el => el.getAttribute('role') === 'status' && getComputedStyle(el).position !== 'fixed' && !!el.closest('#start')), 'Request feedback is accessible and stays in normal document flow rather than covering mobile fields');
+  assert(await page.locator('#toast').count() === 0, 'No fixed notification overlays narrow phone fields');
   await page.locator('#start').screenshot({path:`${artifacts}/ai-path-${width}-course-enquiry-ready.png`,animations:'disabled',style:'.header, .selection-dock, .toast {visibility:hidden!important}'});
   await page.locator('#start').evaluate(el => el.scrollIntoView({block:'start',behavior:'instant'}));
   assert(await page.locator('.school-skip').evaluate(link => !link.matches(':focus') && getComputedStyle(link).opacity === '0'), 'Skip link stays invisible while using the enquiry');
@@ -1897,6 +1903,7 @@ async function courseEnquiry(page, width) {
     await page.locator('#copyMessage').click();
     assert(await fallback.evaluate(el => el.open), 'Clipboard failure opens the real request text for manual copying');
     assert(await page.locator('#contactMessage').evaluate(el => document.activeElement === el && el.selectionStart === 0 && el.selectionEnd === el.value.length), 'Clipboard fallback visibly focuses and selects the complete request');
+    assert((await copyFeedback.innerText()).includes('скопируйте его вручную') && await copyFeedback.getAttribute('data-state') === 'error', 'Clipboard denial reports actionable inline feedback, not an overlay');
   } finally {await page.evaluate(() => {delete navigator.clipboard.writeText;});}
   await noOverflow(page, 'course enquiry ' + width);
   await page.locator('#start').screenshot({path:`${artifacts}/ai-path-${width}-course-enquiry.png`,animations:'disabled',style:'.header, .selection-dock, .toast {visibility:hidden!important}'});
