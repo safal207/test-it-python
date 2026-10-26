@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b1018">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta name="description" content="AI PATH · 3D Academy — 38 практических уроков, интерактивные задания, контрольные вопросы и критерии проектов по шести направлениям.">
+<link rel="canonical" href="https://safal207.github.io/test-it-python/ai-path/3d-academy-practice.html">
+<title>Практикум — 38 интерактивных уроков | AI PATH 3D Academy</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1018;--panel:#15222c;--panel2:#1c2c35;--line:#405750;--ink:#f3f7f3;--muted:#becdc8;--lime:#d7fa82;--violet:#c5bbff}
+*{box-sizing:border-box}body{min-width:320px;margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 Inter,"Segoe UI",Arial,sans-serif}a{color:var(--lime)}button,select,input{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--lime);outline-offset:3px}button:disabled{opacity:.52;cursor:not-allowed}
+[hidden]{display:none!important}.workbench{position:relative;min-height:1360px}.workbench[hidden]{display:grid!important;visibility:hidden}.workbench[hidden]::before{content:"Загружаем практикум…";display:block;visibility:visible;position:absolute;top:4px;left:0;background:#20332e;color:#e6f4df;border:1px solid #526e5a;border-radius:8px;padding:12px 18px;font-size:14px}.workbench[hidden].load-failed{display:none!important}.workbench[hidden].load-failed::before{content:none}.wrap{width:min(1120px,calc(100% - 38px));margin:auto}.top{border-bottom:1px solid var(--line);background:#111c24}.top .wrap{min-height:68px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}.brand{font-size:18px;font-weight:850;letter-spacing:-.04em;text-decoration:none;color:var(--ink)}.brand strong{color:var(--lime)}.top nav{display:flex;gap:18px;flex-wrap:wrap;font-size:13px}.top nav a{color:var(--muted);text-decoration:none}
+.eyebrow{text-transform:uppercase;letter-spacing:.13em;color:var(--lime);font-size:12px;font-weight:800}.intro{padding:47px 0 27px}.intro h1{font-size:clamp(32px,5vw,54px);letter-spacing:-.055em;line-height:1.12;margin:10px 0 12px}.intro p{max-width:760px;color:var(--muted);margin:0 0 17px}.metrics{display:flex;gap:10px;flex-wrap:wrap}.metric{background:#23332f;border:1px solid var(--line);border-radius:9px;padding:7px 12px;font-size:12px}
+.workbench{display:grid;grid-template-columns:minmax(225px,.33fr) minmax(0,.67fr);gap:18px;align-items:start;margin-bottom:54px}
+.sidebar,.lesson{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px;min-width:0}.sidebar{position:sticky;top:14px}.sidebar h2{font-size:17px;margin:0 0 12px}.track-buttons{display:grid;gap:8px}.track-buttons button{border:1px solid #52665d;border-radius:9px;padding:12px;text-align:left;background:#233039;color:var(--ink);min-height:51px}.track-buttons button[aria-pressed="true"]{border-color:var(--lime);background:#334536}.track-buttons button span{display:block;font-size:11px;color:var(--muted)}.sidebar-note{font-size:12px;color:var(--muted);margin:15px 0 0}
+.lesson h2{font-size:clamp(24px,3vw,32px);letter-spacing:-.035em;line-height:1.2;margin:6px 0 8px}.lesson h3{font-size:16px;margin:22px 0 7px;color:var(--lime)}.lesson p{margin:0;color:#d5e1dc}.lesson .subtitle{color:var(--muted);font-size:13px}.lesson .box{margin:17px 0;background:#20332e;border:1px solid #476456;border-radius:11px;padding:16px}.lesson .box strong{color:var(--lime)}
+.choose-lesson{display:flex;align-items:center;flex-wrap:wrap;gap:12px;border-bottom:1px solid var(--line);padding-bottom:17px;margin-bottom:19px}.choose-lesson label{font-size:13px;color:var(--muted);font-weight:700}.choose-lesson select{width:min(100%,440px);min-width:0;background:#21303b;color:var(--ink);border:1px solid #718279;border-radius:9px;padding:11px}.progress{font-size:13px;color:#d9e9dd}.bar{width:100%;height:9px;overflow:hidden;background:#304039;border-radius:999px;margin:11px 0 15px}.bar span{display:block;background:var(--lime);height:100%;width:0;transition:width .2s}
+.quiz{margin-top:24px;border-top:1px solid var(--line);padding-top:21px}.quiz fieldset{border:0;padding:0;margin:0;min-width:0}.quiz legend{font-weight:750;font-size:16px;margin-bottom:12px;padding:0}.quiz .option{display:flex;gap:11px;align-items:flex-start;padding:12px 13px;margin:8px 0;background:#22323b;border:1px solid #4f655c;border-radius:10px;min-height:45px;cursor:pointer}.quiz .option:has(input:checked){background:#354435;border-color:var(--lime)}.quiz .option input{accent-color:var(--lime);margin-top:5px;flex:none}.quiz .option span{font-size:14px;line-height:1.45}.quiz button,.actions button{min-height:44px;padding:9px 16px;border-radius:9px;border:1px solid #728078;color:var(--ink);background:#26363e;font-weight:730}.quiz button{margin-top:10px;background:var(--lime);color:#132019;border-color:var(--lime)}.feedback{margin-top:13px!important;min-height:42px;border-left:3px solid var(--violet);padding-left:13px}.feedback[hidden]{display:none}.feedback[data-result="pass"]{border-left-color:var(--lime)}.feedback[data-result="retry"]{border-left-color:#e5ac76}
+.project{background:#202f37;border:1px solid var(--line);border-radius:12px;padding:18px;margin-top:28px}.project h3{margin:0 0 9px}.project ul{margin:8px 0 0;padding-left:22px;font-size:14px;color:#d8e5df}.project li{margin:10px 0}.project p{font-size:13px;color:var(--muted)}.actions{margin-top:25px;display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}.actions button.primary{background:var(--lime);color:#152019;border-color:var(--lime)}.actions button.secondary{background:#263940}.footer{border-top:1px solid var(--line);padding:25px 0;font-size:12px;color:var(--muted)}.error{padding:20px;border:1px solid #b99168;border-radius:12px;background:#2f2925;margin-bottom:30px}.error[hidden]{display:none}.subtle{font-size:12px;color:var(--muted)}
+@media(max-width:780px){.workbench{grid-template-columns:1fr;min-height:1550px}.sidebar{position:static}.track-buttons{grid-template-columns:repeat(2,minmax(0,1fr))}.sidebar,.lesson{padding:18px}.intro{padding-top:32px}}
+@media(max-width:375px){.wrap{width:calc(100% - 26px)}.track-buttons{grid-template-columns:1fr}.top nav{gap:10px}.lesson{padding:15px}.sidebar{padding:15px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="./"><strong>AI</strong> PATH / Практикум</a><nav aria-label="Навигация"><a href="3d-academy.html">3D Academy</a><a href="./#programs">Все курсы школы</a></nav></div></header>
+<main class="wrap">
+<section class="intro"><div class="eyebrow">Interactive 3D Academy · пошаговое обучение</div><h1>38 уроков. Шесть проектов.</h1><p>Изучай материал, выполняй практическое задание, проверяй понимание и собирай собственный проект. Ответы проверяются автоматически; качество внешних 3D-проектов — по отдельным критериям наставником или самостоятельно.</p><div class="metrics"><span class="metric">6 курсов</span><span class="metric">38 контрольных вопросов</span><span class="metric">Без регистрации</span></div></section>
+<div id="loadError" class="error" role="alert" hidden>Учебные материалы не загрузились. Проверь подключение к странице и обнови её. Основное <a href="3d-academy.html">описание курсов</a> доступно отдельно.</div>
+<div class="workbench" id="workbench" hidden aria-busy="true">
+  <aside class="sidebar" aria-label="Курсы и прогресс">
+    <h2>Выбери курс</h2><div class="track-buttons" id="trackButtons"></div>
+    <p class="sidebar-note">Прогресс контрольных вопросов сохраняется только в браузере на этом устройстве, когда хранилище доступно. Мы не отправляем ответы на сервер.</p>
+    <p class="sidebar-note">Автоматическая проверка подтверждает только выбранный вариант ответа — не выполнение практической работы.</p>
+  </aside>
+  <section class="lesson" aria-labelledby="lessonTitle">
+    <div class="choose-lesson"><label for="lessonSelect">Занятие</label><select id="lessonSelect"></select></div>
+    <div class="eyebrow" id="lessonWeek">Неделя 1</div>
+    <h2 id="lessonTitle">Учебный материал</h2><p class="subtitle" id="courseName"></p>
+    <p id="theory"></p>
+    <h3>Практическое задание</h3><p id="practice"></p>
+    <div class="box"><strong>Что сохранить в портфолио</strong><p id="artifact"></p></div>
+    <p class="subtle"><a id="labLink" href="3d-academy.html#live-demo">Открыть учебный 3D-стенд ↗</a> — демонстрация упрощённой модели, не проверка выполнения задания.</p>
+    <section class="quiz" aria-labelledby="quizTitle">
+      <h3 id="quizTitle">Проверь понимание</h3>
+      <form id="quizForm"><fieldset><legend id="quizQuestion"></legend><div id="quizOptions"></div></fieldset><button type="submit">Проверить ответ</button></form>
+      <p id="quizFeedback" class="feedback" role="status" aria-live="polite" hidden></p>
+    </section>
+    <div class="bar" role="progressbar" id="progressBar" aria-label="Проверенные контрольные вопросы этого курса" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progressFill"></span></div>
+    <p class="progress" id="progressLabel">Прогресс проверочных вопросов: 0 из 0</p>
+    <section class="project" aria-labelledby="projectTitle"><h3 id="projectTitle">Итоговый проект и проверка</h3><p id="projectText"></p><ul id="rubric"></ul><p>Эти критерии нужно проверить на реальном артефакте. Отметка правильных ответов не подтверждает сдачу проекта или получение сертификата.</p></section>
+    <div class="actions"><button type="button" id="prevLesson" class="secondary">← Предыдущий</button><button type="button" id="nextLesson" class="primary">Следующее занятие →</button></div>
+  </section>
+</div>
+</main>
+<footer class="footer"><div class="wrap">AI PATH · учебные материалы версии 1 · <a href="3d-academy.html">Описание направления и связь с наставником</a>. Цены, набор и сертификаты отдельно не подтверждены.</div></footer>
+<script type="module" src="3d-academy-practice.js"></script>
+</body>
+</html>
