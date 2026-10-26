@@ -54,6 +54,8 @@ jobs:
         run: node scripts/verify-school-recovery.mjs
       - name: Verify site with real browser interactions at desktop and mobile
         run: node scripts/verify-ai-path.mjs
+      - name: Verify interactive 3D Academy syllabi and browser fallback
+        run: node scripts/verify-3d-academy-browser.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
