@@ -35,6 +35,15 @@ jobs:
         run: npm run check
       - name: Configure Pages
         uses: actions/configure-pages@v5
+      - name: Set up Python for social preview rendering
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Render AI PATH social image
+        run: |
+          python -m pip install --disable-pip-version-check 'CairoSVG==2.8.2'
+          python -c "import cairosvg; cairosvg.svg2png(url='dist/ai-path/assets/social-preview.svg', write_to='dist/ai-path/assets/social-preview.png', output_width=1200, output_height=630)"
+          python -c "import os; p='dist/ai-path/assets/social-preview.png'; assert os.path.getsize(p) > 10000"
       - name: Upload website
         uses: actions/upload-pages-artifact@v4
         with:

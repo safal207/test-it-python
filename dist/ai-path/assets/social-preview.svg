@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+<title id="title">AI PATH — онлайн-школа искусственного интеллекта</title>
+<desc id="desc">Обучение нейросетям, AI-видео, разработке, дизайну и QA. От идеи до собственного проекта.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#050b1e"/><stop offset=".56" stop-color="#071430"/><stop offset="1" stop-color="#0a1433"/></linearGradient>
+<radialGradient id="nebula"><stop stop-color="#227bcd" stop-opacity=".48"/><stop offset=".62" stop-color="#5a39a8" stop-opacity=".16"/><stop offset="1" stop-color="#050b1e" stop-opacity="0"/></radialGradient>
+<linearGradient id="brand" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#f8fdff"/><stop offset=".3" stop-color="#50bbff"/><stop offset=".68" stop-color="#a970f6"/><stop offset="1" stop-color="#31ecf5"/></linearGradient>
+<linearGradient id="orb" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#27d6fd"/><stop offset=".5" stop-color="#6847e2"/><stop offset="1" stop-color="#25d3cc"/></linearGradient>
+<linearGradient id="pill" x1="0" x2="1"><stop stop-color="#0d2858"/><stop offset="1" stop-color="#0b1b40"/></linearGradient>
+<filter id="glow"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="soft"><feGaussianBlur stdDeviation="20"/></filter>
+</defs>
+<rect width="1200" height="630" fill="url(#bg)"/>
+<ellipse cx="936" cy="265" rx="330" ry="305" fill="url(#nebula)"/>
+<path d="M690 0 Q810 215 687 630 M810 0 Q945 200 838 630 M1052 0 Q1112 230 1015 630" stroke="#48aaff" stroke-opacity=".07" stroke-width="2" fill="none"/>
+<path d="M0 550 H1200 M0 590 H1200" stroke="#69baff" stroke-opacity=".055"/>
+<g opacity=".52"><circle cx="735" cy="85" r="2" fill="#95caff"/><circle cx="1110" cy="119" r="2" fill="#e8caff"/><circle cx="705" cy="430" r="2" fill="#67f1ff"/><circle cx="1120" cy="533" r="2" fill="#f4ddff"/></g>
+<g transform="translate(0,-4)">
+<rect x="64" y="59" width="184" height="32" rx="16" fill="#14233e" stroke="#4bd4d1" stroke-opacity=".35"/>
+<text x="83" y="81" fill="#88e6e9" font-family="DejaVu Sans,Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="1">ОБУЧЕНИЕ ИИ</text>
+<text x="57" y="240" fill="url(#brand)" font-family="DejaVu Sans,Arial,sans-serif" font-size="116" font-weight="900" letter-spacing="-7">AI PATH</text>
+<text x="64" y="303" fill="#f7f9ff" font-family="DejaVu Sans,Arial,sans-serif" font-size="34" font-weight="700">Онлайн-школа</text>
+<text x="64" y="350" fill="#9ebdff" font-family="DejaVu Sans,Arial,sans-serif" font-size="31" font-weight="600">искусственного интеллекта</text>
+<rect x="62" y="393" width="558" height="74" rx="35" fill="url(#pill)" stroke="#53baff" stroke-width="2"/>
+<text x="91" y="439" fill="#f5f9ff" font-family="DejaVu Sans,Arial,sans-serif" font-size="27" font-weight="650">От идеи до готового проекта</text>
+<path d="M566 429 h22 m-9 -9 l9 9 -9 9" stroke="#79ceff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g transform="translate(920,240)">
+<ellipse rx="228" ry="150" fill="none" stroke="#55cdf9" stroke-width="2" stroke-opacity=".17" transform="rotate(-24)"/>
+<ellipse rx="215" ry="158" fill="none" stroke="#977bff" stroke-width="2" stroke-opacity=".23" transform="rotate(38)"/>
+<circle r="172" fill="#0e2463" opacity=".18" filter="url(#soft)"/>
+<circle r="151" fill="none" stroke="url(#orb)" stroke-width="7" stroke-opacity=".5"/>
+<circle r="126" fill="none" stroke="#90baff" stroke-width="1.5" stroke-dasharray="8 13" stroke-opacity=".4"/>
+</g>
+<g><line x1="975.4" y1="251.6" x2="787.7" y2="259.8" stroke="#50cfff" stroke-opacity=".28" stroke-width="1.7"/>
+<line x1="848.8" y1="271.0" x2="1018.8" y2="325.4" stroke="#50cfff" stroke-opacity=".28" stroke-width="1"/>
+<line x1="951.7" y1="177.1" x2="951.7" y2="177.1" stroke="#50cfff" stroke-opacity=".28" stroke-width="1"/>
+<line x1="977.9" y1="322.2" x2="787.7" y2="259.8" stroke="#50cfff" stroke-opacity=".28" stroke-width="1"/>
+<line x1="771.2" y1="205.3" x2="1018.8" y2="325.4" stroke="#50cfff" stroke-opacity=".28" stroke-width="1"/>
+<line x1="1094.6" y1="201.9" x2="951.7" y2="177.1" stroke="#50cfff" stroke-opacity=".28" stroke-width="1.7"/>
+<line x1="894.3" y1="276.5" x2="787.7" y2="259.8" stroke="#50cfff" stroke-opacity=".28" stroke-width="1"/>
+<line x1="897.9" y1="192.7" x2="1018.8" y2="325.4" stroke="#50cfff" stroke-opacity=".28" stroke-width="1"/>
+<line x1="1012.1" y1="281.1" x2="951.7" y2="177.1" stroke="#50cfff" stroke-opacity=".28" stroke-width="1"/>
+<line x1="787.7" y1="259.8" x2="787.7" y2="259.8" stroke="#50cfff" stroke-opacity=".28" stroke-width="1"/>
+<line x1="1016.6" y1="161.5" x2="1018.8" y2="325.4" stroke="#50cfff" stroke-opacity=".28" stroke-width="1.7"/>
+<line x1="937.9" y1="363.5" x2="951.7" y2="177.1" stroke="#50cfff" stroke-opacity=".28" stroke-width="1"/>
+<line x1="877.9" y1="219.6" x2="787.7" y2="259.8" stroke="#50cfff" stroke-opacity=".28" stroke-width="1"/>
+<line x1="1002.6" y1="243.5" x2="1018.8" y2="325.4" stroke="#50cfff" stroke-opacity=".28" stroke-width="1"/>
+<line x1="840.6" y1="291.7" x2="951.7" y2="177.1" stroke="#50cfff" stroke-opacity=".28" stroke-width="1"/>
+<line x1="930.6" y1="157.6" x2="787.7" y2="259.8" stroke="#50cfff" stroke-opacity=".28" stroke-width="1.7"/>
+<line x1="1018.8" y1="325.4" x2="1018.8" y2="325.4" stroke="#50cfff" stroke-opacity=".28" stroke-width="1"/>
+<line x1="736.1" y1="224.2" x2="951.7" y2="177.1" stroke="#50cfff" stroke-opacity=".28" stroke-width="1"/>
+<line x1="967.5" y1="224.1" x2="787.7" y2="259.8" stroke="#50cfff" stroke-opacity=".28" stroke-width="1"/>
+<line x1="899.3" y1="295.5" x2="1018.8" y2="325.4" stroke="#50cfff" stroke-opacity=".28" stroke-width="1"/>
+<line x1="869.0" y1="182.3" x2="951.7" y2="177.1" stroke="#50cfff" stroke-opacity=".28" stroke-width="1.7"/><circle cx="975.4" cy="251.6" r="5" fill="#d6c2ff" filter="url(#glow)"/>
+<circle cx="848.8" cy="271.0" r="3" fill="#65e4ff" filter="url(#glow)"/>
+<circle cx="951.7" cy="177.1" r="3" fill="#65e4ff" filter="url(#glow)"/>
+<circle cx="977.9" cy="322.2" r="3" fill="#d6c2ff" filter="url(#glow)"/>
+<circle cx="771.2" cy="205.3" r="5" fill="#65e4ff" filter="url(#glow)"/>
+<circle cx="1094.6" cy="201.9" r="3" fill="#65e4ff" filter="url(#glow)"/>
+<circle cx="894.3" cy="276.5" r="3" fill="#d6c2ff" filter="url(#glow)"/>
+<circle cx="897.9" cy="192.7" r="3" fill="#65e4ff" filter="url(#glow)"/>
+<circle cx="1012.1" cy="281.1" r="5" fill="#65e4ff" filter="url(#glow)"/>
+<circle cx="787.7" cy="259.8" r="3" fill="#d6c2ff" filter="url(#glow)"/>
+<circle cx="1016.6" cy="161.5" r="3" fill="#65e4ff" filter="url(#glow)"/>
+<circle cx="937.9" cy="363.5" r="3" fill="#65e4ff" filter="url(#glow)"/>
+<circle cx="877.9" cy="219.6" r="5" fill="#d6c2ff" filter="url(#glow)"/>
+<circle cx="1002.6" cy="243.5" r="3" fill="#65e4ff" filter="url(#glow)"/>
+<circle cx="840.6" cy="291.7" r="3" fill="#65e4ff" filter="url(#glow)"/>
+<circle cx="930.6" cy="157.6" r="3" fill="#d6c2ff" filter="url(#glow)"/>
+<circle cx="1018.8" cy="325.4" r="5" fill="#65e4ff" filter="url(#glow)"/>
+<circle cx="736.1" cy="224.2" r="3" fill="#65e4ff" filter="url(#glow)"/>
+<circle cx="967.5" cy="224.1" r="3" fill="#d6c2ff" filter="url(#glow)"/>
+<circle cx="899.3" cy="295.5" r="3" fill="#65e4ff" filter="url(#glow)"/>
+<circle cx="869.0" cy="182.3" r="5" fill="#65e4ff" filter="url(#glow)"/></g>
+<path d="M920 390 V425 M920 425 L845 455 M920 425 L994 455" stroke="#60caff" stroke-width="5" stroke-opacity=".7" stroke-linecap="round" fill="none" filter="url(#glow)"/>
+<g>
+<rect x="795" y="451" width="251" height="32" rx="8" fill="#153575" stroke="#69bff6" stroke-opacity=".6"/>
+<rect x="774" y="494" width="290" height="31" rx="8" fill="#122c70" stroke="#9785fa" stroke-opacity=".55"/>
+<rect x="748" y="535" width="343" height="28" rx="8" fill="#132f5b" stroke="#51cefa" stroke-opacity=".5"/>
+<path d="M782 485 L1075 485 M755 527 L1092 527" stroke="#5cd7ff" stroke-opacity=".3"/>
+</g>
+<path d="M62 533 H674" stroke="#8dc0e3" stroke-opacity=".25"/>
+<g font-family="DejaVu Sans,Arial,sans-serif" font-size="17" fill="#d1e2f8" font-weight="600">
+<text x="65" y="578">Нейросети</text><circle cx="211" cy="573" r="3" fill="#8d85eb"/>
+<text x="230" y="578">AI-видео</text><circle cx="351" cy="573" r="3" fill="#8d85eb"/>
+<text x="368" y="578">Разработка</text><circle cx="525" cy="573" r="3" fill="#8d85eb"/>
+<text x="542" y="578">Дизайн</text><circle cx="646" cy="573" r="3" fill="#8d85eb"/>
+<text x="666" y="578">QA</text>
+</g>
+</svg>
