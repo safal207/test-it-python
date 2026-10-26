@@ -29,4 +29,30 @@ assert(home.includes('id="academy-3d-entry"') && home.includes('href="3d-academy
 assert(sitemap.includes('/ai-path/3d-academy.html'), 'Sitemap includes the academy');
 assert(!/https?:\/\/.*(\.js|\.css)[^\n]*<\/script>/.test(page), 'No remote JS scripts');
 execFileSync(process.execPath, ['--check', root+'3d-academy.js'], { stdio: 'pipe' });
-console.log('3D Academy static acceptance: PASS (six curricula, scene controls, fallback, navigation, syntax)');
+
+const practicum = readFileSync(root + '3d-academy-practice.html','utf8');
+const practicumScript = readFileSync(root + '3d-academy-practice.js','utf8');
+const catalogue = JSON.parse(readFileSync(root + '3d-academy-curriculum.json','utf8'));
+assert.equal(catalogue.schemaVersion,1,'Known lesson data schema');
+assert.deepEqual(catalogue.courses.map(course=>course.id),expected,'Practicum has exactly six matching course IDs');
+assert.equal(catalogue.courses.reduce((n,c)=>n+c.lessons.length,0),38,'38 real weekly lessons, not placeholders');
+for(const course of catalogue.courses){
+  assert.equal(course.lessons.length,course.duration,'Each '+course.id+' course has correct duration');
+  assert.equal(course.rubric.length,3,'Every '+course.id+' course has explicit final-project checks');
+  assert(page.includes('href="3d-academy-practice.html?course='+course.id+'&amp;lesson=1"'),'Academy links to '+course.id+' practice');
+  for(const lesson of course.lessons){
+    for(const key of ['title','theory','practice','artifact']) assert(lesson[key]?.length>=20 || (key==='title' && lesson[key]?.length>=8),'Missing '+key+' lesson content: '+course.id);
+    const q=lesson.quiz;
+    assert(q?.question?.length>=20,'Real control question for '+course.id);
+    assert(q.options.length===3 && Number.isInteger(q.correct) && q.correct>=0 && q.correct<3,'Valid answer key for '+course.id);
+    assert(new Set(q.options).size===3,'Distinct answer choices for '+course.id);
+    assert(q.why.length>=25,'Detailed feedback for '+course.id);
+  }
+}
+assert(practicum.includes('id="quizForm"') && practicum.includes('id="progressBar"'),'Accessible control question and progress');
+assert(practicum.includes('[hidden]{display:none!important}'),'Hidden learning content does not flash before fetch');
+assert(practicumScript.includes("localStorage.setItem(storageKey"),'Progress is kept on device');
+assert(practicumScript.includes("feedback.dataset.result"),'Accessible feedback distinguishes correct/incorrect answers');
+assert(sitemap.includes('/ai-path/3d-academy-practice.html'),'Sitemap includes the practicum');
+execFileSync(process.execPath,['--check',root+'3d-academy-practice.js'],{stdio:'pipe'});
+console.log('3D Academy static acceptance: PASS (six curricula, 38 lessons, quizzes, rubrics, scene controls, fallback, navigation, syntax)');
