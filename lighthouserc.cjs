@@ -8,6 +8,8 @@ module.exports = {
         "http://localhost/ai-path/neural-networks.html",
         "http://localhost/ai-path/neural-courses.html",
         "http://localhost/ai-path/career-research.html",
+        "http://localhost/ai-path/3d-academy.html",
+        "http://localhost/ai-path/3d-academy-practice.html",
         "http://localhost/ai-path/studio.html",
         "http://localhost/ai-path/examples/pocitel.html",
         "http://localhost/ai-path/examples/plan-to-space.html",
