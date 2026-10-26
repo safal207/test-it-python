@@ -144,11 +144,14 @@ async function load() {
     const id=courses.some(c=>c.id===params.get('course'))?params.get('course'):courses[0].id;
     const index=Number(params.get('lesson'))-1;
     $('workbench').hidden=false;
+    $('workbench').setAttribute('aria-busy','false');
     selectCourse(id,Number.isInteger(index)?index:0);
     // Focusable heading for keyboard navigation from course switchers.
     $('lessonTitle').tabIndex=-1;
   } catch {
     $('workbench').hidden=true;
+    $('workbench').classList.add('load-failed');
+    $('workbench').setAttribute('aria-busy','false');
     $('loadError').hidden=false;
   }
 }
