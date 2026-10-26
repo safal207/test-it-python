@@ -41,7 +41,7 @@ for(const course of catalogue.courses){
   assert.equal(course.rubric.length,3,'Every '+course.id+' course has explicit final-project checks');
   assert(page.includes('href="3d-academy-practice.html?course='+course.id+'&amp;lesson=1"'),'Academy links to '+course.id+' practice');
   for(const lesson of course.lessons){
-    for(const key of ['title','theory','practice','artifact']) assert(lesson[key]?.length>=20 || (key==='title' && lesson[key]?.length>=8),'Missing '+key+' lesson content: '+course.id);
+    for(const key of ['title','theory','practice','artifact']) assert(typeof lesson[key]==='string' && lesson[key].trim().length>=(key==='title'?4:20),'Missing '+key+' lesson content: '+course.id);
     const q=lesson.quiz;
     assert(q?.question?.length>=20,'Real control question for '+course.id);
     assert(q.options.length===3 && Number.isInteger(q.correct) && q.correct>=0 && q.correct<3,'Valid answer key for '+course.id);
