@@ -211,3 +211,6 @@ body[data-brand-page="home"] .closing p { color:var(--theme-muted, #645c70); }
   body[data-brand-page="home"] #selector { padding-block:32px 40px; }
   body[data-brand-page="home"] .mentor-section { padding-bottom:40px; }
 }
+
+/* Keep the pathway link easy to tap within the selected program. */
+body[data-brand-page="home"] #selectedJourneyLink { display:inline-flex; align-items:center; min-height:44px; }

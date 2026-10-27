@@ -42,8 +42,12 @@ try {
     await page.keyboard.press('Enter');
     assert.equal(await page.locator('#journey-game details').getAttribute('open'), '');
     assert.equal(await page.locator('#journey-game .path-steps li').count(), 4);
+    for (const control of await page.locator('#journey-game summary, #journey-game .card-link').all()) {
+      const box = await control.boundingBox();
+      assert(box.height >= 44, `${width}: primary card control is at least 44px high`);
+    }
     assert.match(await page.locator('#journey-game').innerText(), /доработка игры «Пробуждение»/);
-    assert.match(await page.locator('#journey-game').innerText(), /С взрослым можно придумать правило игры/);
+    assert.match(await page.locator('#journey-game').innerText(), /Со взрослым можно придумать правило игры/);
     await page.locator('#journey-game').scrollIntoViewIfNeeded();
     await page.locator('#journey-game').screenshot({ path: `${out}/journeys-${width}-game.png`, animations:'disabled' });
     await page.locator('#age-select').selectOption('13-17');
