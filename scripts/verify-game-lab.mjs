@@ -19,10 +19,12 @@ try {
   for (const width of [320, 390, 1440]) {
     const context = await browser.newContext({ viewport: { width, height: width === 320 ? 740 : width === 390 ? 844 : 960 }, reducedMotion: 'reduce' });
     const page = await context.newPage();
-    const errors = [], externalRequests = [];
+    const errors = [], externalRequests = [], failedResponses = [];
     let observingTrial = false;
     page.on('pageerror', error => errors.push(error.message));
+    page.on('console', message => { if (observingTrial && message.type() === 'error') errors.push(message.text()); });
     page.on('request', request => { if (observingTrial && !request.url().startsWith(origin + '/') && !request.url().startsWith('data:')) externalRequests.push(request.url()); });
+    page.on('response', response => { if (observingTrial && response.status() >= 400) failedResponses.push(`${response.status()} ${response.url()}`); });
     await page.addInitScript(() => Object.defineProperty(navigator, 'clipboard', { configurable: true, value: undefined }));
 
     await page.goto(base);
@@ -32,6 +34,9 @@ try {
     await page.waitForURL(/game-lab\.html/);
     observingTrial = true;
     await page.reload();
+    const icon = page.locator('link[rel="icon"]');
+    assert.equal(await icon.getAttribute('href'), 'assets/favicon.svg');
+    assert((await page.request.get(new URL(await icon.getAttribute('href'), page.url()).href)).ok(), 'Page icon loads');
     assert.equal(await page.locator('#game-board .game-cell').count(), 25);
     assert.equal(await page.locator('#counter').innerText(), '0 / 2 ✦');
     assert.equal(await page.locator('#skill-move').innerText(), 'Ещё не пробовал');
@@ -82,6 +87,7 @@ try {
     assert.match(await page.locator('#summary-text').innerText(), /пока не двигался/);
     assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), `${width}: no overflow after interaction`);
     assert.deepEqual(errors, []);
+    assert.deepEqual(failedResponses, [], 'Trial resources have no failed responses');
     assert.deepEqual(externalRequests, [], 'The trial itself makes no external requests');
     console.log(`PASS ${width}px: trial route, keyboard, obstacle, rule, win, report, fallback, reset, and no data requests`);
     await context.close();
