@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<script src="theme.js?v=1"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Карточки пути в AI PATH: интерес, занятия, возможный результат и следующий шаг. Для родителей, детей и подростков.">
+<meta name="theme-color" content="#6c35d4">
+<link rel="canonical" href="https://safal207.github.io/test-it-python/ai-path/journeys.html">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<title>Пути и направления — AI PATH</title>
+<link rel="stylesheet" href="brand-design.css?v=20261027-theme1">
+<link rel="stylesheet" href="theme.css?v=1">
+<link rel="stylesheet" href="journeys.css?v=1">
+<script src="journey-catalog.js?v=1" defer></script>
+<script src="journeys.js?v=1" defer></script>
+<script src="course-navigation.js?v=journeys-1" defer></script>
+</head>
+<body data-brand-page="journeys">
+<a class="path-skip" href="#path-cards">Перейти к карточкам</a>
+<div class="theme-bar"><div class="theme-bar-inner"><span class="theme-caption" aria-hidden="true">Оформление</span><div class="theme-switcher" role="group" aria-label="Тема оформления"><button type="button" data-theme-choice="light" aria-pressed="true"><span aria-hidden="true">☀</span> Светлая</button><button type="button" data-theme-choice="dark" aria-pressed="false"><span aria-hidden="true">☾</span> Тёмная</button><button type="button" data-theme-choice="matrix" aria-pressed="false"><span aria-hidden="true">⌘</span> Матрица</button></div></div></div>
+<header class="path-header"><div class="path-wrap path-nav"><a href="./" aria-label="AI PATH — на главную"><img class="brand-lockup" src="assets/brand/ai-path-logo.svg" width="166" height="39" alt="AI PATH"></a><nav aria-label="Навигация школы"><a href="./#programs">Все программы</a><a href="game-lab.html">Мини-игра ↗</a></nav></div></header>
+<main>
+<section class="path-hero path-wrap" aria-labelledby="path-title">
+ <div><p class="eyebrow">✳ ДЛЯ ДЕТЕЙ, ПОДРОСТКОВ И РОДИТЕЛЕЙ</p><h1 id="path-title">У каждого интереса<br><em>есть продолжение.</em></h1><p class="hero-lead">Выберите направление и посмотрите путь: с чего начать, что попробовать на занятиях, какой проект запланирован и куда двигаться дальше.</p><a class="path-button" href="#path-cards">Смотреть карточки <span aria-hidden="true">↓</span></a><p class="hero-small">23 программы школы + 6 отдельных учебных планов 3D Academy</p></div>
+ <div class="hero-art" aria-hidden="true"><img src="assets/brand/creative-hero.webp" width="1448" height="965" alt=""><span>ОТ ИДЕИ<br><b>К СВОЕМУ ПРОЕКТУ ✦</b></span></div>
+</section>
+<section class="path-wrap age-panel" aria-labelledby="age-title"><div><p class="eyebrow">НАСТРОИМ ПЕРВЫЙ ШАГ</p><h2 id="age-title">Сколько лет ученику?</h2><p>Возраст поможет обсудить формат задания. Опыт, интерес и готовность важны тоже.</p></div><div class="age-control"><label for="age-select">Возрастная группа <span>необязательно</span></label><select id="age-select" aria-describedby="age-note"><option value="all">Пока не указывать</option><option value="preschool">До 6 лет</option><option value="6-8">6–8 лет</option><option value="9-12">9–12 лет</option><option value="13-17">13–17 лет</option><option value="adult">18 лет и старше</option></select><p id="age-note" role="status" aria-live="polite">Выберите возраст, чтобы увидеть подсказку о формате первого шага.</p></div><p class="age-disclaimer">Это ориентиры для разговора, а не возрастной допуск к курсам. Подходящую программу, участие взрослого и правила сервисов обсудим с наставником. Возраст никуда не отправляется и сбросится после обновления страницы.</p></section>
+<section id="path-cards" class="path-wrap catalog" aria-labelledby="catalog-title" tabindex="-1"><div class="catalog-heading"><div><p class="eyebrow">КАРТОЧКИ ВОЗМОЖНОСТЕЙ</p><h2 id="catalog-title">Найдите свою историю</h2></div><p>Раскройте карточку, чтобы увидеть этапы. Требования и результат взяты из описания программы.</p></div>
+ <div id="path-controls" hidden><div class="filters" role="group" aria-label="Направления"><button type="button" data-filter="all" aria-pressed="true">Все</button><button type="button" data-filter="start" aria-pressed="false">Первый шаг</button><button type="button" data-filter="creative" aria-pressed="false">Истории и дизайн</button><button type="button" data-filter="code" aria-pressed="false">Код и игры</button><button type="button" data-filter="neural" aria-pressed="false">Нейросети</button><button type="button" data-filter="research" aria-pressed="false">Проекты и исследования</button><button type="button" data-filter="academy" aria-pressed="false">3D Academy</button></div><p class="count" id="card-count" role="status" aria-live="polite"></p></div>
+ <div class="path-grid" id="journey-list"></div>
+ <noscript><p class="fallback">Для карточек включите JavaScript. Все программы и их требования также доступны в <a href="./#programs">каталоге школы</a>, а шесть отдельных планов — в <a href="3d-academy.html#courses">3D Academy</a>.</p></noscript>
+ <p class="catalog-foot">На обложках — иллюстрации направлений, не работы учеников. Проект в карточке — цель программы; результат зависит от подготовки и согласованного объёма. Учебные планы 3D Academy представлены отдельно, их готовность и формат уточняются до старта.</p>
+</section>
+<section class="path-wrap closing"><div><p class="eyebrow">НЕ НУЖНО РЕШАТЬ ВСЁ СРАЗУ</p><h2>Начнём с интереса.</h2><p>На знакомстве обсудим возраст, опыт, технику, подходящий первый проект и условия обучения.</p></div><a class="path-button" href="./#selector">Подобрать программу ↗</a></section>
+</main>
+<footer class="path-wrap path-footer"><a href="./">AI PATH — на главную</a><a href="#path-cards">К карточкам ↑</a></footer>
+</body>
+</html>
