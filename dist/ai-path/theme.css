@@ -18,6 +18,11 @@ html[data-theme="matrix"] {
   --theme-scheme:dark;
 }
 html[data-theme] { color-scheme:var(--theme-scheme, light); }
+/* An explicit light choice wins over the catalogue's OS dark-mode media query. */
+html[data-theme="light"] body[data-brand-page="neural"] {
+  --nc-bg:#f7f6f0; --nc-card:#fffdf8; --nc-ink:#25382d; --nc-muted:#536257;
+  --nc-line:#cbd3c5; --nc-soft:#eaf0e3; --nc-accent:#294d39;
+}
 html[data-theme]:not([data-theme="light"]) body[data-brand-page],
 html[data-theme]:not([data-theme="light"]) #nn-readable-board,
 html[data-theme]:not([data-theme="light"]) .parent-result {
