@@ -40,4 +40,9 @@ body[data-brand-page="journeys"] :is(a,button,select,summary):focus-visible { ou
 @media(max-width:650px) { .path-wrap { width:calc(100% - 32px); }.path-nav { min-height:64px; }.path-nav img { width:125px; }.path-nav nav { gap:10px; }.path-nav a { font-size:11px; }.path-hero { grid-template-columns:1fr; padding-block:32px 25px; gap:22px; }.path-hero h1 { font-size:clamp(36px,10vw,48px); }.hero-lead { margin:14px 0; font-size:14px; }.hero-art img { aspect-ratio:1.75; }.age-panel { grid-template-columns:1fr; padding:22px; }.age-panel .age-disclaimer { grid-column:auto; }.catalog { padding-top:43px; }.catalog-heading { display:block; }.catalog-heading > p { margin-top:12px; }.path-grid { grid-template-columns:1fr; }.card-visual { aspect-ratio:1.9; }.closing { display:block; padding:22px; }.closing .path-button { margin-top:16px; }.path-footer a { font-size:12px; } }
 @media(prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto !important; } }
 
-@media(max-width:360px) { .path-nav img { width:108px; } }
+@media(max-width:360px) {
+  .path-nav { gap:8px; }
+  .path-nav img { width:96px; }
+  .path-nav nav { min-width:0; flex-wrap:wrap; justify-content:flex-end; gap:0 6px; }
+  .path-nav nav a { white-space:normal; line-height:1.2; }
+}

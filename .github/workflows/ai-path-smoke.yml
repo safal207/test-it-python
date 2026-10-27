@@ -11,6 +11,7 @@ on:
       - "scripts/verify-journeys.mjs"
       - "scripts/verify-school-functional.mjs"
       - "scripts/verify-school-nonfunctional.mjs"
+      - "scripts/verify-gallery-a11y.mjs"
       - "scripts/qa/**"
       - "scripts/build-journey-catalog.mjs"
       - "scripts/verify-plan-to-space.mjs"
@@ -120,6 +121,8 @@ jobs:
         run: npm install --no-save --no-audit --no-fund playwright@1.55.0 axe-core@4.10.3
       - name: Verify themes, persistence, keyboard and contrast on every school page
         run: node scripts/verify-ai-path-themes.mjs
+      - name: Verify gallery accessible names and keyboard interaction
+        run: node scripts/verify-gallery-a11y.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

@@ -35,7 +35,16 @@ try {
         await expect(page.locator('h1')).toBeVisible();
         if (route === 'journeys.html') await expect(page.locator('.path-card')).toHaveCount(29);
         if (route === '3d-academy-practice.html') await expect(page.locator('#workbench')).toBeVisible();
-        const bounds = await page.evaluate(() => ({ client: document.documentElement.clientWidth, available: document.documentElement.getBoundingClientRect().width, scroll: document.documentElement.scrollWidth }));
+        const bounds = await page.evaluate(() => {
+          const available = document.documentElement.getBoundingClientRect().width;
+          return {
+            client: document.documentElement.clientWidth, available, scroll: document.documentElement.scrollWidth,
+            offenders: [...document.querySelectorAll('body *')].filter(el => {
+              const rect = el.getBoundingClientRect();
+              return rect.width && getComputedStyle(el).position !== 'fixed' && rect.right > available + 1;
+            }).slice(0, 12).map(el => ({ tag: el.tagName, id: el.id, class: el.getAttribute('class'), right: el.getBoundingClientRect().right }))
+          };
+        });
         row.bounds = bounds;
         assert(bounds.scroll <= Math.min(bounds.client, bounds.available) + 1, `${route || '/'} at ${width}px: overflow ${JSON.stringify(bounds)}`);
         assert.equal(await page.locator('html').getAttribute('data-theme'), 'light');
@@ -43,7 +52,7 @@ try {
         // checks are retained for human review; they never count as passed.
         if (width === 390 || width === 1440) {
           await page.addScriptTag({ path: require.resolve('axe-core/axe.min.js') });
-          const audit = await page.evaluate(() => window.axe.run(document, { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21aa'] } }));
+          const audit = await page.evaluate(() => window.axe.run(document, { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'] } }));
           row.violations = audit.violations.map(v => ({ id: v.id, impact: v.impact, nodes: v.nodes.map(n => ({ target: n.target, summary: n.failureSummary })) }));
           row.manualReview = audit.incomplete.map(v => ({ id: v.id, nodes: v.nodes.map(n => n.target) }));
           assert.equal(row.violations.length, 0, `${route || '/'}: WCAG A/AA violations (see results.json)`);

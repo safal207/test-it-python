@@ -16,6 +16,8 @@ the checked-out revision, without sending enquiries or changing production data.
 - Existing smoke steps retain PDF, enquiry, notebook recovery, 3D Academy,
   game, AI Desk and Plan to Space checks. The separate Firefox/WebKit workflow
   retains its focused cross-browser coverage.
+- Gallery acceptance checks seven descriptive accessible names, their original
+  project/document links, Enter/Escape behavior and restored keyboard focus.
 
 Route assertions wait for the expected rendered plan. Reading the initial HTML
 heading immediately after a navigation can observe the AI Navigator placeholder
@@ -28,7 +30,7 @@ pixels: document overflow against clientWidth, failed local resources, loaded
 image decoding, console errors and uncaught exceptions. It reserves a classic
 scrollbar gutter so the 320px test also catches body min-width overflow.
 
-At 390 and 1440px, axe checks WCAG 2 A/AA and WCAG 2.1 AA rules on the visible DOM.
+At 390 and 1440px, axe checks WCAG 2 A/AA and WCAG 2.1 A/AA rules on the visible DOM.
 Violations fail acceptance. Incomplete checks are saved as `manualReview` in
 results.json and require a human; automated accessibility is not full WCAG proof.
 Existing theme acceptance also checks light/dark/Matrix, contrast, keyboard and
