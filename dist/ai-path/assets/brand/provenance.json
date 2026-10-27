@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-27",
+  "brand": "AI PATH",
+  "kind": "AI-generated editorial illustrations; not student photos or results",
+  "reference": "User-approved purple/yellow/turquoise/lime brandbook in this conversation",
+  "assets": [
+    {
+      "path": "creative-hero.webp",
+      "sha256": "de677dfce3cd44d058031ca4f6121004f8a0f887f612479dfd4a862e61330e17",
+      "usage": "illustrative creative process"
+    },
+    {
+      "path": "creative-worlds.webp",
+      "sha256": "f0a290a62d92bb884b4f4c654aa4cb06fb1067aeb30fa1d3ed7a7741a877548e",
+      "usage": "six course-family illustrations; cropped in CSS"
+    }
+  ],
+  "logo": "Original SVG geometry based on the route-through-A concept; wordmark outlines use DejaVu Sans Bold."
+}

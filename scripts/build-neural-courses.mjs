@@ -66,9 +66,11 @@ const html = `<!doctype html>
 <meta name="description" content="Python, первая нейросеть, табличный ML, компьютерное зрение, NLP, звук, временные ряды и подбор архитектуры. Программы курсов и все 66 учебных ноутбуков.">
 <link rel="canonical" href="https://safal207.github.io/test-it-python/ai-path/neural-courses.html">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-<link rel="stylesheet" href="neural-courses.css"><script src="course-navigation.js?v=2" defer></script></head>
-<body><a class="nc-skip" href="#courses">К курсам</a>
-<header class="nc-header"><a class="nc-brand" href="./">AI <b>PATH</b></a><nav aria-label="Меню курсов"><a href="./#programs" data-course-back>Все программы школы</a><a href="neural-networks.html">Как устроены сети</a></nav></header>
+<link rel="stylesheet" href="neural-courses.css"><script src="course-navigation.js?v=2" defer></script><link rel="stylesheet" href="brand-colors.css?v=20261027">
+<link rel="stylesheet" href="brand-design.css?v=20261027">
+</head>
+<body data-brand-page="neural"><a class="nc-skip" href="#courses">К курсам</a>
+<header class="nc-header"><a class="nc-brand" href="./"><img class="brand-symbol" src="assets/brand/ai-path-mark.svg" width="32" height="36" alt="" aria-hidden="true"/>AI <b>PATH</b></a><nav aria-label="Меню курсов"><a href="./#programs" data-course-back>Все программы школы</a><a href="neural-networks.html">Как устроены сети</a></nav></header>
 <main class="nc-main"><section class="nc-intro" aria-labelledby="page-title"><p class="nc-eyebrow">Обучение с наставником · 8 курсов</p><h1 id="page-title">Нейросети.<br><em>Выбери свою задачу.</em></h1>
 <p class="nc-lead">От первого Python-кода до моделей для изображений, текстов и звука. У каждого курса — своя программа, требования к подготовке и один понятный итоговый проект.</p>
 <div class="nc-actions"><a class="nc-button" href="#ml-python">Начинаю с нуля ↓</a><a class="nc-secondary" href="#ml">Python уже знаю ↓</a><a class="nc-secondary" href="#kaggle-practice">Хочу попробовать Kaggle ↓</a></div>
