@@ -61,6 +61,10 @@ try {
     assert.match(await page.locator('#game-status').innerText(), /Получилось/);
     assert.equal(await page.locator('#skill-win').innerText(), 'Цель достигнута');
     assert.match(await page.locator('#summary-text').innerText(), /Герой: кот.*Собрано звёзд: 3 из 3.*Цель достигнута/);
+    if (width === 320) {
+      const feedback = await page.locator('.game-feedback').boundingBox();
+      assert(feedback.width >= 180, 'The result remains readable on narrow screens');
+    }
     await page.locator('#play-title').scrollIntoViewIfNeeded();
     await page.locator('.play-panel').screenshot({ path: `${output}/game-lab-${width}-win.png`, animations: 'disabled' });
     await page.locator('[data-move="down"]').click();
@@ -101,7 +105,7 @@ try {
   assert.match(await page.locator('#copy-status').innerText(), /Скопировано/);
   assert.equal(await page.evaluate(() => window.__copiedSummary), await page.locator('#summary-text').innerText());
   await planLink.click();
-  await page.waitForURL(/program=game/);
+  await page.waitForURL(url => url.pathname === '/ai-path/' && url.searchParams.get('program') === 'game');
   assert.equal(new URL(page.url()).searchParams.get('level'), 'basic');
   assert.equal(new URL(page.url()).searchParams.get('pace'), 'deep');
   await page.goto(`${base}?program=build&level=zero&pace=balanced#selected`);

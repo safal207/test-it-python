@@ -121,5 +121,9 @@ html[data-theme="matrix"] body[data-brand-page="game-lab"] { font-family:ui-mono
   .game-bottom { gap:12px; }.game-controls { grid-template-columns:repeat(3,44px); grid-template-rows:repeat(2,44px); }.game-cell { border-radius:7px; }
   .journey-cards { grid-template-columns:1fr; }.lab-footer { flex-direction:column; }
 }
+@media(max-width:380px) {
+  .game-bottom { flex-direction:column-reverse; gap:10px; }
+  .game-feedback { max-width:none; text-align:center; }
+}
 @media(prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto !important; } }
 @media(forced-colors:active) { .panel,.journey-cards li,.choice,.move { border:1px solid CanvasText; }.choice[aria-pressed="true"] { outline:2px solid Highlight; } }
