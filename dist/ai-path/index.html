@@ -4,8 +4,8 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<meta content="dark" name="color-scheme"/>
-<meta content="#090c15" name="theme-color"/>
+<meta content="light" name="color-scheme"/>
+<meta content="#6C35D4" name="theme-color"/>
 <meta content="AI PATH — 23 программы по нейросетям, сайтам и цифровому творчеству. Выбери свой маршрут, посмотри реальные проекты и начни практику с личным наставником." name="description"/>
 <meta content="AI PATH — онлайн-школа ИИ и цифрового творчества" property="og:title"/>
 <meta content="От идеи до собственного проекта: подбор по интересам и опыту, реальные примеры работ и персональное AI-наставничество." property="og:description"/>
@@ -142,12 +142,14 @@
 <link rel="stylesheet" href="content-sections.css?v=career-20261019">
 <link rel="stylesheet" href="school-design.css?v=20261022">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="brand-colors.css?v=20261027">
+<link rel="stylesheet" href="brand-design.css?v=20261027">
 </head>
-<body>
+<body data-brand-page="home">
 <a class="school-skip" href="#top">К содержанию</a>
 <header class="header">
 <div class="wrap nav">
-<a aria-label="AI PATH, на главную" class="logo" href="#top"><span class="mark" aria-hidden="true">↗</span><span>AI <b>PATH</b></span></a>
+<a aria-label="AI PATH, на главную" class="logo" href="#top"><img class="brand-lockup" src="assets/brand/ai-path-logo.svg" width="184" height="44" alt="AI PATH"/></a>
 <nav aria-label="Основное меню" class="navlinks"><a href="#selector">Подобрать программу</a><a href="#programs">Меню программ</a><a href="neural-courses.html" data-neural-courses>Нейросети</a><a href="studio.html">Портфолио школы</a><a href="studio.html#services">Разработка сайтов</a><a href="#mentor">Наставник</a></nav>
 <a class="navcta" id="headerAction" href="#courses">Выбрать курс ↓</a>
 <button class="school-menu-toggle" id="schoolMenuToggle" type="button" aria-expanded="false" aria-controls="schoolMenu" hidden>Меню <span aria-hidden="true">☰</span></button>
@@ -161,9 +163,9 @@
 <div class="hero">
 <div class="wrap hero-grid">
 <div>
-<span class="eyebrow"><span class="dot"></span> Онлайн-школа ИИ · личный наставник</span>
-<h1>Нейросети.<br/>Сайты. 3D.<br/><em>Создай своё.</em></h1>
-<p class="lead">От первой строки Python до своего сайта, нейросети или 3D-сцены. Выбери задачу и создай работающий проект на личных занятиях с наставником.</p>
+<span class="eyebrow"><span class="dot"></span> Онлайн-школа ИИ и цифрового творчества</span>
+<h1>Нейросети.<br/>Игры. 3D.<br/><em>Создай своё.</em></h1>
+<p class="lead">От интереса — к своему проекту. Придумывай истории, создавай 3D-миры и разбирайся в коде на личных онлайн-занятиях с наставником. Задачу подберём под возраст, опыт и интересы.</p>
 <div class="buttons">
 <a class="btn primary" id="hero-programs" href="#courses">Выбрать свою программу <span aria-hidden="true">↓</span></a>
 <a class="btn ghost" href="#selector">Помочь с выбором <span aria-hidden="true">↗</span></a>
@@ -173,9 +175,10 @@
 <div class="hero-mentor"><span class="mentor-mini" aria-hidden="true"><img src="assets/mentor/alexey-safonov-solvery.webp" alt="" width="39" height="39" decoding="async"/></span><span><strong>Алексей Сафонов</strong><span>QA-инженер и AI-наставник · <a href="#mentor">Об авторе школы ↗</a></span></span></div>
 </div>
 <div>
+<figure class="brand-hero-art"><img src="assets/brand/creative-hero.webp" width="1536" height="1024" alt="Иллюстрация: дети придумывают и создают 3D-проект за ноутбуком" fetchpriority="high" decoding="async"/><span class="brand-art-badge">Маленький шаг.<br/><strong>Большое открытие.</strong></span><figcaption>AI-иллюстрация творческого процесса</figcaption></figure>
 <section class="hero-visual" id="hero-projects" aria-labelledby="heroProjectsTitle">
-<span class="hero-projects-tag">Примеры проектов</span>
-<h2 id="heroProjectsTitle">Сайты, игры и 3D</h2>
+<span class="hero-projects-tag">А это уже можно открыть</span>
+<h2 id="heroProjectsTitle">Наши реальные проекты</h2>
 <div class="hero-projects-grid">
 <button class="hero-project-tile" data-hero-project="room" type="button" aria-label="Увеличить: Room Control — 3D-сцена" data-shot="assets/design-lab/room-3d-preview.png" data-shot-title="Room Control — 3D-сцена" data-shot-caption="На карточке — кадр работающей 3D-сцены. В демо есть 2D и 3D. Реальные устройства не подключены; мощность расчётная." data-shot-source="https://safal207.github.io/room-control-studio/"><img src="assets/hero/room.webp" alt="Room Control: кадр работающей 3D-сцены с диваном, столом и светильниками" width="480" height="320" loading="eager" decoding="async"/><span>3D-сцена</span></button>
 <button class="hero-project-tile" data-hero-project="python" type="button" aria-label="Веб-приложение: увеличить Test it — тренажёр Python" data-shot="assets/testit.webp" data-shot-title="Test it — тренажёр Python" data-shot-caption="Скриншот работающего учебного интерфейса." data-shot-source="https://safal207.github.io/test-it-python/"><img src="assets/hero/python.webp" alt="Test it — тренажёр Python" width="480" height="320" loading="eager" decoding="async"/><span>Веб-приложение</span></button>
@@ -186,6 +189,8 @@
 </div>
 </div>
 </div>
+<section class="wrap brand-interests" id="creative-directions" aria-labelledby="creativeTitle"><div class="brand-section-head"><div><span class="brand-kicker">СНАЧАЛА — ИНТЕРЕС</span><h2 id="creativeTitle">Что хочется создать?</h2></div><p>Начни с того, что нравится.<br/>Для первой идеи не нужно уметь всё.</p></div><div class="brand-interest-grid"><a class="brand-interest brand-interest--lime" href="?program=game&amp;level=zero&amp;pace=balanced#selected"><div class="brand-interest-art" style="--art-left:-5.7971%;--art-top:-80.9160%"><img src="assets/brand/creative-worlds.webp" width="1086" height="1448" loading="lazy" decoding="async" alt=""/></div><div class="brand-interest-copy"><h3>Игры</h3><p>Добавь свою механику в 3D-игру.</p><span>Смотреть программу <b aria-hidden="true">↗</b></span></div></a><a class="brand-interest brand-interest--turquoise" href="?program=space&amp;level=zero&amp;pace=balanced#selected"><div class="brand-interest-art" style="--art-left:-108.9855%;--art-top:-80.9160%"><img src="assets/brand/creative-worlds.webp" width="1086" height="1448" loading="lazy" decoding="async" alt=""/></div><div class="brand-interest-copy"><h3>3D и дизайн</h3><p>Придумай комнату и собери её модель.</p><span>Смотреть программу <b aria-hidden="true">↗</b></span></div></a><a class="brand-interest brand-interest--yellow" href="?program=comics&amp;level=zero&amp;pace=balanced#selected"><div class="brand-interest-art" style="--art-left:-209.5652%;--art-top:-80.9160%"><img src="assets/brand/creative-worlds.webp" width="1086" height="1448" loading="lazy" decoding="async" alt=""/></div><div class="brand-interest-copy"><h3>Комиксы и книги</h3><p>Дай своим героям целую историю.</p><span>Смотреть программу <b aria-hidden="true">↗</b></span></div></a><a class="brand-interest brand-interest--violet" href="?program=build&amp;level=zero&amp;pace=balanced#selected"><div class="brand-interest-art" style="--art-left:-5.7971%;--art-top:-226.7176%"><img src="assets/brand/creative-worlds.webp" width="1086" height="1448" loading="lazy" decoding="async" alt=""/></div><div class="brand-interest-copy"><h3>Код и ИИ</h3><p>Собери первый сайт или приложение.</p><span>Смотреть программу <b aria-hidden="true">↗</b></span></div></a><a class="brand-interest brand-interest--yellow" href="?program=create&amp;level=zero&amp;pace=balanced#selected"><div class="brand-interest-art" style="--art-left:-108.9855%;--art-top:-226.7176%"><img src="assets/brand/creative-worlds.webp" width="1086" height="1448" loading="lazy" decoding="async" alt=""/></div><div class="brand-interest-copy"><h3>Видео</h3><p>Преврати идею в короткий ролик.</p><span>Смотреть программу <b aria-hidden="true">↗</b></span></div></a><a class="brand-interest brand-interest--lime" href="3d-academy.html"><div class="brand-interest-art" style="--art-left:-209.5652%;--art-top:-226.7176%"><img src="assets/brand/creative-worlds.webp" width="1086" height="1448" loading="lazy" decoding="async" alt=""/></div><div class="brand-interest-copy"><h3>Наука в 3D</h3><p>Исследуй, как устроен мир.</p><span>Смотреть программу <b aria-hidden="true">↗</b></span></div></a></div><p class="brand-caption">Иллюстрации показывают творческие направления. Конкретный проект и подготовка описаны в программе.</p></section>
+<section class="brand-journey" id="learning-journey" aria-labelledby="journeyTitle"><div class="wrap"><div class="brand-section-head"><div><span class="brand-kicker">РОДИТЕЛЯМ И БУДУЩИМ АВТОРАМ</span><h2 id="journeyTitle">Видно, как растёт идея.</h2></div><p>От «мне интересно» к работе,<br/>которую можно показать.</p></div><ol class="brand-journey-grid"><li><span class="brand-step-no">01</span><h3>Мне интересно</h3><p>Люблю играть, рисовать, придумывать и задавать вопросы.</p><span class="brand-step-skill">Любопытство</span></li><li><span class="brand-step-no">02</span><h3>Я пробую</h3><p>Делаю первый шаг, задаю вопросы и исправляю ошибки вместе с наставником.</p><span class="brand-step-skill">Практика</span></li><li><span class="brand-step-no">03</span><h3>Я создал</h3><p>Показываю свою работу: комикс, ролик, модель, сайт или доработку игры.</p><span class="brand-step-skill">Свой проект</span></li><li><span class="brand-step-no">04</span><h3>Куда дальше</h3><p>Выбираю следующий проект и направления, в которых хочется расти.</p><span class="brand-step-skill">Мой выбор</span></li></ol><div class="brand-parent-note"><p><strong>Сегодня — первый проект. Дальше — выбор.</strong><br/>Разработка, дизайн, анимация или исследования: ребёнок пробует задачи и понимает, что ему интересно. Объём и сложность согласуем до занятий.</p><a class="btn primary" href="#selector">Подобрать первый шаг <span aria-hidden="true">↗</span></a></div></div></section>
 <section class="catalog-section wrap program-menu" id="programs" aria-labelledby="programMenuTitle">
 <div class="menu-heading"><div><span class="tag">01 / 23 программы обучения</span><h2 id="programMenuTitle">Выбери курс и создай проект</h2></div><p>1. Выбери курс. 2. Посмотри план и результат. 3. Укажи подготовку и нагрузку — запрос наставнику соберётся на этой странице. Другие направления — в категориях и по кнопке «Ещё 15 программ».</p></div>
 <div class="career-entry"><div><strong>Пока выбираешь направление?</strong><p>Исследуй вакансии с ИИ, сравни задачи и попробуй работу до выбора следующего курса.</p></div><a class="quiet-link" id="career-research-entry" href="career-research.html">Новый курс: выбор направления с ИИ ↗</a></div>
@@ -698,7 +703,7 @@
 </main>
 <div class="selection-dock" id="selectionDock" role="region" aria-label="Твоя выбранная программа" hidden><div class="dock-copy"><span>Твой маршрут</span><strong id="dockName"></strong></div><div class="dock-actions"><a class="quiet-link" id="dockPlan" href="#selected">Мой план</a><a class="btn primary" id="dockStart" href="#start">Заявка и стоимость ↗</a></div></div>
 <footer class="wrap footer">
-<div><strong style="color:#e4e9f3">AI PATH</strong> · онлайн-школа ИИ и цифрового творчества · 2026</div>
+<div><img class="brand-footer-logo" src="assets/brand/ai-path-logo.svg" width="150" height="36" alt="AI PATH"/> · онлайн-школа ИИ и цифрового творчества · 2026</div>
 <div>Наставник: Алексей Сафонов · <a class="contact-email" href="mailto:safal0645@gmail.com">safal0645@gmail.com</a></div>
 </footer>
 
