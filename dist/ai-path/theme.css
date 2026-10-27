@@ -38,6 +38,7 @@ html[data-theme]:not([data-theme="light"]) body[data-brand-page] :is(.brand-art-
 html[data-theme]:not([data-theme="light"]) body[data-brand-page="home"] .nb-filters button[aria-pressed="true"],
 html[data-theme]:not([data-theme="light"]) body[data-brand-page="home"] .program[aria-pressed="true"]::after,
 html[data-theme]:not([data-theme="light"]) body[data-brand-page="practice"] .quiz button,
+html[data-theme]:not([data-theme="light"]) body[data-brand-page="practice"] .actions button.primary,
 html[data-theme]:not([data-theme="light"]) body[data-brand-page="vibe"] .filter[aria-pressed="true"] { color:var(--theme-on-accent); }
 html[data-theme]:not([data-theme="light"]) body[data-brand-page] ::selection { background:var(--theme-accent); color:var(--theme-on-accent); }
 html[data-theme]:not([data-theme="light"]) body[data-brand-page="studio"] .start { background:var(--theme-soft); color:var(--theme-ink); }
