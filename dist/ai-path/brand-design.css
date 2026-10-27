@@ -21,6 +21,8 @@ body[data-brand-page] .school-menu-toggle[aria-expanded="true"] { border-color:#
 body[data-brand-page] :is(.chip,.school-menu-toggle)[aria-pressed="true"],
 body[data-brand-page] .school-menu-toggle[aria-expanded="true"] { background:#6c35d4; color:#fff; }
 
+body[data-brand-page="neural"] .nc-intro h1 em { color:#6c35d4; font-family:inherit; font-style:normal; }
+
 /* The first screen is short, readable and built around the learner's idea. */
 body[data-brand-page="home"] .nav { gap:18px; }
 body[data-brand-page="home"] .logo { flex:none; line-height:1; }
@@ -179,4 +181,33 @@ body[data-brand-page="home"] .closing p { color:#645c70; }
 @media(forced-colors:active) {
   .brand-interest,.brand-journey-grid li { border:1px solid CanvasText; }
   body[data-brand-page] [aria-pressed="true"] { outline:2px solid Highlight; }
+}
+
+/* Desktop overview: six interests in one row, original documents open at full size. */
+@media(min-width:1101px) {
+  .brand-interest-grid { grid-template-columns:repeat(6,minmax(0,1fr)); gap:14px; }
+  .brand-interests { padding-block:18px 34px; }
+  .brand-interest { border-radius:18px; }
+  .brand-interest-copy { padding:16px 13px; }
+  .brand-interest h3 { font-size:19px; }
+  .brand-interest p { font-size:12px; line-height:1.55; margin-bottom:14px; }
+  .brand-interest-copy > span { font-size:12px; padding:9px 7px; }
+  .brand-journey { padding-block:34px; }
+  .brand-journey-grid li { padding:18px; }
+  .brand-journey-grid h3 { font-size:18px; margin-top:15px; }
+  .brand-journey-grid p { line-height:1.55; margin-bottom:15px; }
+  .brand-parent-note { margin-top:18px; }
+}
+@media(min-width:901px) {
+  body[data-brand-page="home"] .mentor-certificates { padding:22px; }
+  body[data-brand-page="home"] .mentor-certificate { display:grid; grid-template-columns:108px minmax(0,1fr); align-items:stretch; }
+  body[data-brand-page="home"] .mentor-certificate .project-shot { height:100%; min-height:180px; padding:10px; }
+  body[data-brand-page="home"] .mentor-certificate .project-shot img { max-height:220px; }
+  body[data-brand-page="home"] .mentor-certificate-copy { padding:16px; }
+  body[data-brand-page="home"] .mentor-certificates-intro { margin-bottom:16px; }
+}
+@media(min-width:1101px) {
+  body[data-brand-page="home"] .hero-grid { padding-block:32px; }
+  body[data-brand-page="home"] #selector { padding-block:32px 40px; }
+  body[data-brand-page="home"] .mentor-section { padding-bottom:40px; }
 }
