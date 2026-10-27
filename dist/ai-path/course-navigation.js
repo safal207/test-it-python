@@ -29,7 +29,7 @@
         if (originals.has(link)) link.setAttribute('href', original);
         return;
       }
-      if (!original || original.trim().charAt(0) === '#' || link.hasAttribute('download')) return;
+      if (!original || original.trim().charAt(0) === '#' || link.hasAttribute('download') || link.hasAttribute('data-navigation-manual')) return;
       var destination;
       try { destination = new URL(original, window.location.href); } catch (_) { return; }
       if (destination.origin !== root.origin) return;

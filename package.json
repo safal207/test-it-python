@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "node server.mjs",
-    "check": "node --check dist/main.js && node --check dist/course.js && node --check dist/labs.js && node --check dist/python-worker.js && node --check dist/ai-path/school-navigation.js && node --check dist/ai-path/theme.js && node --check dist/ai-path/game-lab.js && node --check dist/ai-path/app.js && node --check dist/ai-path/career-research.js && node --check dist/ai-path/course-navigation.js && node --check dist/ai-path/content-sections.js && node --check dist/ai-path/neural-networks.js && node --check dist/ai-path/examples/pocitel.js && node --check dist/ai-path/examples/plan-to-space.js && node --check dist/ai-path/examples/ai-desk.js && node --check dist/ai-path/examples/ai-desk-scene.js && node --check dist/ai-path/neural-courses-data.js && node scripts/build-neural-courses.mjs --check && node scripts/verify-3d-academy.mjs",
-    "build:neural-courses": "node scripts/build-neural-courses.mjs"
+    "check": "node --check dist/main.js && node --check dist/course.js && node --check dist/labs.js && node --check dist/python-worker.js && node --check dist/ai-path/school-navigation.js && node --check dist/ai-path/theme.js && node --check dist/ai-path/game-lab.js && node --check dist/ai-path/journeys.js && node scripts/build-journey-catalog.mjs --check && node --check dist/ai-path/app.js && node --check dist/ai-path/career-research.js && node --check dist/ai-path/course-navigation.js && node --check dist/ai-path/content-sections.js && node --check dist/ai-path/neural-networks.js && node --check dist/ai-path/examples/pocitel.js && node --check dist/ai-path/examples/plan-to-space.js && node --check dist/ai-path/examples/ai-desk.js && node --check dist/ai-path/examples/ai-desk-scene.js && node --check dist/ai-path/neural-courses-data.js && node scripts/build-neural-courses.mjs --check && node scripts/verify-3d-academy.mjs",
+    "build:neural-courses": "node scripts/build-neural-courses.mjs",
+    "build:journey-catalog": "node scripts/build-journey-catalog.mjs"
   }
 }

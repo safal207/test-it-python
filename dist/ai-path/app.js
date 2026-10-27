@@ -589,6 +589,7 @@
     var selected=state.selection,p=programById(selected.program),m=presentation[p.id];
     $('selTitle').textContent=p.name;$('selText').textContent=p.short;
     $('gameTrialLink').hidden=p.id!=='game';
+    $('selectedJourneyLink').href='journeys.html?program='+encodeURIComponent(p.id)+'&level='+encodeURIComponent(selected.level)+'&pace='+encodeURIComponent(selected.pace)+'#journey-'+encodeURIComponent(p.id);
     $('selected').dataset.family=cardArt[p.id].family;
     $('selected-curriculum').open=false;
     $('curriculumSummary').textContent='Базовый план по этапам. Темп и объём практики согласуем до старта.';
