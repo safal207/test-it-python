@@ -1,21 +1,15 @@
 import assert from 'node:assert/strict';
-import { spawn } from 'node:child_process';
 import { mkdir } from 'node:fs/promises';
 import { chromium } from 'playwright';
+import { expect } from 'playwright/test';
+import { startSite, browserOptions } from './qa/site.mjs';
 
-const origin = 'http://127.0.0.1:4188';
-const base = `${origin}/ai-path/`;
+const site = await startSite();
+const { origin, base } = site;
 const out = 'artifacts/ai-path-journeys';
-const server = spawn('python3', ['-m', 'http.server', '4188', '--bind', '127.0.0.1', '--directory', 'dist'], { stdio: 'ignore' });
-const browser = await chromium.launch({ headless: true });
+const browser = await chromium.launch(browserOptions);
 try {
   await mkdir(out, { recursive: true });
-  let ready = false;
-  for (let i = 0; i < 60; i++) {
-    try { if ((await fetch(base)).ok) { ready = true; break; } } catch {}
-    await new Promise(resolve => setTimeout(resolve, 100));
-  }
-  assert(ready, 'Site server started');
   for (const width of [320, 390, 1440]) {
     const context = await browser.newContext({ viewport: { width, height: width === 320 ? 740 : width === 390 ? 844 : 960 }, reducedMotion: 'reduce' });
     const page = await context.newPage();
@@ -84,7 +78,7 @@ try {
   assert.equal(target.searchParams.get('level'), 'basic');
   assert.equal(target.searchParams.get('pace'), 'deep');
   await page.locator('#journey-game .card-link').first().click();
-  assert.equal(await page.locator('#selTitle').innerText(), '3D GameDev — Пробуждение');
+  await expect(page.locator('#selTitle')).toHaveText('3D GameDev — Пробуждение');
   await page.locator('#showAllPrograms').click();
   await page.locator('#programList [data-program="comics"]').click();
   target = new URL(await page.locator('#selectedJourneyLink').getAttribute('href'), page.url());
@@ -93,7 +87,7 @@ try {
   for (const [id, title] of [['comics','Комиксы и визуальные истории'], ['ml-python','Python и данные для нейросетей'], ['career','Выбор направления с ИИ']]) {
     await page.goto(`${base}journeys.html#journey-${id}`);
     await page.locator(`#journey-${id} .card-link`).first().click();
-    assert.equal(await page.locator('#selTitle').innerText(), title, `${id}: opens matching course`);
+    await expect(page.locator('#selTitle'), `${id}: opens matching course`).toHaveText(title);
   }
   await context.close();
   const noJS = await browser.newContext({ javaScriptEnabled:false });
@@ -104,5 +98,5 @@ try {
   await noJS.close();
 } finally {
   await browser.close();
-  server.kill('SIGTERM');
+  await site.close();
 }

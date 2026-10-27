@@ -32,7 +32,7 @@ module.exports = {
         "errors-in-console": ["error", { minScore: 1 }],
         "cumulative-layout-shift": ["error", { maxNumericValue: 0.1 }],
         "categories:seo": ["warn", { minScore: 0.75 }],
-        "categories:performance": ["warn", { minScore: 0.55 }],
+        "categories:performance": ["error", { minScore: 0.55 }],
         "categories:best-practices": ["warn", { minScore: 0.75 }]
       }
     },

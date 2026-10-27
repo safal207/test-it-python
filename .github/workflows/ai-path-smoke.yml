@@ -9,6 +9,9 @@ on:
       - "scripts/verify-ai-path-themes.mjs"
       - "scripts/verify-game-lab.mjs"
       - "scripts/verify-journeys.mjs"
+      - "scripts/verify-school-functional.mjs"
+      - "scripts/verify-school-nonfunctional.mjs"
+      - "scripts/qa/**"
       - "scripts/build-journey-catalog.mjs"
       - "scripts/verify-plan-to-space.mjs"
       - "scripts/verify-ai-desk.mjs"
@@ -22,6 +25,36 @@ permissions:
   contents: read
 
 jobs:
+  regression:
+    name: School ${{ matrix.suite }} regression
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.55.0-noble
+      options: --init --ipc=host
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [functional, nonfunctional]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install pinned browser and accessibility tools
+        run: npm install --no-save --no-package-lock --no-audit --no-fund playwright@1.55.0 axe-core@4.10.3
+      - name: Verify application and generated catalogs
+        run: npm run check
+      - name: Run ${{ matrix.suite }} acceptance
+        run: npm run test:${{ matrix.suite }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: school-${{ matrix.suite }}-results
+          path: artifacts/school-${{ matrix.suite }}/
+          if-no-files-found: error
+          retention-days: 14
+
   browser:
     runs-on: ubuntu-latest
     # Keep this image version aligned with the playwright npm package below.
