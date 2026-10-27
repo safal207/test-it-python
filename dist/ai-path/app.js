@@ -588,6 +588,7 @@
     renderSelectionNavigation();if(!state.selection){document.dispatchEvent(new CustomEvent('ai-path:program-selected',{detail:{program:null}}));if(window.AIPathNavigation)window.AIPathNavigation.refresh(null);return;}
     var selected=state.selection,p=programById(selected.program),m=presentation[p.id];
     $('selTitle').textContent=p.name;$('selText').textContent=p.short;
+    $('gameTrialLink').hidden=p.id!=='game';
     $('selected').dataset.family=cardArt[p.id].family;
     $('selected-curriculum').open=false;
     $('curriculumSummary').textContent='Базовый план по этапам. Темп и объём практики согласуем до старта.';
