@@ -7,7 +7,7 @@ import { chromium } from 'playwright';
 const require = createRequire(import.meta.url);
 const base = 'http://127.0.0.1:4183/ai-path/';
 const output = 'artifacts/ai-path-qa/themes';
-const routes = ['', 'neural-courses.html', 'neural-networks.html', 'career-research.html', '3d-academy.html', '3d-academy-practice.html', 'studio.html', 'vibe-coding/'];
+const routes = ['', 'game-lab.html', 'neural-courses.html', 'neural-networks.html', 'career-research.html', '3d-academy.html', '3d-academy-practice.html', 'studio.html', 'vibe-coding/'];
 const themes = ['light', 'dark', 'matrix'];
 const server = spawn('python3', ['-m', 'http.server', '4183', '--bind', '127.0.0.1', '--directory', 'dist'], { stdio: 'ignore' });
 const browser = await chromium.launch({ headless: true });

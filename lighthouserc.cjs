@@ -4,6 +4,7 @@ module.exports = {
       staticDistDir: "./dist",
       url: [
         "http://localhost/ai-path/",
+        "http://localhost/ai-path/game-lab.html",
         "http://localhost/ai-path/vibe-coding/",
         "http://localhost/ai-path/neural-networks.html",
         "http://localhost/ai-path/neural-courses.html",

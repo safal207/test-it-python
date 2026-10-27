@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<script src="theme.js?v=1"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Попробуй придумать правило игры, провести героя по полю и узнать, как продолжить обучение в AI PATH.">
+<meta name="theme-color" content="#6c35d4">
+<link rel="canonical" href="https://safal207.github.io/test-it-python/ai-path/game-lab.html">
+<title>Придумай правило игры — AI PATH</title>
+<link rel="stylesheet" href="brand-design.css?v=20261027-theme1">
+<link rel="stylesheet" href="theme.css?v=1">
+<link rel="stylesheet" href="game-lab.css?v=1">
+<script src="course-navigation.js?v=career-1" defer></script>
+<script src="game-lab.js?v=1" defer></script>
+</head>
+<body data-brand-page="game-lab">
+<a class="lab-skip" href="#workspace">Перейти к игре</a>
+<div class="theme-bar"><div class="theme-bar-inner"><span class="theme-caption" aria-hidden="true">Оформление</span><div class="theme-switcher" role="group" aria-label="Тема оформления"><button type="button" data-theme-choice="light" aria-pressed="true"><span aria-hidden="true">☀</span> Светлая</button><button type="button" data-theme-choice="dark" aria-pressed="false"><span aria-hidden="true">☾</span> Тёмная</button><button type="button" data-theme-choice="matrix" aria-pressed="false"><span aria-hidden="true">⌘</span> Матрица</button></div></div></div>
+<header class="lab-header"><div class="lab-wrap lab-nav"><a href="./" aria-label="AI PATH — на главную"><img class="brand-lockup" src="assets/brand/ai-path-logo.svg" width="166" height="39" alt="AI PATH"></a><nav aria-label="Навигация школы"><a href="./#creative-directions">Все направления</a><a href="./?program=game&amp;level=zero&amp;pace=balanced#selected">План курса <span aria-hidden="true">↗</span></a></nav></div></header>
+<main>
+<section class="lab-intro lab-wrap" aria-labelledby="page-title">
+  <div class="intro-copy"><p class="lab-kicker"><span aria-hidden="true">✳</span> МИНИ-МАСТЕРСКАЯ · ИГРЫ</p><h1 id="page-title">Придумай правило.<br><em>Оживи игру.</em></h1><p>Выбери героя и цель, проведи его через поле и проверь, как работает твоё правило. Начать можно с нуля.</p><a class="action intro-start" href="#workspace">Начать играть <span aria-hidden="true">↓</span></a><div class="intro-tags"><span>✦ Около 5 минут</span><span>✦ Бесплатно и без регистрации</span><span>✦ Кнопки или клавиатура</span></div></div>
+  <div class="intro-sticker" aria-hidden="true"><span>01 / ИГРА</span><div>🕹️ <b>✦</b></div><strong>Сначала идея.<br>Потом — действие.</strong></div>
+</section>
+<section class="lab-wrap" id="workspace" tabindex="-1" aria-labelledby="workspace-title">
+  <div class="workspace-heading"><div><p class="lab-kicker">ТВОЯ ПЕРВАЯ МЕХАНИКА</p><h2 id="workspace-title">Собери звёзды</h2></div><p>Выбирай правило, двигайся по клеткам и проверь, когда игра закончится.</p></div>
+  <div class="lab-layout">
+    <section class="setup panel" aria-labelledby="setup-title">
+      <div class="panel-heading"><span class="number">01</span><div><span class="small-label">ТВОИ НАСТРОЙКИ</span><h3 id="setup-title">Придумай правила</h3></div></div>
+      <fieldset><legend>Кто будет героем?</legend><div class="choice-row" role="group" aria-label="Выбор героя"><button type="button" class="choice" data-avatar="robot" aria-pressed="true"><span aria-hidden="true">🤖</span> Робот</button><button type="button" class="choice" data-avatar="cat" aria-pressed="false"><span aria-hidden="true">🐱</span> Кот</button></div></fieldset>
+      <fieldset><legend>Сколько звёзд собрать?</legend><div class="choice-row" role="group" aria-label="Цель игры"><button type="button" class="choice" data-goal="2" aria-pressed="true">2 звезды <span aria-hidden="true">✦✦</span></button><button type="button" class="choice" data-goal="3" aria-pressed="false">3 звезды <span aria-hidden="true">✦✦✦</span></button></div><p class="hint">При смене цели поле начнётся заново — так можно сравнить правила.</p></fieldset>
+      <div class="steps" aria-labelledby="steps-title"><h4 id="steps-title">Три шага к результату</h4><ol><li id="step-rule"><span class="step-dot" aria-hidden="true">1</span><span>Цель: <strong id="goal-text">2 звезды</strong><span class="visually-hidden" id="step-rule-status"> — по умолчанию</span></span></li><li id="step-move"><span class="step-dot" aria-hidden="true">2</span><span>Проведи героя по полю<span class="visually-hidden" id="step-move-status"> — ещё не выполнено</span></span></li><li id="step-win"><span class="step-dot" aria-hidden="true">3</span><span>Собери выбранные звёзды<span class="visually-hidden" id="step-win-status"> — ещё не выполнено</span></span></li></ol></div>
+      <p class="scope-note">Это небольшая 2D-проба игровой логики в браузере. На основном курсе можно работать с механикой готовой 3D-игры.</p>
+    </section>
+    <section class="play-panel panel" aria-labelledby="play-title">
+      <div class="game-heading"><div><span class="small-label">02 / ПРОБУЙ</span><h3 id="play-title">Твоя игра</h3></div><span class="game-counter" id="counter">0 / 2 ✦</span></div>
+      <div class="game-board" id="game-board" tabindex="0" role="group" aria-label="Игровое поле: герой на нижней левой клетке. Нажимай стрелки, чтобы двигаться."></div>
+      <p class="board-help">Нажимай кнопки или выдели поле и используй стрелки клавиатуры. Блоки нельзя пройти.</p>
+      <div class="game-bottom"><div class="game-controls" role="group" aria-label="Управление героем"><button class="move up" type="button" data-move="up" aria-label="Шаг вверх">↑</button><button class="move left" type="button" data-move="left" aria-label="Шаг влево">←</button><button class="move down" type="button" data-move="down" aria-label="Шаг вниз">↓</button><button class="move right" type="button" data-move="right" aria-label="Шаг вправо">→</button></div><div class="game-feedback"><p id="game-status" role="status" aria-live="polite">Герой готов. Собери 2 звезды!</p><button type="button" class="reset" id="reset-game">Начать заново ↺</button></div></div>
+      <noscript><p>Чтобы попробовать игру, включи JavaScript. Пример проекта и план курса доступны ниже.</p></noscript>
+    </section>
+  </div>
+</section>
+<section class="lab-wrap reflection" id="parent-summary" aria-labelledby="reflection-title">
+  <div><p class="lab-kicker">03 / ПОСМОТРИ, ЧТО ПОЛУЧИЛОСЬ</p><h2 id="reflection-title">Маленькая игра.<br>Настоящий первый шаг.</h2><p>Ребёнок задаёт цель, пробует управление и проверяет, сработало ли правило. На занятиях наставник помогает объяснить решение и выбрать следующую задачу.</p></div>
+  <div class="report panel"><span class="report-label">ЧТО ПРОИЗОШЛО В ЭТОЙ ПРОБЕ</span><p id="summary-text">Цель игры: 2 звезды. Герой пока не двигался.</p><ul class="skill-list" aria-label="Шаги в пробном задании"><li><span>Выбрать правило</span><strong id="skill-rule">Ещё не выбрано</strong></li><li><span>Управлять героем</span><strong id="skill-move">Ещё не пробовал</strong></li><li><span>Проверить цель</span><strong id="skill-win">Впереди</strong></li></ul><p class="report-note">Сводка отражает действия в демо; это не оценка навыков наставником. После обновления страницы она сбросится. Данные никуда не отправляются.</p><button type="button" class="copy" id="copy-summary">Скопировать для родителя</button><p id="copy-status" role="status" aria-live="polite"></p><label for="copy-fallback" id="copy-label" hidden>Скопируй текст вручную</label><textarea id="copy-fallback" readonly hidden></textarea></div>
+</section>
+<section class="lab-wrap journey" aria-labelledby="journey-title"><div class="journey-head"><p class="lab-kicker">МОЙ МАРШРУТ</p><h2 id="journey-title">От интереса к своей работе</h2></div><ol class="journey-cards"><li><span>01 / СЕЙЧАС</span><h3>Мне нравятся игры</h3><p>Хочу понять, как придумывают правила и собирают игровой мир.</p></li><li><span>02 / ПРОБУЮ</span><h3>Меняю условие</h3><p>Выбираю цель, управляю героем и проверяю результат в мини-игре.</p></li><li><span>03 / СОЗДАЮ</span><h3>Дорабатываю 3D-игру</h3><p>С наставником можно добавить посильный диалог или механику в готовый проект.</p></li><li><span>04 / ДАЛЬШЕ</span><h3>Выбираю продолжение</h3><p>Разработка игр, C#, работа с 3D и другие направления — по интересу.</p></li></ol></section>
+<section class="lab-wrap real-project" aria-labelledby="project-title"><div class="real-image"><img src="assets/awakening/city-day.webp" width="1280" height="720" loading="lazy" decoding="async" alt="Кадр alpha-прототипа 3D-игры «Пробуждение»: герой и городской пейзаж"><span>РЕАЛЬНЫЙ ПРОЕКТ НАСТАВНИКА</span></div><div class="real-copy"><p class="lab-kicker">ДАЛЬШЕ — 3D GAMEDEV</p><h2 id="project-title">Увидеть идею в игровом мире</h2><p>«Пробуждение» — alpha-прототип наставника. В программе можно выбрать одну посильную доработку: диалог или игровую механику, проверить её и подготовить демонстрацию.</p><p class="project-note">Основы C# изучаем на курсе; перед стартом проверим запуск игры на компьютере. План, темп и стоимость согласуем заранее.</p><div class="project-links"><a class="action" href="./?program=game&amp;level=zero&amp;pace=balanced#selected">Посмотреть план курса <span aria-hidden="true">↗</span></a><a class="text-link" href="./#awakening">О проекте «Пробуждение» ↗</a></div></div></section>
+</main>
+<footer class="lab-footer lab-wrap"><a href="./">AI PATH — к выбору направлений</a><a href="#workspace">Вернуться к игре ↑</a></footer>
+</body>
+</html>

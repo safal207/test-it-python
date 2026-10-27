@@ -7,6 +7,7 @@ on:
       - "dist/ai-path/**"
       - "scripts/verify-ai-path.mjs"
       - "scripts/verify-ai-path-themes.mjs"
+      - "scripts/verify-game-lab.mjs"
       - "scripts/verify-plan-to-space.mjs"
       - "scripts/verify-ai-desk.mjs"
       - "scripts/verify-school-recovery.mjs"
@@ -89,5 +90,28 @@ jobs:
         with:
           name: ai-path-theme-previews
           path: artifacts/ai-path-qa/themes/
+          if-no-files-found: warn
+          retention-days: 14
+
+  game-lab:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.55.0-noble
+      options: --init --ipc=host
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install pinned browser client
+        run: npm install --no-save --no-audit --no-fund playwright@1.55.0
+      - name: Verify the game trial and course selection
+        run: node scripts/verify-game-lab.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ai-path-game-lab-previews
+          path: artifacts/ai-path-game-lab/
           if-no-files-found: warn
           retention-days: 14
