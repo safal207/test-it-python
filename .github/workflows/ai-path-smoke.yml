@@ -8,6 +8,8 @@ on:
       - "scripts/verify-ai-path.mjs"
       - "scripts/verify-ai-path-themes.mjs"
       - "scripts/verify-game-lab.mjs"
+      - "scripts/verify-physics-lab.mjs"
+      - "scripts/build-physics-offline.mjs"
       - "scripts/verify-journeys.mjs"
       - "scripts/verify-school-functional.mjs"
       - "scripts/verify-school-nonfunctional.mjs"
@@ -148,6 +150,8 @@ jobs:
         run: node scripts/verify-game-lab.mjs
       - name: Verify age-aware journey cards and program links
         run: node scripts/verify-journeys.mjs
+      - name: Verify the interactive and offline physics lesson
+        run: node scripts/verify-physics-lab.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -155,5 +159,6 @@ jobs:
           path: |
             artifacts/ai-path-game-lab/
             artifacts/ai-path-journeys/
+            artifacts/ai-path-physics-lab/
           if-no-files-found: warn
           retention-days: 14

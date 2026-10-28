@@ -5,6 +5,7 @@ module.exports = {
       url: [
         "http://localhost/ai-path/",
         "http://localhost/ai-path/game-lab.html",
+        "http://localhost/ai-path/physics-lab.html",
         "http://localhost/ai-path/journeys.html",
         "http://localhost/ai-path/vibe-coding/",
         "http://localhost/ai-path/neural-networks.html",
