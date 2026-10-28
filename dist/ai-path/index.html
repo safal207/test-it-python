@@ -146,7 +146,7 @@
 <link rel="stylesheet" href="brand-colors.css?v=20261027-theme1">
 <link rel="stylesheet" href="brand-design.css?v=20261027-journeys1">
 <link rel="stylesheet" href="theme.css?v=1">
-<link rel="stylesheet" href="life-pillars.css?v=1"/>
+<link rel="stylesheet" href="life-pillars.css?v=2"/>
 </head>
 <body data-brand-page="home">
 
@@ -200,14 +200,15 @@
 <div class="school-open-courses" aria-label="Отдельные курсы школы">
 <div class="career-entry"><div><strong>Пока выбираешь направление?</strong><p>Исследуй вакансии с ИИ, сравни задачи и попробуй работу до выбора следующего курса.</p></div><a class="quiet-link" id="career-research-entry" href="career-research.html">Новый курс: выбор направления с ИИ ↗</a></div>
 <div class="career-entry"><div><strong>3D Academy · 6 проектных курсов</strong><p>Биология, физика, 3D-схемы и цифровые учебники. Планы и демо доступны отдельно от 23 основных программ.</p></div><a class="quiet-link" href="3d-academy.html" id="academy-3d-entry">Исследовать 3D Academy ↗</a></div>
-<section class="career-entry life-pillars-panel" aria-labelledby="lifePillarsTitle"><div><strong id="lifePillarsTitle">Три опоры · 6–17 лет</strong><p>Понятные уроки о целях, времени и деньгах.</p></div><div class="life-pillars-links"><a href="goals.html" id="goals-course-entry">Целеполагание <span aria-hidden="true">↗</span></a><a href="time-management.html" id="time-course-entry">Тайм-менеджмент <span aria-hidden="true">↗</span></a><a href="finance.html" id="finance-course-entry">Финансовая грамотность <span aria-hidden="true">↗</span></a></div></section>
+<section class="career-entry life-pillars-panel" aria-labelledby="lifePillarsTitle"><div><strong id="lifePillarsTitle">Три опоры · 6–17 лет</strong><p>Понятные уроки о целях, времени и деньгах.</p></div><div class="life-pillars-links"><a href="goals.html" id="goals-course-entry"><img class="pillar-thumb" src="assets/life-skills/cards/goal-thumb.webp" alt="" width="60" height="40" loading="lazy" decoding="async">Целеполагание <span aria-hidden="true">↗</span></a><a href="time-management.html" id="time-course-entry"><img class="pillar-thumb" src="assets/life-skills/cards/day-thumb.webp" alt="" width="60" height="40" loading="lazy" decoding="async">Тайм-менеджмент <span aria-hidden="true">↗</span></a><a href="finance.html" id="finance-course-entry"><img class="pillar-thumb" src="assets/finance-kids/ages-10-13.webp" alt="" width="60" height="40" loading="lazy" decoding="async">Финансовая грамотность <span aria-hidden="true">↗</span></a></div></section>
 
 </div>
 <div class="catalog-toolbar">
-<div class="catalog-search"><label for="programSearch">Найти программу</label><div><input type="search" id="programSearch" placeholder="Например, нейросети, сайт или Python" autocomplete="off" aria-controls="programList"/><button type="button" id="clearProgramSearch" aria-label="Очистить поиск программ" hidden>Очистить</button></div></div>
+<div class="catalog-search"><label for="programSearch">Найти программу или курс</label><div><input type="search" id="programSearch" placeholder="Например, нейросети, сайт или Python" autocomplete="off" aria-controls="programList openCourseSearchResults"/><button type="button" id="clearProgramSearch" aria-label="Очистить поиск программ" hidden>Очистить</button></div></div>
 <div class="choices" id="catalogFilters" role="group" aria-label="Фильтр программ"><button type="button" class="chip" data-filter="all" aria-pressed="true">Все 23</button><button type="button" class="chip" data-filter="neural" aria-pressed="false">Нейросети · 8 курсов</button><button type="button" class="chip" data-filter="explore" aria-pressed="false">Пробую и выбираю</button><button type="button" class="chip" data-filter="visual" aria-pressed="false">Дизайн и истории</button><button type="button" class="chip" data-filter="build" aria-pressed="false">Сайты, программы и игры</button><button type="button" class="chip" data-filter="research" aria-pressed="false">Развитие проекта</button></div>
 <p class="catalog-count" id="catalogCount" role="status" aria-live="polite">23 программы</p>
 </div>
+<section id="openCourseSearchResults" class="open-course-results" aria-labelledby="openCourseSearchTitle" hidden><h3 id="openCourseSearchTitle">Самостоятельные курсы школы</h3><p>С заданиями для 6–9, 10–13 и 14–17 лет. Доступны отдельно от 23 программ с наставником и их категорий.</p><div class="open-course-result-grid"><a href="goals.html" data-open-course="goals" data-course-search="целеполагание цель цели мечта шаги планирование"><img src="assets/life-skills/cards/goal-thumb.webp" alt="" width="320" height="213" loading="lazy" decoding="async">Целеполагание <span>От идеи к маленьким шагам ↗</span></a><a href="time-management.html" data-open-course="time" data-course-search="тайм-менеджмент тайм менеджмент время распорядок план дня отдых фокус"><img src="assets/life-skills/cards/day-thumb.webp" alt="" width="320" height="213" loading="lazy" decoding="async">Тайм-менеджмент <span>План с местом для отдыха ↗</span></a><a href="finance.html" data-open-course="finance" data-course-search="финансовая грамотность финансы деньги бюджет накопления"><img src="assets/finance-kids/ages-10-13.webp" alt="" width="320" height="214" loading="lazy" decoding="async">Финансовая грамотность <span>Выбор, бюджет и накопления ↗</span></a></div></section>
 <div class="home-courses" id="courses">
 <div class="neural-catalog-intro" id="neuralCatalogIntro"><h3>Нейросети · 8 отдельных курсов</h3><p>Python → первая модель → специализация → улучшение модели. Проходить все восемь подряд не обязательно.</p></div>
 <div class="neural-course-entrance" aria-labelledby="neuralStartTitle"><h2 id="neuralStartTitle">Первый шаг в нейросетях</h2><div class="neural-start-actions"><button type="button" data-start-track="ml-python" data-start-level="zero">С нуля <span>Python и данные →</span></button><button type="button" data-start-track="ml" data-start-level="basic">Уже знаю Python <span>Первая нейросеть →</span></button></div><a href="neural-courses.html" data-neural-courses>Темы и материалы всех 8 курсов ↗</a></div>
@@ -712,7 +713,7 @@
 <script src="school-navigation.js?v=20261022"></script>
 <script src="course-navigation.js?v=journeys-1"></script>
 <script src="neural-courses-data.js?v=home-courses-1"></script>
-<script src="app.js?v=school-20261027-journeys1"></script>
+<script src="app.js?v=school-20261028-life-fixes"></script>
 <script src="mentor-demo.js?v=1"></script>
 <script src="design-lab.js?v=1"></script>
 <dialog aria-labelledby="galleryTitle" id="projectLightbox">

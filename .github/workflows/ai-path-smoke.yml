@@ -12,6 +12,7 @@ on:
       - "scripts/build-physics-offline.mjs"
       - "scripts/verify-finance.mjs"
       - "scripts/verify-life-skills.mjs"
+      - "scripts/verify-life-skills-storage.mjs"
       - "scripts/build-life-skills-offline.mjs"
       - "scripts/build-finance-offline.mjs"
       - "scripts/verify-journeys.mjs"

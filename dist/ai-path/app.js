@@ -530,9 +530,15 @@
       if(matches)count++;
       var visible=matches&&(!limited||groups.neural.indexOf(id)!==-1);button.hidden=!visible;if(visible)shown++;
     });
+    var courseCount=0;
+    document.querySelectorAll('#openCourseSearchResults [data-open-course]').forEach(function(link){
+      var matches=Boolean(query)&&normalizeSearch(link.dataset.courseSearch+' '+link.textContent).indexOf(query)!==-1;
+      link.hidden=!matches;if(matches)courseCount++;
+    });
+    $('openCourseSearchResults').hidden=courseCount===0;
     syncButtons('catalogFilters','filter',state.filter);
-    $('catalogCount').textContent=shown<count?'Показано '+shown+' из '+count+' программ':'Показано '+count+' из '+programs.length+' программ';
-    $('catalogEmpty').hidden=count!==0;
+    $('catalogCount').textContent=courseCount ? 'Найдено: '+(count?count+' программ с наставником и ':'')+courseCount+' '+(courseCount===1?'самостоятельный курс':'самостоятельных курса') : shown<count?'Показано '+shown+' из '+count+' программ':'Показано '+count+' из '+programs.length+' программ';
+    $('catalogEmpty').hidden=count!==0||courseCount!==0;
     $('neuralCatalogIntro').hidden=Boolean(query)||!(limited||state.filter==='neural');
     document.querySelector('.neural-course-entrance').hidden=$('neuralCatalogIntro').hidden;
     $('programList').classList.toggle('neural-menu',limited||state.filter==='neural');
