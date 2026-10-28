@@ -1,0 +1,21 @@
+/* Course-specific additions on the shared financial-course design system. */
+.life-course .age-choices button { padding:14px 8px; min-height:80px; }
+.life-course .age-choices button span { margin-top:5px; font-size:11px; }
+.life-course .course-section { scroll-margin-top:20px; }
+.life-course .course-layout { align-items:start; }
+.life-course .lesson-step { min-height:195px; }
+.life-course .mission-story { grid-template-columns:minmax(0,1fr) minmax(0,1fr); }
+.life-course .mission-story .task-photo img { aspect-ratio:3/2; }
+.life-course .task-photo figcaption { font-size:10px; }
+.life-course #activity-options,.life-course #quiz-options { display:grid; gap:9px; }
+.life-course .feedback { min-height:0; }
+.life-course .personal-plan { max-width:850px; }
+.life-course .personal-plan input { width:100%; }
+.life-course .personal-plan .field { margin:15px 0; }
+.life-course .plan-preview { white-space:pre-wrap; overflow-wrap:anywhere; background:var(--soft); padding:18px; border-radius:14px; margin-top:20px; }
+.life-course .other-courses { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:20px 0; }
+.life-course .other-courses a { display:block; text-decoration:none; border:1px solid var(--line); background:var(--panel); border-radius:15px; padding:17px; font-weight:800; }
+.life-course .other-courses small { display:block; color:var(--muted); font-weight:400; margin-top:5px; }
+.life-course .learning-photo img { object-position:center; }
+@media(max-width:850px) { .life-course .mission-story { grid-template-columns:1fr; } }
+@media(max-width:650px) { .life-course .other-courses { grid-template-columns:1fr; }.life-course .lesson-step { min-height:0; } }
