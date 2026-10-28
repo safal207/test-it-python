@@ -9,6 +9,7 @@ on:
       - "scripts/build-neural-courses.mjs"
       - "package.json"
       - "lighthouserc.cjs"
+      - "lighthouserc.mobile.cjs"
       - ".github/workflows/ai-path-lighthouse.yml"
   workflow_dispatch:
 
@@ -17,8 +18,13 @@ permissions:
 
 jobs:
   lighthouse:
+    name: Lighthouse ${{ matrix.profile }}
     runs-on: ubuntu-latest
     timeout-minutes: 14
+    strategy:
+      fail-fast: false
+      matrix:
+        profile: [desktop, mobile]
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v4
@@ -28,15 +34,21 @@ jobs:
         run: npm run check
       - name: Install pinned Lighthouse CI runner
         run: npm install --no-save --no-audit --no-fund @lhci/cli@0.15.1
-      - name: Audit the program chooser and vibe coding syllabus
-        run: ./node_modules/.bin/lhci autorun --config=./lighthouserc.cjs
+      - name: Audit school pages with required quality budgets
+        run: |
+          if [ "${{ matrix.profile }}" = mobile ]; then
+            npm run test:lighthouse:mobile
+          else
+            npm run test:lighthouse
+          fi
       - name: Archive Lighthouse reports for review
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: ai-path-lighthouse-reports
+          name: ai-path-lighthouse-${{ matrix.profile }}-reports
           path: |
             .lighthouseci/
             artifacts/lighthouse/
+            artifacts/lighthouse-mobile/
           if-no-files-found: warn
           retention-days: 21
