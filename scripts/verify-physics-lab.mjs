@@ -68,6 +68,20 @@ try {
     await page.locator('#experiment').scrollIntoViewIfNeeded();
     await page.screenshot({path:`${out}/physics-${width}-experiment.png`,animations:'disabled'});
     await page.locator('.stage-panel').screenshot({path:`${out}/physics-${width}-stage.png`,animations:'disabled'});
+    if (await page.locator('#fallback').isHidden()) {
+      const canvas = page.locator('#scene');
+      const initial = await canvas.screenshot({animations:'disabled'});
+      await page.locator('#rotate-right').click();
+      const rotated = await canvas.screenshot({animations:'disabled'});
+      assert(!initial.equals(rotated), `${width}: the 3D rotation button changes the scene`);
+      await canvas.focus(); await page.keyboard.press('ArrowLeft');
+      const keyboard = await canvas.screenshot({animations:'disabled'});
+      assert(!rotated.equals(keyboard), `${width}: keyboard rotates the 3D scene`);
+      await page.locator('#forces').uncheck();
+      const hiddenForces = await canvas.screenshot({animations:'disabled'});
+      assert(!keyboard.equals(hiddenForces), `${width}: force arrows respond to their switch`);
+      await page.locator('#forces').check();
+    }
     await lesson(page);
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),`${width}: no overflow after interactions`);
     assert.deepEqual(errors,[]);assert.deepEqual(bad,[]);assert.deepEqual(external,[],'Lesson does not send data externally');
