@@ -72,6 +72,10 @@ body { color: var(--light); }
 .program-menu .menu-heading p { font-size: 15px; line-height: 1.7; }
 .career-entry { border-color: #3c4c47; background: #141f25; border-radius: 12px; padding: 17px 20px; margin-bottom: 24px; }
 .career-entry p, .career-entry > a { font-size: 13px; }
+.school-open-courses { display:grid; grid-template-columns:1fr; gap:16px; margin-bottom:24px; }
+.school-open-courses .career-entry { margin:0; flex-direction:column; align-items:stretch; gap:12px; }
+.school-open-courses .career-entry > a { margin-top:auto; max-width:none; }
+@media(min-width:1000px) { .school-open-courses { grid-template-columns:repeat(3,minmax(0,1fr)); } }
 #programs #catalogFilters .chip { font-size: 12px; padding: 10px 14px; }
 #programs .catalog-search label, #programs #catalogCount { font-size: 13px; }
 #programs #catalogCount { color: #c2cdc6; }
