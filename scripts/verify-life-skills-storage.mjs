@@ -1,0 +1,24 @@
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {runInNewContext} from 'node:vm';
+const script=await readFile('dist/ai-path/life-skills-storage.js','utf8');
+const values=new Map();
+const storage={getItem:key=>values.get(key)??null,setItem:(key,value)=>values.set(key,value),removeItem:key=>values.delete(key)};
+const ages=['6-9','10-13','14-17'],lessons=['choose','steps'],fields=['first','aim'];
+function open(course='goals',localStorage=storage){const context={window:{},localStorage};runInNewContext(script,context);return context.window.AIPathLifeSkillsStorage(course,ages,lessons,fields);}
+const legacy=JSON.stringify({age:'6-9',levels:{'6-9':{answers:{choose:{activity:true,quiz:true}},plan:{first:'Сохранённый шаг'}},'14-17':{plan:{aim:'Старшая цель'}}}});
+values.set('ai-path-life-skills-goals-v1',legacy);
+const a=open(),b=open();
+assert.equal(a.level('6-9').plan.first,'Сохранённый шаг');
+assert(a.level('6-9').answers.choose.activity && a.level('6-9').answers.choose.quiz);
+a.setPlan('6-9','first','План младшего');b.setPlan('14-17','first','План старшего');
+assert.equal(open().level('6-9').plan.first,'План младшего');assert.equal(open().level('14-17').plan.first,'План старшего');
+a.setPlan('6-9','aim','Цель');b.complete('6-9','steps','quiz');
+assert.equal(open().level('6-9').plan.aim,'Цель');assert(open().level('6-9').answers.steps.quiz);
+a.position('6-9','steps','try');assert.equal(open().level('6-9').position.lesson,'steps');
+a.reset('6-9');assert.equal(open().level('6-9').plan.first,'');assert(!open().level('6-9').answers.choose.quiz);assert.equal(open().level('14-17').plan.first,'План старшего');
+assert.equal(values.get('ai-path-life-skills-goals-v1'),legacy,'Original legacy data retained; reset is not reimported');
+const other=open('time');other.setPlan('6-9','first','Другой курс');assert.equal(open().level('6-9').plan.first,'');
+const blocked=open('time',{getItem(){throw Error('blocked');},setItem(){throw Error('blocked');},removeItem(){throw Error('blocked');}});
+blocked.setPlan('6-9','first','Локальный черновик');blocked.complete('6-9','choose','activity');assert.equal(blocked.level('6-9').plan.first,'Локальный черновик');assert(blocked.level('6-9').answers.choose.activity);assert.equal(blocked.available(),false);
+console.log('Life skills storage: legacy migration, stale tabs, independent fields, reset, course isolation and blocked storage passed.');
