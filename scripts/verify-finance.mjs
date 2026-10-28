@@ -26,6 +26,8 @@ async function solveLessons(page,age) {
     await expect(page.locator('#lesson-title')).toHaveText(lesson.title);
     await expect(page.locator('#lesson-title')).toBeFocused();
     assert.equal(new URL(page.url()).searchParams.get('lesson'),lesson.id);
+    await page.locator('[data-step="check"]').click();
+    await expect(page.locator('#step-check')).toBeVisible();
     await page.locator(`input[name="lesson-answer"][value="${(lesson.answer+1)%3}"]`).check();
     await page.getByRole('button',{name:'Проверить ответ',exact:true}).click();
     await expect(page.locator('#quiz-feedback')).toHaveText(/^Пока неверно/);
@@ -36,6 +38,64 @@ async function solveLessons(page,age) {
     await expect(page.locator('#course-progress')).toHaveAttribute('value',String(i+1));
   }
   await expect(page.locator('#completion-status')).not.toHaveText(/^Уровень .* пройден/);
+}
+async function learningActivities(page,age) {
+  const group=groups[age];
+  for(const lesson of group.lessons) {
+    await page.locator(`[data-lesson="${lesson.id}"]`).click();
+    await page.locator('[data-step="task"]').click();
+    await expect(page.locator('#step-task')).toBeVisible();
+    await expect(page.locator('#step-learn')).toBeHidden();
+    await expect(page.locator('#step-prev')).toBeDisabled();
+    await page.locator('#step-next').click();
+    await expect(page.locator('#step-learn')).toBeVisible();
+    await page.locator('#step-next').click();
+    await expect(page.locator('#step-try')).toBeVisible();
+    assert.equal(new URL(page.url()).searchParams.get('step'),'try');
+    const check=page.locator('#activity-check'),result=page.locator('#activity-feedback');
+    if(lesson.id==='choice') {
+      await page.locator('[data-purchase="0"]').click(); await page.locator('[data-purchase="1"]').click();
+      await check.click(); await expect(result).toHaveAttribute('data-kind','error');
+      await expect(page.locator('#activity-hint-text')).not.toBeEmpty();
+      await page.locator('[data-purchase="1"]').click(); await check.click();
+      await expect(result).toHaveAttribute('data-kind','success');
+    } else if(lesson.id==='budget') {
+      await check.click(); await expect(result).toHaveAttribute('data-kind','error');
+      await page.locator('#activity-fun').fill(''); await check.click();
+      await expect(result).toHaveText(/проверь числа/);
+      await page.locator('#activity-fun').fill(String(group.budget.fun)); await check.click();
+      await expect(result).toHaveAttribute('data-kind','success');
+    } else if(lesson.id==='goal') {
+      await check.click(); await expect(result).toHaveAttribute('data-kind','error');
+      await page.locator('#activity-periods').focus(); await page.keyboard.press('End'); await check.click();
+      await expect(result).toHaveText(/можно раньше/);
+      await page.locator('#activity-periods').focus(); await page.keyboard.press('Home');
+      for(let i=0;i<6;i++) await page.keyboard.press('ArrowRight');
+      await check.click(); await expect(result).toHaveAttribute('data-kind','success');
+    } else if(lesson.id==='shopping') {
+      const correct=age==='10-13'?1:0;
+      await page.locator(`[data-offer="${1-correct}"]`).click(); await check.click();
+      await expect(result).toHaveAttribute('data-kind','error');
+      await page.locator(`[data-offer="${correct}"]`).click(); await check.click();
+      await expect(result).toHaveAttribute('data-kind','success');
+    } else if(lesson.id==='safety') {
+      for(const i of [0,1,2]) await page.locator(`input[name="activity-signal"][value="${i}"]`).check();
+      await check.click(); await expect(result).toHaveAttribute('data-kind','error');
+      await page.locator('input[name="activity-signal"][value="2"]').uncheck(); await check.click();
+      await expect(result).toHaveAttribute('data-kind','success');
+    } else {
+      await check.click(); await expect(result).toHaveAttribute('data-kind','error');
+      await expect(page.locator('.plan-checklist')).toHaveText(/нужно проверить/);
+    }
+    await expect(page.locator('#course-progress')).toHaveAttribute('value','0');
+    assert(!/NaN|Infinity/.test(await page.locator('#activity-host').innerText()));
+    await noOverflow(page,`${age}/${lesson.id}: activity fits`);
+  }
+  await page.locator('[data-lesson="choice"]').click(); await page.locator('[data-step="check"]').click();
+  await page.locator('#quiz-hint-button').click();
+  await expect(page.locator('#quiz-hint')).not.toBeEmpty();
+  await expect(page.locator('input[name="lesson-answer"]:checked')).toHaveCount(0);
+  await expect(page.locator('#course-progress')).toHaveAttribute('value','0');
 }
 async function practices(page,age) {
   const b=groups[age].budget;
@@ -79,10 +139,13 @@ try {
     await expect(page.locator('#course-app')).toBeVisible();
     errors.length=0;failed.length=0;external.length=0;
     await page.reload();
+    await page.locator('img').evaluateAll(images => Promise.all(images.map(image => image.decode())));
     await page.screenshot({path:`${out}/finance-${width}-intro.png`,animations:'disabled'});
     await noOverflow(page,`${width}: introduction fits`);
     await expect(page.locator('[data-lesson]')).toHaveCount(6);
     await page.locator('#lesson-card').screenshot({path:`${out}/finance-${width}-lesson.png`,animations:'disabled'});
+    await page.locator('[data-step="try"]').click();
+    await page.locator('#lesson-card').screenshot({path:`${out}/finance-${width}-activity.png`,animations:'disabled'});
     await page.locator('#practice').scrollIntoViewIfNeeded();
     await page.screenshot({path:`${out}/finance-${width}-practice.png`,animations:'disabled'});
     if(width===320||width===1440) {
@@ -126,7 +189,11 @@ try {
   await page.goto(site.base+'finance.html');
   for(const age of ['6-9','10-13','14-17']) {
     await page.locator(`[data-age="${age}"]`).click();
+    assert.equal(await page.locator('#hero-photo').getAttribute('src'),await page.locator(`[data-age="${age}"] img`).getAttribute('src'));
+    await learningActivities(page,age);
     await solveLessons(page,age); await practices(page,age);
+    await page.locator('[data-step="try"]').click(); await page.locator('#activity-check').click();
+    await expect(page.locator('#activity-feedback')).toHaveAttribute('data-kind','success');
     const promise=page.waitForEvent('download'); await page.locator('#export-plan').click(); const download=await promise;
     const text=await readFile(await download.path(),'utf8');
     assert(text.includes(`Уровень: ${groups[age].label}`));
@@ -145,6 +212,15 @@ try {
     await noOverflow(page,`${theme}: completed course fits`);
   }
   await context.close();
+
+  const legacy=await browser.newContext();
+  const oldGroup=groups['10-13'];
+  await legacy.addInitScript(group=>localStorage.setItem('ai-path-finance-v1',JSON.stringify({version:1,age:'10-13',levels:{'10-13':{lesson:'choice',answers:Object.fromEntries(group.lessons.map(l=>[l.id,l.answer])),budget:Object.fromEntries(['income','needs','fun','save','reserve'].map(k=>[k,String(group.budget[k])])),goal:{target:'6000',saved:'1200',contribution:'800',prediction:'6'},budgetDone:true,goalDone:true}}})),oldGroup);
+  const oldPage=activePage=await legacy.newPage(); await oldPage.goto(site.base+'finance.html');
+  await expect(oldPage.locator('#course-progress')).toHaveAttribute('value','8');
+  await oldPage.locator('[data-step="check"]').click();
+  await expect(oldPage.locator('#quiz-feedback')).toHaveText(/^Проверка пройдена/);
+  await legacy.close(); results.push({case:'legacy progress is preserved after adding lesson stages',status:'PASS'});
 
   for(const mode of ['blocked','corrupt']) {
     const isolated=await browser.newContext();
@@ -165,7 +241,8 @@ try {
   const file=activePage=await offline.newPage(),requests=[],errors=[];
   file.on('request',r=>{if(/^https?:/.test(r.url()))requests.push(r.url());}); file.on('pageerror',e=>errors.push(e.message));
   await file.goto(pathToFileURL(resolve('dist/ai-path/finance-offline.html')).href);
-  await file.locator('[data-age="6-9"]').click(); await solveLessons(file,'6-9'); await practices(file,'6-9');
+  await file.locator('[data-age="6-9"]').click(); await learningActivities(file,'6-9'); await solveLessons(file,'6-9'); await practices(file,'6-9');
+  await file.locator('img').evaluateAll(images => Promise.all(images.map(image => image.decode())));
   assert.deepEqual(requests,[],'Offline file needs no HTTP requests'); assert.deepEqual(errors,[]);
   await offline.close(); results.push({case:'offline file:// full level and zero network requests',status:'PASS'});
   console.log('PASS finance: 18 age-specific lessons, honest progress, arithmetic edge cases, recovery, export, themes, responsive screens and offline course.');

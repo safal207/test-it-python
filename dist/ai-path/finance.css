@@ -22,3 +22,65 @@ fieldset { min-width:0; padding:0; border:0; margin:25px 0 15px; }legend { font-
 @media(max-width:350px) { .hero h1 { font-size:37px; }.wrap { width:calc(100% - 26px); }.logo span { display:none; }.lesson-card,.practice-card { padding:17px; }.lesson-actions { flex-direction:column; align-items:stretch; }.age-choices button { font-size:14px; }.budget-fields { gap:0 10px; }.budget-total output { font-size:22px; } }
 @media(forced-colors:active) { .age-choices button[aria-pressed="true"],.lesson-nav button[aria-current="step"] { border:3px solid Highlight; }.budget-chart { border:1px solid CanvasText; } progress { border:1px solid CanvasText; } }
 @media print { .theme-bar,.top,.lesson-nav,.lesson-actions,.actions,#quiz-form button,#reset-panel { display:none !important; }.wrap { width:100%; }.hero,.age-panel,.course-layout,.practice-grid { display:block; }.lesson-card,.practice-card,.finish { break-inside:avoid; }.hero-note { display:none; } }
+.hero { grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); gap:38px; }
+.hero h1 { font-size:clamp(38px,4.45vw,62px); }
+.learning-photo { margin:0; position:relative; overflow:hidden; border-radius:20px; background:var(--panel); border:1px solid var(--line); }
+.learning-photo img { display:block; width:100%; height:auto; aspect-ratio:3/2; object-fit:cover; }
+.learning-photo figcaption { padding:8px 12px; font-size:11px; color:var(--muted); background:var(--panel); }
+.hero-photo { transform:rotate(1deg); box-shadow:6px 6px 0 var(--soft); }
+.photo-label { position:absolute; left:16px; bottom:48px; padding:12px 15px; border-radius:13px; background:#ffc83d; color:#24133f; font-size:12px; line-height:1.45; box-shadow:0 5px 18px #24133f12; }
+.photo-label strong { font-size:15px; }
+.age-choices button { padding:7px 7px 11px; overflow:hidden; }
+.age-choices button img { display:block; width:100%; height:auto; aspect-ratio:3/2; object-fit:cover; border-radius:9px; margin-bottom:9px; }
+.age-choices button strong { display:block; }
+.age-choices button span { margin-top:2px; }
+.lesson-steps { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; margin:22px 0; }
+.lesson-steps button { border:1px solid var(--line); border-radius:11px; background:var(--panel); color:var(--ink); padding:10px 5px; min-height:54px; font-size:12px; font-weight:800; line-height:1.3; }
+.lesson-steps button span { display:block; font-size:9px; color:var(--muted); margin-bottom:3px; }
+.lesson-steps button[aria-pressed="true"] { background:var(--accent); color:var(--on); border-color:var(--accent); }
+.lesson-steps button[aria-pressed="true"] span { color:inherit; }
+.lesson-step { padding-top:3px; }
+.lesson-step>h3 { font-size:20px; margin:0 0 17px; }
+.mission-story { display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:20px; align-items:start; }
+.task-photo { border-radius:15px; }
+.mission-story h3 { font-size:20px; line-height:1.3; margin:0 0 13px; letter-spacing:-.02em; }
+.mission-story p:not(.eyebrow) { font-size:14px; }
+.task-target { padding:12px; border-radius:10px; background:var(--soft); font-weight:800; }
+#lesson-text { display:grid; gap:12px; }
+#lesson-text p { margin:0; padding:15px 17px; border:1px solid var(--line); border-radius:13px; font-size:15px; }
+.step-actions { display:flex; justify-content:space-between; gap:10px; margin-top:23px; padding-top:19px; border-top:1px solid var(--line); }
+.lesson-actions { margin-top:20px; padding-top:14px; }
+.lesson-actions .quiet,.lesson-actions .primary { font-size:11px; min-height:40px; padding:9px 12px; }
+#activity-host { border:1px solid var(--line); border-radius:16px; background:var(--bg); padding:19px; }
+#activity-host>h3 { font-size:17px; margin:0 0 17px; line-height:1.4; }
+.activity-condition,.wallet { color:var(--muted); font-size:13px; }
+.activity-options { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+.purchase-card,.offer-card { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:17px 10px; color:var(--ink); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:9px; text-align:center; min-height:135px; }
+.purchase-card[aria-pressed="true"],.offer-card[aria-pressed="true"] { border:2px solid var(--accent); background:var(--soft); padding:16px 9px; }
+.purchase-icon { display:grid; place-items:center; width:52px; height:52px; background:#ffc83d; color:#24133f; border-radius:16px; font-size:29px; }
+.purchase-card strong,.offer-card strong { font-size:14px; line-height:1.35; }
+.purchase-card>span:not(.purchase-icon),.offer-card>span { font-size:12px; color:var(--muted); }
+.activity-live { padding:12px 14px; border-radius:11px; background:var(--soft); font-size:13px; font-weight:800; margin:16px 0; }
+.activity-actions { display:flex; flex-wrap:wrap; gap:9px; margin-top:18px; }
+.activity-hint-text { font-size:13px; color:var(--muted); margin:12px 0; }
+.activity-hint-text:empty { display:none; }
+.money-jars { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:9px; }
+.money-jar { min-width:0; background:var(--panel); padding:10px; border:1px solid var(--line); border-radius:10px; }
+.jar-fill { height:42px; margin-bottom:11px; border-radius:9px 9px 4px 4px; }
+.money-jar label { display:block; font-size:11px; font-weight:800; margin-bottom:5px; }
+.money-jar input { width:100%; min-width:0; background:var(--bg); color:var(--ink); border:1px solid var(--line); border-radius:7px; min-height:44px; padding:8px 5px; font-size:15px; }
+.activity-arena>label { display:block; font-size:13px; font-weight:800; }
+#activity-periods { width:100%; min-height:44px; accent-color:var(--accent); }
+.period-pills { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:7px; }
+.period-pills span { display:grid; place-items:center; height:31px; border:1px solid var(--line); border-radius:8px; font-size:12px; background:var(--panel); color:var(--muted); }
+.period-pills span.filled { color:var(--on); background:var(--accent); border-color:var(--accent); }
+.activity-arena blockquote { margin:0 0 15px; padding:15px; border-left:3px solid var(--accent); background:var(--soft); border-radius:0 11px 11px 0; font-size:15px; }
+.signal-list { display:grid; gap:8px; }
+.signal-choice { display:flex; align-items:start; gap:10px; min-height:48px; padding:12px; border:1px solid var(--line); border-radius:10px; font-size:13px; background:var(--panel); cursor:pointer; }
+.signal-choice input { width:17px; height:17px; margin:3px 0 0; flex-shrink:0; accent-color:var(--accent); }
+.plan-checklist { list-style:none; padding:0; margin:0 0 18px; display:grid; gap:9px; font-size:14px; }
+.plan-checklist li { padding:11px 13px; background:var(--soft); border-radius:10px; }
+@media(max-width:1000px) { .hero { gap:25px; }.mission-story { grid-template-columns:1fr; }.task-photo { max-width:430px; }.money-jars { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:650px) { .hero { grid-template-columns:1fr; gap:24px; }.hero h1 { font-size:43px; }.hero-photo { transform:none; box-shadow:4px 4px 0 var(--soft); }.photo-label { left:12px; bottom:45px; padding:9px 12px; font-size:11px; }.photo-label strong { font-size:14px; }.age-choices button { padding:5px 5px 10px; }.age-choices button img { margin-bottom:8px; }.age-choices button strong { font-size:14px; }.age-choices button span { font-size:9px; }.lesson-steps { gap:5px; }.lesson-steps button { font-size:11px; padding:9px 2px; }.mission-story { gap:16px; }.task-photo { max-width:none; }.step-actions .primary,.step-actions .quiet { padding:10px 12px; font-size:12px; }#activity-host { padding:15px; }.activity-options { gap:8px; }.purchase-card,.offer-card { padding:14px 8px; }.purchase-card[aria-pressed="true"],.offer-card[aria-pressed="true"] { padding:13px 7px; }.activity-actions { flex-direction:column; align-items:stretch; } }
+@media(max-width:350px) { .hero h1 { font-size:37px; }.age-choices button strong { font-size:13px; }.age-choices button span { font-size:9px; }.lesson-steps { grid-template-columns:repeat(2,minmax(0,1fr)); }.lesson-steps button { display:flex; justify-content:center; align-items:center; gap:7px; min-height:44px; }.lesson-steps button span { margin:0; }.step-actions { flex-wrap:wrap; }.step-actions .primary { margin-left:auto; }.purchase-card strong,.offer-card strong { font-size:12px; }.photo-label { font-size:10px; }.photo-label strong { font-size:12px; } }
+@media(forced-colors:active) { .purchase-card[aria-pressed="true"],.offer-card[aria-pressed="true"],.lesson-steps button[aria-pressed="true"] { border:3px solid Highlight; } }

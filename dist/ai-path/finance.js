@@ -10,9 +10,12 @@
   const validLesson = (age, id) => groups[age].lessons.some(lesson => lesson.id === id);
   const budgetKeys = ['income', 'needs', 'fun', 'save', 'reserve'];
   const goalKeys = ['target', 'saved', 'contribution', 'prediction'];
+  const steps = ['task','learn','try','check'];
+  let destroyActivity = () => {};
+  let quizHintLevel = 0;
   let storageAvailable = true;
   let storageRecovered = false;
-  const fresh = age => ({ lesson: 'choice', answers: {}, budget: Object.fromEntries(budgetKeys.map(k => [k, String(groups[age].budget[k])])), goal: { ...Object.fromEntries(['target','saved','contribution'].map(k => [k, String(groups[age].goal[k])])), prediction: '' }, budgetDone: false, goalDone: false });
+  const fresh = age => ({ lesson: 'choice', answers: {}, stages: {}, budget: Object.fromEntries(budgetKeys.map(k => [k, String(groups[age].budget[k])])), goal: { ...Object.fromEntries(['target','saved','contribution'].map(k => [k, String(groups[age].goal[k])])), prediction: '' }, budgetDone: false, goalDone: false });
   const state = { age: '10-13', levels: {} };
   function safeValue(value, fallback) {
     if (value === '') return '';
@@ -29,6 +32,7 @@
         const clean = fresh(age), saved = stored.levels[age];
         if (saved && typeof saved === 'object') {
           if (validLesson(age, saved.lesson)) clean.lesson = saved.lesson;
+          for (const lesson of groups[age].lessons) if (steps.includes(saved.stages?.[lesson.id])) clean.stages[lesson.id] = saved.stages[lesson.id];
           for (const lesson of groups[age].lessons) if (saved.answers?.[lesson.id] === lesson.answer) clean.answers[lesson.id] = lesson.answer;
           for (const name of budgetKeys) clean.budget[name] = safeValue(saved.budget?.[name], clean.budget[name]);
           for (const name of goalKeys) clean.goal[name] = safeValue(saved.goal?.[name], clean.goal[name]);
@@ -119,6 +123,21 @@
     $('progress-label').textContent = `Пройдено ${completed + practices} из 8 проверок · ${group().label}`;
     $('completion-status').textContent = completed === 6 && practices === 2 ? `Уровень ${group().label} пройден: 6 проверок уроков и 2 практики. Теперь объясни свой бюджет, срок цели и правило безопасности.` : `Проверки уроков: ${completed} из 6. Практика: ${practices} из 2. Для завершения уровня нужны все восемь; уроки можно открывать в любом порядке.`;
     renderNav();
+    window.dispatchEvent(new Event('finance-plan-updated'));
+  }
+  function renderStep(focus = false) {
+    const step = level().stages[level().lesson] || 'task';
+    const index = steps.indexOf(step);
+    document.querySelectorAll('[data-step]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.step === step)));
+    for (const name of steps) $('step-' + name).hidden = name !== step;
+    $('step-prev').disabled = index === 0;
+    $('step-next').hidden = index === 3;
+    $('step-next').textContent = ['К разбору →','Попробовать самому →','Проверить себя →',''][index];
+    if (focus) $('lesson-title').focus();
+  }
+  function changeStep(step, focus = true) {
+    if (!steps.includes(step)) return;
+    level().stages[level().lesson] = step; renderStep(focus); syncUrl(); persist();
   }
   function renderLesson(focus = false) {
     const lesson = currentLesson(), index = group().lessons.indexOf(lesson);
@@ -128,6 +147,11 @@
     $('lesson-text').replaceChildren(...lesson.paragraphs.map(text => { const p = document.createElement('p'); p.textContent = text; return p; }));
     $('lesson-example').textContent = lesson.example;
     $('lesson-action').textContent = lesson.action;
+    const activity = window.AIPathFinanceActivities.describe(state.age,lesson.id,group());
+    $('task-story').textContent = activity.story; $('task-target').textContent = activity.target;
+    destroyActivity();
+    destroyActivity = window.AIPathFinanceActivities.mount($('activity-host'),state.age,lesson.id,group(),() => ({budgetDone:level().budgetDone,goalDone:level().goalDone}));
+    quizHintLevel=0; $('quiz-hint').textContent=''; $('quiz-hint-button').disabled=false; $('quiz-hint-button').textContent='Нужна подсказка';
     $('quiz-question').textContent = lesson.question;
     const options = $('quiz-options'); options.replaceChildren();
     lesson.options.forEach((text,index) => {
@@ -141,7 +165,7 @@
     if (level().answers[lesson.id] === lesson.answer) feedback('quiz-feedback', 'Проверка пройдена. ' + lesson.feedback, true);
     $('lesson-prev').disabled = index === 0;
     $('lesson-next').disabled = index === 5;
-    progress();
+    progress(); renderStep();
     if (focus) $('lesson-title').focus();
   }
   function renderBudget() {
@@ -171,15 +195,21 @@
     if (validAge(age)) state.age = age;
     const id = params.get('lesson');
     if (validLesson(state.age, id)) level().lesson = id;
+    const step = params.get('step');
+    if (steps.includes(step)) level().stages[level().lesson] = step;
   }
   function syncUrl() {
     const url = new URL(location.href);
-    url.searchParams.set('age', state.age); url.searchParams.set('lesson', level().lesson);
+    url.searchParams.set('age', state.age); url.searchParams.set('lesson', level().lesson); url.searchParams.set('step',level().stages[level().lesson] || 'task');
     try { if (url.href !== location.href) history.pushState(null,'',url); } catch { /* file:// browsers can restrict History; lessons still work. */ }
   }
   function renderAll() {
     $('course-app').hidden = false;
     document.querySelectorAll('[data-age]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.age === state.age)));
+    const image = document.querySelector(`[data-age="${state.age}"] img`).getAttribute('src');
+    $('hero-photo').src=image; $('task-photo').src=image;
+    const photoAlt = state.age === '6-9' ? 'Ребёнок со взрослым разбирает учебные монеты' : state.age === '10-13' ? 'Школьники вместе изучают учебный бюджет' : 'Подростки обсуждают учебный финансовый план';
+    $('hero-photo').alt=photoAlt; $('task-photo').alt=photoAlt;
     $('age-description').textContent = group().intro;
     $('age-outcome').textContent = 'После курса: ' + group().outcome;
     document.querySelectorAll('[data-period]').forEach(span => span.textContent = group().period === 'неделя' ? 'неделю' : 'месяц');
@@ -209,6 +239,14 @@
   });
   $('lesson-prev').addEventListener('click', () => navigate(group().lessons[group().lessons.indexOf(currentLesson()) - 1]?.id));
   $('lesson-next').addEventListener('click', () => navigate(group().lessons[group().lessons.indexOf(currentLesson()) + 1]?.id));
+  document.querySelectorAll('[data-step]').forEach(button => button.addEventListener('click',() => changeStep(button.dataset.step)));
+  $('step-prev').addEventListener('click',() => changeStep(steps[steps.indexOf(level().stages[level().lesson] || 'task') - 1]));
+  $('step-next').addEventListener('click',() => changeStep(steps[steps.indexOf(level().stages[level().lesson] || 'task') + 1]));
+  $('quiz-hint-button').addEventListener('click',() => {
+    const hints = window.AIPathFinanceActivities.describe(state.age,currentLesson().id,group()).quizHints;
+    $('quiz-hint').textContent=hints[Math.min(quizHintLevel,1)]; quizHintLevel++;
+    $('quiz-hint-button').textContent=quizHintLevel<2?'Ещё подсказка':'Обе подсказки открыты'; $('quiz-hint-button').disabled=quizHintLevel>=2;
+  });
   $('quiz-form').addEventListener('change', () => { delete level().answers[currentLesson().id]; $('quiz-feedback').textContent = ''; progress(); persist(); });
   $('quiz-form').addEventListener('submit', event => {
     event.preventDefault();
@@ -217,7 +255,8 @@
     const correct = Number(selected.value) === lesson.answer;
     if (correct) level().answers[lesson.id] = lesson.answer;
     else delete level().answers[lesson.id];
-    feedback('quiz-feedback',(correct ? 'Верно. ' : 'Пока неверно. Разберём: ') + lesson.feedback, correct);
+    const help=window.AIPathFinanceActivities.describe(state.age,lesson.id,group()).quizHints[0];
+    feedback('quiz-feedback',correct ? 'Верно. ' + lesson.feedback : 'Пока неверно. ' + help + ' Можно открыть подсказки или вернуться к разбору.',correct);
     progress(); persist();
   });
   for (const name of budgetKeys) $('budget-' + name).addEventListener('input', event => {
