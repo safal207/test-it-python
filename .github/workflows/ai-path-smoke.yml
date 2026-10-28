@@ -10,6 +10,8 @@ on:
       - "scripts/verify-game-lab.mjs"
       - "scripts/verify-physics-lab.mjs"
       - "scripts/build-physics-offline.mjs"
+      - "scripts/verify-finance.mjs"
+      - "scripts/build-finance-offline.mjs"
       - "scripts/verify-journeys.mjs"
       - "scripts/verify-school-functional.mjs"
       - "scripts/verify-school-nonfunctional.mjs"
@@ -152,6 +154,8 @@ jobs:
         run: node scripts/verify-journeys.mjs
       - name: Verify the interactive and offline physics lesson
         run: node scripts/verify-physics-lab.mjs
+      - name: Verify financial literacy lessons, arithmetic and offline course
+        run: npm run test:finance
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -160,5 +164,6 @@ jobs:
             artifacts/ai-path-game-lab/
             artifacts/ai-path-journeys/
             artifacts/ai-path-physics-lab/
+            artifacts/ai-path-finance/
           if-no-files-found: warn
           retention-days: 14

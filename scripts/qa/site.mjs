@@ -22,7 +22,7 @@ export async function startSite() {
   return { origin, base: origin + '/ai-path/', close: () => new Promise(resolve => server.close(resolve)) };
 }
 
-export const schoolRoutes = ['', 'journeys.html', 'game-lab.html', 'studio.html', 'neural-courses.html', 'neural-networks.html', 'career-research.html', '3d-academy.html', '3d-academy-practice.html', 'vibe-coding/'];
+export const schoolRoutes = ['', 'journeys.html', 'game-lab.html', 'finance.html', 'studio.html', 'neural-courses.html', 'neural-networks.html', 'career-research.html', '3d-academy.html', '3d-academy-practice.html', 'vibe-coding/'];
 
 // Optional installed browser for local development; CI uses pinned Chromium.
 export const browserOptions = { headless: true, ...(process.env.QA_BROWSER_CHANNEL ? { channel: process.env.QA_BROWSER_CHANNEL } : {}) };

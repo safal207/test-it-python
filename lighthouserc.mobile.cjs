@@ -12,6 +12,7 @@ module.exports = {
         'http://localhost/ai-path/studio.html',
         'http://localhost/ai-path/game-lab.html',
         'http://localhost/ai-path/physics-lab.html',
+        'http://localhost/ai-path/finance.html',
         'http://localhost/ai-path/3d-academy-practice.html'
       ],
       settings: {
