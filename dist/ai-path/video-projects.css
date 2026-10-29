@@ -15,7 +15,7 @@
 .video-project-play { display: inline-flex; align-items: center; gap: 9px; max-width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid #ffffff80; border-radius: 10px; background: #ffffff; color: #24133f; font: inherit; font-size: 12px; font-weight: 700; line-height: 1.4; text-align: left; cursor: pointer; }
 .video-project-play span { flex: none; font-size: 15px; }
 .video-project-stop { position: absolute; top: 8px; right: 8px; z-index: 1; min-height: 44px; padding: 8px 12px; border: 1px solid #aaa; border-radius: 8px; background: #171923; color: #fff; font: inherit; font-size: 12px; cursor: pointer; }
-.video-project-player iframe { display: block; width: 100%; height: 100%; border: 0; padding-top: 60px; background: #111; }
+.video-project-player iframe { position: absolute; inset: 0; display: block; width: 100%; height: 100%; border: 0; padding-top: 60px; background: #111; }
 .video-projects [hidden] { display: none !important; }
 .video-project-body { display: flex; flex-direction: column; flex: 1; gap: 14px; padding: 24px; }
 .video-project-body h3 { margin: 0; font-size: 22px; line-height: 1.2; letter-spacing: -.025em; }
@@ -39,7 +39,8 @@ body[data-brand-page] .video-project-course { padding-top: 12px; border-top: 1px
 }
 @media (max-width: 600px) {
   .video-project { display: flex; }
-  .video-project-player { aspect-ratio: 4 / 3; min-height: 250px; }
+  .video-project-player { aspect-ratio: auto; min-height: 300px; }
+  .video-project-poster { height: auto; min-height: 300px; }
   .video-project-poster-title { font-size: 32px; }
   .video-project-body { padding: 22px; }
 }

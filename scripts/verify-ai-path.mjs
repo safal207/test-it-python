@@ -2401,6 +2401,9 @@ async function publishedVideoProjects(page, width) {
   const sources = ['qphyGphln8Y', 'r8bzKUnLKKE', 'eCpVmBcfARI'];
   for (let i = 0; i < sources.length; i += 1) {
     assert(await section.locator('.video-project-links a').nth(i * 2).getAttribute('href') === `https://www.youtube.com/watch?v=${sources[i]}`, 'Each fallback opens its corresponding published video');
+    const playerBox = await section.locator('[data-video-player]').nth(i).boundingBox();
+    const buttonBox = await section.locator('[data-video-play]').nth(i).boundingBox();
+    assert(buttonBox && playerBox && buttonBox.y >= playerBox.y && buttonBox.y + buttonBox.height <= playerBox.y + playerBox.height + 1, `The complete play button fits inside the cover at ${width}px`);
   }
   await noOverflow(page, 'published video projects');
   await section.screenshot({ path: `${artifacts}/ai-path-${width}-video-projects.png`, animations: 'disabled', style: '.header,.selection-dock {visibility:hidden!important}' });
