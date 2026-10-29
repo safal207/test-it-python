@@ -37,5 +37,8 @@
       }
     });
   });
+  document.getElementById('projects-library')?.addEventListener('toggle', event => {
+    if (!event.currentTarget.open) players.forEach(player => stop(player));
+  });
   window.addEventListener('pagehide', () => players.forEach(player => stop(player)));
 })();

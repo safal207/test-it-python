@@ -2395,7 +2395,7 @@ async function desktopRegressions(page) {
 async function publishedVideoProjects(page, width) {
   await page.goto(base + '#ai-video-projects', { waitUntil: 'domcontentloaded' });
   const section = page.locator('#ai-video-projects');
-  assert(await section.isVisible(), 'Published video examples are visible without opening a disclosure');
+  assert(await section.isVisible(), 'The direct video fragment opens the containing gallery');
   assert(await section.locator('.video-project').count() === 3, 'Music, motion comic and kids song examples are present');
   assert(await section.locator('iframe').count() === 0, 'Video examples do not preload third-party players');
   const sources = ['qphyGphln8Y', 'r8bzKUnLKKE', 'eCpVmBcfARI'];
@@ -2424,7 +2424,10 @@ async function publishedVideoProjects(page, width) {
     await section.locator('[data-video-play]').nth(0).click();
     await section.locator('[data-video-play]').nth(1).click();
     assert(await section.locator('iframe').count() === 1, 'Switching examples stops the previous player');
-    await section.locator('[data-video-stop]:visible').click();
+    await page.locator('#projects-library > summary').click();
+    await section.locator('iframe').waitFor({ state: 'detached' });
+    assert(await section.locator('iframe').count() === 0, 'Closing the gallery stops hidden playback');
+    await page.locator('#projects-library > summary').click();
     await section.locator('.video-project-course').nth(1).click();
     await selected(page, 'create');
     assert((await page.locator('#selOutcome').innerText()).includes('30 секунд'), 'Video example leads to the existing bounded first-project outcome');
