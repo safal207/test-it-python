@@ -2392,6 +2392,53 @@ async function desktopRegressions(page) {
   assert(await page.locator('#paces [data-pace="balanced"]').getAttribute('aria-pressed') === 'true', 'Malformed URL retains safe pace');
 }
 
+async function publishedVideoProjects(page, width) {
+  await page.goto(base + '#ai-video-projects', { waitUntil: 'domcontentloaded' });
+  const section = page.locator('#ai-video-projects');
+  assert(await section.isVisible(), 'The direct video fragment opens the containing gallery');
+  assert(await section.locator('.video-project').count() === 3, 'Music, motion comic and kids song examples are present');
+  assert(await section.locator('iframe').count() === 0, 'Video examples do not preload third-party players');
+  const sources = ['qphyGphln8Y', 'r8bzKUnLKKE', 'eCpVmBcfARI'];
+  for (let i = 0; i < sources.length; i += 1) {
+    assert(await section.locator('.video-project-links a').nth(i * 2).getAttribute('href') === `https://www.youtube.com/watch?v=${sources[i]}`, 'Each fallback opens its corresponding published video');
+    const playerBox = await section.locator('[data-video-player]').nth(i).boundingBox();
+    const buttonBox = await section.locator('[data-video-play]').nth(i).boundingBox();
+    assert(buttonBox && playerBox && buttonBox.y >= playerBox.y && buttonBox.y + buttonBox.height <= playerBox.y + playerBox.height + 1, `The complete play button fits inside the cover at ${width}px`);
+  }
+  await noOverflow(page, 'published video projects');
+  await section.screenshot({ path: `${artifacts}/ai-path-${width}-video-projects.png`, animations: 'disabled', style: '.header,.selection-dock {visibility:hidden!important}' });
+
+  // Exercise our controls with an isolated fixture, never a customer or YouTube action in CI.
+  const pattern = 'https://www.youtube-nocookie.com/**';
+  const fixture = route => route.fulfill({ status: 200, contentType: 'text/html', body: '<!doctype html><html lang="en"><head><title>Video fixture</title></head><body>Embedded video fixture</body></html>' });
+  await page.context().route(pattern, fixture);
+  try {
+    for (let i = 0; i < sources.length; i += 1) {
+      const play = section.locator('[data-video-play]').nth(i);
+      await play.focus();
+      await page.keyboard.press('Enter');
+      assert(await section.locator('iframe').count() === 1, 'Explicit play creates only one player');
+      assert((await section.locator('iframe').getAttribute('src')).startsWith(`https://www.youtube-nocookie.com/embed/${sources[i]}?`), 'Play loads the selected published video');
+      const close = section.locator('[data-video-stop]:visible');
+      await close.press('Escape');
+      assert(await section.locator('iframe').count() === 0, 'Escape from the player controls stops and removes the video');
+      assert(await play.evaluate(el => el === document.activeElement), 'Closing restores keyboard focus to the matching play button');
+    }
+    await section.locator('[data-video-play]').nth(0).click();
+    await section.locator('[data-video-play]').nth(1).click();
+    assert(await section.locator('iframe').count() === 1, 'Switching examples stops the previous player');
+    await page.locator('#projects-library > summary').click();
+    await section.locator('iframe').waitFor({ state: 'detached' });
+    assert(await section.locator('iframe').count() === 0, 'Closing the gallery stops hidden playback');
+    await page.locator('#projects-library > summary').click();
+    await section.locator('.video-project-course').nth(1).click();
+    await selected(page, 'create');
+    assert((await page.locator('#selOutcome').innerText()).includes('30 секунд'), 'Video example leads to the existing bounded first-project outcome');
+  } finally {
+    await page.context().unroute(pattern, fixture);
+  }
+}
+
 await mkdir(artifacts, { recursive: true });
 let browser;
 let activePage;
@@ -2484,6 +2531,7 @@ try {
     await navigatorRoute(page, width);
     await mentorExample(page, width);
     await parentResultGallery(page, width);
+    await publishedVideoProjects(page, width);
     if (width === 390) await cosmosExample(page, width);
     await studioPortfolio(page, width);
     await landingSites(page, width);

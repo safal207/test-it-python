@@ -1,0 +1,49 @@
+/* Published video examples. Text covers introduce each format without imitating a video frame. */
+.video-projects { border-top: 1px solid var(--line); }
+.video-projects-note, .video-projects-footer { max-width: 850px; color: var(--muted); font-size: 13px; line-height: 1.7; }
+.video-projects-note { margin: -8px 0 28px; }
+.video-projects-footer { margin: 24px 0 0; }
+.video-projects-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.video-project { display: flex; flex-direction: column; min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 20px; background: var(--panel); }
+.video-project-player { position: relative; aspect-ratio: 4 / 3; background: #17232b; color: #fff; }
+.video-project-player--harbor { background: linear-gradient(145deg, #1c3943, #17232b 65%, #6d472c); }
+.video-project-player--story { background: linear-gradient(145deg, #4c3269, #26243e 65%, #5a3b32); }
+.video-project-player--kids { background: linear-gradient(145deg, #19524d, #203c48 65%, #39375e); }
+.video-project-poster { height: 100%; padding: 22px; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 18px; }
+.video-project-format { font-size: 11px; line-height: 1.5; color: #f1ede7; }
+.video-project-poster-title { font-size: clamp(25px, 2.8vw, 35px); font-weight: 700; line-height: 1.1; letter-spacing: -.035em; }
+.video-project-play { display: inline-flex; align-items: center; gap: 9px; max-width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid #ffffff80; border-radius: 10px; background: #ffffff; color: #24133f; font: inherit; font-size: 12px; font-weight: 700; line-height: 1.4; text-align: left; cursor: pointer; }
+.video-project-play span { flex: none; font-size: 15px; }
+.video-project-stop { position: absolute; top: 8px; right: 8px; z-index: 1; min-height: 44px; padding: 8px 12px; border: 1px solid #aaa; border-radius: 8px; background: #171923; color: #fff; font: inherit; font-size: 12px; cursor: pointer; }
+.video-project-player iframe { position: absolute; inset: 0; display: block; width: 100%; height: 100%; border: 0; padding-top: 60px; background: #111; }
+.video-projects [hidden] { display: none !important; }
+.video-project-body { display: flex; flex-direction: column; flex: 1; gap: 14px; padding: 24px; }
+.video-project-body h3 { margin: 0; font-size: 22px; line-height: 1.2; letter-spacing: -.025em; }
+.video-project-body h4 { margin: 4px 0 -7px; font-size: 13px; }
+.video-project-body p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
+.video-project-body .video-project-skill { color: var(--light); }
+.video-project-process { border-top: 1px solid var(--line); padding-top: 12px; }
+.video-project-process summary { min-height: 44px; padding: 9px 0; font-size: 13px; font-weight: 700; cursor: pointer; }
+.video-project-process ol { padding-left: 20px; margin: 6px 0 14px; font-size: 13px; color: var(--muted); line-height: 1.7; }
+.video-project-process li + li { margin-top: 8px; }
+.video-project-links { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: auto; }
+body[data-brand-page] .video-project-links a, body[data-brand-page] .video-project-course { display: inline-flex; align-items: center; min-height: 44px; color: var(--accent); font-size: 13px; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+body[data-brand-page] .video-project-course { padding-top: 12px; border-top: 1px solid var(--line); }
+.video-project-play:focus-visible, .video-project-stop:focus-visible { outline: 3px solid #fff; outline-offset: -5px; }
+.video-project-process summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+@media (max-width: 1000px) {
+  .video-projects-grid { grid-template-columns: 1fr; }
+  .video-project { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); }
+  .video-project-player { aspect-ratio: auto; min-height: 280px; }
+  .video-project-poster-title { font-size: 34px; }
+}
+@media (max-width: 600px) {
+  .video-project { display: flex; }
+  .video-project-player { aspect-ratio: auto; min-height: 300px; }
+  .video-project-poster { height: auto; min-height: 300px; }
+  .video-project-poster-title { font-size: 32px; }
+  .video-project-body { padding: 22px; }
+}
+@media (forced-colors: active) {
+  .video-project-player, .video-project-play, .video-project-stop { border: 1px solid CanvasText; }
+}
