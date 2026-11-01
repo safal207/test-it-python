@@ -119,7 +119,7 @@ try {
   await page.screenshot({path:`${out}/search-${id}-390.png`,animations:'disabled'});
  }
  await page.locator('#programSearch').fill('Python');await expect(page.locator('#openCourseSearchResults')).toBeHidden();
- await expect(page.locator('#catalogCount')).toHaveText('Показано 2 из 23 программ');
+ await expect(page.locator('#catalogCount')).toHaveText('Показано 2 из 24 программ');
  await page.locator('#clearProgramSearch').click();
  await noOverflow(page,'home'); await page.screenshot({path:`${out}/home-390.png`,animations:'disabled'});
  await page.close(); console.log('Life skills: age-specific checks, independent tab saves, migration, progress guidance, resume, visual cards, search and offline courses passed.');
