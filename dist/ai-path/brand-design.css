@@ -209,6 +209,7 @@ body[data-brand-page="home"] .closing p { color:var(--theme-muted, #645c70); }
 @media(min-width:1101px) {
   body[data-brand-page="home"] .hero-grid { padding-block:32px; }
   body[data-brand-page="home"] #selector { padding-block:32px 40px; }
+  body[data-brand-page="home"] .portfolio-overview { padding-block:24px 16px; }
   body[data-brand-page="home"] .mentor-section { padding-bottom:40px; }
 }
 

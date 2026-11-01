@@ -436,5 +436,10 @@ export function createDeskScene(canvas, options = {}) {
     pointers.clear();
   }
 
-  return { setMaterial, setLighting, resetView, resize, dispose, getState: () => ({ ...state }) };
+  function capture() {
+    if (disposed || lost) throw new Error('Scene unavailable');
+    renderer.render(scene, camera);
+    return canvas.toDataURL('image/png');
+  }
+  return { setMaterial, setLighting, resetView, resize, dispose, capture, getState: () => ({ ...state }) };
 }

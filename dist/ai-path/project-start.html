@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>План твоего первого проекта — AI PATH</title>
+  <meta name="description" content="От понравившегося демо к своей идее. Собери бесплатный план первой версии: результат, границы, проверка готовности и следующий шаг с AI PATH.">
+  <link rel="canonical" href="https://safal207.github.io/test-it-python/ai-path/project-start.html">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <script src="theme.js?v=1"></script><link rel="stylesheet" href="theme.css?v=1">
+  <link rel="stylesheet" href="project-start.css"><script type="module" src="project-start.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#project-main">К плану проекта</a>
+<header class="wrap top"><a href="./" aria-label="AI PATH — главная"><img class="brand-lockup" src="assets/brand/ai-path-logo.svg" width="150" height="36" alt="AI PATH"></a><a id="browse-examples" href="demos.html">Посмотреть примеры ↗</a></header>
+<main class="wrap" id="project-main">
+  <section class="intro"><p class="eyebrow">ТВОЯ ПЕРВАЯ ВЕРСИЯ</p><h1>От «хочу так же»<br>к <em>своему проекту.</em></h1><p class="lead">Выбери результат. Получи план: что сделать, как проверить и с чего начать.</p><p class="promise"><span>3 простых шага</span><span>Бесплатно</span><span>Без регистрации</span></p></section>
+  <div class="workspace">
+    <div class="work-panel">
+      <form id="project-wizard" novalidate autocomplete="off">
+        <ol class="progress" aria-label="Шаги подготовки"><li data-progress="1" aria-current="step"><b>1</b> Результат</li><li data-progress="2"><b>2</b> Формат</li><li data-progress="3"><b>3</b> Твоя идея</li></ol>
+        <p class="step-status" id="step-status" role="status">Шаг 1 из 3</p>
+        <fieldset data-step="1"><legend tabindex="-1">Что хочешь сделать?</legend><p class="hint">Начни с результата. Пример и сложность можно изменить позже.</p><div id="journey-choices" class="choice-grid">
+          <label class="choice"><input type="radio" name="journey" value="website" checked><span><strong>Сайт для своей идеи</strong><small>Помочь посетителю выбрать, сравнить или оставить осмысленный запрос.</small></span></label>
+          <label class="choice"><input type="radio" name="journey" value="space"><span><strong>Предмет или пространство</strong><small>Показать варианты предмета или пространства и помочь их сравнить.</small></span></label>
+          <label class="choice"><input type="radio" name="journey" value="story"><span><strong>Игра или история</strong><small>Дать человеку роль, выбор и развязку, к которой привели его действия.</small></span></label>
+          <label class="choice"><input type="radio" name="journey" value="app"><span><strong>Полезное приложение</strong><small>Заменить один повторяющийся ручной шаг понятным рабочим сценарием.</small></span></label>
+          <label class="choice"><input type="radio" name="journey" value="practice"><span><strong>Навык через практику</strong><small>Попробовать направление на конкретном задании и понять следующий шаг.</small></span></label>
+          <label class="choice"><input type="radio" name="journey" value="research"><span><strong>Исследование и доказательства</strong><small>Сформулировать узкий вопрос, сравнить с исходным вариантом и показать ограничения.</small></span></label>
+        </div></fieldset>
+        <fieldset data-step="2" hidden><legend tabindex="-1">Как тебе удобнее двигаться?</legend><p class="hint">Выбор определит следующий шаг в твоём плане.</p>
+          <div class="mode-grid">
+            <label class="choice mode"><input type="radio" name="mode" value="learn" checked><span><strong>Создать с наставником</strong><small>Разобраться, сделать своими руками и уметь объяснить результат.</small></span></label>
+            <label class="choice mode" id="build-choice"><input type="radio" name="mode" value="build"><span><strong>Обсудить разработку</strong><small>Описать задачу для проекта и согласовать, какую часть можно реализовать.</small></span></label>
+          </div>
+          <p class="hint" id="mode-note"></p>
+          <div class="fields-row"><label>Опыт для учебного маршрута<select id="project-level"><option value="zero">Начинаю с нуля</option><option value="basic">Уже пробовал</option><option value="project">Есть свой проект</option></select></label><label>Время на учебную практику<select id="project-pace"><option value="light">2–3 часа в неделю</option><option value="balanced" selected>4–6 часов в неделю</option><option value="deep">7+ часов в неделю</option></select></label></div>
+        </fieldset>
+        <fieldset data-step="3" hidden><legend tabindex="-1">Добавим смысл твоей идее.</legend><p class="hint">Два поля можно пропустить: тогда начнём с предложенного примера. Не добавляй личные данные.</p>
+          <label>Для кого этот проект? <span class="optional">Необязательно</span><input id="project-audience" maxlength="100" placeholder="Например, для гостей небольшой кофейни"></label>
+          <label>Что хочешь сделать? <span class="optional">Необязательно · до 240 символов</span><textarea id="project-idea" maxlength="240" rows="3" placeholder="Своя тема, идея или то, что хочется улучшить"></textarea></label>
+          <label>Одно главное действие<select id="project-action"></select></label>
+          <p class="privacy">Текст остаётся на этой странице. Сохрани план перед закрытием — он не записывается в историю ссылок или хранилище браузера.</p>
+        </fieldset>
+        <div class="wizard-actions"><button type="button" id="previous-step" class="secondary" hidden>← Назад</button><button type="button" id="next-step" class="primary" disabled>Выбрать формат →</button><button type="submit" id="make-plan" class="primary" hidden>Получить мой план →</button></div>
+      </form>
+      <noscript><div class="noscript"><h2>План можно обсудить напрямую</h2><p>Для конструктора нужен JavaScript. Выбери <a href="demos.html">пример проекта</a> и напиши, для кого хочешь сделать свою версию и какое действие в ней главное.</p><a href="mailto:safal0645@gmail.com">Написать наставнику</a></div></noscript>
+      <section id="plan-result" hidden aria-labelledby="plan-title">
+        <p class="eyebrow">ТВОЙ ЧЕРНОВИК ГОТОВ</p><h2 id="plan-title" tabindex="-1">Первая версия — уже конкретнее.</h2><p id="result-summary" class="result-summary"></p><p id="result-focus" class="boundary"></p>
+        <div class="result-block"><h3>Что будет в первой версии</h3><ul id="plan-deliverables"></ul></div>
+        <div class="result-block"><h3>Как поймём, что получилось</h3><ul id="plan-checks"></ul></div>
+        <p id="plan-boundary" class="boundary"></p>
+        <div class="next-step"><span class="eyebrow">СЛЕДУЮЩИЙ ШАГ</span><h3 id="next-title"></h3><p id="next-description"></p><p class="terms">Стоимость, сроки, состав работы и возможные расходы на сервисы согласуем до начала.</p><a id="plan-email" class="primary" href="mailto:safal0645@gmail.com">Открыть черновик письма ↗</a><p class="hint">Откроется почтовое приложение с текстом ниже. Отправку подтверждаешь ты; сайт не отправляет заявку.</p></div>
+        <p id="course-row"><a id="plan-course" href="./#programs">Посмотреть учебный маршрут ↗</a><span id="course-note"></span></p>
+        <label for="plan-text" class="draft-label">Полный план и текст обращения</label><textarea id="plan-text" rows="10" readonly></textarea>
+        <div class="export-actions"><button id="download-plan" class="secondary" type="button">Скачать план .txt</button><button id="copy-plan" class="secondary" type="button">Скопировать текст</button></div><p id="copy-status" role="status" class="hint"></p>
+        <div class="edit-actions"><button id="edit-plan" type="button">← Изменить ответы</button><button id="new-plan" type="button">Начать другой план</button></div>
+      </section>
+    </div>
+    <aside class="plan-preview" aria-labelledby="preview-title"><p class="eyebrow">ОТ ИДЕИ К ДЕЙСТВИЮ</p><h2 id="preview-title">Сайт с понятным действием</h2><p id="preview-description">Небольшой сайт, на котором посетитель понимает предложение и делает один полезный выбор.</p><ol class="value-steps"><li><b>01</b><span><strong>Посильный объём</strong>Что сделаем первым</span></li><li><b>02</b><span><strong>Видимый результат</strong>Что можно будет показать</span></li><li><b>03</b><span><strong>Проверка готовности</strong>Как убедимся, что работает</span></li></ol><div id="example-preview" hidden><p class="eyebrow">ТВОЯ ОТПРАВНАЯ ТОЧКА</p><a id="selected-example" href="demos.html"></a><p id="example-transfer"></p><details><summary>Что подтверждает этот пример</summary><p id="example-note"></p></details></div><p class="preview-note">План собирается из твоих ответов и подготовленных маршрутов. Наставник поможет уточнить сложность и объём.</p></aside>
+  </div>
+  <section class="questions" aria-label="Перед следующим шагом"><details><summary>Можно просто забрать план?</summary><p>Да. Скачай или скопируй его и используй самостоятельно. Контактные данные для этого не нужны.</p></details><details><summary>Что произойдёт после обращения?</summary><p>В письме уже будет твоя задача, пример и предполагаемый результат. На обсуждении уточним, кому он нужен, что реально сделать первым и какой формат подходит. Начало работы, сроки и стоимость требуют отдельного согласования.</p></details><details><summary>А если я ещё ничего не умею?</summary><p>Выбери «Создать с наставником» и «Начинаю с нуля». Начнём с небольшого сценария, а не всего продукта сразу. Для практики понадобится компьютер; конкретные инструменты зависят от направления.</p></details></section>
+</main>
+<footer class="wrap footer"><a href="./#mentor">Наставник и авторство ↗</a><div class="themes" role="group" aria-label="Тема оформления"><button type="button" data-theme-choice="light" aria-pressed="true">Светлая</button><button type="button" data-theme-choice="dark" aria-pressed="false">Тёмная</button><button type="button" data-theme-choice="matrix" aria-pressed="false">Матрица</button></div></footer>
+</body></html>

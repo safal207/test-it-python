@@ -2,9 +2,12 @@ import { execFileSync, spawn } from 'node:child_process';
 import { mkdir, readFile } from 'node:fs/promises';
 import { chromium } from 'playwright';
 
+// Windows uses CRLF in the native clipboard. Normalize actual clipboard reads only;
+// expected visible text stays exact, including all other whitespace and content.
 const base = 'http://127.0.0.1:4179/ai-path/';
 const artifacts = 'artifacts/ai-path-qa';
-const programIds = ['explore', 'build', 'space', 'furniture', 'create', 'comics', 'qa', 'game', 'ml', 'hack', 'grant', 'frontier', 'books', 'designlab', 'vibe', 'ml-python', 'ml-data', 'ml-vision', 'ml-text', 'ml-audio', 'ml-series', 'ml-tuning', 'career'];
+const python = process.env.QA_PYTHON || 'python3';
+const programIds = ['explore', 'build', 'space', 'furniture', 'create', 'comics', 'qa', 'game', 'ml', 'hack', 'grant', 'frontier', 'books', 'designlab', 'vibe', 'ml-python', 'ml-data', 'ml-vision', 'ml-text', 'ml-audio', 'ml-series', 'ml-tuning', 'career', 'unity'];
 const neuralCourseIds = ['ml-python', 'ml', 'ml-data', 'ml-vision', 'ml-text', 'ml-audio', 'ml-series', 'ml-tuning'];
 const projectPreviewSources = {
   build: 'assets/testit.webp', space: 'assets/architectural.webp', furniture: 'assets/furniture/luma01-hero.webp',
@@ -13,9 +16,9 @@ const projectPreviewSources = {
 };
 const groups = {
   neural: neuralCourseIds, explore: ['explore', 'career'], visual: ['furniture', 'space', 'designlab', 'comics', 'books', 'create'],
-  build: ['build', 'designlab', 'vibe', 'qa', 'game'], research: ['ml', 'hack', 'grant', 'frontier']
+  build: ['build', 'designlab', 'vibe', 'qa', 'game', 'unity'], research: ['ml', 'hack', 'grant', 'frontier']
 };
-const server = spawn('python3', ['-m', 'http.server', '4179', '--bind', '127.0.0.1', '--directory', 'dist'], {
+const server = spawn(python, ['-m', 'http.server', '4179', '--bind', '127.0.0.1', '--directory', 'dist'], {
   stdio: ['ignore', 'pipe', 'pipe']
 });
 let serverLog = '';
@@ -118,7 +121,7 @@ async function responsivePageBounds(page) {
 }
 async function schoolMetadata(page) {
   const description = await page.locator('meta[name="description"]').getAttribute('content');
-  assert(new RegExp(`\\b${programIds.length}\\b`).test(description), 'Search description agrees with the 23-program catalogue');
+  assert(new RegExp(`\\b${programIds.length}\\b`).test(description), 'Search description agrees with the 24-program catalogue');
   const sitemap = await readFile('dist/ai-path/sitemap.xml', 'utf8');
   const urls = await page.evaluate(xml => {
     const doc = new DOMParser().parseFromString(xml, 'application/xml');
@@ -217,7 +220,7 @@ async function schoolEntry(context, width) {
     await page.keyboard.press('Enter');
     await page.waitForURL(base);
     await page.locator('#programList .program').first().waitFor({ state: 'attached' });
-    assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'Root school entrance opens all 23 programs');
+    assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'Root school entrance opens all 24 programs');
   } finally {
     await page.close();
   }
@@ -309,7 +312,7 @@ async function compactLanding(page, width) {
   const nextProgram = await page.locator('#programList .program[hidden]').first().getAttribute('data-program');
   await page.locator('#showAllPrograms').focus();
   await page.keyboard.press('Enter');
-  assert(sameMembers(await ids(page.locator('#programList .program:visible')), programIds), 'Keyboard show-all action exposes every one of the 23 programs');
+  assert(sameMembers(await ids(page.locator('#programList .program:visible')), programIds), 'Keyboard show-all action exposes every one of the 24 programs');
   assert(await page.locator(`#programList [data-program="${nextProgram}"]`).evaluate(el => document.activeElement === el), 'Show-all moves keyboard focus to the first newly available program');
   await revealTarget(page, '#website-programs');
   const websitePrograms = await page.locator('#website-programs').innerText();
@@ -367,13 +370,13 @@ async function catalogPresentation(page, width) {
       indexedCover: card.querySelector('.program-cover-index[aria-hidden="true"]')?.textContent.trim().length > 0,
       nestedActions: card.querySelectorAll('button, a, input, select, textarea, [tabindex]').length };
   }));
-  assert(sameMembers(report.map(card => card.id), programIds), 'Visual menu preserves all 23 distinct programs');
+  assert(sameMembers(report.map(card => card.id), programIds), 'Visual menu preserves all 24 distinct programs');
   assert(new Set(report.map(card => card.source)).size === programIds.length, 'Every program has its own illustration');
   for (const card of report) {
     assert(card.covers === 1 && card.alt, `Program has one cover with an explicit alternative-text decision: ${card.id}`);
     const diagram = card.id.startsWith('ml-');
-    assert(card.source === (diagram ? `assets/neural-courses/${card.id}.svg` : `assets/program-menu-v1/${card.id}.webp`) && card.decoded, `Program illustration loads from its own local WebP: ${card.id}`);
-    assert(card.provenance === (diagram ? 'Учебная схема' : 'AI-иллюстрация') && card.category?.length > 3, `Illustration names its category and is not presented as a project screenshot: ${card.id}`);
+    assert(card.source === (card.id === 'unity' ? 'assets/program-covers/unity.svg' : diagram ? `assets/neural-courses/${card.id}.svg` : `assets/program-menu-v1/${card.id}.webp`) && card.decoded, `Program illustration loads from its own local WebP: ${card.id}`);
+    assert(card.provenance === (diagram || card.id === 'unity' ? 'Учебная схема' : 'AI-иллюстрация') && card.category?.length > 3, `Illustration names its category and is not presented as a project screenshot: ${card.id}`);
     assert(card.indexedCover && /^Попробуешь роль\s+\S/.test(card.role || '') && card.role.length > 20, `Program has a numbered cover and a readable exploratory role at ${width}px: ${card.id}`);
     assert(/^Практика\s+\S/.test(card.skill || ''), `Skill label is separated from its content for accessible reading: ${card.id}`);
     assert(card.resultLabel === 'Создашь' && card.result?.length > 12 && card.skill?.length > 12 && card.result !== card.skill, `Program separately explains what the visitor will make and practise: ${card.id}`);
@@ -423,7 +426,7 @@ async function catalogSearch(page, width) {
   await reset.focus();
   await page.keyboard.press('Space');
   assert(await search.inputValue() === '' && await page.locator('#catalogFilters [data-filter="all"]').getAttribute('aria-pressed') === 'true', 'Empty-state reset clears both query and category');
-  await resultsMatch(programIds, 'Reset restores all 23 programs');
+  await resultsMatch(programIds, 'Reset restores all 24 programs');
 
   const role = (await page.locator('#programList [data-program="furniture"] .program-role').innerText()).replace(/^Попробуешь роль\s*:?\s*/, '').trim();
   await search.fill(role);
@@ -587,13 +590,13 @@ async function contact(page) {
   // No contact link is opened and no message is sent by this check.
   await page.evaluate(() => navigator.clipboard.writeText('qa-before-message'));
   await page.locator('#copyMessage').click();
-  await page.waitForFunction(async expected => await navigator.clipboard.readText() === expected, message);
-  assert(await page.evaluate(() => navigator.clipboard.readText()) === message, 'Copy message writes the visible draft');
+  await page.waitForFunction(async expected => (await navigator.clipboard.readText()).replace(/\r\n/g, '\n') === expected, message);
+  assert(await page.evaluate(async () => (await navigator.clipboard.readText()).replace(/\r\n/g, '\n')) === message, 'Copy message writes the visible draft');
   assert((await page.locator('#enquiryCopyStatus').innerText()).includes('скопирован'), 'Copied request confirms success next to its action');
   await page.evaluate(() => navigator.clipboard.writeText('qa-before-link'));
   await page.locator('#copyLink').click();
-  await page.waitForFunction(async () => (await navigator.clipboard.readText()).startsWith('https://'));
-  const copied = new URL(await page.evaluate(() => navigator.clipboard.readText()));
+  await page.waitForFunction(async () => ((await navigator.clipboard.readText()).replace(/\r\n/g, '\n')).startsWith('https://'));
+  const copied = new URL(await page.evaluate(async () => (await navigator.clipboard.readText()).replace(/\r\n/g, '\n')));
   const current = new URL(page.url());
   for (const key of ['program', 'level', 'pace']) assert(copied.searchParams.get(key) === current.searchParams.get(key), `Copied route retains ${key}`);
   assert(copied.hash === '#selected', 'Copied route opens the selected program');
@@ -642,7 +645,7 @@ function normalizePdfText(value) {
   return value.normalize('NFC').replace(/[\u2010-\u2015\u2212]/g, '-').replace(/\s+/g, ' ').trim();
 }
 function inspectPdf(path) {
-  return JSON.parse(execFileSync('python3', ['-c', `
+  return JSON.parse(execFileSync(python, ['-c', `
 import json, sys
 from pypdf import PdfReader
 reader = PdfReader(sys.argv[1])
@@ -766,7 +769,7 @@ async function conversionFlow(page, width) {
   assert((template.match(/^\d+\.\s/gm) || []).length === 3, 'Starter template contains exactly three numbered prompts');
   await page.evaluate(() => navigator.clipboard.writeText('qa-before-starter'));
   await page.locator('#copyStarter').click();
-  await page.waitForFunction(async expected => await navigator.clipboard.readText() === expected, template);
+  await page.waitForFunction(async expected => (await navigator.clipboard.readText()).replace(/\r\n/g, '\n') === expected, template);
   const furniturePlan = await downloadPlan(page, width, 'committed');
   assert(furniturePlan.includes(normalizePdfText(furnitureIdea)), 'Plan download includes the optional idea for its program');
   const committedMessage = await page.locator('#contactMessage').inputValue();
@@ -825,7 +828,7 @@ async function comparison(page, { width, captureStage } = {}) {
 async function websiteChoice(page, width) {
   // Start with the visitor's goal rather than an existing program URL or catalogue filter.
   await page.locator('#goals [data-goal="build"]').click();
-  assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'Website goal retains the complete 23-program catalogue');
+  assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'Website goal retains the complete 24-program catalogue');
   const choices = page.locator('#interests [data-interest]');
   const interests = await choices.evaluateAll(elements => elements.map(el => el.dataset.interest));
   assert(sameMembers(interests, groups.build) && await page.locator('#interests [data-interest="designlab"]').isVisible(), 'Site, program or game goal exposes Design Lab alongside development and Vibe Coding');
@@ -1593,7 +1596,7 @@ async function landingSites(page, width) {
   await selected(page, 'build');
   assert(/лендинг/i.test(await page.locator('#selOutcome').innerText()), 'Selected course actually teaches the landing-page deliverable');
   await page.goto(base + 'studio.html#services', { waitUntil: 'domcontentloaded' });
-  assert(/продающие лендинги и сайты/i.test(await page.locator('#servicesTitle').innerText()), 'Portfolio explicitly offers landing-page and website development');
+  assert(/Рабочая версия сайта/i.test(await page.locator('#servicesTitle').innerText()), 'Portfolio explicitly offers landing-page and website development');
   const contactURL = new URL(await page.locator('#site-service-contact').getAttribute('href'));
   assert(contactURL.protocol === 'mailto:' && contactURL.pathname === 'safal0645@gmail.com', 'Development enquiry opens a draft to the existing public contact');
   assert(await page.locator('#studio-contact').getAttribute('href') === contactURL.href, 'Portfolio closing development enquiry keeps the same contact and draft as its opening service');
@@ -1712,7 +1715,7 @@ async function careerResearch(page, width) {
       const text = await prompt.inputValue();
       assert(text.length > 150 && /URL|источник/i.test(text), `The ${model} prompt asks for source-backed work and has a permanent manual-copy field`);
       await tool.locator('[data-copy-prompt]').click();
-      await page.waitForFunction(async expected => await navigator.clipboard.readText() === expected, text);
+      await page.waitForFunction(async expected => (await navigator.clipboard.readText()).replace(/\r\n/g, '\n') === expected, text);
     }
     await page.evaluate(() => Object.defineProperty(navigator.clipboard, 'writeText', { configurable: true, value: async () => { throw new Error('Simulated clipboard denial'); } }));
     try {
@@ -1886,7 +1889,7 @@ async function courseEnquiry(page, width) {
   assert(message.includes('есть небольшая база') && message.includes('7+ ч') && message.includes('Учебная таблица для первого проекта') && message.includes(canonicalRoute(page)), 'The request includes actual preparation, pace, idea and the current canonical plan');
   assert(new URL(await page.locator('#contactMentor').getAttribute('href')).searchParams.get('body') === message, 'Email draft agrees with the current on-page request');
   await page.locator('#copyMessage').click();
-  await page.waitForFunction(async value => await navigator.clipboard.readText() === value, message);
+  await page.waitForFunction(async value => (await navigator.clipboard.readText()).replace(/\r\n/g, '\n') === value, message);
   assert(!(await fallback.evaluate(el => el.open)), 'Successful copy leaves optional preview collapsed');
   const copyFeedback = page.locator('#enquiryCopyStatus');
   assert((await copyFeedback.innerText()).includes('Текст обращения скопирован'), 'Request copy success is reported inline in the request panel');
@@ -2415,7 +2418,7 @@ try {
     const response = await page.goto(base, { waitUntil: 'domcontentloaded' });
     assert(response?.status() === 200, 'Page returns HTTP 200');
     await page.locator('#programList .program').first().waitFor({ state: 'attached' });
-    assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'All 23 programs are available');
+    assert(sameMembers(await ids(page.locator('#programList .program')), programIds), 'All 24 programs are available');
     const trackNumbers = await page.locator('#programList .program').evaluateAll(cards => Object.fromEntries(cards.map(card => [card.dataset.program, card.querySelector('.n').textContent.match(/ТРЕК\s*(\d+)/)?.[1]])));
     for (const [index, id] of programIds.entries()) assert(Number(trackNumbers[id]) === index + 1, `Track number stays stable: ${id}`);
     assert(!(await page.locator('#selected').isVisible()) && !(await page.locator('#results').isVisible()), 'Fresh entry does not claim the visitor already selected a program');

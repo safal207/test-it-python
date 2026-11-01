@@ -16,6 +16,8 @@ const namespace = 'const THREE = (() => {\n' + vendor.slice(0, begin) + '\nretur
 const importLine = "import * as THREE from './vendor/three.module.min.js';";
 if (!app.includes(importLine)) throw new Error('Application import not found');
 let result = html
+  .replace(/<!-- project-next:assets:start -->[\s\S]*?<!-- project-next:assets:end -->\r?\n?/g, '')
+  .replace(/<!-- project-next:start -->[\s\S]*?<!-- project-next:end -->\r?\n?/g, '')
   .replace('<script src="theme.js?v=1"></script>', () => '<script>\n' + theme + '\n</script>')
   .replace('<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">', '')
   .replace('<link rel="stylesheet" href="theme.css?v=1">', () => '<style>\n' + themeCss + '\n</style>')

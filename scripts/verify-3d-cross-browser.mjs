@@ -10,6 +10,7 @@ const engine = process.env.BROWSER_ENGINE;
 const browserTypes = { firefox, webkit };
 if (!Object.hasOwn(browserTypes, engine)) throw new Error('Set BROWSER_ENGINE to firefox or webkit');
 const base = 'http://127.0.0.1:4183/ai-path/';
+const programIds = ['explore', 'build', 'space', 'furniture', 'create', 'comics', 'qa', 'game', 'ml', 'hack', 'grant', 'frontier', 'books', 'designlab', 'vibe', 'ml-python', 'ml-data', 'ml-vision', 'ml-text', 'ml-audio', 'ml-series', 'ml-tuning', 'career', 'unity'];
 const artifacts = `artifacts/qa-3d-program-${engine}`;
 const framePattern = /https:\/\/safal207\.github\.io\/(room-control-studio|quiet-hours-sanctuary)\/preview\.html/;
 const report = {
@@ -120,7 +121,8 @@ async function exposeProgramMenu(page) {
     await more.focus();
     await page.keyboard.press('Enter');
   }
-  assert(await page.locator('#programList [data-program]:visible').count() === 23, 'Show-more action exposes all 23 program choices');
+  const visiblePrograms = await page.locator('#programList [data-program]:visible').evaluateAll(cards => cards.map(card => card.dataset.program));
+  assert(visiblePrograms.length === programIds.length && new Set(visiblePrograms).size === programIds.length && programIds.every(id => visiblePrograms.includes(id)), 'Show-more action exposes all 24 distinct program choices, including Unity');
   assert(await more.getAttribute('aria-expanded') === 'true', 'Expanded program menu announces its complete state');
 }
 async function iframeContract(page, width) {

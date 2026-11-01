@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Урок 01 · Управляем спрайтом</title>
+<style>
+*{box-sizing:border-box}html{background:#DAD2E4}body{margin:0;font-family:'Segoe UI',Arial,sans-serif}.toolbar{position:sticky;top:0;z-index:5;background:#24133F;color:#FFF9EF;padding:14px 24px;display:flex;justify-content:space-between;gap:16px;font-size:16px}.toolbar a{color:#A7DF4B}.slide{width:1600px;height:900px;position:relative;margin:28px auto;overflow:hidden;box-shadow:0 4px 32px #24133f20}.shape,.txt{position:absolute}.txt{white-space:pre-wrap;line-height:1.12;overflow-wrap:normal}.txt a{color:inherit;text-underline-offset:4px}@media screen and (max-width:1620px){.slide{zoom:calc((100vw - 24px) / 1600px)}}@media screen and (max-width:620px){.toolbar{position:static;flex-direction:column;font-size:14px}.toolbar span{overflow-wrap:anywhere}}@page{size:1600px 900px;margin:0}@media print{html,body{background:white}.toolbar{display:none}.slide{zoom:1;width:1600px;height:900px;margin:0;box-shadow:none;break-after:page;page-break-after:always}.slide:last-child{break-after:auto;page-break-after:auto}*{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+</style></head><body><nav class="toolbar" aria-label="Материалы"><span>Урок 01 · Управляем спрайтом · 12 слайдов</span><span><a href="lesson-01-slides.pptx">Скачать PPTX</a> · <a href="lesson-01.md">Раздатка и код</a> · <a href="../../unity.html">К курсу</a></span></nav>
+<section class="slide" aria-label="Слайд 1 из 12"><div class="shape" style="left:0px;top:0px;width:1600px;height:900px;background:#24133F;border-radius:0px;" aria-hidden="true"></div>
+<div class="shape" style="left:80px;top:63px;width:12px;height:31px;background:#A7DF4B;border-radius:4px;" aria-hidden="true"></div>
+<div class="txt" style="left:109px;top:61px;width:220px;height:36px;font-size:25px;color:#FFF9EF;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">AI PATH</div>
+<div class="txt" style="left:1260px;top:64px;width:260px;height:30px;font-size:18px;color:#A7DF4B;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">UNITY + ИИ</div>
+<div class="txt" style="left:80px;top:125px;width:1440px;height:27px;font-size:18px;color:#A7DF4B;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">УРОК 01 · ПЕРВЫЙ НАБЛЮДАЕМЫЙ РЕЗУЛЬТАТ</div>
+<div class="txt" style="left:80px;top:168px;width:1440px;height:151px;font-size:62px;color:#FFF9EF;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Нажал клавишу —
+квадрат поехал.</div>
+<div class="shape" style="left:80px;top:833px;width:1440px;height:1px;background:#55436D;border-radius:0px;" aria-hidden="true"></div>
+<div class="txt" style="left:80px;top:850px;width:1120px;height:25px;font-size:15px;color:#C7B7D9;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Урок 01 · Управляем спрайтом · AI PATH · предлагаемый учебный формат</div>
+<div class="txt" style="left:1350px;top:848px;width:170px;height:27px;font-size:18px;color:#A7DF4B;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">01 / 12</div>
+<div class="txt" style="left:84px;top:365px;width:720px;height:175px;font-size:35px;color:#FFF9EF;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Сегодня: движение спрайта
+по WASD и стрелкам.
+Отпустил клавиши — остановка.</div>
+<div class="shape" style="left:84px;top:581px;width:250px;height:44px;background:#A7DF4B;border-radius:20px;" aria-hidden="true"></div>
+<div class="txt" style="left:98px;top:589px;width:222px;height:28px;font-size:19px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Unity 6.3 LTS</div>
+<div class="shape" style="left:350px;top:581px;width:275px;height:44px;background:#A7DF4B;border-radius:20px;" aria-hidden="true"></div>
+<div class="txt" style="left:364px;top:589px;width:247px;height:28px;font-size:19px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Input System</div>
+<div class="txt" style="left:84px;top:675px;width:730px;height:90px;font-size:25px;color:#DECFEB;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Кристаллы, счёт и победа — следующие уроки.
+Этот код ещё не запускался в Unity.</div>
+<div class="shape" style="left:1010px;top:420px;width:170px;height:170px;background:#6935CB;border-radius:18px;" aria-hidden="true"></div>
+<div class="txt" style="left:1060px;top:340px;width:230px;height:60px;font-size:36px;color:#A7DF4B;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">W / ↑</div>
+<div class="txt" style="left:1060px;top:627px;width:230px;height:60px;font-size:36px;color:#A7DF4B;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">S / ↓</div>
+<div class="txt" style="left:824px;top:482px;width:230px;height:60px;font-size:36px;color:#A7DF4B;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">A / ←</div>
+<div class="txt" style="left:1245px;top:482px;width:230px;height:60px;font-size:36px;color:#A7DF4B;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">D / →</div>
+<div class="txt" style="left:923px;top:735px;width:540px;height:30px;font-size:18px;color:#C7B7D9;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Схема управления · не кадр из редактора</div></section><section class="slide" aria-label="Слайд 2 из 12"><div class="shape" style="left:0px;top:0px;width:1600px;height:900px;background:#FFF9EF;border-radius:0px;" aria-hidden="true"></div>
+<div class="shape" style="left:80px;top:63px;width:12px;height:31px;background:#6935CB;border-radius:4px;" aria-hidden="true"></div>
+<div class="txt" style="left:109px;top:61px;width:220px;height:36px;font-size:25px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">AI PATH</div>
+<div class="txt" style="left:1260px;top:64px;width:260px;height:30px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">UNITY + ИИ</div>
+<div class="txt" style="left:80px;top:125px;width:1440px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">01 · ПОДГОТОВЬ СРЕДУ</div>
+<div class="txt" style="left:80px;top:168px;width:1440px;height:96px;font-size:62px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Hub → редактор → 2D-проект.</div>
+<div class="txt" style="left:84px;top:274px;width:1430px;height:65px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Выбранная база урока — Unity 6.3 LTS. Другая версия может отличаться меню.</div>
+<div class="shape" style="left:80px;top:833px;width:1440px;height:1px;background:#D8CCE5;border-radius:0px;" aria-hidden="true"></div>
+<div class="txt" style="left:80px;top:850px;width:1120px;height:25px;font-size:15px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Урок 01 · Управляем спрайтом · AI PATH · предлагаемый учебный формат</div>
+<div class="txt" style="left:1350px;top:848px;width:170px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">02 / 12</div>
+<div class="shape" style="left:80px;top:355px;width:450px;height:387px;background:#FFFFFF;border-radius:18px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:104px;top:378px;width:402px;height:35px;font-size:23px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">1 / UNITY HUB</div>
+<div class="txt" style="left:104px;top:433px;width:402px;height:92px;font-size:33px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Редактор на ПК</div>
+<div class="txt" style="left:104px;top:538px;width:402px;height:186px;font-size:25px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Установи Unity Hub и Unity 6.3 LTS. Проверь доступное место и право установки. Не начинай с мобильного устройства.</div>
+<div class="shape" style="left:575px;top:355px;width:450px;height:387px;background:#FFFFFF;border-radius:18px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:599px;top:378px;width:402px;height:35px;font-size:23px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">2 / ПРОЕКТ</div>
+<div class="txt" style="left:599px;top:433px;width:402px;height:92px;font-size:33px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Новый 2D-проект</div>
+<div class="txt" style="left:599px;top:538px;width:402px;height:186px;font-size:25px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Выбери доступный 2D-шаблон. Назови проект CrystalStart. Создай папки Scenes и Scripts внутри Assets.</div>
+<div class="shape" style="left:1070px;top:355px;width:450px;height:387px;background:#FFFFFF;border-radius:18px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:1094px;top:378px;width:402px;height:35px;font-size:23px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">3 / ВВОД</div>
+<div class="txt" style="left:1094px;top:433px;width:402px;height:92px;font-size:33px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Input System</div>
+<div class="txt" style="left:1094px;top:538px;width:402px;height:186px;font-size:25px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">В Package Manager проверь пакет Input System. В Active Input Handling выбери Input System Package (New) и перезапусти редактор по запросу.</div>
+<div class="txt" style="left:84px;top:795px;width:460px;height:25px;font-size:15px;color:#6935CB;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;"><a href="https://unity.com/releases/unity-6/support">S1 · Unity 6: поддержка версий ↗</a></div>
+<div class="txt" style="left:564px;top:795px;width:460px;height:25px;font-size:15px;color:#6935CB;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;"><a href="https://docs.unity3d.com/Packages/com.unity.inputsystem@1.14/manual/Installation.html">S2 · Input System: установка ↗</a></div></section><section class="slide" aria-label="Слайд 3 из 12"><div class="shape" style="left:0px;top:0px;width:1600px;height:900px;background:#FFF9EF;border-radius:0px;" aria-hidden="true"></div>
+<div class="shape" style="left:80px;top:63px;width:12px;height:31px;background:#6935CB;border-radius:4px;" aria-hidden="true"></div>
+<div class="txt" style="left:109px;top:61px;width:220px;height:36px;font-size:25px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">AI PATH</div>
+<div class="txt" style="left:1260px;top:64px;width:260px;height:30px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">UNITY + ИИ</div>
+<div class="txt" style="left:80px;top:125px;width:1440px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">02 · КАРТА РЕДАКТОРА</div>
+<div class="txt" style="left:80px;top:168px;width:1440px;height:96px;font-size:62px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Пять областей. Пять вопросов.</div>
+<div class="txt" style="left:84px;top:274px;width:1430px;height:65px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Схема расположения условная: панели в твоём редакторе могут стоять иначе.</div>
+<div class="shape" style="left:80px;top:833px;width:1440px;height:1px;background:#D8CCE5;border-radius:0px;" aria-hidden="true"></div>
+<div class="txt" style="left:80px;top:850px;width:1120px;height:25px;font-size:15px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Урок 01 · Управляем спрайтом · AI PATH · предлагаемый учебный формат</div>
+<div class="txt" style="left:1350px;top:848px;width:170px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">03 / 12</div>
+<div class="shape" style="left:80px;top:355px;width:320px;height:283px;background:#FFFFFF;border-radius:16px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:102px;top:375px;width:276px;height:45px;font-size:32px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Hierarchy</div>
+<div class="txt" style="left:102px;top:430px;width:276px;height:75px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Что есть в сцене?</div>
+<div class="shape" style="left:420px;top:355px;width:650px;height:283px;background:#EEE5FB;border-radius:16px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:442px;top:375px;width:606px;height:45px;font-size:32px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Scene / Game</div>
+<div class="txt" style="left:442px;top:430px;width:606px;height:75px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Где настраиваю / что видит игрок?</div>
+<div class="shape" style="left:1090px;top:355px;width:430px;height:425px;background:#FFFFFF;border-radius:16px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:1112px;top:375px;width:386px;height:45px;font-size:32px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Inspector</div>
+<div class="txt" style="left:1112px;top:430px;width:386px;height:75px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Какие параметры у объекта?</div>
+<div class="shape" style="left:80px;top:658px;width:540px;height:122px;background:#FFFFFF;border-radius:16px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:102px;top:678px;width:496px;height:45px;font-size:32px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Project</div>
+<div class="txt" style="left:102px;top:733px;width:496px;height:75px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Где сохранены файлы?</div>
+<div class="shape" style="left:640px;top:658px;width:430px;height:122px;background:#FFFFFF;border-radius:16px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:662px;top:678px;width:386px;height:45px;font-size:32px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Console</div>
+<div class="txt" style="left:662px;top:733px;width:386px;height:75px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Что сообщает код?</div></section><section class="slide" aria-label="Слайд 4 из 12"><div class="shape" style="left:0px;top:0px;width:1600px;height:900px;background:#FFF9EF;border-radius:0px;" aria-hidden="true"></div>
+<div class="shape" style="left:80px;top:63px;width:12px;height:31px;background:#6935CB;border-radius:4px;" aria-hidden="true"></div>
+<div class="txt" style="left:109px;top:61px;width:220px;height:36px;font-size:25px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">AI PATH</div>
+<div class="txt" style="left:1260px;top:64px;width:260px;height:30px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">UNITY + ИИ</div>
+<div class="txt" style="left:80px;top:125px;width:1440px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">03 · СОЗДАЙ СЦЕНУ</div>
+<div class="txt" style="left:80px;top:168px;width:1440px;height:96px;font-size:62px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Lesson01: камера и один игрок.</div>
+<div class="txt" style="left:84px;top:274px;width:1430px;height:65px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Сначала статичная сцена. Движение добавим отдельным шагом.</div>
+<div class="shape" style="left:80px;top:833px;width:1440px;height:1px;background:#D8CCE5;border-radius:0px;" aria-hidden="true"></div>
+<div class="txt" style="left:80px;top:850px;width:1120px;height:25px;font-size:15px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Урок 01 · Управляем спрайтом · AI PATH · предлагаемый учебный формат</div>
+<div class="txt" style="left:1350px;top:848px;width:170px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">04 / 12</div>
+<div class="txt" style="left:84px;top:367px;width:790px;height:320px;font-size:30px;color:#24133F;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">1. Сохрани сцену: Assets/Scenes/Lesson01.
+2. Создай 2D Object → Sprites → Square.
+3. Переименуй объект в Player.
+4. Position: X = 0, Y = 0, Z = 0.
+5. У камеры: Orthographic, Z = −10.
+6. В Game должен быть виден квадрат.</div>
+<div class="shape" style="left:970px;top:365px;width:550px;height:355px;background:#EEE5FB;border-radius:20px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:1000px;top:392px;width:490px;height:34px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">ОЖИДАЕМАЯ СЦЕНА</div>
+<div class="shape" style="left:1180px;top:486px;width:125px;height:125px;background:#6935CB;border-radius:8px;" aria-hidden="true"></div>
+<div class="txt" style="left:1000px;top:659px;width:490px;height:32px;font-size:21px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Схема: Player в кадре камеры</div>
+<div class="txt" style="left:84px;top:750px;width:1410px;height:44px;font-size:27px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Проверка: выдели Player → найди Transform и Sprite Renderer в Inspector.</div></section><section class="slide" aria-label="Слайд 5 из 12"><div class="shape" style="left:0px;top:0px;width:1600px;height:900px;background:#FFF9EF;border-radius:0px;" aria-hidden="true"></div>
+<div class="shape" style="left:80px;top:63px;width:12px;height:31px;background:#6935CB;border-radius:4px;" aria-hidden="true"></div>
+<div class="txt" style="left:109px;top:61px;width:220px;height:36px;font-size:25px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">AI PATH</div>
+<div class="txt" style="left:1260px;top:64px;width:260px;height:30px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">UNITY + ИИ</div>
+<div class="txt" style="left:80px;top:125px;width:1440px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">04 · ДОБАВЬ КОМПОНЕНТЫ</div>
+<div class="txt" style="left:80px;top:168px;width:1440px;height:96px;font-size:62px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Один объект — несколько обязанностей.</div>
+<div class="txt" style="left:84px;top:274px;width:1430px;height:65px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Выдели Player и проверь каждый компонент до добавления кода.</div>
+<div class="shape" style="left:80px;top:833px;width:1440px;height:1px;background:#D8CCE5;border-radius:0px;" aria-hidden="true"></div>
+<div class="txt" style="left:80px;top:850px;width:1120px;height:25px;font-size:15px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Урок 01 · Управляем спрайтом · AI PATH · предлагаемый учебный формат</div>
+<div class="txt" style="left:1350px;top:848px;width:170px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">05 / 12</div>
+<div class="shape" style="left:80px;top:355px;width:1440px;height:126px;background:#FFFFFF;border-radius:16px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:105px;top:377px;width:370px;height:43px;font-size:31px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Sprite Renderer</div>
+<div class="txt" style="left:105px;top:427px;width:370px;height:34px;font-size:22px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Видимый квадрат</div>
+<div class="txt" style="left:525px;top:380px;width:950px;height:80px;font-size:28px;color:#24133F;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Sprite: Square; цвет на твой выбор.</div>
+<div class="shape" style="left:80px;top:500px;width:1440px;height:126px;background:#FFFFFF;border-radius:16px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:105px;top:522px;width:370px;height:43px;font-size:31px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Rigidbody2D</div>
+<div class="txt" style="left:105px;top:572px;width:370px;height:34px;font-size:22px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Движение через физику</div>
+<div class="txt" style="left:525px;top:525px;width:950px;height:80px;font-size:28px;color:#24133F;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Body Type: Dynamic · Gravity Scale: 0
+Linear Damping: 0 · Freeze Rotation Z: ✓</div>
+<div class="shape" style="left:80px;top:645px;width:1440px;height:126px;background:#FFFFFF;border-radius:16px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:105px;top:667px;width:370px;height:43px;font-size:31px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">BoxCollider2D</div>
+<div class="txt" style="left:105px;top:717px;width:370px;height:34px;font-size:22px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Граница объекта</div>
+<div class="txt" style="left:525px;top:670px;width:950px;height:80px;font-size:28px;color:#24133F;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Оставь обычный коллайдер, Is Trigger выключен.
+Столкновения разберём позже.</div></section><section class="slide" aria-label="Слайд 6 из 12"><div class="shape" style="left:0px;top:0px;width:1600px;height:900px;background:#FFF9EF;border-radius:0px;" aria-hidden="true"></div>
+<div class="shape" style="left:80px;top:63px;width:12px;height:31px;background:#6935CB;border-radius:4px;" aria-hidden="true"></div>
+<div class="txt" style="left:109px;top:61px;width:220px;height:36px;font-size:25px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">AI PATH</div>
+<div class="txt" style="left:1260px;top:64px;width:260px;height:30px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">UNITY + ИИ</div>
+<div class="txt" style="left:80px;top:125px;width:1440px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">05 · ЗАПРОС К ИИ</div>
+<div class="txt" style="left:80px;top:168px;width:1440px;height:96px;font-size:62px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Попроси один проверяемый шаг.</div>
+<div class="txt" style="left:84px;top:274px;width:1430px;height:65px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Пример запроса: версия, сцена, ограничения и способ проверить ответ.</div>
+<div class="shape" style="left:80px;top:833px;width:1440px;height:1px;background:#D8CCE5;border-radius:0px;" aria-hidden="true"></div>
+<div class="txt" style="left:80px;top:850px;width:1120px;height:25px;font-size:15px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Урок 01 · Управляем спрайтом · AI PATH · предлагаемый учебный формат</div>
+<div class="txt" style="left:1350px;top:848px;width:170px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">06 / 12</div>
+<div class="shape" style="left:80px;top:355px;width:1440px;height:316px;background:#24133F;border-radius:20px;" aria-hidden="true"></div>
+<div class="txt" style="left:112px;top:382px;width:1374px;height:260px;font-size:29px;color:#FFF9EF;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Unity 6.3 LTS, 2D, Input System. Есть Player с Rigidbody2D.
+Нужен PlayerMover: WASD и стрелки, без ускорения по диагонали.
+В Update читаем Keyboard.current; при null направление равно нулю.
+В FixedUpdate меняем linearVelocity. Противоположные клавиши
+взаимно отменяются. Объясни Awake, Update и FixedUpdate.
+Дай полный класс и пять проверок. Не добавляй другие механики.</div>
+<div class="txt" style="left:85px;top:708px;width:1410px;height:95px;font-size:27px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">После ответа: прочитай код → сопоставь с компонентами → запусти → проверь.
+Если видишь старый Input.GetAxis или другой API — уточни ограничения запроса.</div></section><section class="slide" aria-label="Слайд 7 из 12"><div class="shape" style="left:0px;top:0px;width:1600px;height:900px;background:#FFF9EF;border-radius:0px;" aria-hidden="true"></div>
+<div class="shape" style="left:80px;top:63px;width:12px;height:31px;background:#6935CB;border-radius:4px;" aria-hidden="true"></div>
+<div class="txt" style="left:109px;top:61px;width:220px;height:36px;font-size:25px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">AI PATH</div>
+<div class="txt" style="left:1260px;top:64px;width:260px;height:30px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">UNITY + ИИ</div>
+<div class="txt" style="left:80px;top:125px;width:1440px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">06 · ПОДГОТОВЬ СКРИПТ</div>
+<div class="txt" style="left:80px;top:168px;width:1440px;height:96px;font-size:62px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Файл и класс: PlayerMover.</div>
+<div class="txt" style="left:84px;top:274px;width:1430px;height:65px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Создай C#-скрипт в Assets/Scripts, замени содержимое полным кодом из раздатки.</div>
+<div class="shape" style="left:80px;top:833px;width:1440px;height:1px;background:#D8CCE5;border-radius:0px;" aria-hidden="true"></div>
+<div class="txt" style="left:80px;top:850px;width:1120px;height:25px;font-size:15px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Урок 01 · Управляем спрайтом · AI PATH · предлагаемый учебный формат</div>
+<div class="txt" style="left:1350px;top:848px;width:170px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">07 / 12</div>
+<div class="shape" style="left:80px;top:355px;width:880px;height:407px;background:#24133F;border-radius:18px;" aria-hidden="true"></div>
+<div class="txt" style="left:108px;top:379px;width:820px;height:360px;font-size:23px;color:#FFF9EF;font-weight:400;font-family:'Consolas',sans-serif;text-align:left;">using UnityEngine;
+using UnityEngine.InputSystem;
+[RequireComponent(typeof(Rigidbody2D))]
+public class PlayerMover : MonoBehaviour
+{
+    [SerializeField] private float speed = 4f;
+    private Rigidbody2D body;
+    private Vector2 direction;
+    private void Awake()
+    {
+        body = GetComponent&lt;Rigidbody2D&gt;();
+    }
+}</div>
+<div class="txt" style="left:1005px;top:370px;width:505px;height:260px;font-size:29px;color:#24133F;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Awake
+Находит Rigidbody2D
+на том же объекте.
+
+Speed = 4
+Скорость видна в Inspector.
+Не меняй её в Play Mode.</div>
+<div class="txt" style="left:1005px;top:685px;width:505px;height:95px;font-size:23px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Здесь фрагмент. Полный PlayerMover.cs — рядом с презентацией.</div></section><section class="slide" aria-label="Слайд 8 из 12"><div class="shape" style="left:0px;top:0px;width:1600px;height:900px;background:#FFF9EF;border-radius:0px;" aria-hidden="true"></div>
+<div class="shape" style="left:80px;top:63px;width:12px;height:31px;background:#6935CB;border-radius:4px;" aria-hidden="true"></div>
+<div class="txt" style="left:109px;top:61px;width:220px;height:36px;font-size:25px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">AI PATH</div>
+<div class="txt" style="left:1260px;top:64px;width:260px;height:30px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">UNITY + ИИ</div>
+<div class="txt" style="left:80px;top:125px;width:1440px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">07 · ПРОЧИТАЙ НАПРАВЛЕНИЕ</div>
+<div class="txt" style="left:80px;top:168px;width:1440px;height:96px;font-size:62px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Update: клавиши → вектор.</div>
+<div class="txt" style="left:84px;top:274px;width:1430px;height:65px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Каждый кадр получаем новый ввод. Противоположные направления вычитаются.</div>
+<div class="shape" style="left:80px;top:833px;width:1440px;height:1px;background:#D8CCE5;border-radius:0px;" aria-hidden="true"></div>
+<div class="txt" style="left:80px;top:850px;width:1120px;height:25px;font-size:15px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Урок 01 · Управляем спрайтом · AI PATH · предлагаемый учебный формат</div>
+<div class="txt" style="left:1350px;top:848px;width:170px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">08 / 12</div>
+<div class="shape" style="left:80px;top:355px;width:1035px;height:407px;background:#24133F;border-radius:18px;" aria-hidden="true"></div>
+<div class="txt" style="left:107px;top:378px;width:981px;height:365px;font-size:23px;color:#FFF9EF;font-weight:400;font-family:'Consolas',sans-serif;text-align:left;">private void Update()
+{
+    Keyboard k = Keyboard.current;
+    if (k == null) { direction = Vector2.zero; return; }
+
+    float x = (k.dKey.isPressed || k.rightArrowKey.isPressed ? 1f : 0f)
+            - (k.aKey.isPressed || k.leftArrowKey.isPressed ? 1f : 0f);
+    float y = (k.wKey.isPressed || k.upArrowKey.isPressed ? 1f : 0f)
+            - (k.sKey.isPressed || k.downArrowKey.isPressed ? 1f : 0f);
+    direction = Vector2.ClampMagnitude(new Vector2(x, y), 1f);
+}</div>
+<div class="txt" style="left:1160px;top:369px;width:350px;height:107px;font-size:30px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">D → (1, 0)
+A + D → (0, 0)</div>
+<div class="txt" style="left:1160px;top:520px;width:350px;height:210px;font-size:27px;color:#24133F;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">W + D:
+диагональ длиной 1.
+
+ClampMagnitude
+не даёт ехать
+быстрее по диагонали.</div></section><section class="slide" aria-label="Слайд 9 из 12"><div class="shape" style="left:0px;top:0px;width:1600px;height:900px;background:#FFF9EF;border-radius:0px;" aria-hidden="true"></div>
+<div class="shape" style="left:80px;top:63px;width:12px;height:31px;background:#6935CB;border-radius:4px;" aria-hidden="true"></div>
+<div class="txt" style="left:109px;top:61px;width:220px;height:36px;font-size:25px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">AI PATH</div>
+<div class="txt" style="left:1260px;top:64px;width:260px;height:30px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">UNITY + ИИ</div>
+<div class="txt" style="left:80px;top:125px;width:1440px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">08 · ПРИМЕНИ ДВИЖЕНИЕ</div>
+<div class="txt" style="left:80px;top:168px;width:1440px;height:96px;font-size:62px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">FixedUpdate: вектор → скорость.</div>
+<div class="txt" style="left:84px;top:274px;width:1430px;height:65px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Клавиши читаем в Update. Rigidbody2D меняем на шаге физики.</div>
+<div class="shape" style="left:80px;top:833px;width:1440px;height:1px;background:#D8CCE5;border-radius:0px;" aria-hidden="true"></div>
+<div class="txt" style="left:80px;top:850px;width:1120px;height:25px;font-size:15px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Урок 01 · Управляем спрайтом · AI PATH · предлагаемый учебный формат</div>
+<div class="txt" style="left:1350px;top:848px;width:170px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">09 / 12</div>
+<div class="shape" style="left:80px;top:355px;width:940px;height:265px;background:#24133F;border-radius:18px;" aria-hidden="true"></div>
+<div class="txt" style="left:112px;top:394px;width:878px;height:175px;font-size:33px;color:#FFF9EF;font-weight:400;font-family:'Consolas',sans-serif;text-align:left;">private void FixedUpdate()
+{
+    body.linearVelocity = direction * speed;
+}</div>
+<div class="txt" style="left:1065px;top:363px;width:450px;height:235px;font-size:29px;color:#24133F;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Отпустили клавиши?
+direction = (0, 0)
+
+На следующем шаге
+скорость станет нулевой.</div>
+<div class="txt" style="left:84px;top:674px;width:1410px;height:88px;font-size:27px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Прикрепи PlayerMover к Player. Сохрани. Нажми Play и кликни в Game.
+Здесь задаётся скорость: дополнительно умножать её на deltaTime не нужно.</div>
+<div class="txt" style="left:84px;top:795px;width:460px;height:25px;font-size:15px;color:#6935CB;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;"><a href="https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Rigidbody2D-linearVelocity.html">S3 · Rigidbody2D.linearVelocity ↗</a></div></section><section class="slide" aria-label="Слайд 10 из 12"><div class="shape" style="left:0px;top:0px;width:1600px;height:900px;background:#FFF9EF;border-radius:0px;" aria-hidden="true"></div>
+<div class="shape" style="left:80px;top:63px;width:12px;height:31px;background:#6935CB;border-radius:4px;" aria-hidden="true"></div>
+<div class="txt" style="left:109px;top:61px;width:220px;height:36px;font-size:25px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">AI PATH</div>
+<div class="txt" style="left:1260px;top:64px;width:260px;height:30px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">UNITY + ИИ</div>
+<div class="txt" style="left:80px;top:125px;width:1440px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">09 · ПРОВЕРКА РЕЗУЛЬТАТА</div>
+<div class="txt" style="left:80px;top:168px;width:1440px;height:96px;font-size:62px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Пять тестов. Запиши факт.</div>
+<div class="txt" style="left:84px;top:274px;width:1430px;height:65px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Ожидание — ниже. Фактический результат нужно получить в твоём Unity.</div>
+<div class="shape" style="left:80px;top:833px;width:1440px;height:1px;background:#D8CCE5;border-radius:0px;" aria-hidden="true"></div>
+<div class="txt" style="left:80px;top:850px;width:1120px;height:25px;font-size:15px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Урок 01 · Управляем спрайтом · AI PATH · предлагаемый учебный формат</div>
+<div class="txt" style="left:1350px;top:848px;width:170px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">10 / 12</div>
+<div class="txt" style="left:106px;top:350px;width:330px;height:30px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">ЧТО ПРОВЕРЯЕМ</div>
+<div class="txt" style="left:465px;top:350px;width:385px;height:30px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">ДЕЙСТВИЕ</div>
+<div class="txt" style="left:900px;top:350px;width:580px;height:30px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">ОЖИДАЕМЫЙ РЕЗУЛЬТАТ</div>
+<div class="shape" style="left:80px;top:392px;width:1440px;height:67px;background:#FFFFFF;border-radius:9px;" aria-hidden="true"></div>
+<div class="txt" style="left:106px;top:409px;width:330px;height:40px;font-size:25px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">01  Движение</div>
+<div class="txt" style="left:465px;top:409px;width:385px;height:46px;font-size:23px;color:#24133F;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">WASD и стрелки</div>
+<div class="txt" style="left:900px;top:406px;width:580px;height:52px;font-size:23px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Нужное направление; квадрат виден в Game.</div>
+<div class="shape" style="left:80px;top:470px;width:1440px;height:67px;background:#EEE5FB;border-radius:9px;" aria-hidden="true"></div>
+<div class="txt" style="left:106px;top:487px;width:330px;height:40px;font-size:25px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">02  Остановка</div>
+<div class="txt" style="left:465px;top:487px;width:385px;height:46px;font-size:23px;color:#24133F;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Нажать D → отпустить</div>
+<div class="txt" style="left:900px;top:484px;width:580px;height:52px;font-size:23px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">На следующем шаге физики скорость нулевая.</div>
+<div class="shape" style="left:80px;top:548px;width:1440px;height:67px;background:#FFFFFF;border-radius:9px;" aria-hidden="true"></div>
+<div class="txt" style="left:106px;top:565px;width:330px;height:40px;font-size:25px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">03  Диагональ</div>
+<div class="txt" style="left:465px;top:565px;width:385px;height:46px;font-size:23px;color:#24133F;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">D и W + D за одно время</div>
+<div class="txt" style="left:900px;top:562px;width:580px;height:52px;font-size:23px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Модуль скорости одинаковый; диагональ не быстрее.</div>
+<div class="shape" style="left:80px;top:626px;width:1440px;height:67px;background:#EEE5FB;border-radius:9px;" aria-hidden="true"></div>
+<div class="txt" style="left:106px;top:643px;width:330px;height:40px;font-size:25px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">04  Противоречие</div>
+<div class="txt" style="left:465px;top:643px;width:385px;height:46px;font-size:23px;color:#24133F;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">A + D; W + S</div>
+<div class="txt" style="left:900px;top:640px;width:580px;height:52px;font-size:23px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">По соответствующей оси движения нет.</div>
+<div class="shape" style="left:80px;top:704px;width:1440px;height:67px;background:#FFFFFF;border-radius:9px;" aria-hidden="true"></div>
+<div class="txt" style="left:106px;top:721px;width:330px;height:40px;font-size:25px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">05  Console</div>
+<div class="txt" style="left:465px;top:721px;width:385px;height:46px;font-size:23px;color:#24133F;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Очистить → Play → все действия</div>
+<div class="txt" style="left:900px;top:718px;width:580px;height:52px;font-size:23px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Нет новых красных ошибок; результат зафиксирован.</div></section><section class="slide" aria-label="Слайд 11 из 12"><div class="shape" style="left:0px;top:0px;width:1600px;height:900px;background:#FFF9EF;border-radius:0px;" aria-hidden="true"></div>
+<div class="shape" style="left:80px;top:63px;width:12px;height:31px;background:#6935CB;border-radius:4px;" aria-hidden="true"></div>
+<div class="txt" style="left:109px;top:61px;width:220px;height:36px;font-size:25px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">AI PATH</div>
+<div class="txt" style="left:1260px;top:64px;width:260px;height:30px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">UNITY + ИИ</div>
+<div class="txt" style="left:80px;top:125px;width:1440px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">10 · ЕСЛИ НЕ РАБОТАЕТ</div>
+<div class="txt" style="left:80px;top:168px;width:1440px;height:96px;font-size:62px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Ищи первый нарушенный шаг.</div>
+<div class="txt" style="left:84px;top:274px;width:1430px;height:65px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Меняй одну причину за раз и повторяй тот же тест.</div>
+<div class="shape" style="left:80px;top:833px;width:1440px;height:1px;background:#D8CCE5;border-radius:0px;" aria-hidden="true"></div>
+<div class="txt" style="left:80px;top:850px;width:1120px;height:25px;font-size:15px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Урок 01 · Управляем спрайтом · AI PATH · предлагаемый учебный формат</div>
+<div class="txt" style="left:1350px;top:848px;width:170px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">11 / 12</div>
+<div class="shape" style="left:80px;top:355px;width:710px;height:192px;background:#FFFFFF;border-radius:16px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:104px;top:378px;width:662px;height:49px;font-size:32px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Не двигается</div>
+<div class="txt" style="left:104px;top:443px;width:662px;height:90px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Play включён? Game в фокусе?
+PlayerMover находится на Player?</div>
+<div class="shape" style="left:810px;top:355px;width:710px;height:192px;background:#FFFFFF;border-radius:16px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:834px;top:378px;width:662px;height:49px;font-size:32px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Красная ошибка</div>
+<div class="txt" style="left:834px;top:443px;width:662px;height:90px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Прочитай первую ошибку Console.
+Файл и класс называются PlayerMover?</div>
+<div class="shape" style="left:80px;top:573px;width:710px;height:192px;background:#FFFFFF;border-radius:16px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:104px;top:596px;width:662px;height:49px;font-size:32px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">InputSystem не найден</div>
+<div class="txt" style="left:104px;top:661px;width:662px;height:90px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Проверь пакет и Active Input Handling.
+После смены настройки перезапусти редактор.</div>
+<div class="shape" style="left:810px;top:573px;width:710px;height:192px;background:#FFFFFF;border-radius:16px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:834px;top:596px;width:662px;height:49px;font-size:32px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Падает или крутится</div>
+<div class="txt" style="left:834px;top:661px;width:662px;height:90px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Rigidbody2D: Gravity Scale = 0.
+Constraints: Freeze Rotation Z.</div></section><section class="slide" aria-label="Слайд 12 из 12"><div class="shape" style="left:0px;top:0px;width:1600px;height:900px;background:#FFF9EF;border-radius:0px;" aria-hidden="true"></div>
+<div class="shape" style="left:80px;top:63px;width:12px;height:31px;background:#6935CB;border-radius:4px;" aria-hidden="true"></div>
+<div class="txt" style="left:109px;top:61px;width:220px;height:36px;font-size:25px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">AI PATH</div>
+<div class="txt" style="left:1260px;top:64px;width:260px;height:30px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">UNITY + ИИ</div>
+<div class="txt" style="left:80px;top:125px;width:1440px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">11 · САМОСТОЯТЕЛЬНЫЙ ПОВТОР</div>
+<div class="txt" style="left:80px;top:168px;width:1440px;height:96px;font-size:62px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Поменяй скорость. Докажи изменение.</div>
+<div class="txt" style="left:84px;top:274px;width:1430px;height:65px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Останови Play Mode перед изменением параметров, чтобы они сохранились.</div>
+<div class="shape" style="left:80px;top:833px;width:1440px;height:1px;background:#D8CCE5;border-radius:0px;" aria-hidden="true"></div>
+<div class="txt" style="left:80px;top:850px;width:1120px;height:25px;font-size:15px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Урок 01 · Управляем спрайтом · AI PATH · предлагаемый учебный формат</div>
+<div class="txt" style="left:1350px;top:848px;width:170px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">12 / 12</div>
+<div class="shape" style="left:80px;top:355px;width:450px;height:352px;background:#FFFFFF;border-radius:18px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:104px;top:378px;width:402px;height:35px;font-size:23px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">4</div>
+<div class="txt" style="left:104px;top:433px;width:402px;height:92px;font-size:33px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Исходный вариант</div>
+<div class="txt" style="left:104px;top:538px;width:402px;height:151px;font-size:25px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Запусти пять тестов и сохрани наблюдения.</div>
+<div class="shape" style="left:575px;top:355px;width:450px;height:352px;background:#FFFFFF;border-radius:18px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:599px;top:378px;width:402px;height:35px;font-size:23px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">2</div>
+<div class="txt" style="left:599px;top:433px;width:402px;height:92px;font-size:33px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Медленнее</div>
+<div class="txt" style="left:599px;top:538px;width:402px;height:151px;font-size:25px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Измени Speed в Inspector. Повтори тест движения за то же время.</div>
+<div class="shape" style="left:1070px;top:355px;width:450px;height:352px;background:#FFFFFF;border-radius:18px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:1094px;top:378px;width:402px;height:35px;font-size:23px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">4</div>
+<div class="txt" style="left:1094px;top:433px;width:402px;height:92px;font-size:33px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Верни и перепроверь</div>
+<div class="txt" style="left:1094px;top:538px;width:402px;height:151px;font-size:25px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Восстанови Speed. Убедись, что поведение вернулось.</div>
+<div class="txt" style="left:84px;top:742px;width:1415px;height:66px;font-size:26px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Сдай: сцену Lesson01, PlayerMover.cs и запись пяти проверок.
+Следующий шаг — первый собираемый предмет. Сегодня его ещё не делаем.</div></section>
+</body></html>

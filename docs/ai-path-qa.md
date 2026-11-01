@@ -70,6 +70,28 @@ Artifacts are ignored by Git. On Windows, generated-output verification requires
 LF working files; regenerate the neural course and journey catalogs if a CRLF
 checkout reports stale output, and verify there is no content diff.
 
+## Project demo scenarios (November 2026)
+
+`npm run test:demos` exercises the catalog and nine local demos. The smoke
+workflow runs five independent required jobs: `project-demos`, `brand-demos`,
+`commerce-demos`, `cosmos-demo`, and `game-missions`. They check actual choices,
+back/reset, negative cases, export contents, responsive layouts and accessibility.
+Artifacts include screenshots, exported files and axe results. The 3D test also
+checks changed PNG pixels, visible floor-plan lines in exported PNGs, ordinary
+motion and WebGL failure. CI uses pinned Chromium; an installed local browser
+can be selected with `QA_BROWSER_CHANNEL`.
+
+The desktop Lighthouse configuration includes all nine upgraded demos and the
+catalog; the mobile profile adds catalog, Pocitel, FLORA and Cosmos to its
+existing routes. Budgets are unchanged. `Publish Test it` still requires the
+entire reusable smoke and Lighthouse workflows before deploy. New local results
+are not evidence that this branch has run on GitHub or been published.
+
+The 40-entry catalog distinguishes local interactive projects, external demos,
+and source/artifact examples. External applications are checked separately and
+never become a CI dependency. See `demo-inventory.md` and
+`external-demos-audit-20261101.md` for scope and observed limitations.
+
 ## Release and manual boundaries
 
 A green PR workflow validates the proposed revision; it does not mean merged or
