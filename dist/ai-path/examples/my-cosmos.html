@@ -123,6 +123,8 @@
   </style>
 <script src="../course-navigation.js?v=1"></script>
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="stylesheet" href="cosmos-mission.css">
+<!-- project-next:assets:start --><link rel="stylesheet" href="../project-next.css"><script src="../project-next.js" defer></script><!-- project-next:assets:end -->
 </head>
 <body data-theme="dark">
   <a class="skip" href="#main">Перейти к планетам</a>
@@ -140,7 +142,7 @@
       <p class="eyebrow">Учебный пример наставника · Сайт с работающими кнопками</p>
       <div class="intro-row">
         <h1 id="cosmos-title">Мой <span>Космос.</span></h1>
-        <p class="intro-copy">Большая Вселенная. Четыре маленьких открытия. Выбери планету и начни своё путешествие.</p>
+        <p class="intro-copy">Четыре планеты, четыре сигнала. Изучи атлас, найди планету по подсказке и собери журнал своей экспедиции.</p>
       </div>
     </section>
     <section class="explorer" aria-label="Исследуй планеты">
@@ -169,6 +171,33 @@
     </section>
     <noscript><p>Сейчас показан Сатурн. Для переключения планет и темы включи JavaScript в браузере.</p></noscript>
     <div class="project-note"><span><strong>Демо, которое разбираем на занятиях</strong></span><span>Работает на компьютере и телефоне</span></div>
+    <section class="cosmos-mission" id="cosmos-mission" aria-labelledby="mission-title" hidden>
+      <div class="mission-task">
+        <p class="eyebrow">Твоя экспедиция · около 3 минут</p>
+        <h2 id="mission-title">Откуда пришёл сигнал?</h2>
+        <p class="mission-intro">Сверь подсказку с атласом выше. Выбор планеты меняет иллюстрацию; ответ засчитывается только после проверки.</p>
+        <p id="mission-number" class="mission-number">Сигнал 1 из 4</p>
+        <p id="mission-clue" class="mission-clue"></p>
+        <div class="mission-options" role="group" aria-label="Ответ на сигнал">
+          <button type="button" data-mission-answer="mars" aria-pressed="false">Марс</button>
+          <button type="button" data-mission-answer="jupiter" aria-pressed="false">Юпитер</button>
+          <button type="button" data-mission-answer="saturn" aria-pressed="false">Сатурн</button>
+          <button type="button" data-mission-answer="neptune" aria-pressed="false">Нептун</button>
+        </div>
+        <div class="mission-actions"><button class="mission-primary" id="mission-check" type="button" disabled>Проверить ответ</button><button id="mission-next" type="button" hidden>Следующий сигнал →</button></div>
+        <p id="mission-feedback" role="status" aria-live="polite">Сначала выбери планету.</p>
+      </div>
+      <aside class="mission-journal" aria-labelledby="journal-title">
+        <p class="eyebrow">Результат твоих действий</p>
+        <h3 id="journal-title">Журнал экспедиции</h3>
+        <label for="mission-progress" id="mission-progress-label">Разгадано 0 из 4 сигналов</label>
+        <progress id="mission-progress" value="0" max="4">0 из 4</progress>
+        <p id="journal-empty">Здесь появятся найденные планеты, объяснения и источники.</p>
+        <ol id="mission-log"></ol>
+        <div class="mission-actions"><button id="mission-export" type="button" disabled>Скачать журнал</button><button id="mission-reset" type="button">Начать экспедицию заново</button></div>
+        <p class="mission-note">Журнал содержит только проверенные ответы этой попытки. Прогресс сбросится при обновлении страницы; файл можно сохранить в любой момент после первого открытия.</p>
+      </aside>
+    </section>
     <section class="process" aria-labelledby="process-title">
       <p class="eyebrow">От интереса к своему проекту</p>
       <h2 id="process-title">Один сайт. Много собственных решений.</h2>
@@ -183,7 +212,8 @@
       <p>А какой сайт хочется сделать тебе?<small>Начнём с идеи и посильного первого проекта.</small></p>
       <a class="cta" id="cosmos-program-link" href="../?program=build&amp;level=zero&amp;pace=balanced#selected">Посмотреть программу <span aria-hidden="true">↗</span></a>
     </aside>
-  </main>
+  <!-- project-next:start --><section class="project-next" data-project-next="cosmos" aria-labelledby="project-next-title"><div class="project-next-copy"><p class="project-next-label">Твой следующий шаг</p><h2 id="project-next-title">Экспедиция по твоей теме</h2><p class="project-next-description">Наметь четыре открытия, подсказки и способ проверить ответ. Тема может быть другой — важен понятный путь исследователя.</p></div><a class="project-next-link" data-project-next-link data-navigation-manual href="../project-start.html?project=cosmos&amp;mode=learn">Сделать свою экспедицию →</a></section><!-- project-next:end -->
+</main>
   <footer class="wrap">
     <p>AI PATH · «Мой Космос» · Учебный пример наставника.</p>
     <p>Иллюстрации созданы средствами страницы; это условные изображения, не фотографии планет. Факты: NASA Science. Проверено 18 октября 2026.</p>
@@ -240,5 +270,6 @@
       });
     })();
   </script>
+  <script src="cosmos-mission.js"></script>
 </body>
 </html>

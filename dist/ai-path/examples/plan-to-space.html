@@ -11,6 +11,7 @@
   <script defer src="../course-navigation.js"></script>
   <script type="module" src="plan-to-space.js"></script>
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<!-- project-next:assets:start --><link rel="stylesheet" href="../project-next.css"><script src="../project-next.js" defer></script><!-- project-next:assets:end -->
 </head>
 <body>
   <main>
@@ -82,10 +83,18 @@
             <button type="button" data-stage="100" aria-pressed="false"><span aria-hidden="true">05</span>Свет</button>
           </div>
           <p class="control-hint" id="controlHint"><span aria-hidden="true">↓</span> Прокручивай страницу или выбери этап</p>
+          <button type="button" id="resume-scroll" hidden>Продолжить прокруткой</button>
         </div>
       </div>
     </section>
 
+    <section class="room-decision" aria-labelledby="decisionTitle">
+      <div><p class="eyebrow">ТВОЁ РЕШЕНИЕ / ОДНА СЦЕНА</p><h2 id="decisionTitle">Сравни два характера комнаты.</h2><p>Выбери палитру: обивка дивана и подушек изменится в той же 3D-сцене. Вернись к виду сверху, чтобы сравнить исходный план с готовым интерьером.</p></div>
+      <div class="room-actions" role="group" aria-label="Палитра интерьера"><button type="button" id="paletteWarm" aria-pressed="true">Лён и терракота</button><button type="button" id="paletteSage" aria-pressed="false">Шалфей и лён</button></div>
+      <div class="room-actions"><button type="button" id="room-before">Показать исходный план</button><button type="button" id="room-after">Показать моё решение</button><button type="button" id="room-capture">Скачать кадр комнаты</button><button type="button" id="room-brief">Скачать карточку решения</button></div>
+      <p id="room-result" role="status">Палитра: лён и терракота. Геометрия комнаты сохраняется.</p>
+      <p class="room-note">Смена палитры открывает готовый интерьер. В карточке — выбранная палитра и этап; чертежи для строительства не создаются.</p>
+    </section>
     <section class="lesson" id="lesson" aria-labelledby="lessonTitle">
       <div class="lesson-intro"><p class="eyebrow">Разобрать. Изменить. Собрать своё.</p><h2 id="lessonTitle">За атмосферой —<br><em>последовательность решений.</em></h2><p>Этот учебный проект показывает, как планировка, геометрия, предметы, материалы и свет складываются в одну сцену. В Design Lab можно разобрать её устройство и попробовать собственную версию.</p><a class="primary-link" id="learnLink" href="../?program=designlab&amp;level=zero&amp;pace=balanced#selected">Посмотреть программу Design Lab <span aria-hidden="true">↗</span></a></div>
       <ol class="lesson-steps">
@@ -99,6 +108,7 @@
 
     <footer class="project-footer"><div><strong>AI PATH / Plan to Space</strong><p>Учебная процедурная сцена, не проект для строительства. Вдохновлено присланной механикой превращения плана в интерьер; геометрия и код сцены созданы заново.</p></div><a href="https://github.com/safal207/test-it-python/tree/main/dist/ai-path/examples" target="_blank" rel="noopener noreferrer">Исходники на GitHub ↗</a></footer>
     <noscript><div class="noscript-note">Для интерактивной 3D-сцены нужен JavaScript. Последовательность создания интерьера описана выше: планировка → объём → предметы → материалы → освещение.</div></noscript>
-  </main>
+  <!-- project-next:start --><section class="project-next" data-project-next="room" aria-labelledby="project-next-title"><div class="project-next-copy"><p class="project-next-label">Твой следующий шаг</p><h2 id="project-next-title">Твоя идея пространства</h2><p class="project-next-description">Наметь небольшую сцену: один план, несколько предметов и смену материала. Сначала — визуальный концепт.</p></div><a class="project-next-link" data-project-next-link data-navigation-manual href="../project-start.html?project=room&amp;mode=learn">Сделать свою 3D-сцену →</a></section><!-- project-next:end -->
+</main>
 </body>
 </html>

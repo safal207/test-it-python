@@ -33,7 +33,7 @@ try {
         const response = await page.goto(site.base + route, { waitUntil: 'networkidle' });
         assert.equal(response.status(), 200, 'Page is served');
         await expect(page.locator('h1')).toBeVisible();
-        if (route === 'journeys.html') await expect(page.locator('.path-card')).toHaveCount(29);
+        if (route === 'journeys.html') await expect(page.locator('.path-card')).toHaveCount(30);
         if (route === '3d-academy-practice.html') await expect(page.locator('#workbench')).toBeVisible();
         const bounds = await page.evaluate(() => {
           const available = document.documentElement.getBoundingClientRect().width;

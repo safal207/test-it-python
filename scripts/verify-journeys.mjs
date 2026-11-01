@@ -18,10 +18,10 @@ try {
     page.on('request', r => { if (!r.url().startsWith(origin + '/') && !r.url().startsWith('data:')) external.push(r.url()); });
     page.on('response', r => { if (r.status() >= 400) failures.push(`${r.status()} ${r.url()}`); });
     await page.goto(base + 'journeys.html');
-    assert.equal(await page.locator('.path-card').count(), 29);
-    assert.equal(await page.locator('.path-card:not([data-group="academy"])').count(), 23);
+    assert.equal(await page.locator('.path-card').count(), 30);
+    assert.equal(await page.locator('.path-card:not([data-group="academy"])').count(), 24);
     assert.equal(await page.locator('.path-card[data-group="academy"]').count(), 6);
-    assert.match(await page.locator('#card-count').innerText(), /29 из 29/);
+    assert.match(await page.locator('#card-count').innerText(), /30 из 30/);
     assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), `${width}: no overflow`);
     await page.screenshot({ path: `${out}/journeys-${width}-intro.png`, animations:'disabled' });
     await page.locator('#age-select').selectOption('6-8');
@@ -30,8 +30,8 @@ try {
     assert.match(await page.locator('#journey-comics [data-age-tip]').textContent(), /героя и первую сцену/);
     assert.equal(new URL(page.url()).searchParams.has('age'), false, 'Age is not added to URL');
     await page.locator('[data-filter="code"]').click();
-    assert.equal(await page.locator('.path-card:visible').count(), 4);
-    assert.match(await page.locator('#card-count').innerText(), /4 из 29/);
+    assert.equal(await page.locator('.path-card:visible').count(), 5);
+    assert.match(await page.locator('#card-count').innerText(), /5 из 30/);
     await page.locator('#journey-game summary').focus();
     await page.keyboard.press('Enter');
     assert.equal(await page.locator('#journey-game details').getAttribute('open'), '');
@@ -54,16 +54,16 @@ try {
     assert.match(await page.locator('#journey-academy-biology').innerText(), /готовность.*уточняется/i);
     assert.equal(new URL(await page.locator('#journey-academy-biology .card-link').getAttribute('href'), page.url()).hash, '#biology');
     await page.locator('[data-filter="all"]').click();
-    assert.equal(await page.locator('.path-card:visible').count(), 29, 'Changing age never hides a course');
+    assert.equal(await page.locator('.path-card:visible').count(), 30, 'Changing age never hides a course');
     const allLinks = await page.locator('.path-card:not([data-group="academy"]) .card-links a:first-child').evaluateAll(links => links.map(a => ({ href: a.href, title:a.closest('article').querySelector('h3').textContent })));
-    assert.equal(new Set(allLinks.map(x => new URL(x.href).searchParams.get('program'))).size, 23);
+    assert.equal(new Set(allLinks.map(x => new URL(x.href).searchParams.get('program'))).size, 24);
     assert(allLinks.every(x => new URL(x.href).hash === '#selected'));
     await page.reload();
     assert.equal(await page.locator('#age-select').inputValue(), 'all', 'Age choice is not stored');
     assert.deepEqual(errors, []);
     assert.deepEqual(failures, [], 'Journey resources load');
     assert.deepEqual(external, [], 'Age and page interactions make no external requests');
-    console.log(`PASS ${width}px: 29 cards, age-specific examples, filters, keyboard, requirements, privacy and screenshots`);
+    console.log(`PASS ${width}px: 30 cards, age-specific examples, filters, keyboard, requirements, privacy and screenshots`);
     await context.close();
   }
   const context = await browser.newContext();

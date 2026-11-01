@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Курс · Первая игра в Unity с ИИ</title>
+<style>
+*{box-sizing:border-box}html{background:#DAD2E4}body{margin:0;font-family:'Segoe UI',Arial,sans-serif}.toolbar{position:sticky;top:0;z-index:5;background:#24133F;color:#FFF9EF;padding:14px 24px;display:flex;justify-content:space-between;gap:16px;font-size:16px}.toolbar a{color:#A7DF4B}.slide{width:1600px;height:900px;position:relative;margin:28px auto;overflow:hidden;box-shadow:0 4px 32px #24133f20}.shape,.txt{position:absolute}.txt{white-space:pre-wrap;line-height:1.12;overflow-wrap:normal}.txt a{color:inherit;text-underline-offset:4px}@media screen and (max-width:1620px){.slide{zoom:calc((100vw - 24px) / 1600px)}}@media screen and (max-width:620px){.toolbar{position:static;flex-direction:column;font-size:14px}.toolbar span{overflow-wrap:anywhere}}@page{size:1600px 900px;margin:0}@media print{html,body{background:white}.toolbar{display:none}.slide{zoom:1;width:1600px;height:900px;margin:0;box-shadow:none;break-after:page;page-break-after:always}.slide:last-child{break-after:auto;page-break-after:auto}*{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+</style></head><body><nav class="toolbar" aria-label="Материалы"><span>Курс · Первая игра в Unity с ИИ · 10 слайдов</span><span><a href="course-slides.pptx">Скачать PPTX</a> · <a href="lesson-01.md">Раздатка и код</a> · <a href="../../unity.html">К курсу</a></span></nav>
+<section class="slide" aria-label="Слайд 1 из 10"><div class="shape" style="left:0px;top:0px;width:1600px;height:900px;background:#24133F;border-radius:0px;" aria-hidden="true"></div>
+<div class="shape" style="left:80px;top:63px;width:12px;height:31px;background:#A7DF4B;border-radius:4px;" aria-hidden="true"></div>
+<div class="txt" style="left:109px;top:61px;width:220px;height:36px;font-size:25px;color:#FFF9EF;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">AI PATH</div>
+<div class="txt" style="left:1260px;top:64px;width:260px;height:30px;font-size:18px;color:#A7DF4B;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">UNITY + ИИ</div>
+<div class="txt" style="left:80px;top:125px;width:1440px;height:27px;font-size:18px;color:#A7DF4B;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">8 НЕДЕЛЬ · 8 ВСТРЕЧ · НОВЫЙ ПРЕДЛАГАЕМЫЙ КУРС</div>
+<div class="txt" style="left:80px;top:168px;width:1440px;height:151px;font-size:62px;color:#FFF9EF;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Первая игра в Unity.
+С ИИ — и пониманием.</div>
+<div class="shape" style="left:80px;top:833px;width:1440px;height:1px;background:#55436D;border-radius:0px;" aria-hidden="true"></div>
+<div class="txt" style="left:80px;top:850px;width:1120px;height:25px;font-size:15px;color:#C7B7D9;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Курс · Первая игра в Unity с ИИ · AI PATH · предлагаемый учебный формат</div>
+<div class="txt" style="left:1350px;top:848px;width:170px;height:27px;font-size:18px;color:#A7DF4B;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">01 / 10</div>
+<div class="txt" style="left:84px;top:350px;width:670px;height:145px;font-size:36px;color:#FFF9EF;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Один небольшой уровень,
+который можно пройти,
+перезапустить и объяснить.</div>
+<div class="shape" style="left:84px;top:538px;width:245px;height:44px;background:#A7DF4B;border-radius:20px;" aria-hidden="true"></div>
+<div class="txt" style="left:98px;top:546px;width:217px;height:28px;font-size:19px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Можно с нуля</div>
+<div class="shape" style="left:345px;top:538px;width:237px;height:44px;background:#A7DF4B;border-radius:20px;" aria-hidden="true"></div>
+<div class="txt" style="left:359px;top:546px;width:209px;height:28px;font-size:19px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Нужен компьютер</div>
+<div class="txt" style="left:84px;top:632px;width:660px;height:110px;font-size:27px;color:#D9CDEB;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Начинаем с управления квадратом.
+Идём к законченному игровому циклу.</div>
+<div class="shape" style="left:800px;top:367px;width:720px;height:378px;background:#EEE5FB;border-radius:22px;border:1px solid #D3C3E9;" aria-hidden="true"></div>
+<div class="shape" style="left:828.0px;top:391.0px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:889.6px;top:391.0px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:951.2px;top:391.0px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1012.8px;top:391.0px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1074.4px;top:391.0px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1136.0px;top:391.0px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1197.6px;top:391.0px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1259.2px;top:391.0px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1320.8px;top:391.0px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:828.0px;top:452.6px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:889.6px;top:452.6px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:951.2px;top:452.6px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1012.8px;top:452.6px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1074.4px;top:452.6px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1136.0px;top:452.6px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1197.6px;top:452.6px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1259.2px;top:452.6px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1320.8px;top:452.6px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:828.0px;top:514.2px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:889.6px;top:514.2px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:951.2px;top:514.2px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1012.8px;top:514.2px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1074.4px;top:514.2px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1136.0px;top:514.2px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1197.6px;top:514.2px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1259.2px;top:514.2px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1320.8px;top:514.2px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:828.0px;top:575.8px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:889.6px;top:575.8px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:951.2px;top:575.8px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1012.8px;top:575.8px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1074.4px;top:575.8px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1136.0px;top:575.8px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1197.6px;top:575.8px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1259.2px;top:575.8px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1320.8px;top:575.8px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:828.0px;top:637.4px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:889.6px;top:637.4px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:951.2px;top:637.4px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1012.8px;top:637.4px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1074.4px;top:637.4px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1136.0px;top:637.4px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1197.6px;top:637.4px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1259.2px;top:637.4px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1320.8px;top:637.4px;width:56.6px;height:56.6px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1012.8px;top:391.0px;width:56.6px;height:56.6px;background:#A48BBF;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1012.8px;top:452.6px;width:56.6px;height:56.6px;background:#A48BBF;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1012.8px;top:575.8px;width:56.6px;height:56.6px;background:#A48BBF;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1197.6px;top:452.6px;width:56.6px;height:56.6px;background:#A48BBF;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:1197.6px;top:514.2px;width:56.6px;height:56.6px;background:#A48BBF;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:896.6px;top:582.8px;width:42.6px;height:42.6px;background:#6935CB;border-radius:8px;" aria-hidden="true"></div>
+<div class="shape" style="left:900.6px;top:463.6px;width:34.6px;height:34.6px;background:#A7DF4B;border-radius:0px;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);" aria-hidden="true"></div>
+<div class="shape" style="left:1147.0px;top:586.8px;width:34.6px;height:34.6px;background:#A7DF4B;border-radius:0px;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);" aria-hidden="true"></div>
+<div class="shape" style="left:1270.2px;top:402.0px;width:34.6px;height:34.6px;background:#A7DF4B;border-radius:0px;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);" aria-hidden="true"></div>
+<div class="txt" style="left:828px;top:711px;width:664px;height:25px;font-size:15px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Схема задуманного уровня · не кадр Unity</div></section><section class="slide" aria-label="Слайд 2 из 10"><div class="shape" style="left:0px;top:0px;width:1600px;height:900px;background:#FFF9EF;border-radius:0px;" aria-hidden="true"></div>
+<div class="shape" style="left:80px;top:63px;width:12px;height:31px;background:#6935CB;border-radius:4px;" aria-hidden="true"></div>
+<div class="txt" style="left:109px;top:61px;width:220px;height:36px;font-size:25px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">AI PATH</div>
+<div class="txt" style="left:1260px;top:64px;width:260px;height:30px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">UNITY + ИИ</div>
+<div class="txt" style="left:80px;top:125px;width:1440px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">01 · КОНЕЧНЫЙ РЕЗУЛЬТАТ</div>
+<div class="txt" style="left:80px;top:168px;width:1440px;height:96px;font-size:62px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">«Собери 3 кристалла»</div>
+<div class="txt" style="left:84px;top:274px;width:1430px;height:65px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Планируемая 2D-игра: небольшая задача с понятным началом и финалом.</div>
+<div class="shape" style="left:80px;top:833px;width:1440px;height:1px;background:#D8CCE5;border-radius:0px;" aria-hidden="true"></div>
+<div class="txt" style="left:80px;top:850px;width:1120px;height:25px;font-size:15px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Курс · Первая игра в Unity с ИИ · AI PATH · предлагаемый учебный формат</div>
+<div class="txt" style="left:1350px;top:848px;width:170px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">02 / 10</div>
+<div class="shape" style="left:80px;top:365px;width:810px;height:407px;background:#EEE5FB;border-radius:22px;border:1px solid #D3C3E9;" aria-hidden="true"></div>
+<div class="shape" style="left:108.0px;top:389.0px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:175.4px;top:389.0px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:242.8px;top:389.0px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:310.20000000000005px;top:389.0px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:377.6px;top:389.0px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:445.0px;top:389.0px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:512.4000000000001px;top:389.0px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:579.8000000000001px;top:389.0px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:647.2px;top:389.0px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:108.0px;top:456.4px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:175.4px;top:456.4px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:242.8px;top:456.4px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:310.20000000000005px;top:456.4px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:377.6px;top:456.4px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:445.0px;top:456.4px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:512.4000000000001px;top:456.4px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:579.8000000000001px;top:456.4px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:647.2px;top:456.4px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:108.0px;top:523.8px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:175.4px;top:523.8px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:242.8px;top:523.8px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:310.20000000000005px;top:523.8px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:377.6px;top:523.8px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:445.0px;top:523.8px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:512.4000000000001px;top:523.8px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:579.8000000000001px;top:523.8px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:647.2px;top:523.8px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:108.0px;top:591.2px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:175.4px;top:591.2px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:242.8px;top:591.2px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:310.20000000000005px;top:591.2px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:377.6px;top:591.2px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:445.0px;top:591.2px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:512.4000000000001px;top:591.2px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:579.8000000000001px;top:591.2px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:647.2px;top:591.2px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:108.0px;top:658.6px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:175.4px;top:658.6px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:242.8px;top:658.6px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:310.20000000000005px;top:658.6px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:377.6px;top:658.6px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:445.0px;top:658.6px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:512.4000000000001px;top:658.6px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:579.8000000000001px;top:658.6px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:647.2px;top:658.6px;width:62.400000000000006px;height:62.400000000000006px;background:#E3D5F5;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:310.20000000000005px;top:389.0px;width:62.400000000000006px;height:62.400000000000006px;background:#A48BBF;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:310.20000000000005px;top:456.4px;width:62.400000000000006px;height:62.400000000000006px;background:#A48BBF;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:310.20000000000005px;top:591.2px;width:62.400000000000006px;height:62.400000000000006px;background:#A48BBF;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:512.4000000000001px;top:456.4px;width:62.400000000000006px;height:62.400000000000006px;background:#A48BBF;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:512.4000000000001px;top:523.8px;width:62.400000000000006px;height:62.400000000000006px;background:#A48BBF;border-radius:4px;" aria-hidden="true"></div>
+<div class="shape" style="left:182.4px;top:598.2px;width:48.400000000000006px;height:48.400000000000006px;background:#6935CB;border-radius:8px;" aria-hidden="true"></div>
+<div class="shape" style="left:186.4px;top:467.4px;width:40.400000000000006px;height:40.400000000000006px;background:#A7DF4B;border-radius:0px;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);" aria-hidden="true"></div>
+<div class="shape" style="left:456.0px;top:602.2px;width:40.400000000000006px;height:40.400000000000006px;background:#A7DF4B;border-radius:0px;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);" aria-hidden="true"></div>
+<div class="shape" style="left:590.8000000000001px;top:400.0px;width:40.400000000000006px;height:40.400000000000006px;background:#A7DF4B;border-radius:0px;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);" aria-hidden="true"></div>
+<div class="txt" style="left:108px;top:738px;width:754px;height:25px;font-size:15px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Схема задуманного уровня · не кадр Unity</div>
+<div class="txt" style="left:955px;top:363px;width:560px;height:43px;font-size:32px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">01  Двигайся</div>
+<div class="txt" style="left:1010px;top:413px;width:500px;height:75px;font-size:27px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Клавиши меняют положение героя.</div>
+<div class="txt" style="left:955px;top:500px;width:560px;height:43px;font-size:32px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">02  Собирай</div>
+<div class="txt" style="left:1010px;top:550px;width:500px;height:75px;font-size:27px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Предмет исчезает, счёт растёт.</div>
+<div class="txt" style="left:955px;top:637px;width:560px;height:43px;font-size:32px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">03  Заверши и повтори</div>
+<div class="txt" style="left:1010px;top:687px;width:500px;height:75px;font-size:27px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Три кристалла → победа → перезапуск.</div></section><section class="slide" aria-label="Слайд 3 из 10"><div class="shape" style="left:0px;top:0px;width:1600px;height:900px;background:#FFF9EF;border-radius:0px;" aria-hidden="true"></div>
+<div class="shape" style="left:80px;top:63px;width:12px;height:31px;background:#6935CB;border-radius:4px;" aria-hidden="true"></div>
+<div class="txt" style="left:109px;top:61px;width:220px;height:36px;font-size:25px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">AI PATH</div>
+<div class="txt" style="left:1260px;top:64px;width:260px;height:30px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">UNITY + ИИ</div>
+<div class="txt" style="left:80px;top:125px;width:1440px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">02 · ЧТО ОСТАНЕТСЯ ПОСЛЕ РАБОТЫ</div>
+<div class="txt" style="left:80px;top:168px;width:1440px;height:96px;font-size:62px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Результат можно открыть и проверить.</div>
+<div class="txt" style="left:84px;top:274px;width:1430px;height:65px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Каждый артефакт помогает показать, что сделано и как это работает.</div>
+<div class="shape" style="left:80px;top:833px;width:1440px;height:1px;background:#D8CCE5;border-radius:0px;" aria-hidden="true"></div>
+<div class="txt" style="left:80px;top:850px;width:1120px;height:25px;font-size:15px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Курс · Первая игра в Unity с ИИ · AI PATH · предлагаемый учебный формат</div>
+<div class="txt" style="left:1350px;top:848px;width:170px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">03 / 10</div>
+<div class="shape" style="left:80px;top:365px;width:345px;height:415px;background:#FFFFFF;border-radius:18px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:104px;top:388px;width:297px;height:35px;font-size:23px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">01 / ПРОЕКТ</div>
+<div class="txt" style="left:104px;top:443px;width:297px;height:92px;font-size:33px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Сцена
+и исходники</div>
+<div class="txt" style="left:104px;top:548px;width:297px;height:214px;font-size:25px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Понятные объекты, компоненты и небольшие C#-скрипты.</div>
+<div class="shape" style="left:445px;top:365px;width:345px;height:415px;background:#FFFFFF;border-radius:18px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:469px;top:388px;width:297px;height:35px;font-size:23px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">02 / ЗАПУСК</div>
+<div class="txt" style="left:469px;top:443px;width:297px;height:92px;font-size:33px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Игровая
+сборка</div>
+<div class="txt" style="left:469px;top:548px;width:297px;height:214px;font-size:25px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Версия для согласованной компьютерной платформы и инструкция запуска.</div>
+<div class="shape" style="left:810px;top:365px;width:345px;height:415px;background:#FFFFFF;border-radius:18px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:834px;top:388px;width:297px;height:35px;font-size:23px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">03 / ПРОВЕРКА</div>
+<div class="txt" style="left:834px;top:443px;width:297px;height:92px;font-size:33px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Чек-лист
+и исправления</div>
+<div class="txt" style="left:834px;top:548px;width:297px;height:214px;font-size:25px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Пять основных сценариев, найденные ошибки и повторная проверка.</div>
+<div class="shape" style="left:1175px;top:365px;width:345px;height:415px;background:#FFFFFF;border-radius:18px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:1199px;top:388px;width:297px;height:35px;font-size:23px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">04 / КЕЙС</div>
+<div class="txt" style="left:1199px;top:443px;width:297px;height:92px;font-size:33px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Короткий
+разбор</div>
+<div class="txt" style="left:1199px;top:548px;width:297px;height:214px;font-size:25px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Реальные кадры после запуска, собственный вклад и ограничения.</div></section><section class="slide" aria-label="Слайд 4 из 10"><div class="shape" style="left:0px;top:0px;width:1600px;height:900px;background:#FFF9EF;border-radius:0px;" aria-hidden="true"></div>
+<div class="shape" style="left:80px;top:63px;width:12px;height:31px;background:#6935CB;border-radius:4px;" aria-hidden="true"></div>
+<div class="txt" style="left:109px;top:61px;width:220px;height:36px;font-size:25px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">AI PATH</div>
+<div class="txt" style="left:1260px;top:64px;width:260px;height:30px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">UNITY + ИИ</div>
+<div class="txt" style="left:80px;top:125px;width:1440px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">03 · КОМУ ПОДОЙДЁТ</div>
+<div class="txt" style="left:80px;top:168px;width:1440px;height:96px;font-size:62px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Интерес к игре важнее опыта.</div>
+<div class="txt" style="left:84px;top:274px;width:1430px;height:65px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Можно начать с нуля. Нужны компьютер, клавиатура и готовность пробовать.</div>
+<div class="shape" style="left:80px;top:833px;width:1440px;height:1px;background:#D8CCE5;border-radius:0px;" aria-hidden="true"></div>
+<div class="txt" style="left:80px;top:850px;width:1120px;height:25px;font-size:15px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Курс · Первая игра в Unity с ИИ · AI PATH · предлагаемый учебный формат</div>
+<div class="txt" style="left:1350px;top:848px;width:170px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">04 / 10</div>
+<div class="shape" style="left:80px;top:370px;width:700px;height:370px;background:#FFFFFF;border-radius:18px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:104px;top:393px;width:652px;height:35px;font-size:23px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">ТЕБЕ ПОДОЙДЁТ</div>
+<div class="txt" style="left:104px;top:448px;width:652px;height:92px;font-size:33px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Хочется сделать свою игру</div>
+<div class="txt" style="left:104px;top:553px;width:652px;height:169px;font-size:25px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Готов разбирать небольшие шаги, менять код и проверять последствия. Пока не знаешь C# — начнём с нужного минимума.</div>
+<div class="shape" style="left:810px;top:370px;width:710px;height:370px;background:#FFFFFF;border-radius:18px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:834px;top:393px;width:662px;height:35px;font-size:23px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">ПЕРЕД СТАРТОМ</div>
+<div class="txt" style="left:834px;top:448px;width:662px;height:92px;font-size:33px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Проверим рабочее место</div>
+<div class="txt" style="left:834px;top:553px;width:662px;height:169px;font-size:25px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Доступ к Unity Hub, редактору и папке проекта. Подходящий компьютер и возможность установки уточним до начала; телефон не заменяет редактор.</div>
+<div class="txt" style="left:84px;top:765px;width:1420px;height:35px;font-size:24px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Объём практики, расписание и формат поддержки обсуждаем заранее.</div></section><section class="slide" aria-label="Слайд 5 из 10"><div class="shape" style="left:0px;top:0px;width:1600px;height:900px;background:#FFF9EF;border-radius:0px;" aria-hidden="true"></div>
+<div class="shape" style="left:80px;top:63px;width:12px;height:31px;background:#6935CB;border-radius:4px;" aria-hidden="true"></div>
+<div class="txt" style="left:109px;top:61px;width:220px;height:36px;font-size:25px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">AI PATH</div>
+<div class="txt" style="left:1260px;top:64px;width:260px;height:30px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">UNITY + ИИ</div>
+<div class="txt" style="left:80px;top:125px;width:1440px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">04 · РОЛЬ ИИ</div>
+<div class="txt" style="left:80px;top:168px;width:1440px;height:96px;font-size:62px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">ИИ предлагает. Автор решает.</div>
+<div class="txt" style="left:84px;top:274px;width:1430px;height:65px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Используем помощь там, где можем объяснить запрос и проверить ответ.</div>
+<div class="shape" style="left:80px;top:833px;width:1440px;height:1px;background:#D8CCE5;border-radius:0px;" aria-hidden="true"></div>
+<div class="txt" style="left:80px;top:850px;width:1120px;height:25px;font-size:15px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Курс · Первая игра в Unity с ИИ · AI PATH · предлагаемый учебный формат</div>
+<div class="txt" style="left:1350px;top:848px;width:170px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">05 / 10</div>
+<div class="shape" style="left:80px;top:365px;width:450px;height:397px;background:#FFFFFF;border-radius:18px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:104px;top:388px;width:402px;height:35px;font-size:23px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">ЗАПРОС</div>
+<div class="txt" style="left:104px;top:443px;width:402px;height:92px;font-size:33px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Один небольшой шаг</div>
+<div class="txt" style="left:104px;top:548px;width:402px;height:196px;font-size:25px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Описать сцену, компонент, версию Unity и ожидаемое действие. Попросить объяснение, а не огромный проект.</div>
+<div class="shape" style="left:575px;top:365px;width:450px;height:397px;background:#FFFFFF;border-radius:18px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:599px;top:388px;width:402px;height:35px;font-size:23px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">ПРОВЕРКА</div>
+<div class="txt" style="left:599px;top:443px;width:402px;height:92px;font-size:33px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Прочитать и запустить</div>
+<div class="txt" style="left:599px;top:548px;width:402px;height:196px;font-size:25px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Разобрать код, поставить его на нужный объект, выполнить тест и прочитать Console.</div>
+<div class="shape" style="left:1070px;top:365px;width:450px;height:397px;background:#FFFFFF;border-radius:18px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:1094px;top:388px;width:402px;height:35px;font-size:23px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">РЕШЕНИЕ</div>
+<div class="txt" style="left:1094px;top:443px;width:402px;height:92px;font-size:33px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Оставить или исправить</div>
+<div class="txt" style="left:1094px;top:548px;width:402px;height:196px;font-size:25px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Сопоставить ожидание и результат. Уметь показать, что именно изменил человек и зачем.</div>
+<div class="txt" style="left:84px;top:782px;width:1420px;height:28px;font-size:21px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Не отправляем ИИ пароли, личные данные и чужие материалы без права использования.</div></section><section class="slide" aria-label="Слайд 6 из 10"><div class="shape" style="left:0px;top:0px;width:1600px;height:900px;background:#FFF9EF;border-radius:0px;" aria-hidden="true"></div>
+<div class="shape" style="left:80px;top:63px;width:12px;height:31px;background:#6935CB;border-radius:4px;" aria-hidden="true"></div>
+<div class="txt" style="left:109px;top:61px;width:220px;height:36px;font-size:25px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">AI PATH</div>
+<div class="txt" style="left:1260px;top:64px;width:260px;height:30px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">UNITY + ИИ</div>
+<div class="txt" style="left:80px;top:125px;width:1440px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">05 · МАРШРУТ КУРСА</div>
+<div class="txt" style="left:80px;top:168px;width:1440px;height:96px;font-size:62px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">8 этапов — один игровой цикл.</div>
+<div class="txt" style="left:84px;top:274px;width:1430px;height:65px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Предлагаемый план: 8 недель и 8 встреч. Темп уточняем на старте.</div>
+<div class="shape" style="left:80px;top:833px;width:1440px;height:1px;background:#D8CCE5;border-radius:0px;" aria-hidden="true"></div>
+<div class="txt" style="left:80px;top:850px;width:1120px;height:25px;font-size:15px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Курс · Первая игра в Unity с ИИ · AI PATH · предлагаемый учебный формат</div>
+<div class="txt" style="left:1350px;top:848px;width:170px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">06 / 10</div>
+<div class="shape" style="left:80px;top:355px;width:345px;height:194px;background:#FFFFFF;border-radius:17px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="shape" style="left:100px;top:372px;width:65px;height:44px;background:#EEE5FB;border-radius:20px;" aria-hidden="true"></div>
+<div class="txt" style="left:114px;top:380px;width:37px;height:28px;font-size:19px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">01</div>
+<div class="txt" style="left:100px;top:435px;width:305px;height:45px;font-size:30px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Сцена</div>
+<div class="txt" style="left:100px;top:487px;width:305px;height:58px;font-size:23px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Объекты и рабочее место</div>
+<div class="shape" style="left:445px;top:355px;width:345px;height:194px;background:#FFFFFF;border-radius:17px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="shape" style="left:465px;top:372px;width:65px;height:44px;background:#EEE5FB;border-radius:20px;" aria-hidden="true"></div>
+<div class="txt" style="left:479px;top:380px;width:37px;height:28px;font-size:19px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">02</div>
+<div class="txt" style="left:465px;top:435px;width:305px;height:45px;font-size:30px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Управление</div>
+<div class="txt" style="left:465px;top:487px;width:305px;height:58px;font-size:23px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Направление и движение</div>
+<div class="shape" style="left:810px;top:355px;width:345px;height:194px;background:#FFFFFF;border-radius:17px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="shape" style="left:830px;top:372px;width:65px;height:44px;background:#EEE5FB;border-radius:20px;" aria-hidden="true"></div>
+<div class="txt" style="left:844px;top:380px;width:37px;height:28px;font-size:19px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">03</div>
+<div class="txt" style="left:830px;top:435px;width:305px;height:45px;font-size:30px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Взаимодействия</div>
+<div class="txt" style="left:830px;top:487px;width:305px;height:58px;font-size:23px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Предметы и столкновения</div>
+<div class="shape" style="left:1175px;top:355px;width:345px;height:194px;background:#FFFFFF;border-radius:17px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="shape" style="left:1195px;top:372px;width:65px;height:44px;background:#EEE5FB;border-radius:20px;" aria-hidden="true"></div>
+<div class="txt" style="left:1209px;top:380px;width:37px;height:28px;font-size:19px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">04</div>
+<div class="txt" style="left:1195px;top:435px;width:305px;height:45px;font-size:30px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Игровой цикл</div>
+<div class="txt" style="left:1195px;top:487px;width:305px;height:58px;font-size:23px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Счёт, победа, перезапуск</div>
+<div class="shape" style="left:80px;top:575px;width:345px;height:194px;background:#FFFFFF;border-radius:17px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="shape" style="left:100px;top:592px;width:65px;height:44px;background:#EEE5FB;border-radius:20px;" aria-hidden="true"></div>
+<div class="txt" style="left:114px;top:600px;width:37px;height:28px;font-size:19px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">05</div>
+<div class="txt" style="left:100px;top:655px;width:305px;height:45px;font-size:30px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Интерфейс</div>
+<div class="txt" style="left:100px;top:707px;width:305px;height:58px;font-size:23px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Состояние видно игроку</div>
+<div class="shape" style="left:445px;top:575px;width:345px;height:194px;background:#FFFFFF;border-radius:17px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="shape" style="left:465px;top:592px;width:65px;height:44px;background:#EEE5FB;border-radius:20px;" aria-hidden="true"></div>
+<div class="txt" style="left:479px;top:600px;width:37px;height:28px;font-size:19px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">06</div>
+<div class="txt" style="left:465px;top:655px;width:305px;height:45px;font-size:30px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Звук и стиль</div>
+<div class="txt" style="left:465px;top:707px;width:305px;height:58px;font-size:23px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Понятная обратная связь</div>
+<div class="shape" style="left:810px;top:575px;width:345px;height:194px;background:#FFFFFF;border-radius:17px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="shape" style="left:830px;top:592px;width:65px;height:44px;background:#EEE5FB;border-radius:20px;" aria-hidden="true"></div>
+<div class="txt" style="left:844px;top:600px;width:37px;height:28px;font-size:19px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">07</div>
+<div class="txt" style="left:830px;top:655px;width:305px;height:45px;font-size:30px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Проверка</div>
+<div class="txt" style="left:830px;top:707px;width:305px;height:58px;font-size:23px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Ошибки и повторные тесты</div>
+<div class="shape" style="left:1175px;top:575px;width:345px;height:194px;background:#FFFFFF;border-radius:17px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="shape" style="left:1195px;top:592px;width:65px;height:44px;background:#EEE5FB;border-radius:20px;" aria-hidden="true"></div>
+<div class="txt" style="left:1209px;top:600px;width:37px;height:28px;font-size:19px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">08</div>
+<div class="txt" style="left:1195px;top:655px;width:305px;height:45px;font-size:30px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Сборка и кейс</div>
+<div class="txt" style="left:1195px;top:707px;width:305px;height:58px;font-size:23px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Запуск и объяснение результата</div></section><section class="slide" aria-label="Слайд 7 из 10"><div class="shape" style="left:0px;top:0px;width:1600px;height:900px;background:#FFF9EF;border-radius:0px;" aria-hidden="true"></div>
+<div class="shape" style="left:80px;top:63px;width:12px;height:31px;background:#6935CB;border-radius:4px;" aria-hidden="true"></div>
+<div class="txt" style="left:109px;top:61px;width:220px;height:36px;font-size:25px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">AI PATH</div>
+<div class="txt" style="left:1260px;top:64px;width:260px;height:30px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">UNITY + ИИ</div>
+<div class="txt" style="left:80px;top:125px;width:1440px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">06 · КАК ПРОХОДИТ ЗАНЯТИЕ</div>
+<div class="txt" style="left:80px;top:168px;width:1440px;height:96px;font-size:62px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Сначала действие. Потом — объяснение.</div>
+<div class="txt" style="left:84px;top:274px;width:1430px;height:65px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">У каждого шага есть наблюдаемый результат, который можно повторить.</div>
+<div class="shape" style="left:80px;top:833px;width:1440px;height:1px;background:#D8CCE5;border-radius:0px;" aria-hidden="true"></div>
+<div class="txt" style="left:80px;top:850px;width:1120px;height:25px;font-size:15px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Курс · Первая игра в Unity с ИИ · AI PATH · предлагаемый учебный формат</div>
+<div class="txt" style="left:1350px;top:848px;width:170px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">07 / 10</div>
+<div class="shape" style="left:80px;top:365px;width:345px;height:350px;background:#FFFFFF;border-radius:18px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:104px;top:388px;width:297px;height:35px;font-size:23px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">01</div>
+<div class="txt" style="left:104px;top:443px;width:297px;height:92px;font-size:33px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Поставить задачу</div>
+<div class="txt" style="left:104px;top:548px;width:297px;height:149px;font-size:25px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Что хотим увидеть в игре?</div>
+<div class="shape" style="left:445px;top:365px;width:345px;height:350px;background:#FFFFFF;border-radius:18px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:469px;top:388px;width:297px;height:35px;font-size:23px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">02</div>
+<div class="txt" style="left:469px;top:443px;width:297px;height:92px;font-size:33px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Собрать вместе</div>
+<div class="txt" style="left:469px;top:548px;width:297px;height:149px;font-size:25px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Один компонент или кусок логики.</div>
+<div class="shape" style="left:810px;top:365px;width:345px;height:350px;background:#FFFFFF;border-radius:18px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:834px;top:388px;width:297px;height:35px;font-size:23px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">03</div>
+<div class="txt" style="left:834px;top:443px;width:297px;height:92px;font-size:33px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Изменить самому</div>
+<div class="txt" style="left:834px;top:548px;width:297px;height:149px;font-size:25px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Параметр, правило или состояние.</div>
+<div class="shape" style="left:1175px;top:365px;width:345px;height:350px;background:#FFFFFF;border-radius:18px;border:1px solid #D8CCE5;" aria-hidden="true"></div>
+<div class="txt" style="left:1199px;top:388px;width:297px;height:35px;font-size:23px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">04</div>
+<div class="txt" style="left:1199px;top:443px;width:297px;height:92px;font-size:33px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Проверить</div>
+<div class="txt" style="left:1199px;top:548px;width:297px;height:149px;font-size:25px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Ожидание → действие → результат.</div>
+<div class="shape" style="left:80px;top:744px;width:1440px;height:62px;background:#EEE5FB;border-radius:12px;" aria-hidden="true"></div>
+<div class="txt" style="left:105px;top:761px;width:1385px;height:38px;font-size:25px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Между встречами — небольшой повторяемый шаг. Следующая встреча начинается с его разбора.</div></section><section class="slide" aria-label="Слайд 8 из 10"><div class="shape" style="left:0px;top:0px;width:1600px;height:900px;background:#FFF9EF;border-radius:0px;" aria-hidden="true"></div>
+<div class="shape" style="left:80px;top:63px;width:12px;height:31px;background:#6935CB;border-radius:4px;" aria-hidden="true"></div>
+<div class="txt" style="left:109px;top:61px;width:220px;height:36px;font-size:25px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">AI PATH</div>
+<div class="txt" style="left:1260px;top:64px;width:260px;height:30px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">UNITY + ИИ</div>
+<div class="txt" style="left:80px;top:125px;width:1440px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">07 · КРИТЕРИИ ГОТОВНОСТИ</div>
+<div class="txt" style="left:80px;top:168px;width:1440px;height:96px;font-size:62px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Не «выглядит готово». Можно пройти.</div>
+<div class="txt" style="left:84px;top:274px;width:1430px;height:65px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Проверяем игровой результат, а не количество добавленных деталей.</div>
+<div class="shape" style="left:80px;top:833px;width:1440px;height:1px;background:#D8CCE5;border-radius:0px;" aria-hidden="true"></div>
+<div class="txt" style="left:80px;top:850px;width:1120px;height:25px;font-size:15px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Курс · Первая игра в Unity с ИИ · AI PATH · предлагаемый учебный формат</div>
+<div class="txt" style="left:1350px;top:848px;width:170px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">08 / 10</div>
+<div class="shape" style="left:82px;top:357px;width:38px;height:38px;background:#A7DF4B;border-radius:7px;" aria-hidden="true"></div>
+<div class="txt" style="left:90px;top:361px;width:25px;height:28px;font-size:22px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">1</div>
+<div class="txt" style="left:145px;top:355px;width:370px;height:40px;font-size:29px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Управление</div>
+<div class="txt" style="left:520px;top:357px;width:990px;height:65px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Герой движется и останавливается предсказуемо.</div>
+<div class="shape" style="left:82px;top:443px;width:38px;height:38px;background:#A7DF4B;border-radius:7px;" aria-hidden="true"></div>
+<div class="txt" style="left:90px;top:447px;width:25px;height:28px;font-size:22px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">2</div>
+<div class="txt" style="left:145px;top:441px;width:370px;height:40px;font-size:29px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Предметы и счёт</div>
+<div class="txt" style="left:520px;top:443px;width:990px;height:65px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Каждый кристалл учитывается один раз; счёт совпадает с действиями.</div>
+<div class="shape" style="left:82px;top:529px;width:38px;height:38px;background:#A7DF4B;border-radius:7px;" aria-hidden="true"></div>
+<div class="txt" style="left:90px;top:533px;width:25px;height:28px;font-size:22px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">3</div>
+<div class="txt" style="left:145px;top:527px;width:370px;height:40px;font-size:29px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Победа</div>
+<div class="txt" style="left:520px;top:529px;width:990px;height:65px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">После трёх кристаллов появляется понятный финал.</div>
+<div class="shape" style="left:82px;top:615px;width:38px;height:38px;background:#A7DF4B;border-radius:7px;" aria-hidden="true"></div>
+<div class="txt" style="left:90px;top:619px;width:25px;height:28px;font-size:22px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">4</div>
+<div class="txt" style="left:145px;top:613px;width:370px;height:40px;font-size:29px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Перезапуск</div>
+<div class="txt" style="left:520px;top:615px;width:990px;height:65px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Новая попытка возвращает исходное состояние.</div>
+<div class="shape" style="left:82px;top:701px;width:38px;height:38px;background:#A7DF4B;border-radius:7px;" aria-hidden="true"></div>
+<div class="txt" style="left:90px;top:705px;width:25px;height:28px;font-size:22px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">5</div>
+<div class="txt" style="left:145px;top:699px;width:370px;height:40px;font-size:29px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Запуск и ошибки</div>
+<div class="txt" style="left:520px;top:701px;width:990px;height:65px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Сборка открывается в согласованном окружении; Console проверена.</div></section><section class="slide" aria-label="Слайд 9 из 10"><div class="shape" style="left:0px;top:0px;width:1600px;height:900px;background:#24133F;border-radius:0px;" aria-hidden="true"></div>
+<div class="shape" style="left:80px;top:63px;width:12px;height:31px;background:#A7DF4B;border-radius:4px;" aria-hidden="true"></div>
+<div class="txt" style="left:109px;top:61px;width:220px;height:36px;font-size:25px;color:#FFF9EF;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">AI PATH</div>
+<div class="txt" style="left:1260px;top:64px;width:260px;height:30px;font-size:18px;color:#A7DF4B;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">UNITY + ИИ</div>
+<div class="txt" style="left:80px;top:125px;width:1440px;height:27px;font-size:18px;color:#A7DF4B;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">08 · ЧЕСТНЫЕ ГРАНИЦЫ</div>
+<div class="txt" style="left:80px;top:168px;width:1440px;height:151px;font-size:62px;color:#FFF9EF;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Маленькая законченная игра.
+Без обещания большого продакшена.</div>
+<div class="shape" style="left:80px;top:833px;width:1440px;height:1px;background:#55436D;border-radius:0px;" aria-hidden="true"></div>
+<div class="txt" style="left:80px;top:850px;width:1120px;height:25px;font-size:15px;color:#C7B7D9;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Курс · Первая игра в Unity с ИИ · AI PATH · предлагаемый учебный формат</div>
+<div class="txt" style="left:1350px;top:848px;width:170px;height:27px;font-size:18px;color:#A7DF4B;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">09 / 10</div>
+<div class="shape" style="left:80px;top:370px;width:700px;height:390px;background:#342149;border-radius:18px;border:1px solid #5D4776;" aria-hidden="true"></div>
+<div class="txt" style="left:104px;top:393px;width:652px;height:35px;font-size:23px;color:#A7DF4B;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">В ПЕРВОЙ ВЕРСИИ</div>
+<div class="txt" style="left:104px;top:448px;width:652px;height:92px;font-size:33px;color:#FFF9EF;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Один 2D-уровень</div>
+<div class="txt" style="left:104px;top:553px;width:652px;height:189px;font-size:25px;color:#DECFEB;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Движение, сбор предметов, счёт, победа и повтор. Простые собственные или разрешённые материалы.</div>
+<div class="shape" style="left:810px;top:370px;width:710px;height:390px;background:#342149;border-radius:18px;border:1px solid #5D4776;" aria-hidden="true"></div>
+<div class="txt" style="left:834px;top:393px;width:662px;height:35px;font-size:23px;color:#A7DF4B;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">ОТДЕЛЬНО ОБСУЖДАЕМ</div>
+<div class="txt" style="left:834px;top:448px;width:662px;height:92px;font-size:33px;color:#FFF9EF;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Следующий масштаб</div>
+<div class="txt" style="left:834px;top:553px;width:662px;height:189px;font-size:25px;color:#DECFEB;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Мультиплеер, большой мир, магазин, мобильный релиз, сервер и монетизация. Курс не гарантирует доход или трудоустройство.</div></section><section class="slide" aria-label="Слайд 10 из 10"><div class="shape" style="left:0px;top:0px;width:1600px;height:900px;background:#FFF9EF;border-radius:0px;" aria-hidden="true"></div>
+<div class="shape" style="left:80px;top:63px;width:12px;height:31px;background:#6935CB;border-radius:4px;" aria-hidden="true"></div>
+<div class="txt" style="left:109px;top:61px;width:220px;height:36px;font-size:25px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">AI PATH</div>
+<div class="txt" style="left:1260px;top:64px;width:260px;height:30px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">UNITY + ИИ</div>
+<div class="txt" style="left:80px;top:125px;width:1440px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">09 · СЛЕДУЮЩИЙ ШАГ</div>
+<div class="txt" style="left:80px;top:168px;width:1440px;height:96px;font-size:62px;color:#24133F;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">Начнём с твоей идеи.</div>
+<div class="txt" style="left:84px;top:274px;width:1430px;height:65px;font-size:26px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Сначала согласуем посильную первую версию и рабочее окружение.</div>
+<div class="shape" style="left:80px;top:833px;width:1440px;height:1px;background:#D8CCE5;border-radius:0px;" aria-hidden="true"></div>
+<div class="txt" style="left:80px;top:850px;width:1120px;height:25px;font-size:15px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Курс · Первая игра в Unity с ИИ · AI PATH · предлагаемый учебный формат</div>
+<div class="txt" style="left:1350px;top:848px;width:170px;height:27px;font-size:18px;color:#6935CB;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:right;">10 / 10</div>
+<div class="txt" style="left:84px;top:374px;width:790px;height:205px;font-size:32px;color:#24133F;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Напиши три вещи:
+1. Какую игру хочется сделать.
+2. Пробовал ли Unity или код.
+3. На каком компьютере будешь работать.</div>
+<div class="shape" style="left:930px;top:365px;width:590px;height:265px;background:#6935CB;border-radius:24px;" aria-hidden="true"></div>
+<div class="txt" style="left:965px;top:395px;width:520px;height:45px;font-size:23px;color:#FFF9EF;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;">ОБСУДИТЬ СТАРТ</div>
+<div class="txt" style="left:965px;top:469px;width:520px;height:55px;font-size:34px;color:#FFFFFF;font-weight:700;font-family:'Segoe UI',sans-serif;text-align:left;"><a href="mailto:safal0645@gmail.com">safal0645@gmail.com</a></div>
+<div class="txt" style="left:965px;top:547px;width:520px;height:60px;font-size:24px;color:#E3D6F4;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">План курса — повод для разговора,
+не оформленный заказ.</div>
+<div class="txt" style="left:84px;top:670px;width:1420px;height:95px;font-size:27px;color:#685A78;font-weight:400;font-family:'Segoe UI',sans-serif;text-align:left;">Стоимость, календарь, состав работы и расходы на сервисы согласуем до начала.
+Для знакомства с первым уроком покупка сервиса ИИ не нужна.</div></section>
+</body></html>

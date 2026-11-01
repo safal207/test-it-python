@@ -9,7 +9,7 @@ const out = 'artifacts/school-functional';
 const catalog = { window: {} };
 runInNewContext(await readFile('dist/ai-path/journey-catalog.js', 'utf8'), catalog);
 const programs = catalog.window.AIPathJourneyCatalog;
-assert.equal(programs.length, 23);
+assert.equal(programs.length, 24);
 const site = await startSite();
 let browser, context, page;
 const checks = [];
@@ -40,7 +40,7 @@ try {
   }
   await page.goto(site.base);
   await page.locator('#showAllPrograms').click();
-  await expect(page.locator('#programList [data-program]:visible')).toHaveCount(23);
+  await expect(page.locator('#programList [data-program]:visible')).toHaveCount(24);
   await page.locator('#programSearch').fill('комиксы');
   await expect(page.locator('#programList [data-program]:visible')).toHaveCount(1);
   await page.locator('#programList [data-program="comics"]').click();
@@ -55,7 +55,7 @@ try {
   // Untrusted URL values must not become markup or a missing program.
   await page.goto(site.base + '?program=%3Cscript%3E&level=invalid&pace=invalid#selected');
   await expect(page.locator('#selected')).toBeHidden();
-  await expect(page.locator('#programList [data-program]')).toHaveCount(23);
+  await expect(page.locator('#programList [data-program]')).toHaveCount(24);
   await page.locator('#schoolMenuToggle').click();
   await expect(page.locator('#schoolMenuToggle')).toHaveAttribute('aria-expanded', 'true');
   await page.keyboard.press('Escape');
@@ -63,7 +63,7 @@ try {
   checks.push({ case: 'invalid URL and mobile keyboard recovery', status: 'PASS' });
   assert.deepEqual(errors, [], 'No uncaught application errors');
   await page.screenshot({ path: `${out}/mobile.png`, fullPage: false, animations: 'disabled' });
-  console.log(`PASS functional: ${checks.length} cases, including all 23 journey links and selected plans`);
+  console.log(`PASS functional: ${checks.length} cases, including all 24 journey links and selected plans`);
 } catch (error) {
   checks.push({ case: 'functional regression', status: 'FAIL', message: error.message });
   if (page) await page.screenshot({ path: `${out}/failure.png`, fullPage: false }).catch(() => {});

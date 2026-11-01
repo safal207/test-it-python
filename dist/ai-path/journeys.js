@@ -26,6 +26,7 @@
     'ml-tuning':{group:'neural',now:'Уже есть обученная модель и метрика; хочется сравнить настройки.',practice:'Зафиксировать исходный результат и проверить несколько конфигураций.',skills:'Планирование эксперимента, сравнение и проверка на новых данных.',next:'Можно развивать исследование или применять подход к другой модели.'},
     career:{group:'start',now:'Хочется разобраться в направлениях и попробовать разные задачи перед выбором.',practice:'Изучить вакансии с источниками, сравнить направления и выполнить короткие пробы.',skills:'Поиск и проверка информации, сравнение и осознанный выбор.',next:'Можно выбрать следующее направление обучения по интересам и опыту.'}
   };
+  stories.unity={group:'code',now:'Хочется создать свою небольшую 2D-игру и понять её код.',practice:'В Unity собрать движение, кристаллы, победу и перезапуск с помощью C# и ИИ.',skills:'Сцены, компоненты, C#, игровой цикл и проверка билда.',next:'Можно развивать один новый уровень или изучать следующую игровую механику.'};
   var academyStories = {
     biology:{now:'Интересно, как устроены живые процессы и как их объяснять.',practice:'Нарисовать путь углерода, сверить этапы с источниками и собрать интерактивную историю.',skills:'Биология, визуальный рассказ и проверка фактов.',next:'Можно исследовать другие темы науки или интерактивные уроки.',cover:'space',level:'С нуля; готовность курса уточняется.'},
     physics:{now:'Нравится исследовать, почему предметы движутся и как работают опыты.',practice:'Выбрать измерения и собрать модель пружины и маятника с расчётами.',skills:'Моделирование, измерения и сравнение результатов.',next:'Можно продолжить в физике, моделировании или программировании.',cover:'game',level:'С нуля; готовность курса уточняется.'},
@@ -45,6 +46,7 @@
     'academy-engineering':'устройство и его детали', 'academy-architecture':'план и форму помещения', 'academy-threejs':'объект для браузерной 3D-сцены',
     'academy-edtech':'тему будущего урока'
   };
+  topics.unity='героя, три предмета и правило победы';
   function individualTip(age, id) {
     var topic = topics[id];
     if (age === 'preschool') return 'С родителем можно обсудить ' + topic + '. Участие в полном курсе уточним отдельно.';
@@ -70,16 +72,16 @@
   age.value = 'all';
   var catalog = window.AIPathJourneyCatalog || [];
   var academy = window.AIPathJourneyAcademy || [];
-  if (catalog.length !== 23 || academy.length !== 6 || catalog.some(function (p) { return !stories[p.id] || !topics[p.id]; }) || academy.some(function (p) { return !academyStories[p.id] || !topics['academy-' + p.id]; })) {
+  if (catalog.length !== 24 || academy.length !== 6 || catalog.some(function (p) { return !stories[p.id] || !topics[p.id]; }) || academy.some(function (p) { return !academyStories[p.id] || !topics['academy-' + p.id]; })) {
     list.innerHTML = '<p class="fallback">Не удалось загрузить карточки. <a href="./#programs">Откройте каталог программ</a> или <a href="3d-academy.html#courses">планы 3D Academy</a>.</p>';
     return;
   }
   function card(p, story, isAcademy) {
     var id = isAcademy ? 'academy-' + p.id : p.id;
-    var image = isAcademy ? 'assets/program-menu-v1/' + story.cover + '.webp' : story.group === 'neural' ? 'assets/neural-courses/' + p.id + '.svg' : 'assets/program-menu-v1/' + p.id + '.webp';
+    var image = p.id === 'unity' ? 'assets/program-covers/unity.svg' : isAcademy ? 'assets/program-menu-v1/' + story.cover + '.webp' : story.group === 'neural' ? 'assets/neural-courses/' + p.id + '.svg' : 'assets/program-menu-v1/' + p.id + '.webp';
     var title = isAcademy ? '3D Academy · ' + p.name : p.name;
     var destination = isAcademy ? '3d-academy.html#' + p.id : './?program=' + p.id + '&level=zero&pace=balanced#selected';
-    var number = isAcademy ? '3D ACADEMY · УЧЕБНЫЙ ПЛАН' : 'ПРОГРАММА ' + p.num + ' / 23';
+    var number = isAcademy ? '3D ACADEMY · УЧЕБНЫЙ ПЛАН' : 'ПРОГРАММА ' + p.num + ' / 24';
     var first = isAcademy ? '<p class="age-tip">Пример первого задания: ' + esc(p.first) + '</p>' : '';
     return '<article class="path-card" id="journey-' + esc(id) + '" data-group="' + esc(isAcademy ? 'academy' : story.group) + '" tabindex="-1">' +
       '<div class="card-visual"><img src="' + esc(image) + '" width="960" height="640" loading="lazy" decoding="async" alt=""><span class="image-tag">Иллюстрация направления</span></div>' +
@@ -91,7 +93,7 @@
       '<li data-step="3"><h4>После · планируемый результат</h4><p>' + esc(p.outcome) + '</p><p class="age-tip">Практика: ' + esc(story.skills) + '</p></li>' +
       '<li data-step="4"><h4>Дальше · исследую</h4><p>' + esc(story.next) + '</p></li></ol></details>' +
       (isAcademy ? '<p class="academy-note">Отдельный учебный план. Готовность и формат уточняются до старта.</p>' : '') +
-      '<div class="card-links"><a class="card-link" href="' + esc(destination) + '">Посмотреть план ↗</a>' + (p.id === 'game' && !isAcademy ? '<a class="card-link" href="game-lab.html">Попробовать мини-игру ↗</a>' : '') + '</div></div></article>';
+      '<div class="card-links"><a class="card-link" href="' + esc(destination) + '">Посмотреть план ↗</a>' + (p.id === 'unity' && !isAcademy ? '<a class="card-link" href="unity.html">Курс и первый урок Unity ↗</a>' : '') + (p.id === 'game' && !isAcademy ? '<a class="card-link" href="game-lab.html">Попробовать мини-игру ↗</a>' : '') + '</div></div></article>';
   }
   list.innerHTML = catalog.map(function (p) { return card(p, stories[p.id], false); }).join('') + academy.map(function (p) { return card(p, academyStories[p.id], true); }).join('');
   controls.hidden = false;
@@ -101,7 +103,7 @@
     var shown = 0;
     filters.forEach(function (button) { button.setAttribute('aria-pressed', String(button.dataset.filter === filter)); });
     cards.forEach(function (item) { item.hidden = filter !== 'all' && item.dataset.group !== filter; if (!item.hidden) shown++; });
-    document.getElementById('card-count').textContent = 'Показано карточек: ' + shown + ' из 29';
+    document.getElementById('card-count').textContent = 'Показано карточек: ' + shown + ' из 30';
   }
   filters.forEach(function (button) { button.addEventListener('click', function () { applyFilter(button.dataset.filter); }); });
   age.addEventListener('change', function () {

@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="ai-desk.css?v=20261022-audit">
   <script src="../course-navigation.js?v=1"></script>
   <script type="module" src="ai-desk.js"></script>
+<!-- project-next:assets:start --><link rel="stylesheet" href="../project-next.css"><script src="../project-next.js" defer></script><!-- project-next:assets:end -->
 </head>
 <body>
   <a class="skip" href="#main">К рабочему месту</a>
@@ -44,12 +45,23 @@
         </aside>
       </section>
       <div class="under-scene"><span>AI DESK / УЧЕБНЫЙ ДЕМОПРОЕКТ НАСТАВНИКА</span><span>Материалы · освещение · взаимодействие</span></div>
+      <section class="comparison" aria-labelledby="comparison-title">
+        <div><p class="eyebrow">МИНИ-БРИФ / РАБОЧЕЕ МЕСТО</p><h2 id="comparison-title">Какой вариант оставишь?</h2><p>Собери два настроения для одного рабочего места. Сохрани варианты, переключай их на сцене и забери кадр своего решения.</p></div>
+        <div class="comparison-slots">
+          <article><h3>Вариант A</h3><p id="desk-a-name">Ещё не сохранён</p><button type="button" id="desk-save-a">Запомнить как A</button><button type="button" id="desk-show-a" disabled>Показать A</button></article>
+          <article><h3>Вариант B</h3><p id="desk-b-name">Ещё не сохранён</p><button type="button" id="desk-save-b">Запомнить как B</button><button type="button" id="desk-show-b" disabled>Показать B</button></article>
+        </div>
+        <p id="desk-comparison" role="status">Начни с материала и света выше. Варианты хранятся до обновления страницы.</p>
+        <div class="result-actions"><button type="button" id="desk-export">Скачать карточку решения</button><button type="button" id="desk-capture" disabled>Скачать кадр 3D</button><button type="button" id="desk-clear">Сбросить сравнение</button></div>
+        <p class="result-hint">Кадр доступен после запуска 3D. Карточка содержит выбор и ссылку; это визуальный концепт, не заказ мебели.</p>
+      </section>
       <section class="learning" id="how" aria-labelledby="learning-title">
         <div class="learning-title"><p class="eyebrow">ОТ ИДЕИ К СВОЕМУ ПРОЕКТУ</p><h2 id="learning-title">Красиво.<br><em>И работает.</em></h2><p>В Design Lab разбираем, как превратить идею в интерактивный сайт. Для своего проекта выберем тему и посильный объём вместе.</p><a class="learn-link" href="../?program=designlab&amp;level=zero&amp;pace=balanced#selected" id="learn-designlab">Посмотреть Design Lab <span aria-hidden="true">↗</span></a><a class="furniture-link" href="../?program=furniture&amp;level=zero&amp;pace=balanced#selected">Интересует предметный дизайн? →</a></div>
         <ol class="learning-steps"><li><span>01 / СЦЕНА</span><h3>Форма, свет, настроение</h3><p>Разбираем композицию, материалы и камеру. Начинаем с одного понятного объекта.</p></li><li><span>02 / ВЗАИМОДЕЙСТВИЕ</span><h3>Выбор, который виден</h3><p>Связываем кнопки с материалом и освещением. Сохраняем выбранный вариант в ссылке.</p></li><li><span>03 / ГОТОВЫЙ КЕЙС</span><h3>Проверить и показать</h3><p>Проверяем действия и экран телефона, оформляем авторство, публикуем демо.</p></li></ol>
       </section>
       <details class="project-info"><summary>Об этом примере и технологии</summary><p>AI Desk — оригинальный учебный демопроект AI PATH, созданный с помощью ИИ для портфолио наставника. Это работающая 3D-сцена на Three.js; геометрия и интерфейс созданы кодом. Spline в этой версии не используется. Превью — кадр запуска этого проекта.</p><p>Сцена загружается после нажатия кнопки и требует WebGL. Выбранные материал и свет сохраняются в адресе страницы. Это визуальная демонстрация: производственные чертежи, расчёт стоимости мебели и отправка заказа в неё не входят.</p><a href="https://github.com/safal207/test-it-python">Репозиторий школы ↗</a></details>
-    </main>
+    <!-- project-next:start --><section class="project-next" data-project-next="desk" aria-labelledby="project-next-title"><div class="project-next-copy"><p class="project-next-label">Твой следующий шаг</p><h2 id="project-next-title">Конфигуратор твоего предмета</h2><p class="project-next-description">Выбери один предмет и два параметра для сравнения. В плане можно обозначить кадр или карточку, которую сохранит посетитель.</p></div><a class="project-next-link" data-project-next-link data-navigation-manual href="../project-start.html?project=desk&amp;mode=learn">Сделать свой 3D-конфигуратор →</a></section><!-- project-next:end -->
+</main>
     <footer><a class="brand" href="../">AI <span>PATH</span></a><span>Создавай то, что хочется показать.</span><a href="../studio.html">Вернуться в портфолио ↗</a></footer>
   </div>
 </body>

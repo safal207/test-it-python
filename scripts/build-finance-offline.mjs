@@ -24,6 +24,8 @@ for (const [age,group] of Object.entries(groups)) {
 }
 assert(!/<\/script/i.test(data + activities + app + theme),'Inline scripts cannot terminate their HTML wrapper');
 let result = html
+  .replace(/<!-- project-next:assets:start -->[\s\S]*?<!-- project-next:assets:end -->\r?\n?/g, '')
+  .replace(/<!-- project-next:start -->[\s\S]*?<!-- project-next:end -->\r?\n?/g, '')
   .replace('<script src="theme.js?v=1"></script>',() => '<script>\n' + theme + '\n</script>')
   .replace('<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">','')
   .replace('<link rel="stylesheet" href="theme.css?v=1">',() => '<style>\n' + themeCss + '\n</style>')

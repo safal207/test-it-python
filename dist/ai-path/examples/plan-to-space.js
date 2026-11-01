@@ -8,7 +8,8 @@ const journey = document.querySelector('#experience');
 const slider = document.querySelector('#progress');
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 const shortScreen = matchMedia('(max-height: 680px)');
-const followsScroll = () => !reduced.matches && !shortScreen.matches && document.body.dataset.renderer !== 'fallback';
+let manualChoice = false;
+const followsScroll = () => !manualChoice && !reduced.matches && !shortScreen.matches && document.body.dataset.renderer !== 'fallback';
 const stages = [
   ['Чертёж', 'Начинаем с планировки. Вид сверху помогает увидеть зоны и проходы.'],
   ['План получает объём', 'Стены поднимаются из тех же линий. У плана появляется высота.'],
@@ -22,6 +23,37 @@ let progress = 0;
 let renderScene = () => {};
 let lastStage = -1;
 let renderer;
+let selectedPalette = 'warm';
+const paletteName = () => selectedPalette === 'sage' ? 'Шалфей и лён' : 'Лён и терракота';
+function downloadRoom(href, name) { const link = document.createElement('a'); link.href = href; link.download = name; link.click(); }
+document.querySelector('#room-before').addEventListener('click', () => { choose(0); journey.scrollIntoView({ behavior: 'instant', block: 'start' }); });
+document.querySelector('#room-after').addEventListener('click', () => { choose(1); if (!followsScroll()) journey.scrollIntoView({ behavior: 'instant', block: 'start' }); });
+document.querySelector('#room-capture').addEventListener('click', async () => {
+  if (document.body.dataset.renderer !== 'webgl') return;
+  try {
+    renderScene(progress);
+    const filename = `plan-to-space-${selectedPalette}-${Math.round(progress * 100)}.png`;
+    const result = document.createElement('canvas'); result.width = canvas.width; result.height = canvas.height;
+    const ctx = result.getContext('2d'); ctx.fillStyle = '#f3f0e8'; ctx.fillRect(0, 0, result.width, result.height); ctx.drawImage(canvas, 0, 0);
+    const overlay = document.querySelector('#planOverlay');
+    if (overlay && !overlay.hasAttribute('hidden')) {
+      const svg = overlay.cloneNode(true); const bounds = overlay.getBoundingClientRect();
+      svg.setAttribute('width', String(bounds.width)); svg.setAttribute('height', String(bounds.height)); svg.removeAttribute('class');
+      svg.setAttribute('style', `opacity:${overlay.style.opacity || 1}`);
+      const url = URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(svg)], { type: 'image/svg+xml;charset=utf-8' }));
+      try { const image = new Image(); image.src = url; await image.decode(); ctx.drawImage(image, 0, 0, result.width, result.height); }
+      finally { URL.revokeObjectURL(url); }
+    }
+    downloadRoom(result.toDataURL('image/png'), filename); document.querySelector('#room-result').textContent = 'Кадр текущей сцены, включая линии плана, подготовлен для скачивания.';
+  }
+  catch { document.querySelector('#room-result').textContent = 'Кадр сохранить не удалось. Карточка решения остаётся доступна.'; }
+});
+document.querySelector('#room-brief').addEventListener('click', () => {
+  const mode = document.body.dataset.renderer === 'webgl' ? stages[Math.min(4, Math.floor(progress * 4 + .5))][0] : 'Статичный план; 3D недоступно';
+  const text = `От плана к пространству — AI PATH\nПалитра: ${paletteName()}\nПоказанный этап: ${mode}\nОдна процедурная комната, пять этапов. Палитра меняет обивку и подушки.\nУчебный концепт; не проект для строительства.\n${location.href}`;
+  const url = URL.createObjectURL(new Blob([text], { type: 'text/plain;charset=utf-8' })); downloadRoom(url, 'room-decision.txt'); setTimeout(() => URL.revokeObjectURL(url), 1000);
+  document.querySelector('#room-result').textContent = 'Карточка с палитрой и текущим этапом подготовлена для скачивания.';
+});
 
 function update(value) {
   progress = clamp(value);
@@ -54,12 +86,17 @@ addEventListener('scroll', () => {
 }, { passive: true });
 // Keep native scrolling and direct controls on the same timeline, without smooth-scroll races.
 function choose(value) {
-  if (followsScroll()) {
-    const top = scrollY + journey.getBoundingClientRect().top;
-    scrollTo({ top: top + value * Math.max(1, journey.offsetHeight - innerHeight), behavior: 'instant' });
-  }
+  // Direct selection freezes the view, so scrolling to export cannot change the chosen stage.
+  manualChoice = true; document.body.dataset.mode = 'manual';
+  document.querySelector('#resume-scroll').hidden = reduced.matches || shortScreen.matches;
+  document.querySelector('#controlHint').textContent = 'Выбранный этап зафиксирован — можно сравнить и сохранить.';
   update(value);
 }
+document.querySelector('#resume-scroll').addEventListener('click', () => {
+  manualChoice = false; delete document.body.dataset.mode; document.querySelector('#resume-scroll').hidden = true;
+  const top = scrollY + journey.getBoundingClientRect().top;
+  scrollTo({ top: top + progress * Math.max(1, journey.offsetHeight - innerHeight), behavior: 'instant' }); motionMode();
+});
 slider.addEventListener('input', () => choose(Number(slider.value) / 100));
 document.querySelectorAll('[data-stage]').forEach(button => {
   button.addEventListener('click', () => choose(Number(button.dataset.stage) / 100));
@@ -82,6 +119,8 @@ function fallback() {
   document.body.dataset.renderer = 'fallback';
   slider.disabled = true;
   document.querySelectorAll('[data-stage]').forEach(button => { button.disabled = true; });
+  for (const id of ['paletteWarm', 'paletteSage', 'room-before', 'room-after', 'room-capture']) document.getElementById(id).disabled = true;
+  document.querySelector('#room-result').textContent = 'Показан статичный план. Изменение материалов и кадр 3D сейчас недоступны.';
   document.querySelector('#controlHint').textContent = 'Статичный план — анимация недоступна';
   update(0);
   document.body.dataset.ready = 'true';
@@ -410,12 +449,15 @@ function setup() {
     draw(progress);
   }
   new ResizeObserver(resize).observe(wrap);
-  document.querySelector('#paletteWarm')?.addEventListener('click', () => { sage = false; palette(); });
-  document.querySelector('#paletteSage')?.addEventListener('click', () => { sage = true; palette(); });
+  document.querySelector('#paletteWarm').addEventListener('click', () => { sage = false; palette(); });
+  document.querySelector('#paletteSage').addEventListener('click', () => { sage = true; palette(); });
   function palette() {
+    selectedPalette = sage ? 'sage' : 'warm';
     document.querySelector('#paletteWarm')?.setAttribute('aria-pressed',String(!sage));
     document.querySelector('#paletteSage')?.setAttribute('aria-pressed',String(sage));
-    draw(progress);
+    choose(1);
+    if (!followsScroll()) journey.scrollIntoView({ behavior: 'instant', block: 'start' });
+    document.querySelector('#room-result').textContent = `Палитра: ${paletteName()}. Обивка и подушки изменены в 3D; планировка та же.`;
   }
   canvas.addEventListener('webglcontextlost', event => { event.preventDefault(); fallback(); });
   canvas.addEventListener('webglcontextrestored', () => location.reload());

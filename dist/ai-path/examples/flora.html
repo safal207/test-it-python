@@ -18,6 +18,9 @@
   </style>
 <script src="../course-navigation.js?v=1"></script>
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="stylesheet" href="brand-demo.css">
+<script src="brand-demo.js"></script>
+<!-- project-next:assets:start --><link rel="stylesheet" href="../project-next.css"><script src="../project-next.js" defer></script><!-- project-next:assets:end -->
 </head>
 <body data-mood="calm">
   <a class="skip-link" href="#flora-main">К содержимому</a>
@@ -47,31 +50,40 @@
     </section>
     <section class="builder-shell" id="flora-builder" aria-labelledby="flora-builder-title">
       <div class="wrap">
-        <div class="builder-heading"><div><p class="section-index"><span class="index-number">02</span> Попробуйте сами</p><h2 id="flora-builder-title">Какое у вас<br>сегодня настроение?</h2></div><p>Выберите палитру и масштаб композиции. Получится визуальный бриф — отправная точка для своего проекта.</p></div>
+        <div class="builder-heading"><div><p class="section-index"><span class="index-number">02</span> Попробуйте сами</p><h2 id="flora-builder-title">Какое у вас<br>сегодня настроение?</h2></div><p>Задача: оформить стол для камерного ужина или вход в студию. Настройте композицию и заберите готовый бриф с палитрой и вашим названием.</p></div>
         <div class="builder">
           <div class="builder-controls">
+            <div class="demo-workshop" id="flora-project">
+              <span class="demo-kicker">Ваш небольшой проект</span><h3>С чего начнём?</h3>
+              <div class="demo-actions" aria-label="Готовые задачи"><button type="button" class="demo-action" data-flora-preset="dinner">Камерный ужин</button><button type="button" class="demo-action" data-flora-preset="studio">Открытие студии</button></div>
+              <label for="flora-project-name">Название вашего брифа</label><input id="flora-project-name" maxlength="42" value="Камерный ужин" autocomplete="off">
+              <p>Выбор задачи задаёт стартовый вариант. Все настройки можно изменить.</p>
+            </div>
             <fieldset class="step" id="flora-moods"><legend><span>01 /</span> Чувство, с которого начнём</legend><div class="mood-options">
               <button class="mood-button" id="flora-mood-calm" type="button" data-flora-mood="calm" aria-pressed="true"><span class="swatches" aria-hidden="true"><i style="background:#e7b4a1"></i><i style="background:#a6352c"></i><i style="background:#5b684e"></i></span><b>Нежность</b><small>Тихо и тактильно</small></button>
               <button class="mood-button" id="flora-mood-bold" type="button" data-flora-mood="bold" aria-pressed="false"><span class="swatches" aria-hidden="true"><i style="background:#cd9baf"></i><i style="background:#702b46"></i><i style="background:#434e42"></i></span><b>Характер</b><small>Глубоко и смело</small></button>
               <button class="mood-button" id="flora-mood-sunny" type="button" data-flora-mood="sunny" aria-pressed="false"><span class="swatches" aria-hidden="true"><i style="background:#e5c16d"></i><i style="background:#825714"></i><i style="background:#556044"></i></span><b>Солнечный день</b><small>Тепло и свободно</small></button>
             </div></fieldset>
             <fieldset class="step" id="flora-sizes"><legend><span>02 /</span> Масштаб вашей идеи</legend><div class="size-options"><button class="size-button" id="flora-size-table" type="button" data-flora-size="table" aria-pressed="true">Для стола<span>Камерно, в деталях</span></button><button class="size-button" id="flora-size-space" type="button" data-flora-size="space" aria-pressed="false">Для пространства<span>Крупная форма, больше воздуха</span></button></div></fieldset>
+            <fieldset class="step" id="flora-density"><legend><span>03 /</span> Характер силуэта</legend><div class="size-options"><button class="size-button" type="button" data-flora-density="minimal" aria-pressed="true">Одна линия<span>Воздух и главный акцент</span></button><button class="size-button" type="button" data-flora-density="lush" aria-pressed="false">Пышная форма<span>Три ветви, больше объёма</span></button></div></fieldset>
             <p class="builder-note">Это конструктор визуального направления: меняются палитра сайта, текст брифа и графика мудборда. Фотография остаётся исходным образцом.</p>
             <button class="download-button" id="flora-download" type="button">Скачать мой мудборд · SVG <span aria-hidden="true">↓</span></button>
+            <div class="demo-inline-actions"><button class="demo-action" id="flora-reset" type="button">Вернуть исходный вариант</button></div>
             <p class="download-status" id="flora-download-status" role="status" aria-live="polite"></p>
           </div>
           <div class="moodboard" id="flora-moodboard" data-size="table">
-            <div class="moodboard-top"><span>Flora / moodboard</span><span id="flora-mood-number">01 — нежность</span></div>
+            <div class="moodboard-top"><span id="flora-project-label">Камерный ужин</span><span id="flora-mood-number">01 — нежность</span></div>
             <div class="color-orbit" aria-hidden="true"></div>
             <svg class="botanical-drawing" viewBox="0 0 320 360" fill="none" aria-hidden="true"><path d="M142 337C155 267 134 198 179 86M153 266C143 210 93 176 65 140M150 286C181 232 229 201 268 173M166 133C142 111 138 69 148 41M175 97C211 79 226 51 224 25" stroke="currentColor" stroke-width="1.6"/><path d="M179 86C147 68 175 38 190 39C207 60 202 79 179 86ZM148 41C123 52 107 26 114 10C138 10 152 24 148 41ZM65 140C29 137 15 115 20 94C49 89 69 108 65 140ZM268 173C274 138 299 127 316 140C312 165 295 181 268 173ZM166 133C142 145 115 123 119 100C147 97 163 109 166 133ZM224 25C224 6 243 2 256 6C256 26 241 33 224 25Z" fill="currentColor" fill-opacity=".8"/><path d="M104 314C99 310 91 315 92 327L99 350C118 361 156 361 177 350L185 327C186 315 179 311 173 314C152 322 124 322 104 314Z" fill="currentColor"/></svg>
             <div class="moodboard-copy" aria-live="polite" aria-atomic="true"><h3 id="flora-mood-title">Тихая<br>нежность</h3><p id="flora-brief">Коралловые оттенки, мягкий свет и свободные линии. Камерная композиция для стола: один выразительный цветок и тонкие ветви.</p></div>
-            <div class="moodboard-footer"><span id="flora-scale-label">Камерная композиция / 01</span><span class="live-swatches" id="flora-live-swatches" aria-label="Палитра: коралл, терракота, оливковый"><i style="background:#e7b4a1"></i><i style="background:#a6352c"></i><i style="background:#5b684e"></i></span></div>
+            <div class="demo-swatch-codes" id="flora-palette-codes" role="group" aria-label="Коды цветов палитры"></div><div class="moodboard-footer"><span id="flora-scale-label">Камерная композиция / 01</span><span class="live-swatches" id="flora-live-swatches" role="img" aria-label="Палитра: коралл, терракота, оливковый"><i style="background:#e7b4a1"></i><i style="background:#a6352c"></i><i style="background:#5b684e"></i></span></div>
           </div>
         </div>
       </div>
     </section>
     <section class="school-bridge wrap" aria-labelledby="flora-school-title"><p class="section-index"><span class="index-number">03</span> Ваш проект с AI PATH</p><div><h2 id="flora-school-title">Из «хочу что-то красивое»<br>в «это сделал я».</h2><p>В онлайн-школе поможем придумать собственный бренд, создать визуалы с ИИ, собрать работающий сайт и опубликовать его. Вы пройдёте путь от идеи и первых эскизов до проекта по настоящей ссылке.</p><a class="round-link" id="flora-program-link" data-demo-program href="../?program=designlab&amp;level=zero&amp;pace=balanced#selected"><span aria-hidden="true">↗</span>Хочу создать такой сайт</a></div></section>
-  </main>
+  <!-- project-next:start --><section class="project-next" data-project-next="flora" aria-labelledby="project-next-title"><div class="project-next-copy"><p class="project-next-label">Твой следующий шаг</p><h2 id="project-next-title">Композиция для твоей идеи</h2><p class="project-next-description">Выбери тему своего визуального конструктора: что можно менять и какое изображение получится сохранить.</p></div><a class="project-next-link" data-project-next-link data-navigation-manual href="../project-start.html?project=flora&amp;mode=learn">Сделать свой конструктор →</a></section><!-- project-next:end -->
+</main>
   <footer class="site-footer wrap" id="demo-provenance"><span class="footer-brand" aria-hidden="true">flora ✳</span><p>Учебный проект AI PATH. FLORA — вымышленная студия, заказ цветов здесь не оформляется. Натюрморт создан с ИИ, графика мудборда — авторская SVG-композиция. <a href="../studio.html">Ещё проекты школы ↗</a></p></footer>
   <script>
     (()=>{
@@ -82,7 +94,12 @@
         sunny:{number:'03',label:'солнечный день',title:['Тёплый','полдень'],description:'Медовые оттенки, открытый свет и природная лёгкость.',colors:['#e5c16d','#825714','#556044'],paper:'#faf3df',ink:'#252820',palette:'медовый, охра, зелёный лист'}
       };
       const sizes={table:{label:'Камерная композиция / 01',brief:'Камерная композиция для стола: один выразительный цветок и тонкие ветви.'},space:{label:'Композиция для пространства / 02',brief:'Композиция для пространства: крупная форма, высокий силуэт и больше воздуха.'}};
-      const state={mood:'calm',size:'table'};
+      const state={mood:'calm',size:'table',density:'minimal',name:'Камерный ужин'};
+      const drawing=document.querySelector('.botanical-drawing');
+      const originalDrawing=drawing.innerHTML;
+      const branches=[...drawing.children].slice(0,-1).map(element=>element.outerHTML).join('');
+      const vase=drawing.lastElementChild.outerHTML;
+      const densityButtons=[...document.querySelectorAll('[data-flora-density]')];
       const moodButtons=Array.from(document.querySelectorAll('[data-flora-mood]'));
       const sizeButtons=Array.from(document.querySelectorAll('[data-flora-size]'));
       const board=document.getElementById('flora-moodboard');
@@ -94,10 +111,15 @@
         const mood=moods[state.mood];
         document.body.dataset.mood=state.mood;
         board.dataset.size=state.size;
+        board.dataset.density=state.density;
+        drawing.innerHTML=state.density==='lush'?'<g transform="rotate(-22 142 337)">'+branches+'</g>'+branches+'<g transform="rotate(22 142 337)">'+branches+'</g>'+vase:originalDrawing;
+        densityButtons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.floraDensity===state.density)));
+        document.getElementById('flora-project-label').textContent=state.name||'Мой визуальный бриф';
+        document.getElementById('flora-palette-codes').textContent=mood.colors.join(' · ');
         moodButtons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.floraMood===state.mood)));
         sizeButtons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.floraSize===state.size)));
         title.replaceChildren(document.createTextNode(mood.title[0]),document.createElement('br'),document.createTextNode(mood.title[1]));
-        brief.textContent=mood.description+' '+sizes[state.size].brief;
+        brief.textContent=mood.description+' '+sizes[state.size].brief+' '+(state.density==='lush'?'Три ветви образуют объёмный силуэт.':'Одна ветвь оставляет больше свободного пространства.');
         document.getElementById('flora-mood-number').textContent=mood.number+' — '+mood.label;
         document.getElementById('flora-scale-label').textContent=sizes[state.size].label;
         palette.setAttribute('aria-label','Палитра: '+mood.palette);
@@ -107,15 +129,23 @@
       }
       moodButtons.forEach(button=>button.addEventListener('click',()=>{state.mood=button.dataset.floraMood;render();}));
       sizeButtons.forEach(button=>button.addEventListener('click',()=>{state.size=button.dataset.floraSize;render();}));
-      function escapeXML(value){return value.replace(/[<>&"']/g,char=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;',"'":'&apos;'}[char]));}
+      densityButtons.forEach(button=>button.addEventListener('click',()=>{state.density=button.dataset.floraDensity;render();}));
+      document.getElementById('flora-project-name').addEventListener('input',event=>{state.name=event.target.value.trim();render();});
+      document.querySelectorAll('[data-flora-preset]').forEach(button=>button.addEventListener('click',()=>{
+        Object.assign(state,button.dataset.floraPreset==='dinner'?{mood:'calm',size:'table',density:'minimal',name:'Камерный ужин'}:{mood:'bold',size:'space',density:'lush',name:'Открытие студии'});
+        document.getElementById('flora-project-name').value=state.name;render();
+      }));
+      document.getElementById('flora-reset').addEventListener('click',()=>{Object.assign(state,{mood:'calm',size:'table',density:'minimal',name:'Камерный ужин'});document.getElementById('flora-project-name').value=state.name;render();status.textContent='Исходный вариант восстановлен.';});
       document.getElementById('flora-download').addEventListener('click',()=>{
         const mood=moods[state.mood];
-        const descriptionLines=state.size==='table'?['Камерная композиция для стола:','один выразительный цветок и тонкие ветви.']:['Композиция для пространства: крупная форма,','высокий силуэт и больше воздуха.'];
-        const svg='<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500" viewBox="0 0 1200 1500"><rect width="1200" height="1500" fill="'+mood.paper+'"/><g fill="'+mood.ink+'" font-family="Arial,sans-serif"><text x="86" y="102" font-size="21" letter-spacing="4">FLORA / ВИЗУАЛЬНЫЙ БРИФ</text><text x="1114" y="102" text-anchor="end" font-size="21">'+mood.number+'</text></g><circle cx="832" cy="480" r="248" fill="'+mood.colors[0]+'"/><g fill="none" stroke="'+mood.colors[2]+'" stroke-width="4"><path d="M700 900C740 700 690 560 814 240M730 660C660 520 564 480 496 360M737 730C790 580 940 500 1020 400M785 334C724 261 734 191 744 150"/><path d="M814 240C755 198 811 135 847 148C874 199 862 230 814 240ZM496 360C428 341 414 285 430 254C489 250 517 291 496 360ZM1020 400C1030 339 1087 309 1120 337C1114 394 1068 422 1020 400ZM785 334C721 357 669 307 678 262C734 255 780 288 785 334Z" fill="'+mood.colors[2]+'" stroke="none"/><path d="M638 860Q603 845 600 883L620 955Q700 998 779 955L800 884Q799 847 766 861Q700 883 638 860Z" fill="'+mood.colors[1]+'" stroke="none"/></g><g fill="'+mood.ink+'"><text x="86" y="1020" font-family="Georgia,serif" font-size="114">'+escapeXML(mood.title.join(' '))+'</text><text x="90" y="1100" font-family="Arial,sans-serif" font-size="25">'+escapeXML(mood.description)+'</text><text x="90" y="1143" font-family="Arial,sans-serif" font-size="25">'+escapeXML(descriptionLines[0])+'</text><text x="90" y="1186" font-family="Arial,sans-serif" font-size="25">'+escapeXML(descriptionLines[1])+'</text></g><line x1="86" y1="1260" x2="1114" y2="1260" stroke="'+mood.ink+'" stroke-opacity=".3"/>'+mood.colors.map((color,index)=>'<circle cx="'+(112+index*76)+'" cy="1330" r="25" fill="'+color+'"/>').join('')+'<text x="1114" y="1340" text-anchor="end" fill="'+mood.ink+'" font-family="Arial,sans-serif" font-size="21">'+escapeXML(sizes[state.size].label)+'</text><text x="86" y="1430" fill="'+mood.ink+'" font-family="Arial,sans-serif" font-size="19">Учебный проект AI PATH · FLORA — вымышленная студия</text></svg>';
-        const url=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml;charset=utf-8'}));
-        const link=document.createElement('a');link.href=url;link.download='flora-'+state.mood+'-'+state.size+'-moodboard.svg';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);
+        const xml=window.brandDemo.escapeXML;
+        const textLines=window.brandDemo.lines(brief.textContent,63);
+        const scale=state.size==='space'?1.5:1.25;
+        const svg='<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1150" viewBox="0 0 900 1150"><title>'+xml(state.name||'Мой визуальный бриф')+'</title><rect width="900" height="1150" fill="'+mood.paper+'"/><g fill="'+mood.ink+'" font-family="Arial,sans-serif"><text x="55" y="65" font-size="16" letter-spacing="3">FLORA / ВАШ ВИЗУАЛЬНЫЙ БРИФ</text>'+window.brandDemo.lines(state.name||'Мой визуальный бриф',28).map((line,i)=>'<text x="55" y="'+(125+i*43)+'" font-family="Georgia,serif" font-size="38">'+xml(line)+'</text>').join('')+'</g><circle cx="515" cy="420" r="190" fill="'+mood.colors[0]+'"/><g transform="translate(220 210) scale('+scale+')" color="'+mood.colors[2]+'" fill="none">'+drawing.innerHTML+'</g><g fill="'+mood.ink+'" font-family="Arial,sans-serif"><text x="55" y="770" font-family="Georgia,serif" font-size="40">'+xml(mood.title.join(' '))+'</text>'+textLines.map((line,i)=>'<text x="55" y="'+(815+i*28)+'" font-size="17">'+xml(line)+'</text>').join('')+'<text x="55" y="945" font-size="16">'+xml(sizes[state.size].label)+'</text>'+mood.colors.map((color,i)=>'<rect x="'+(55+i*260)+'" y="980" width="220" height="30" fill="'+color+'"/><text x="'+(55+i*260)+'" y="1040" font-size="16">'+color+'</text>').join('')+'<text x="55" y="1110" font-size="13">Учебный проект AI PATH · FLORA — вымышленная студия</text></g></svg>';
+        window.brandDemo.download(svg,'flora-'+state.mood+'-'+state.size+'-moodboard.svg','image/svg+xml;charset=utf-8');
         status.textContent='Мудборд «'+mood.title.join(' ')+'» подготовлен для скачивания.';
       });
+      render();
     })();
   </script>
 </body>

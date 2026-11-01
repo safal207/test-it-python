@@ -10,7 +10,13 @@ module.exports = {
         'http://localhost/ai-path/',
         'http://localhost/ai-path/journeys.html',
         'http://localhost/ai-path/studio.html',
+        'http://localhost/ai-path/demos.html',
+        'http://localhost/ai-path/project-start.html',
+        'http://localhost/ai-path/examples/pocitel.html',
+        'http://localhost/ai-path/examples/flora.html',
+        'http://localhost/ai-path/examples/my-cosmos.html',
         'http://localhost/ai-path/game-lab.html',
+        'http://localhost/ai-path/unity.html',
         'http://localhost/ai-path/physics-lab.html',
         'http://localhost/ai-path/finance.html',
         'http://localhost/ai-path/3d-academy-practice.html'

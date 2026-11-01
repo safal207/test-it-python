@@ -30,7 +30,10 @@ for(const key of ['goal','steps','project','day','focus','rest'])for(const suffi
 const origin='https://safal207.github.io/test-it-python/ai-path/';
 for(const [name,output] of [['goals.html','goals-offline.html'],['time-management.html','time-management-offline.html']]){
  let html=await readFile(dir+name,'utf8');
- html=html.replace('<script src="theme.js?v=1"></script>',()=>'<script>\n'+theme+'\n</script>')
+ html=html
+  .replace(/<!-- project-next:assets:start -->[\s\S]*?<!-- project-next:assets:end -->\r?\n?/g,'')
+  .replace(/<!-- project-next:start -->[\s\S]*?<!-- project-next:end -->\r?\n?/g,'')
+  .replace('<script src="theme.js?v=1"></script>',()=>'<script>\n'+theme+'\n</script>')
   .replace('<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">','')
   .replace('<link rel="stylesheet" href="theme.css?v=1">',()=>'<style>\n'+themeCss+'\n</style>')
   .replace('<link rel="stylesheet" href="finance.css?v=2">',()=>'<style>\n'+baseCss+'\n</style>')
