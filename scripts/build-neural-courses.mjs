@@ -25,13 +25,14 @@ const chips = course => course.prerequisites.length ? course.prerequisites.map(i
 const cards = courses.map((c, i) => {
   const materials = notebooks.filter(n => n.course === c.id);
   return `<article class="nc-card" id="${c.id}" data-neural-course="${c.id}" aria-labelledby="title-${c.id}">
-  <div class="nc-art"><img src="assets/neural-courses/${c.id}.svg" width="960" height="640" loading="lazy" decoding="async" alt="${esc('Учебная схема: ' + c.diagram.join(' → '))}"><span>${esc(c.stage)}</span></div>
+  <figure class="nc-art"><img src="${esc(c.cardArt.image)}" srcset="${esc(c.cardArt.small)} 640w, ${esc(c.cardArt.image)} 1536w" sizes="(max-width:700px) calc(100vw - 40px), (max-width:1180px) calc((100vw - 88px)/2), 546px" width="1536" height="1024" loading="lazy" decoding="async" alt="${esc(c.cardArt.alt)}"><span class="nc-stage">${esc(c.stage)}</span><figcaption>Иллюстрация курса</figcaption></figure>
   <div class="nc-copy"><p class="nc-meta">${c.weeks} ${c.weeks === 4 ? 'недели' : 'недель'} · ${c.meetings} ${c.meetings === 4 ? 'встречи' : 'встреч'} · ${materials.length} ${materials.length === 21 ? 'материал' : [2,3,4].includes(materials.length) ? 'материала' : 'материалов'}</p>
-  <h2 id="title-${c.id}">${esc(c.name)}</h2><p>${esc(c.short)}</p>
+  <h2 id="title-${c.id}">${esc(c.name)}</h2><p class="nc-hook">${esc(c.cardHook)}</p>
   <p class="nc-level"><strong>Для старта:</strong> ${esc(c.level)}.</p>
   <div class="nc-result"><h3>Что получится</h3><p>${esc(c.outcome)}</p></div>
   <a class="nc-button" data-course-plan="${c.id}" href="${esc(plan(c.id))}">Выбрать курс и открыть план <span aria-hidden="true">↗</span></a>
   <details class="nc-details"><summary>Темы и материалы · ${materials.length}</summary>
+    <p>${esc(c.short)}</p>
     <h3>Что изучим</h3><ul>${c.topics.map(t => '<li>' + esc(t) + '</li>').join('')}</ul>
     <h3>План по этапам</h3><ol>${c.steps.map(t => '<li>' + esc(t) + '</li>').join('')}</ol>
     <p><strong>Подготовка:</strong> ${chips(c)}.</p>
@@ -70,6 +71,7 @@ const html = `<!doctype html>
 <link rel="stylesheet" href="neural-courses.css"><script src="course-navigation.js?v=2" defer></script><link rel="stylesheet" href="brand-colors.css?v=20261027-theme1">
 <link rel="stylesheet" href="brand-design.css?v=20261027-theme1">
 <link rel="stylesheet" href="theme.css?v=1">
+<link rel="stylesheet" href="neural-course-cards.css?v=20261101">
 </head>
 <body data-brand-page="neural">
 <a class="nc-skip" href="#courses">К курсам</a>

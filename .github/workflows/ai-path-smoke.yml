@@ -22,6 +22,7 @@ on:
       - "scripts/verify-project-demos.mjs"
       - "scripts/verify-project-funnel.mjs"
       - "scripts/verify-unity-course.mjs"
+      - "scripts/verify-neural-cards.mjs"
       - "scripts/build-unity-pdf.mjs"
       - "scripts/verify-brand-demos.mjs"
       - "scripts/verify-commerce-demos.mjs"
@@ -51,7 +52,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        suite: [project-demos, brand-demos, commerce-demos, cosmos-demo, game-missions, project-funnel, unity-course]
+        suite: [project-demos, brand-demos, commerce-demos, cosmos-demo, game-missions, project-funnel, unity-course, neural-cards]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

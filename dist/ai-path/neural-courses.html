@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="neural-courses.css"><script src="course-navigation.js?v=2" defer></script><link rel="stylesheet" href="brand-colors.css?v=20261027-theme1">
 <link rel="stylesheet" href="brand-design.css?v=20261027-theme1">
 <link rel="stylesheet" href="theme.css?v=1">
+<link rel="stylesheet" href="neural-course-cards.css?v=20261101">
 </head>
 <body data-brand-page="neural">
 <a class="nc-skip" href="#courses">К курсам</a>
@@ -21,13 +22,14 @@
 <section class="nc-route" aria-labelledby="route-title"><h2 id="route-title">Как выбрать последовательность</h2><ol><li><strong>Подготовка</strong><span>Python, массивы, таблицы и графики.</span></li><li><strong>Первая модель</strong><span>Как сеть учится и как проверить ответ.</span></li><li><strong>Одна специализация</strong><span>Таблицы, изображения, тексты, звук или ряды.</span></li><li><strong>Улучшение модели</strong><span>Подбор архитектуры после первого эксперимента.</span></li></ol><p>Проходить все восемь подряд не обязательно. Табличный ML доступен после Python; специализацию выбираем по твоей задаче.</p></section>
 <nav class="nc-jumps" aria-label="Быстрый выбор курса"><a href="#ml-python">01 · Python и данные для нейросетей</a><a href="#ml">02 · Нейросети: первая модель</a><a href="#ml-data">03 · Машинное обучение на таблицах</a><a href="#ml-vision">04 · Нейросети для изображений · CV</a><a href="#ml-text">05 · Нейросети для текстов · NLP</a><a href="#ml-audio">06 · Нейросети для звука</a><a href="#ml-series">07 · Прогнозирование временных рядов</a><a href="#ml-tuning">08 · Подбор архитектуры нейросетей</a></nav>
 <div class="nc-grid" id="courses"><article class="nc-card" id="ml-python" data-neural-course="ml-python" aria-labelledby="title-ml-python">
-  <div class="nc-art"><img src="assets/neural-courses/ml-python.svg" width="960" height="640" loading="lazy" decoding="async" alt="Учебная схема: Код → Таблица → График"><span>01 · Подготовка</span></div>
+  <figure class="nc-art"><img src="assets/neural-course-cards/ml-python.webp" srcset="assets/neural-course-cards/ml-python-640.webp 640w, assets/neural-course-cards/ml-python.webp 1536w" sizes="(max-width:700px) calc(100vw - 40px), (max-width:1180px) calc((100vw - 88px)/2), 546px" width="1536" height="1024" loading="lazy" decoding="async" alt="Иллюстрация курса «Python и данные для нейросетей»"><span class="nc-stage">01 · Подготовка</span><figcaption>Иллюстрация курса</figcaption></figure>
   <div class="nc-copy"><p class="nc-meta">6 недель · 6 встреч · 21 материал</p>
-  <h2 id="title-ml-python">Python и данные для нейросетей</h2><p>Научись читать код и готовить данные: Python, NumPy, Pandas, графики и работа в Jupyter или Colab.</p>
+  <h2 id="title-ml-python">Python и данные для нейросетей</h2><p class="nc-hook">Преврати сырые данные в понятную картину.</p>
   <p class="nc-level"><strong>Для старта:</strong> С нуля.</p>
   <div class="nc-result"><h3>Что получится</h3><p>Ноутбук с подготовкой учебной таблицы, графиками и объяснением каждого шага. База для первого эксперимента с моделью.</p></div>
   <a class="nc-button" data-course-plan="ml-python" href="./?program=ml-python&amp;level=zero&amp;pace=balanced#selected">Выбрать курс и открыть план <span aria-hidden="true">↗</span></a>
   <details class="nc-details"><summary>Темы и материалы · 21</summary>
+    <p>Научись читать код и готовить данные: Python, NumPy, Pandas, графики и работа в Jupyter или Colab.</p>
     <h3>Что изучим</h3><ul><li>Python: условия, циклы, функции и основы ООП</li><li>Jupyter, Colab, Linux и импорт / экспорт файлов</li><li>NumPy, массивы, матрицы и функции</li><li>Pandas: таблицы, пропуски, типы и преобразования</li><li>Matplotlib и Seaborn: графики и проверка данных</li></ul>
     <h3>План по этапам</h3><ol><li>Неделя 1 — Python, переменные, условия и циклы; запуск ноутбука.</li><li>Неделя 2 — функции, основы ООП и команды Linux в Colab.</li><li>Неделя 3 — NumPy, матрицы и операции с массивами.</li><li>Неделя 4 — загрузка файлов, Pandas, очистка и разбор форматов.</li><li>Неделя 5 — Matplotlib, Seaborn и объяснение графиков.</li><li>Неделя 6 — собственный ноутбук подготовки данных и инструкция запуска.</li></ol>
     <p><strong>Подготовка:</strong> Можно начать без опыта.</p>
@@ -38,13 +40,14 @@
   </details></div>
 </article>
 <article class="nc-card" id="ml" data-neural-course="ml" aria-labelledby="title-ml">
-  <div class="nc-art"><img src="assets/neural-courses/ml.svg" width="960" height="640" loading="lazy" decoding="async" alt="Учебная схема: Данные → MLP → Класс"><span>02 · Основа</span></div>
+  <figure class="nc-art"><img src="assets/neural-course-cards/ml.webp" srcset="assets/neural-course-cards/ml-640.webp 640w, assets/neural-course-cards/ml.webp 1536w" sizes="(max-width:700px) calc(100vw - 40px), (max-width:1180px) calc((100vw - 88px)/2), 546px" width="1536" height="1024" loading="lazy" decoding="async" alt="Иллюстрация курса «Нейросети: первая модель»"><span class="nc-stage">02 · Основа</span><figcaption>Иллюстрация курса</figcaption></figure>
   <div class="nc-copy"><p class="nc-meta">6 недель · 6 встреч · 4 материала</p>
-  <h2 id="title-ml">Нейросети: первая модель</h2><p>Разберись, как сеть учится: нейроны, веса, функции активации, ошибка и градиенты. Начни с маленькой MLP на NumPy.</p>
+  <h2 id="title-ml">Нейросети: первая модель</h2><p class="nc-hook">Обучи первую сеть и пойми, где она ошибается.</p>
   <p class="nc-level"><strong>Для старта:</strong> Основы Python, функции и массивы.</p>
   <div class="nc-result"><h3>Что получится</h3><p>Один воспроизводимый эксперимент с MLP: код, независимая тестовая выборка, сравнение с простым решением и разбор ошибок.</p></div>
   <a class="nc-button" data-course-plan="ml" href="./?program=ml&amp;level=basic&amp;pace=balanced#selected">Выбрать курс и открыть план <span aria-hidden="true">↗</span></a>
   <details class="nc-details"><summary>Темы и материалы · 4</summary>
+    <p>Разберись, как сеть учится: нейроны, веса, функции активации, ошибка и градиенты. Начни с маленькой MLP на NumPy.</p>
     <h3>Что изучим</h3><ul><li>Нейроны, веса, активации и прямой проход</li><li>Функция потерь, градиенты и обучение</li><li>Train / validation / test без утечки данных</li><li>Нормализация, переобучение и метрики классификации</li><li>XOR, MNIST, Fashion MNIST и табличная классификация</li></ul>
     <h3>План по этапам</h3><ol><li>Неделя 1 — синтетические данные, классы и отдельные выборки.</li><li>Неделя 2 — нейрон, веса, активации и прямой проход MLP.</li><li>Неделя 3 — функция ошибки, обратное распространение и обучение.</li><li>Неделя 4 — сравнение с простым решением, переобучение и разбор ошибок.</li><li>Неделя 5 — изменение одного параметра; повторяемые запуски и метрики.</li><li>Неделя 6 — отчёт, инструкция и выбор следующего курса.</li></ol>
     <p><strong>Подготовка:</strong> <a href="#ml-python">Python и данные для нейросетей</a>.</p>
@@ -55,13 +58,14 @@
   </details></div>
 </article>
 <article class="nc-card" id="ml-data" data-neural-course="ml-data" aria-labelledby="title-ml-data">
-  <div class="nc-art"><img src="assets/neural-courses/ml-data.svg" width="960" height="640" loading="lazy" decoding="async" alt="Учебная схема: Признаки → Модель → Ошибка"><span>03 · Специализация</span></div>
+  <figure class="nc-art"><img src="assets/neural-course-cards/ml-data.webp" srcset="assets/neural-course-cards/ml-data-640.webp 640w, assets/neural-course-cards/ml-data.webp 1536w" sizes="(max-width:700px) calc(100vw - 40px), (max-width:1180px) calc((100vw - 88px)/2), 546px" width="1536" height="1024" loading="lazy" decoding="async" alt="Иллюстрация курса «Машинное обучение на таблицах»"><span class="nc-stage">03 · Специализация</span><figcaption>Иллюстрация курса</figcaption></figure>
   <div class="nc-copy"><p class="nc-meta">6 недель · 6 встреч · 3 материала</p>
-  <h2 id="title-ml-data">Машинное обучение на таблицах</h2><p>Преврати таблицу в проверяемый эксперимент: статистика, признаки, регрессия, простое решение для сравнения и оценка ошибки.</p>
+  <h2 id="title-ml-data">Машинное обучение на таблицах</h2><p class="nc-hook">Научи модель находить закономерности в таблицах.</p>
   <p class="nc-level"><strong>Для старта:</strong> Python, Pandas и базовые графики.</p>
   <div class="nc-result"><h3>Что получится</h3><p>Учебный анализ таблицы и модель регрессии с понятными признаками, метрикой и ограничениями.</p></div>
   <a class="nc-button" data-course-plan="ml-data" href="./?program=ml-data&amp;level=basic&amp;pace=balanced#selected">Выбрать курс и открыть план <span aria-hidden="true">↗</span></a>
   <details class="nc-details"><summary>Темы и материалы · 3</summary>
+    <p>Преврати таблицу в проверяемый эксперимент: статистика, признаки, регрессия, простое решение для сравнения и оценка ошибки.</p>
     <h3>Что изучим</h3><ul><li>Вероятность, распределения и описательная статистика</li><li>Очистка данных, выбросы и признаки</li><li>Разведочный анализ таблиц и корреляции</li><li>Регрессия, базовое решение и оценка ошибки</li><li>Проверка утечек и воспроизводимый отчёт</li></ul>
     <h3>План по этапам</h3><ol><li>Неделя 1 — задача, целевой столбец и качество учебных данных.</li><li>Неделя 2 — вероятность, статистика и распределения.</li><li>Неделя 3 — очистка, признаки и визуальный анализ.</li><li>Неделя 4 — простое решение и модель регрессии.</li><li>Неделя 5 — проверка ошибки на отложенных данных и разбор ограничений.</li><li>Неделя 6 — ноутбук и отчёт; для проекта Kaggle — проверка формата файла прогнозов и подготовка первой отправки.</li></ol>
     <p><strong>Подготовка:</strong> <a href="#ml-python">Python и данные для нейросетей</a>.</p>
@@ -72,13 +76,14 @@
   </details></div>
 </article>
 <article class="nc-card" id="ml-vision" data-neural-course="ml-vision" aria-labelledby="title-ml-vision">
-  <div class="nc-art"><img src="assets/neural-courses/ml-vision.svg" width="960" height="640" loading="lazy" decoding="async" alt="Учебная схема: Пиксели → CNN → Признаки"><span>03 · Специализация</span></div>
+  <figure class="nc-art"><img src="assets/neural-course-cards/ml-vision.webp" srcset="assets/neural-course-cards/ml-vision-640.webp 640w, assets/neural-course-cards/ml-vision.webp 1536w" sizes="(max-width:700px) calc(100vw - 40px), (max-width:1180px) calc((100vw - 88px)/2), 546px" width="1536" height="1024" loading="lazy" decoding="async" alt="Иллюстрация курса «Нейросети для изображений · CV»"><span class="nc-stage">03 · Специализация</span><figcaption>Иллюстрация курса</figcaption></figure>
   <div class="nc-copy"><p class="nc-meta">8 недель · 8 встреч · 18 материалов</p>
-  <h2 id="title-ml-vision">Нейросети для изображений · CV</h2><p>Выбери задачу с картинками: классификация, поиск объектов или сегментация. Разбери CNN и применение готовых моделей.</p>
+  <h2 id="title-ml-vision">Нейросети для изображений · CV</h2><p class="nc-hook">Покажи модели изображение — разбери её ответ.</p>
   <p class="nc-level"><strong>Для старта:</strong> Python и один эксперимент по классификации.</p>
   <div class="nc-result"><h3>Что получится</h3><p>Один проект по компьютерному зрению с примерами ответов, ошибок и метриками. Задачу и доступный датасет выбираем до обучения.</p></div>
   <a class="nc-button" data-course-plan="ml-vision" href="./?program=ml-vision&amp;level=basic&amp;pace=balanced#selected">Выбрать курс и открыть план <span aria-hidden="true">↗</span></a>
   <details class="nc-details"><summary>Темы и материалы · 18</summary>
+    <p>Выбери задачу с картинками: классификация, поиск объектов или сегментация. Разбери CNN и применение готовых моделей.</p>
     <h3>Что изучим</h3><ul><li>Conv2D, фильтры, pooling и устройство CNN</li><li>MNIST, CIFAR-10 / 100, жесты и марки автомобилей</li><li>Применение готового детектора SSDLite MobileNetV2</li><li>Сегментация изображений и оценка масок</li><li>Перенос обучения: замороженная основа и новый выходной слой</li><li>Дообучение части готовой сети с небольшой скоростью обучения; сравнение на отложенных данных</li></ul>
     <h3>План по этапам</h3><ol><li>Недели 1–2 — изображения, разметка, разбиение и небольшая CNN.</li><li>Недели 3–4 — свёртки, переобучение и классификация на выбранном наборе.</li><li>Недели 5–6 — для переноса обучения: заморозить основу, обучить выходной слой, затем сравнить дообучение части сети; детекция и сегментация — альтернативные задачи.</li><li>Недели 7–8 — один выбранный проект, метрики, ошибки и отчёт; для Digit Recognizer на Kaggle — подготовка файла прогнозов по правилам задачи.</li></ol>
     <p><strong>Подготовка:</strong> <a href="#ml">Нейросети: первая модель</a>.</p>
@@ -89,13 +94,14 @@
   </details></div>
 </article>
 <article class="nc-card" id="ml-text" data-neural-course="ml-text" aria-labelledby="title-ml-text">
-  <div class="nc-art"><img src="assets/neural-courses/ml-text.svg" width="960" height="640" loading="lazy" decoding="async" alt="Учебная схема: Токены → LSTM → Тональность"><span>03 · Специализация</span></div>
+  <figure class="nc-art"><img src="assets/neural-course-cards/ml-text.webp" srcset="assets/neural-course-cards/ml-text-640.webp 640w, assets/neural-course-cards/ml-text.webp 1536w" sizes="(max-width:700px) calc(100vw - 40px), (max-width:1180px) calc((100vw - 88px)/2), 546px" width="1536" height="1024" loading="lazy" decoding="async" alt="Иллюстрация курса «Нейросети для текстов · NLP»"><span class="nc-stage">03 · Специализация</span><figcaption>Иллюстрация курса</figcaption></figure>
   <div class="nc-copy"><p class="nc-meta">8 недель · 8 встреч · 10 материалов</p>
-  <h2 id="title-ml-text">Нейросети для текстов · NLP</h2><p>Определяй тональность отзыва или автора текста. Сравни представления текста и сети Dense, Conv1D, RNN, LSTM и GRU.</p>
+  <h2 id="title-ml-text">Нейросети для текстов · NLP</h2><p class="nc-hook">Научи модель различать настроение текстов.</p>
   <p class="nc-level"><strong>Для старта:</strong> Python, массивы и основы классификации.</p>
   <div class="nc-result"><h3>Что получится</h3><p>Классификатор текстов с подготовкой данных, сравнением двух подходов и анализом ошибочных ответов.</p></div>
   <a class="nc-button" data-course-plan="ml-text" href="./?program=ml-text&amp;level=basic&amp;pace=balanced#selected">Выбрать курс и открыть план <span aria-hidden="true">↗</span></a>
   <details class="nc-details"><summary>Темы и материалы · 10</summary>
+    <p>Определяй тональность отзыва или автора текста. Сравни представления текста и сети Dense, Conv1D, RNN, LSTM и GRU.</p>
     <h3>Что изучим</h3><ul><li>Токенизация, словарь, длина последовательности и padding</li><li>Embedding и представление текста</li><li>Dense, Conv1D, RNN, LSTM и GRU</li><li>Тональность отзывов IMDb и Yelp</li><li>Определение автора по отрывку и проверка качества</li></ul>
     <h3>План по этапам</h3><ol><li>Недели 1–2 — тексты, метки, разбиение и токенизация.</li><li>Недели 3–4 — Embedding, базовая модель и Conv1D.</li><li>Недели 5–6 — устройство RNN, LSTM, GRU; сравнение двух выбранных подходов.</li><li>Недели 7–8 — тональность или авторство, ошибки и воспроизводимый отчёт.</li></ol>
     <p><strong>Подготовка:</strong> <a href="#ml">Нейросети: первая модель</a>.</p>
@@ -106,13 +112,14 @@
   </details></div>
 </article>
 <article class="nc-card" id="ml-audio" data-neural-course="ml-audio" aria-labelledby="title-ml-audio">
-  <div class="nc-art"><img src="assets/neural-courses/ml-audio.svg" width="960" height="640" loading="lazy" decoding="async" alt="Учебная схема: Сигнал → Признаки → Класс"><span>03 · Специализация</span></div>
+  <figure class="nc-art"><img src="assets/neural-course-cards/ml-audio.webp" srcset="assets/neural-course-cards/ml-audio-640.webp 640w, assets/neural-course-cards/ml-audio.webp 1536w" sizes="(max-width:700px) calc(100vw - 40px), (max-width:1180px) calc((100vw - 88px)/2), 546px" width="1536" height="1024" loading="lazy" decoding="async" alt="Иллюстрация курса «Нейросети для звука»"><span class="nc-stage">03 · Специализация</span><figcaption>Иллюстрация курса</figcaption></figure>
   <div class="nc-copy"><p class="nc-meta">6 недель · 6 встреч · 2 материала</p>
-  <h2 id="title-ml-audio">Нейросети для звука</h2><p>Пройди путь от аудиосигнала до признаков и классификации. Учебный пример — распознавание птиц по пению.</p>
+  <h2 id="title-ml-audio">Нейросети для звука</h2><p class="nc-hook">Узнай птицу по её песне.</p>
   <p class="nc-level"><strong>Для старта:</strong> Python, массивы и основы классификации.</p>
   <div class="nc-result"><h3>Что получится</h3><p>Один эксперимент классификации звука: подготовка записей, извлечение признаков и разбор ошибок модели.</p></div>
   <a class="nc-button" data-course-plan="ml-audio" href="./?program=ml-audio&amp;level=basic&amp;pace=balanced#selected">Выбрать курс и открыть план <span aria-hidden="true">↗</span></a>
   <details class="nc-details"><summary>Темы и материалы · 2</summary>
+    <p>Пройди путь от аудиосигнала до признаков и классификации. Учебный пример — распознавание птиц по пению.</p>
     <h3>Что изучим</h3><ul><li>Аудиосигнал, частота дискретизации и фрагменты</li><li>Визуализация сигнала и звуковые признаки</li><li>Подготовка примеров и разделение записей без утечки</li><li>Классификация птиц по пению и полносвязная сеть</li><li>Метрики и влияние шума на ответы</li></ul>
     <h3>План по этапам</h3><ol><li>Неделя 1 — доступность записей, формат и постановка задачи.</li><li>Неделя 2 — сигнал, фрагменты и визуализация.</li><li>Неделя 3 — извлечение признаков и независимые выборки.</li><li>Неделя 4 — обучение классификатора и сравнение с простым решением.</li><li>Неделя 5 — ошибки, шум и ограничения датасета.</li><li>Неделя 6 — повторяемый запуск и демонстрация результата.</li></ol>
     <p><strong>Подготовка:</strong> <a href="#ml">Нейросети: первая модель</a>.</p>
@@ -123,13 +130,14 @@
   </details></div>
 </article>
 <article class="nc-card" id="ml-series" data-neural-course="ml-series" aria-labelledby="title-ml-series">
-  <div class="nc-art"><img src="assets/neural-courses/ml-series.svg" width="960" height="640" loading="lazy" decoding="async" alt="Учебная схема: Прошлое → Окно → Прогноз"><span>03 · Специализация</span></div>
+  <figure class="nc-art"><img src="assets/neural-course-cards/ml-series.webp" srcset="assets/neural-course-cards/ml-series-640.webp 640w, assets/neural-course-cards/ml-series.webp 1536w" sizes="(max-width:700px) calc(100vw - 40px), (max-width:1180px) calc((100vw - 88px)/2), 546px" width="1536" height="1024" loading="lazy" decoding="async" alt="Иллюстрация курса «Прогнозирование временных рядов»"><span class="nc-stage">03 · Специализация</span><figcaption>Иллюстрация курса</figcaption></figure>
   <div class="nc-copy"><p class="nc-meta">6 недель · 6 встреч · 5 материалов</p>
-  <h2 id="title-ml-series">Прогнозирование временных рядов</h2><p>Исследуй данные во времени: окна, нормализация, прогноз и проверка на будущих участках. Примеры — трафик и исторические ряды.</p>
+  <h2 id="title-ml-series">Прогнозирование временных рядов</h2><p class="nc-hook">Построй прогноз и проверь его на новом периоде.</p>
   <p class="nc-level"><strong>Для старта:</strong> Python, Pandas и основы оценки моделей.</p>
   <div class="nc-result"><h3>Что получится</h3><p>Учебный прогноз временного ряда с разделением по времени, сравнением с наивным прогнозом и разбором ошибки.</p></div>
   <a class="nc-button" data-course-plan="ml-series" href="./?program=ml-series&amp;level=basic&amp;pace=balanced#selected">Выбрать курс и открыть план <span aria-hidden="true">↗</span></a>
   <details class="nc-details"><summary>Темы и материалы · 5</summary>
+    <p>Исследуй данные во времени: окна, нормализация, прогноз и проверка на будущих участках. Примеры — трафик и исторические ряды.</p>
     <h3>Что изучим</h3><ul><li>Временная ось, тренд, интервалы и окна</li><li>Нормализация только на обучающем участке</li><li>Dense, Conv1D и последовательности</li><li>Хронологическая проверка без данных из будущего</li><li>Трафик компании и исторические биржевые ряды</li></ul>
     <h3>План по этапам</h3><ol><li>Неделя 1 — временная ось, задача и горизонт прогноза.</li><li>Неделя 2 — графики, пропуски и подготовка окон.</li><li>Неделя 3 — хронологическое разбиение и наивный прогноз.</li><li>Неделя 4 — обучение небольшой модели.</li><li>Неделя 5 — ошибка на отложенном периоде и проверка утечек.</li><li>Неделя 6 — отчёт с графиками, ограничениями и инструкцией.</li></ol>
     <p><strong>Подготовка:</strong> <a href="#ml-data">Машинное обучение на таблицах</a> или <a href="#ml">Нейросети: первая модель</a>.</p>
@@ -140,13 +148,14 @@
   </details></div>
 </article>
 <article class="nc-card" id="ml-tuning" data-neural-course="ml-tuning" aria-labelledby="title-ml-tuning">
-  <div class="nc-art"><img src="assets/neural-courses/ml-tuning.svg" width="960" height="640" loading="lazy" decoding="async" alt="Учебная схема: Варианты → Проверка → Выбор"><span>04 · После первого проекта</span></div>
+  <figure class="nc-art"><img src="assets/neural-course-cards/ml-tuning.webp" srcset="assets/neural-course-cards/ml-tuning-640.webp 640w, assets/neural-course-cards/ml-tuning.webp 1536w" sizes="(max-width:700px) calc(100vw - 40px), (max-width:1180px) calc((100vw - 88px)/2), 546px" width="1536" height="1024" loading="lazy" decoding="async" alt="Иллюстрация курса «Подбор архитектуры нейросетей»"><span class="nc-stage">04 · После первого проекта</span><figcaption>Иллюстрация курса</figcaption></figure>
   <div class="nc-copy"><p class="nc-meta">4 недели · 4 встречи · 3 материала</p>
-  <h2 id="title-ml-tuning">Подбор архитектуры нейросетей</h2><p>Сравни настройки модели: размер слоёв, скорость обучения и варианты архитектуры. Разбери Keras Tuner и генетический поиск.</p>
+  <h2 id="title-ml-tuning">Подбор архитектуры нейросетей</h2><p class="nc-hook">Сравни варианты сети и обоснуй свой выбор.</p>
   <p class="nc-level"><strong>Для старта:</strong> Есть обученная модель и понятная метрика.</p>
   <div class="nc-result"><h3>Что получится</h3><p>Таблица воспроизводимых экспериментов, обоснованный выбор конфигурации и отдельная итоговая проверка на тестовых данных.</p></div>
   <a class="nc-button" data-course-plan="ml-tuning" href="./?program=ml-tuning&amp;level=basic&amp;pace=balanced#selected">Выбрать курс и открыть план <span aria-hidden="true">↗</span></a>
   <details class="nc-details"><summary>Темы и материалы · 3</summary>
+    <p>Сравни настройки модели: размер слоёв, скорость обучения и варианты архитектуры. Разбери Keras Tuner и генетический поиск.</p>
     <h3>Что изучим</h3><ul><li>Гиперпараметры и пространство поиска</li><li>Keras Tuner и Fashion MNIST</li><li>Ручной, автоматический и генетический поиск</li><li>Бюджет вычислений, seed и журнал экспериментов</li><li>Выбор по validation и финальная проверка на test</li></ul>
     <h3>План по этапам</h3><ol><li>Неделя 1 — исходная модель, метрика и бюджет экспериментов.</li><li>Неделя 2 — ручные варианты и автоматический поиск Keras Tuner.</li><li>Неделя 3 — принципы генетического поиска и сравнение конфигураций.</li><li>Неделя 4 — итоговая проверка, таблица результатов и отчёт; если исходный проект выбран на Kaggle — подготовка файла прогнозов без подбора по финальным ответам.</li></ol>
     <p><strong>Подготовка:</strong> <a href="#ml">Нейросети: первая модель</a>.</p>

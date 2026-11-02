@@ -1,0 +1,103 @@
+/* Course illustrations share the Unity catalogue's cream, violet and lime palette. */
+html body[data-brand-page="neural"] {
+  --nc-bg:var(--theme-bg,#fff9ef);
+  --nc-card:var(--theme-panel,#fffdf7);
+  --nc-ink:var(--theme-ink,#24133f);
+  --nc-muted:var(--theme-muted,#645c70);
+  --nc-line:var(--theme-line,#d5c6e8);
+  --nc-soft:var(--theme-soft,#f2eafb);
+  --nc-accent:var(--theme-accent,#6c35d4);
+}
+html[data-theme="light"] body[data-brand-page="neural"] {
+  --nc-bg:#fff9ef; --nc-card:#fffdf7; --nc-ink:#24133f; --nc-muted:#645c70;
+  --nc-line:#d5c6e8; --nc-soft:#f2eafb; --nc-accent:#6c35d4;
+}
+body[data-brand-page="neural"] .nc-grid { gap:24px; }
+body[data-brand-page="neural"] .nc-card {
+  border-radius:22px;
+  box-shadow:0 8px 24px var(--theme-shadow,#38205408);
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+body[data-brand-page="neural"] .nc-art { margin:0; background:var(--nc-soft); }
+body[data-brand-page="neural"] .nc-art img {
+  display:block; width:100%; height:auto; aspect-ratio:3/2; object-fit:cover;
+}
+body[data-brand-page="neural"] .nc-art>.nc-stage {
+  top:14px; left:14px; max-width:calc(100% - 28px); padding:6px 10px;
+  border:1px solid #ffffff80; border-radius:8px;
+  background:#fff9eff5; color:#24133f; font-size:11px; font-weight:750; line-height:1.4;
+}
+body[data-brand-page="neural"] .nc-art figcaption {
+  position:absolute; right:14px; bottom:14px; padding:5px 9px;
+  border-radius:6px; background:#24133fee; color:#fff;
+  font-size:10px; font-weight:650; line-height:1.4; letter-spacing:.03em;
+}
+body[data-brand-page="neural"] .nc-copy { padding:28px; }
+body[data-brand-page="neural"] .nc-meta {
+  display:inline-block; margin:0 0 16px; padding:5px 9px; border-radius:6px;
+  background:var(--theme-lime-soft,#e9f2ce); color:var(--nc-ink);
+  font-size:11px; font-weight:700; line-height:1.5;
+}
+body[data-brand-page="neural"] .nc-copy h2 {
+  margin:0 0 12px; font-size:clamp(25px,2.6vw,32px); line-height:1.15; letter-spacing:-.035em;
+}
+body[data-brand-page="neural"] .nc-copy>.nc-hook {
+  margin:0 0 20px; color:var(--nc-muted); font-size:16px; line-height:1.6;
+}
+body[data-brand-page="neural"] .nc-copy>.nc-level {
+  margin:0; color:var(--nc-muted); font-size:13px; line-height:1.65;
+}
+body[data-brand-page="neural"] .nc-level strong { color:var(--nc-ink); font-weight:650; }
+body[data-brand-page="neural"] .nc-result { margin:20px 0 22px; padding-top:18px; }
+body[data-brand-page="neural"] .nc-result h3 {
+  margin:0 0 7px; color:var(--nc-accent); font-size:10px; font-weight:800; letter-spacing:.07em;
+}
+body[data-brand-page="neural"] .nc-result p { margin:0; font-size:14px; line-height:1.7; }
+body[data-brand-page="neural"] .nc-button {
+  min-height:50px; border-radius:9px; background:var(--nc-accent);
+  color:var(--theme-on-accent,#fff); font-weight:750; text-decoration:none;
+}
+body[data-brand-page="neural"] .nc-copy>.nc-button {
+  margin:0 0 20px; padding:14px 16px; font-size:13px; line-height:1.5;
+}
+body[data-brand-page="neural"] .nc-button:hover {
+  background:var(--theme-accent-hover,#5423b3); color:var(--theme-on-accent,#fff);
+}
+body[data-brand-page="neural"] .nc-button span { font-size:20px; line-height:1; }
+body[data-brand-page="neural"] .nc-button:focus-visible,
+body[data-brand-page="neural"] .nc-details summary:focus-visible {
+  outline:3px solid var(--nc-ink); outline-offset:4px;
+}
+body[data-brand-page="neural"] .nc-details summary { padding:16px 0; font-size:13px; }
+body[data-brand-page="neural"] .nc-details[open] summary { margin-bottom:5px; color:var(--nc-accent); }
+body[data-brand-page="neural"] .nc-details>p { font-size:14px; line-height:1.7; }
+body[data-brand-page="neural"] .nc-jumps a:hover { background:var(--nc-soft); }
+@media (hover:hover) and (prefers-reduced-motion:no-preference) {
+  body[data-brand-page="neural"] .nc-card:hover {
+    transform:translateY(-4px); box-shadow:0 14px 30px var(--theme-shadow,#38205414);
+  }
+}
+@media (max-width:900px) {
+  body[data-brand-page="neural"] .nc-copy { padding:22px; }
+  body[data-brand-page="neural"] .nc-copy h2 { font-size:26px; }
+}
+@media (max-width:700px) {
+  body[data-brand-page="neural"] .nc-grid { gap:24px; }
+  body[data-brand-page="neural"] .nc-copy { padding:24px; }
+  body[data-brand-page="neural"] .nc-copy h2 { font-size:28px; }
+}
+@media (max-width:380px) {
+  body[data-brand-page="neural"] .nc-copy { padding:20px; }
+  body[data-brand-page="neural"] .nc-copy h2 { font-size:25px; }
+  body[data-brand-page="neural"] .nc-copy>.nc-button { padding-inline:12px; }
+  body[data-brand-page="neural"] .nc-art>.nc-stage { top:12px; left:12px; }
+  body[data-brand-page="neural"] .nc-art figcaption { right:12px; bottom:12px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  body[data-brand-page="neural"] .nc-card { transition:none; }
+}
+@media (forced-colors:active) {
+  body[data-brand-page="neural"] .nc-button,
+  body[data-brand-page="neural"] .nc-art>.nc-stage,
+  body[data-brand-page="neural"] .nc-art figcaption { border:1px solid ButtonText; }
+}

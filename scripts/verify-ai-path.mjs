@@ -374,9 +374,9 @@ async function catalogPresentation(page, width) {
   assert(new Set(report.map(card => card.source)).size === programIds.length, 'Every program has its own illustration');
   for (const card of report) {
     assert(card.covers === 1 && card.alt, `Program has one cover with an explicit alternative-text decision: ${card.id}`);
-    const diagram = card.id.startsWith('ml-');
-    assert(card.source === (card.id === 'unity' ? 'assets/program-covers/unity.svg' : diagram ? `assets/neural-courses/${card.id}.svg` : `assets/program-menu-v1/${card.id}.webp`) && card.decoded, `Program illustration loads from its own local WebP: ${card.id}`);
-    assert(card.provenance === (diagram || card.id === 'unity' ? 'Учебная схема' : 'AI-иллюстрация') && card.category?.length > 3, `Illustration names its category and is not presented as a project screenshot: ${card.id}`);
+    const neuralCourse = neuralCourseIds.includes(card.id);
+    assert(card.source === (card.id === 'unity' ? 'assets/program-covers/unity.svg' : neuralCourse ? `assets/neural-course-cards/${card.id}-640.webp` : `assets/program-menu-v1/${card.id}.webp`) && card.decoded, `Program illustration loads from its own local asset: ${card.id}`);
+    assert(card.provenance === (neuralCourse ? 'Иллюстрация курса' : card.id === 'unity' ? 'Учебная схема' : 'AI-иллюстрация') && card.category?.length > 3, `Illustration names its category and is not presented as a project screenshot: ${card.id}`);
     assert(card.indexedCover && /^Попробуешь роль\s+\S/.test(card.role || '') && card.role.length > 20, `Program has a numbered cover and a readable exploratory role at ${width}px: ${card.id}`);
     assert(/^Практика\s+\S/.test(card.skill || ''), `Skill label is separated from its content for accessible reading: ${card.id}`);
     assert(card.resultLabel === 'Создашь' && card.result?.length > 12 && card.skill?.length > 12 && card.result !== card.skill, `Program separately explains what the visitor will make and practise: ${card.id}`);
