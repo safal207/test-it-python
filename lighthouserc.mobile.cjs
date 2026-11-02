@@ -8,6 +8,7 @@ module.exports = {
       // A separate throttled mobile baseline, not a physical-device claim.
       url: [
         'http://localhost/ai-path/',
+        'http://localhost/ai-path/neural-courses.html',
         'http://localhost/ai-path/journeys.html',
         'http://localhost/ai-path/studio.html',
         'http://localhost/ai-path/demos.html',

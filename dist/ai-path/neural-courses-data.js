@@ -107,21 +107,31 @@
       prerequisites: ['ml'], diagram: ['Варианты', 'Проверка', 'Выбор'], guide: 'tuning'
     }
   ];
+  const cardHooks = {
+    'ml-python': 'Преврати сырые данные в понятную картину.',
+    'ml': 'Обучи первую сеть и пойми, где она ошибается.',
+    'ml-data': 'Научи модель находить закономерности в таблицах.',
+    'ml-vision': 'Покажи модели изображение — разбери её ответ.',
+    'ml-text': 'Научи модель различать настроение текстов.',
+    'ml-audio': 'Узнай птицу по её песне.',
+    'ml-series': 'Построй прогноз и проверь его на новом периоде.',
+    'ml-tuning': 'Сравни варианты сети и обоснуй свой выбор.'
+  };
   courses.forEach(function (c) {
     c.meetings = c.weeks; c.glyph = '◈';
+    c.cardHook = cardHooks[c.id];
+    c.cardArt = { image: 'assets/neural-course-cards/' + c.id + '.webp', small: 'assets/neural-course-cards/' + c.id + '-640.webp', alt: 'Иллюстрация курса «' + c.name + '»' };
     c.refs = [['Все 8 курсов и материалы', 'neural-courses.html#' + c.id]];
     if (c.guide) c.refs.push(['Разобрать устройство модели', 'neural-networks.html?task=' + c.guide]);
     c.presentation = { headline: c.outcome, first: c.first };
     if (c.id !== 'ml') c.presentation.concept = 'assets/neural-courses/' + c.id + '.svg';
     c.kit = { takeaways: [c.outcome, 'Исходники и инструкция для повторного запуска.', 'Короткий отчёт: что проверено, что получилось и какие есть ограничения.'], prompts: ['Моя учебная задача: ____.', 'Какие данные нужны и есть ли у меня право их использовать: ____.', 'Как проверю результат и объясню ошибки: ____.'] };
     c.guideInfo = { fit: c.short, readiness: [c.id === 'ml-python' ? 'Опыт программирования не нужен; подготовь компьютер для работы с кодом.' : 'Для начала нужны: ' + c.level + '.', 'До старта проверим окружение, доступность данных и посильный объём.'], core: c.outcome, extra: c.extra };
-    c.menu = { result: c.cardOutcome, role: c.role, skills: c.skills, start: c.level, alt: 'Учебная схема: ' + c.diagram.join(' → ') };
+    c.menu = { result: c.cardOutcome, role: c.role, skills: c.skills, start: c.level, image: c.cardArt.small, alt: c.cardArt.alt, provenance: 'Иллюстрация курса' };
     if (['ml-data', 'ml-vision', 'ml-tuning'].indexOf(c.id) !== -1) {
       c.refs.push(['Обучение, дообучение и практика Kaggle', 'neural-courses.html#kaggle-practice']);
       c.menu.search = 'Kaggle Кагл Каггл соревнования машинное обучение';
     }
-    if (c.id !== 'ml') { c.menu.image = 'assets/neural-courses/' + c.id + '.svg'; c.menu.provenance = 'Учебная схема'; }
-    else c.menu.alt = 'Керамические узлы нейросети, пиксели и три группы объектов';
   });
   window.AIPathNeuralCourses = courses;
 })();
