@@ -167,6 +167,14 @@ try {
       for (const theme of ['light', 'dark', 'matrix']) {
         await page.locator(`[data-theme-choice="${theme}"]`).click();
         await expect(page.locator('html')).toHaveAttribute('data-theme', theme);
+        if (route === 'home') {
+          // Inline navigation must be identifiable even when link and paragraph colours match.
+          for (const selector of ['#unity-course-entry', '#portfolio .section-top > p > a']) {
+            const link = page.locator(selector);
+            await expect(link).toHaveCount(1);
+            await expect(link).toHaveCSS('text-decoration-line', 'underline');
+          }
+        }
         const bounds = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, width: innerWidth, height: document.documentElement.scrollHeight }));
         assert(bounds.scroll <= bounds.width + 1, `${route}/${width}/${theme}: no horizontal overflow`);
         // Preserve the existing fresh light-theme landing budget; other themes retain their layout and accessibility checks.

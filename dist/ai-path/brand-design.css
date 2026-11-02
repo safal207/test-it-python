@@ -34,6 +34,9 @@ body[data-brand-page="home"] .navcta { background:var(--theme-accent, #6c35d4); 
 body[data-brand-page="home"] .school-menu { background:var(--theme-bg, #fff9ef); }
 body[data-brand-page="home"] .school-menu a { color:var(--theme-ink, #24133f); }
 body[data-brand-page="home"] .school-skip { background:var(--theme-yellow, #ffc83d); color:var(--theme-ink, #24133f); }
+/* Paragraph links remain recognizable without relying on theme colours. */
+body[data-brand-page="home"] .menu-heading > p > a,
+body[data-brand-page="home"] #portfolio .section-top > p > a { text-decoration:underline; text-underline-offset:3px; }
 body[data-brand-page="home"] .hero { background:radial-gradient(ellipse at 85% 15%,var(--theme-soft, #eee4fc) 0,transparent 48%),var(--theme-bg, #fff9ef); border-bottom:0; }
 body[data-brand-page="home"] .hero-grid { grid-template-columns:1fr 1fr; gap:44px; padding-block:46px 40px; align-items:center; }
 body[data-brand-page="home"] .eyebrow { color:var(--theme-accent, #6c35d4); font-size:12px; font-weight:800; }
