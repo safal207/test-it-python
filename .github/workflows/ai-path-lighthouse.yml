@@ -6,6 +6,7 @@ on:
     paths:
       - "dist/ai-path/**"
       - "scripts/verify-ai-path.mjs"
+      - "scripts/verify-project-funnel.mjs"
       - "scripts/build-neural-courses.mjs"
       - "package.json"
       - "lighthouserc.cjs"
