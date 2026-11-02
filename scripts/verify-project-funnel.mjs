@@ -48,8 +48,16 @@ async function step(page,number) {
   await expect(page.locator(`fieldset[data-step="${number}"]`)).toBeVisible();
 }
 async function next(page) {
-  await page.locator('#next-step').focus();
+  const button=page.locator('#next-step');
+  await expect(button).toBeVisible();
+  await expect(button).toBeEnabled();
+  const current=Number(await page.locator('[data-progress][aria-current="step"]').getAttribute('data-progress'));
+  assert([1,2].includes(current),'Next is available only on steps 1 and 2');
+  await step(page,current);
+  await button.focus();
+  await expect(button).toBeFocused();
   await page.keyboard.press('Enter');
+  await step(page,current+1);
 }
 async function selectAction(page) {
   const value=await page.locator('#project-action option').evaluateAll(options=>options.find(option=>!option.disabled&&option.value)?.value);
@@ -189,6 +197,34 @@ async function stableWizardLoading(page) {
   const after=await page.locator('.plan-preview').evaluate(element=>element.getBoundingClientRect().top+scrollY);
   assert(Math.abs(after-before)<=1,`Loading the wizard does not push its preview down: ${before} → ${after}`);
   results.push({label:'wizard-delayed-module-layout',status:'passed',before,after,width:390});
+}
+
+async function delayedWizardKeyboard(page) {
+  await page.goto(site.base+'studio.html?program=unity&level=basic&pace=light');
+  let resume;
+  const ready=new Promise(resolve=>{resume=resolve;});
+  await page.route('**/project-start.js',async route=>{await ready;await route.continue();});
+  const navigation=page.locator('#mori .case-plan').click();
+  let first;
+  try {
+    await expect(page.locator('#project-wizard')).toBeVisible();
+    await expect(page.locator('#next-step')).toBeDisabled();
+    // Start the real keyboard helper while the application module is blocked.
+    // It must wait for the enabled control, then verify the resulting step.
+    first=next(page);
+    await expect(page.locator('#next-step')).toBeDisabled();
+  } finally {
+    resume();await navigation;await page.unroute('**/project-start.js');
+  }
+  await first;
+  await next(page);
+  await expect(page.locator('#make-plan')).toBeVisible();
+  await page.locator('#make-plan').click();
+  const plan=await planText(page);
+  assert.equal(plan.course.searchParams.get('program'),'designlab');
+  assert.equal(plan.course.searchParams.get('level'),'basic');
+  assert.equal(plan.course.searchParams.get('pace'),'light');
+  results.push({label:'studio-mori-delayed-wizard-keyboard',status:'passed'});
 }
 
 try {
@@ -380,6 +416,7 @@ try {
   }
   await stableCatalogLoading(entries.page);
   await stableWizardLoading(entries.page);
+  await delayedWizardKeyboard(entries.page);
   await teachingAssets(entries.page);
   await entries.context.close();
   assert.deepEqual(errors,[],'No runtime, console or resource failures');
