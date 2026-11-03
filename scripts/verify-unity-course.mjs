@@ -10,6 +10,7 @@ const require = createRequire(import.meta.url);
 const site = await startSite();
 const out = 'artifacts/unity-course';
 const results = [];
+const unityArt = 'assets/unity-games/crystal-route.webp';
 let browser;
 try {
   await mkdir(out, { recursive: true });
@@ -36,6 +37,10 @@ try {
     await expect(page.locator('h1')).toHaveText('ИИ + Unity:создаём свою игру.');
     await expect(page.locator('.weeks li')).toHaveCount(8);
     await expect(page.locator('.schedule')).toContainText('Предлагаемый маршрут');
+    await expect(page.locator('.game-plan img')).toHaveAttribute('src', unityArt);
+    await expect(page.locator('.game-plan img')).toHaveAttribute('alt', /\S/);
+    await page.locator('.game-plan img').evaluate(image => image.decode());
+    await expect(page.locator('.game-plan figcaption')).toContainText('AI-иллюстрация');
     await expect(page.locator('.game-plan figcaption')).toContainText('не кадр из готовой игры Unity');
     await expect(page.locator('.bridge')).toContainText('отдельная веб-мини-игра');
     assert.equal(unityGameConcepts.length, 3, 'Three proposed Unity game ideas');
@@ -88,9 +93,16 @@ try {
     await expect(page.locator('#selSteps li')).toHaveCount(8);
     await expect(page.locator('#enquiryLevel')).toHaveValue('basic');
     await expect(page.locator('#enquiryPace')).toHaveValue('light');
+    await expect(page.locator('#selConceptImage')).toHaveAttribute('src', unityArt);
+    await expect(page.locator('#selConceptImage')).toHaveAttribute('alt', /\S/);
+    await page.locator('#selConceptImage').evaluate(async image => { image.loading = 'eager'; await image.decode(); });
+    await expect(page.locator('#selConcept figcaption')).toContainText('AI-иллюстрация');
     await expect(page.locator('#gameTrialLink')).toBeVisible();
     await page.locator('#selectedJourneyLink').click();
     await expect(page.locator('#journey-unity details')).toHaveAttribute('open', '');
+    await expect(page.locator('#journey-unity .card-visual img')).toHaveAttribute('src', unityArt);
+    await expect(page.locator('#journey-unity .card-visual img')).toHaveAttribute('alt', /\S/);
+    await expect(page.locator('#journey-unity .image-tag')).toHaveText('AI-иллюстрация');
     await page.locator('#journey-unity a[href*="unity.html"]').click();
     await expect(page.locator('h1')).toContainText('Unity');
     await page.locator('#unity-game-trial').click();

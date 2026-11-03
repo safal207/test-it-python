@@ -123,8 +123,7 @@
     c.cardArt = { image: 'assets/neural-course-cards/' + c.id + '.webp', small: 'assets/neural-course-cards/' + c.id + '-640.webp', alt: 'Иллюстрация курса «' + c.name + '»' };
     c.refs = [['Все 8 курсов и материалы', 'neural-courses.html#' + c.id]];
     if (c.guide) c.refs.push(['Разобрать устройство модели', 'neural-networks.html?task=' + c.guide]);
-    c.presentation = { headline: c.outcome, first: c.first };
-    if (c.id !== 'ml') c.presentation.concept = 'assets/neural-courses/' + c.id + '.svg';
+    c.presentation = { headline: c.outcome, first: c.first, concept: c.cardArt.image, conceptAlt: c.cardArt.alt };
     c.kit = { takeaways: [c.outcome, 'Исходники и инструкция для повторного запуска.', 'Короткий отчёт: что проверено, что получилось и какие есть ограничения.'], prompts: ['Моя учебная задача: ____.', 'Какие данные нужны и есть ли у меня право их использовать: ____.', 'Как проверю результат и объясню ошибки: ____.'] };
     c.guideInfo = { fit: c.short, readiness: [c.id === 'ml-python' ? 'Опыт программирования не нужен; подготовь компьютер для работы с кодом.' : 'Для начала нужны: ' + c.level + '.', 'До старта проверим окружение, доступность данных и посильный объём.'], core: c.outcome, extra: c.extra };
     c.menu = { result: c.cardOutcome, role: c.role, skills: c.skills, start: c.level, image: c.cardArt.small, alt: c.cardArt.alt, provenance: 'Иллюстрация курса' };

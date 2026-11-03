@@ -35,7 +35,7 @@ async function verifyArt(page, route) {
     const image = await picture.evaluate(element => ({
       source: element.getAttribute('src'), sources: element.getAttribute('srcset'),
       loaded: element.complete && element.naturalWidth > 0,
-      alt: element.hasAttribute('alt'), width: element.getBoundingClientRect().width,
+      alt: element.alt.trim().length > 0, width: element.getBoundingClientRect().width,
       height: element.getBoundingClientRect().height
     }));
     assert.equal(image.source, asset(id, route === 'home'), `${route}/${id}: own local course artwork`);
@@ -94,7 +94,12 @@ async function verifyPlan(page, course, level, pace) {
   await expect(page.locator('#enquiryPace')).toHaveValue(pace);
   assert.equal(Number.parseInt(await page.locator('#selDuration').innerText(), 10), course.weeks, `${course.id}: original duration`);
   assert.equal(Number.parseInt(await page.locator('#selMeetings').innerText(), 10), course.weeks, `${course.id}: original meeting count`);
-  await expect(page.locator('#selConceptImage')).toHaveAttribute('src', course.id === 'ml' ? 'assets/program-covers/ml.svg' : `assets/neural-courses/${course.id}.svg`);
+  const concept = page.locator('#selConceptImage');
+  await expect(concept).toHaveAttribute('src', asset(course.id));
+  await expect(concept).toHaveAttribute('alt', /\S/);
+  await expect(page.locator('#selConcept figcaption')).toContainText('AI-иллюстрация');
+  await concept.evaluate(async image => { image.loading = 'eager'; await image.decode(); });
+  assert(await concept.evaluate(image => image.complete && image.naturalWidth > 0), `${course.id}: selected plan artwork decodes`);
 }
 
 async function verifyNavigation(page) {
@@ -124,6 +129,27 @@ async function verifyNavigation(page) {
   }
   await page.locator('[data-course-plan="ml-python"]').click();
   await verifyPlan(page, courses[0], 'zero', 'balanced');
+}
+
+async function verifyJourneyArtwork(page) {
+  const academyCovers = { biology: 'space', physics: 'game', engineering: 'furniture', architecture: 'space', threejs: 'designlab', edtech: 'build' };
+  await page.goto(site.base + 'journeys.html');
+  const cards = page.locator('.path-card');
+  await expect(cards).toHaveCount(30);
+  const ids = await cards.evaluateAll(elements => elements.map(card => card.id.replace('journey-', '')));
+  assert.deepEqual(ids.sort(), [...programIds, ...Object.keys(academyCovers).map(id => 'academy-' + id)].sort(), 'All program and Academy artwork mappings remain represented');
+  for (const id of ids) {
+    const card = page.locator(`#journey-${id}`);
+    const picture = card.locator('.card-visual img');
+    const expected = id === 'unity' ? 'assets/unity-games/crystal-route.webp'
+      : id.startsWith('academy-') ? `assets/program-cards-20261102/${academyCovers[id.slice(8)]}.webp`
+      : courseIds.includes(id) ? asset(id) : `assets/program-cards-20261102/${id}.webp`;
+    await expect(picture).toHaveAttribute('src', expected);
+    await expect(picture).toHaveAttribute('alt', /\S/);
+    await expect(card.locator('.image-tag')).toHaveText('AI-иллюстрация');
+    await picture.evaluate(async image => { image.loading = 'eager'; await image.decode(); });
+    assert(await picture.evaluate(image => image.complete && image.naturalWidth > 0), `${id}: journey artwork decodes`);
+  }
 }
 
 try {
@@ -189,7 +215,10 @@ try {
         }
       }
     }
-    if (width === 1440) await verifyNavigation(page);
+    if (width === 1440) {
+      await verifyNavigation(page);
+      await verifyJourneyArtwork(page);
+    }
     assert.deepEqual(errors, [], `${width}px: no browser errors`);
     assert.deepEqual(failed, [], `${width}px: no failed resources`);
     await page.close();
