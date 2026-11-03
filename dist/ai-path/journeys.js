@@ -78,13 +78,14 @@
   }
   function card(p, story, isAcademy) {
     var id = isAcademy ? 'academy-' + p.id : p.id;
-    var image = p.id === 'unity' ? 'assets/program-covers/unity.svg' : isAcademy ? 'assets/program-menu-v1/' + story.cover + '.webp' : story.group === 'neural' ? 'assets/neural-courses/' + p.id + '.svg' : 'assets/program-menu-v1/' + p.id + '.webp';
+    var image = p.id === 'unity' ? 'assets/unity-games/crystal-route.webp' : isAcademy ? 'assets/program-cards-20261102/' + story.cover + '.webp' : story.group === 'neural' ? 'assets/neural-course-cards/' + p.id + '.webp' : 'assets/program-cards-20261102/' + p.id + '.webp';
     var title = isAcademy ? '3D Academy · ' + p.name : p.name;
+    var responsive = p.id === 'unity' ? '' : ' srcset="' + esc(image.replace('.webp', '-640.webp')) + ' 640w, ' + esc(image) + ' 1536w" sizes="(max-width:650px) calc(100vw - 32px), (max-width:900px) 45vw, 380px"';
     var destination = isAcademy ? '3d-academy.html#' + p.id : './?program=' + p.id + '&level=zero&pace=balanced#selected';
     var number = isAcademy ? '3D ACADEMY · УЧЕБНЫЙ ПЛАН' : 'ПРОГРАММА ' + p.num + ' / 24';
     var first = isAcademy ? '<p class="age-tip">Пример первого задания: ' + esc(p.first) + '</p>' : '';
     return '<article class="path-card" id="journey-' + esc(id) + '" data-group="' + esc(isAcademy ? 'academy' : story.group) + '" tabindex="-1">' +
-      '<div class="card-visual"><img src="' + esc(image) + '" width="960" height="640" loading="lazy" decoding="async" alt=""><span class="image-tag">Иллюстрация направления</span></div>' +
+      '<div class="card-visual"><img src="' + esc(image) + '"' + responsive + ' width="1536" height="1024" loading="lazy" decoding="async" alt="' + esc('AI-иллюстрация направления «' + title + '»') + '"><span class="image-tag">AI-иллюстрация</span></div>' +
       '<div class="card-body"><p class="card-index">' + esc(number) + '</p><h3>' + esc(title) + '</h3><p class="card-intro">' + esc(story.now) + '</p>' +
       '<div class="card-requirement"><strong>Для старта</strong>' + esc(isAcademy ? story.level : p.level) + '</div>' +
       '<details class="card-path"><summary>Посмотреть путь: 4 шага</summary><ol class="path-steps">' +

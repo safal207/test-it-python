@@ -132,7 +132,8 @@ async function iframeContract(page, width) {
   await exposeProgramMenu(page);
   const card = page.locator('#programList [data-program="designlab"]');
   assert(await card.count() === 1 && await card.isVisible(), 'Expanded catalogue contains one visible Design Lab card');
-  assert(await card.locator('img').getAttribute('src') === 'assets/program-menu-v1/designlab.webp', 'Catalogue uses the Design Lab conceptual menu illustration');
+  assert(await card.locator('img').getAttribute('src') === 'assets/program-cards-20261102/designlab-640.webp', 'Catalogue uses the Design Lab conceptual menu illustration');
+  assert((await card.locator('img').getAttribute('alt')).trim().length > 0, 'Design Lab menu illustration retains descriptive alternative text');
   assert((await card.locator('.program-cover-note').innerText()).trim() === 'AI-иллюстрация', 'Conceptual menu art is visibly distinguished from the real model preview');
   await decode(card.locator('img'), 'Conceptual program-menu illustration decodes');
   for (const scene of ['room', 'temple']) {

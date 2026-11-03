@@ -358,7 +358,7 @@ async function catalogPresentation(page, width) {
         }
       }
     }
-    return { id: card.dataset.program, covers: covers.length, alt: covers.every(img => img.hasAttribute('alt')),
+    return { id: card.dataset.program, covers: covers.length, alt: covers.every(img => img.alt.trim().length > 0),
       source: covers[0]?.getAttribute('src'), decoded: covers.every(img => img.complete && img.naturalWidth > 0),
       category: card.querySelector('.program-category')?.textContent.trim(),
       provenance: card.querySelector('.program-cover-note')?.textContent.trim(),
@@ -375,8 +375,8 @@ async function catalogPresentation(page, width) {
   for (const card of report) {
     assert(card.covers === 1 && card.alt, `Program has one cover with an explicit alternative-text decision: ${card.id}`);
     const neuralCourse = neuralCourseIds.includes(card.id);
-    assert(card.source === (card.id === 'unity' ? 'assets/program-covers/unity.svg' : neuralCourse ? `assets/neural-course-cards/${card.id}-640.webp` : `assets/program-menu-v1/${card.id}.webp`) && card.decoded, `Program illustration loads from its own local asset: ${card.id}`);
-    assert(card.provenance === (neuralCourse ? 'Иллюстрация курса' : card.id === 'unity' ? 'Учебная схема' : 'AI-иллюстрация') && card.category?.length > 3, `Illustration names its category and is not presented as a project screenshot: ${card.id}`);
+    assert(card.source === (card.id === 'unity' ? 'assets/unity-games/crystal-route.webp' : neuralCourse ? `assets/neural-course-cards/${card.id}-640.webp` : `assets/program-cards-20261102/${card.id}-640.webp`) && card.decoded, `Program illustration loads from its own local asset: ${card.id}`);
+    assert(card.provenance === (neuralCourse ? 'Иллюстрация курса' : 'AI-иллюстрация') && card.category?.length > 3, `Illustration names its category and is not presented as a project screenshot: ${card.id}`);
     assert(card.indexedCover && /^Попробуешь роль\s+\S/.test(card.role || '') && card.role.length > 20, `Program has a numbered cover and a readable exploratory role at ${width}px: ${card.id}`);
     assert(/^Практика\s+\S/.test(card.skill || ''), `Skill label is separated from its content for accessible reading: ${card.id}`);
     assert(card.resultLabel === 'Создашь' && card.result?.length > 12 && card.skill?.length > 12 && card.result !== card.skill, `Program separately explains what the visitor will make and practise: ${card.id}`);
@@ -493,10 +493,13 @@ async function selected(page, id) {
   } else if (projectPreviewSources[id]) {
     assert(visual.visible.join('|') === 'selPreview' && visual.projectSrc === projectPreviewSources[id], `Selected program preserves its source-backed project preview: ${id}`);
     assert(visual.projectAlt.length > 12 && visual.projectCaption === visual.projectAlt, `Selected project preview retains its attribution: ${id}`);
-    assert(visual.conceptSrc === null, `Project preview clears a previous conceptual illustration: ${id}`);
+    assert(visual.conceptSrc === null && visual.conceptAlt === '', `Project preview clears a previous conceptual illustration: ${id}`);
   } else {
-    assert(visual.visible.join('|') === 'selConcept' && visual.conceptSrc === (id.startsWith('ml-') ? `assets/neural-courses/${id}.svg` : `assets/program-covers/${id}.svg`), `Selected program shows its own conceptual illustration: ${id}`);
-    assert(visual.conceptAlt === '' && visual.conceptCaption.includes('Иллюстрация'), `Conceptual art is explicitly distinguished from a project result: ${id}`);
+    const expectedConcept = id === 'unity' ? 'assets/unity-games/crystal-route.webp' : neuralCourseIds.includes(id) ? `assets/neural-course-cards/${id}.webp` : `assets/program-cards-20261102/${id}.webp`;
+    assert(visual.visible.join('|') === 'selConcept' && visual.conceptSrc === expectedConcept, `Selected program shows its own conceptual illustration: ${id}`);
+    assert(visual.conceptAlt.trim().length > 12 && visual.conceptCaption.includes('AI-иллюстрация'), `Conceptual art is explicitly distinguished from a project result: ${id}`);
+    await page.locator('#selConceptImage').evaluate(async image => { image.loading = 'eager'; await image.decode(); });
+    assert(await page.locator('#selConceptImage').evaluate(image => image.complete && image.naturalWidth > 0), `Selected conceptual illustration decodes: ${id}`);
     assert(visual.projectSrc === null && visual.projectAlt === '' && visual.projectCaption === '', `Conceptual route clears previous project imagery and attribution: ${id}`);
   }
   const summary = await page.locator('#curriculumSummary').innerText();
@@ -2068,7 +2071,8 @@ async function neuralCourses(page, width) {
 
 async function neuralNetworks(page, width) {
   const previous = page.url();
-  const sourceRoot = 'https://github.com/safal207/students/blob/d848e04c8f8d6e3e8e42ce15fbd98c00612e0e17/';
+  const notebookSource = JSON.parse(await readFile('dist/ai-path/data/neural-notebooks.json', 'utf8'));
+  const sourceRoot = `https://github.com/${notebookSource.repository}/blob/${notebookSource.ref}/`;
   const projects = [
     ['start', 3, /MLP.*NumPy/], ['photo', 4, /CNN.*Conv2D/], ['text', 4, /Embedding.*LSTM/],
     ['objects', 4, /SSDLite.*MobileNetV2/], ['audio', 4, /признаки.*Dense/], ['tuning', 4, /MLP.*Keras Tuner/]

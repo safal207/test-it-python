@@ -331,7 +331,7 @@
   alternatives.career=['explore','build'];
   // A separate introductory Unity route; the Awakening course keeps its scope and ID.
   interestLabels.unity='Своя 2D-игра в Unity';
-  presentation.unity={headline:'Собери законченный игровой цикл в Unity',first:'Проверить совместимость компьютера, создать 2D-сцену и добиться управляемого движения объекта.'};
+  presentation.unity={headline:'Собери законченный игровой цикл в Unity',first:'Проверить совместимость компьютера, создать 2D-сцену и добиться управляемого движения объекта.',concept:'assets/unity-games/crystal-route.webp',conceptAlt:'AI-иллюстрация идеи игры: светящийся путь соединяет кристаллы в сказочном саду'};
   starterKits.unity={takeaways:['Исходники небольшого 2D-прототипа и C#-скрипты с объяснением.','Управление, три собираемых предмета, победа и повторный запуск.','Настольная сборка, инструкция запуска и список выполненных проверок.'],prompts:['Мой герой и его цель: ____.','Одна механика первой версии: ____.','Я проверю победу и повторный запуск так: ____.']};
   choiceGuide.unity={fit:'Выбирай, если хочешь начать свою небольшую 2D-игру в Unity и понять код.',readiness:['Можно с нуля; до старта проверим компьютер и установку Unity Editor.','Нужны время на практику и доступный ИИ-помощник; платные функции Unity AI не обязательны.'],core:'Предлагаемый маршрут: 8 недель и 8 встреч. Соберём один законченный цикл — движение, сбор трёх кристаллов, победа и повтор.',extra:'Сначала проверяем код и результат в редакторе, затем отдельный билд. Онлайн-игра, магазин приложений и коммерческий выпуск не входят в базовый объём.'};
   alternatives.unity=['game','build'];
@@ -465,7 +465,8 @@
     };
     $('levelHint').textContent=hints[state.interest]||'Оцени опыт в выбранной теме. Требования и короткая проверка готовности будут в плане.';
   }
-  // Card-only illustrations do not replace the source-backed project previews.
+  // Direction illustrations do not replace the source-backed project previews.
+  var programIllustrationBase='assets/program-cards-20261102/';
   var cardArt={
     explore:{category:'Первый шаг',family:'start'},
     build:{category:'Разработка',family:'code',kind:'Пример веб-интерфейса'},
@@ -505,11 +506,15 @@
   cardArt.career={category:'Выбор направления',family:'start'};
   menuCards.career={result:'Карту направлений, исследование вакансий и план на 30 дней',role:'исследователя карьерных направлений',skills:'Вакансии · ИИ-агенты · проверка источников',start:'Можно с нуля; достаточно одного ИИ-инструмента',alt:'Исследовательский стол: карточки вакансий, лупа и три пути выбора',search:'карьера вакансии профессия работа codex claude grok deepseek qwen'};
   cardArt.unity={category:'Unity и 2D-игры',family:'code'};
-  menuCards.unity={result:'Небольшую 2D-игру со сбором предметов и повтором',role:'автора 2D-игры в Unity',skills:'Unity · C# · игровой цикл · проверка',start:'С нуля; проверим компьютер',alt:'Учебная схема: игрок собирает три кристалла и открывает выход',image:'assets/program-covers/unity.svg',provenance:'Учебная схема',search:'unity юнити 2d c# csharp игра кристаллы'};
+  menuCards.unity={result:'Небольшую 2D-игру со сбором предметов и повтором',role:'автора 2D-игры в Unity',skills:'Unity · C# · игровой цикл · проверка',start:'С нуля; проверим компьютер',alt:'AI-иллюстрация идеи игры: светящийся путь соединяет кристаллы в сказочном саду',image:'assets/unity-games/crystal-route.webp',provenance:'AI-иллюстрация',search:'unity юнити 2d c# csharp игра кристаллы'};
+  programs.forEach(function(p){
+    var m=menuCards[p.id];
+    if(!m.image){m.image=programIllustrationBase+p.id+'-640.webp';m.alt='AI-иллюстрация направления «'+p.name+'»'}
+  });
   function cardMarkup(p,recommended){
     var m=menuCards[p.id],art=cardArt[p.id],sel=Boolean(state.selection&&state.selection.program===p.id);
     var media='<span class="program-media program-media--illustration">'+
-      '<img src="'+esc(m.image||'assets/program-menu-v1/'+p.id+'.webp')+'" alt="'+esc(m.alt)+'" width="960" height="640" loading="lazy" decoding="async">'+
+      '<img src="'+esc(m.image)+'" alt="'+esc(m.alt)+'" width="1536" height="1024" loading="lazy" decoding="async">'+
       '<span class="program-category">'+esc(art.category)+'</span><span class="program-cover-index" aria-hidden="true">'+esc(p.num)+' <i>/</i> '+programs.length+'</span>'+
       '<span class="program-cover-note">'+esc(m.provenance||'AI-иллюстрация')+'</span></span>';
     return '<button type="button" class="program'+(recommended?' recommended':'')+'" data-family="'+art.family+'" data-program="'+p.id+'" aria-pressed="'+sel+'">'+media+
@@ -633,8 +638,13 @@
     if(m.image){$('selImage').src=m.image;$('selImage').alt=m.caption;$('selImage').width=m.width;$('selImage').height=m.height;$('selImageCaption').textContent=m.caption}
     else{$('selImage').removeAttribute('src');$('selImage').alt='';$('selImageCaption').textContent=''}
     $('selConcept').hidden=Boolean(m.image);
-    if(!m.image){$('selConceptImage').src=m.concept||'assets/program-covers/'+p.id+'.svg'}
-    else{$('selConceptImage').removeAttribute('src')}
+    if(!m.image){
+      $('selConceptImage').src=m.concept||programIllustrationBase+p.id+'.webp';
+      $('selConceptImage').alt=m.conceptAlt||menuCards[p.id].alt;
+      $('selConceptImage').width=1536;$('selConceptImage').height=1024;
+      $('selConcept').querySelector('figcaption').textContent=p.id==='unity'?'AI-иллюстрация идеи игры. Это не кадр из готовой игры Unity.':'AI-иллюстрация направления';
+    }
+    else{$('selConceptImage').removeAttribute('src');$('selConceptImage').alt=''}
     renderContact();syncCards();updateSelectionDock();
     document.dispatchEvent(new CustomEvent('ai-path:program-selected',{detail:{program:p.id}}));
     if(window.AIPathNavigation)window.AIPathNavigation.refresh(state.selection);
