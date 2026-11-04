@@ -63,7 +63,11 @@ async function verifyProgramPreview(page, program, width) {
   assert(await image.evaluate(el => el.naturalWidth > 0 && el.alt.trim()), `${program}: the preview has a loaded image with alt text`);
   await assertNoOverflow(page, `${program} at ${width}px`);
   if (width === 1440 && program === 'game') {
-    await preview.screenshot({ path: path.join(out, 'program-preview-game-1440.png'), animations: 'disabled' });
+    await preview.screenshot({
+      path: path.join(out, 'program-preview-game-1440.png'),
+      animations: 'disabled',
+      style: '.header, .selection-dock, .toast { visibility: hidden !important; }',
+    });
   }
 
   const open = preview.locator('.program-preview-open');
@@ -90,6 +94,14 @@ async function verifyProgramPreview(page, program, width) {
   await page.goBack();
   await expect(page).toHaveURL(`${route}#selected`);
   await expect(preview).toBeVisible();
+  if (width <= 760) {
+    await expect(page.locator('#dockStart')).toBeHidden();
+    const dockTrial = page.locator('#dockTrial');
+    await expect(dockTrial).toHaveAttribute('href', '#programPreview');
+    await dockTrial.click();
+    await expect(page).toHaveURL(`${route}#programPreview`);
+    await expect(preview).toBeFocused();
+  }
   await preview.locator('a[href="#selected-curriculum"]').press('Enter');
   await expect(page).toHaveURL(`${route}#selected-curriculum`);
   const curriculum = page.locator('#selected-curriculum');
@@ -124,13 +136,19 @@ async function contrast(page, selector) {
 try {
   browser = await chromium.launch(browserOptions);
   for (const width of [320, 390, 1440]) {
-    const context = await browser.newContext({ viewport: { width, height: 900 }, reducedMotion: 'reduce' });
+    const context = await browser.newContext({ viewport: { width, height: width === 1440 ? 1100 : 900 }, reducedMotion: 'reduce' });
     const errors = [];
     context.on('page', page => watchBrowserErrors(page, errors));
     const page = await context.newPage();
     await page.goto(`${site.base}?program=ml&level=zero&pace=balanced#selected`, { waitUntil: 'domcontentloaded' });
     const demo = page.locator('#lessonDemo');
     await expect(demo).toBeVisible();
+    if (width <= 760) {
+      await expect(page.locator('#dockStart')).toBeHidden();
+      await page.locator('#dockTrial').click();
+      await expect(page).toHaveURL(/#lessonDemo$/);
+      await expect(demo).toBeFocused();
+    }
     await expect(page.locator('#programPreview')).toBeHidden();
     await expect(page.locator('[data-lesson-demo]')).toHaveCount(3);
     let currentUrl = new URL(page.url());

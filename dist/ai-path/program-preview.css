@@ -11,6 +11,7 @@
 }
 
 .program-preview[hidden] { display: none; }
+#dockTrial[hidden], #dockStart[hidden] { display: none; }
 
 .program-preview-head { margin-bottom: 22px; }
 

@@ -3,6 +3,8 @@
   const panel = document.getElementById('programPreview');
   const firstAction = document.getElementById('lessonTrialJump');
   const contact = document.getElementById('startJump');
+  const dockTrial = document.getElementById('dockTrial');
+  const dockContact = document.getElementById('dockStart');
   const hint = document.getElementById('offerEarlyHint');
   const defaultHint = hint.textContent;
   const title = panel.querySelector('h4');
@@ -81,8 +83,13 @@
     const isLesson = program === 'ml';
     const hasTrial = isLesson || Boolean(preview);
     firstAction.hidden = !hasTrial;
-    firstAction.href = isLesson ? '#lessonDemo' : '#programPreview';
+    const trialTarget = isLesson ? '#lessonDemo' : '#programPreview';
+    firstAction.href = trialTarget;
     firstAction.textContent = isLesson ? 'Попробовать урок ↓' : 'Попробовать на практике ↓';
+    dockTrial.href = trialTarget;
+    dockTrial.textContent = isLesson ? 'Попробовать урок ↓' : 'Попробовать демо ↓';
+    dockTrial.hidden = !hasTrial;
+    dockContact.hidden = hasTrial;
     contact.classList.toggle('primary', !hasTrial);
     contact.classList.toggle('ghost', hasTrial);
     hint.textContent = hasTrial ? 'Сначала попробуй небольшую задачу и посмотри, что сможешь собрать на курсе.' : defaultHint;
