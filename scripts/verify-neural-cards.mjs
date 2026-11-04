@@ -56,14 +56,21 @@ async function verifyArt(page, route) {
 async function verifyNotebookLinks(page) {
   const manifest = JSON.parse(await readFile('dist/ai-path/data/neural-notebooks.json', 'utf8'));
   assert.equal(manifest.notebooks.length, 66, 'The source inventory still has 66 notebooks');
-  const links = await page.locator('[data-course-notebook]').evaluateAll(elements => elements.map(link => ({ url: link.href, course: link.dataset.courseNotebook, status: link.dataset.notebookStatus })));
+  const links = await page.locator('[data-course-notebook]').evaluateAll(elements => elements.map(link => ({ url: link.href, course: link.dataset.courseNotebook, status: link.dataset.notebookStatus, title: link.textContent.replace(/ ↗$/, '').trim() })));
   assert.equal(links.length, 66, 'All 66 notebook links remain available');
   assert.equal(new Set(links.map(link => link.url)).size, 66, 'No duplicate notebook assignments');
   for (const notebook of manifest.notebooks) {
     const url = `https://github.com/${manifest.repository}/blob/${manifest.ref}/${notebook.path.split('/').map(encodeURIComponent).join('/')}`;
-    assert(links.some(link => link.url === url && link.course === notebook.course && link.status === notebook.status), `Original notebook path, course and readiness: ${notebook.path}`);
+    assert(links.some(link => link.url === url && link.course === notebook.course && link.status === notebook.status && link.title === notebook.title), `Original notebook path, course and readiness: ${notebook.path}`);
   }
-  assert.equal(links.filter(link => link.status === 'starter').length, 1, 'Only the controlled starter is presented as runnable');
+  assert.equal(links.filter(link => link.status === 'starter').length, 1, 'One NumPy starter remains available');
+  assert.equal(links.filter(link => link.status === 'lesson').length, 65, 'All other entries are short CPU lessons');
+  const archiveLinks = await page.locator('[data-notebook-archive]').evaluateAll(elements => elements.map(link => ({ id: link.dataset.notebookArchive, url: link.href })));
+  assert.equal(archiveLinks.length, 66, 'Every short lesson retains an original experiment link');
+  for (const notebook of manifest.notebooks) {
+    const archiveUrl = `https://github.com/${manifest.repository}/blob/${manifest.archiveRef}/${notebook.path.split('/').map(encodeURIComponent).join('/')}`;
+    assert(archiveLinks.some(link => link.id === notebook.id && link.url === archiveUrl), `Immutable original experiment preserved: ${notebook.path}`);
+  }
   for (const course of courses) assert.equal(links.filter(link => link.course === course.id).length, course.notebooks, `${course.id}: notebook coverage unchanged`);
 }
 
