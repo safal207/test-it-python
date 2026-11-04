@@ -13,13 +13,16 @@ const app = await readFile(new URL('app.js', root), 'utf8');
 const originalCollection = JSON.parse(app.match(/var notebooks=(\[.*?\]);/)[1]);
 if (ids.length !== 8 || new Set(ids).size !== 8 || notebooks.length !== 66 || new Set(notebooks.map(n => n.path)).size !== 66) throw Error('Expected eight courses and 66 unique notebook paths');
 for (const n of notebooks) {
-  if (!ids.includes(n.course) || !n.path.endsWith('.ipynb') || !['starter', 'archive'].includes(n.status)) throw Error('Invalid notebook assignment: ' + n.path);
+  if (!ids.includes(n.course) || !n.path.endsWith('.ipynb') || !['starter', 'lesson'].includes(n.status) || !n.title || !n.goal || !n.scope) throw Error('Invalid notebook assignment: ' + n.path);
 }
+if (!/^[0-9a-f]{40}$/.test(manifest.ref) || manifest.archiveRef !== '2e46691c24aabcb6e71852e07254a0965fc3a59b') throw Error('Lesson and original-experiment links must use reviewed immutable revisions');
 for (const n of originalCollection) if (!notebooks.some(item => item.path === n.path)) throw Error('Lost original notebook: ' + n.path);
 if (notebooks.filter(n => n.status === 'starter').map(n => n.path).join() !== 'ML/reproducible_mlp_xor_numpy.ipynb') throw Error('Only the controlled NumPy notebook is the starter');
+if (notebooks.filter(n => n.status === 'lesson').length !== 65 || new Set(notebooks.map(n => n.id)).size !== 66) throw Error('Expected 65 short lessons and one starter with unique lesson IDs');
 const esc = value => String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 const plan = id => './?program=' + id + '&level=' + (id === 'ml-python' ? 'zero' : 'basic') + '&pace=balanced#selected';
 const source = n => 'https://github.com/' + manifest.repository + '/blob/' + manifest.ref + '/' + n.path.split('/').map(encodeURIComponent).join('/');
+const archive = n => 'https://github.com/' + manifest.repository + '/blob/' + manifest.archiveRef + '/' + n.path.split('/').map(encodeURIComponent).join('/');
 const byId = id => courses.find(c => c.id === id);
 const chips = course => course.prerequisites.length ? course.prerequisites.map(id => `<a href="#${id}">${esc(byId(id).name)}</a>`).join(course.id === 'ml-series' ? ' или ' : ', ') : 'Можно начать без опыта';
 const cards = courses.map((c, i) => {
@@ -38,8 +41,8 @@ const cards = courses.map((c, i) => {
     <p><strong>Подготовка:</strong> ${chips(c)}.</p>
     <p class="nc-scope">${esc(c.extra)}</p>
     ${c.guide ? `<p><a href="neural-networks.html?task=${c.guide}">Разобрать схему модели →</a></p>` : ''}
-    <h3>Исходные ноутбуки</h3><p class="nc-caption">Материалы для выбора упражнений, не число обязательных уроков. Архивные файлы могут требовать обновления зависимостей и доступа к данным.</p>
-    <ul class="nc-materials">${materials.map(n => `<li><a data-course-notebook="${c.id}" data-notebook-status="${n.status}" href="${esc(source(n))}" target="_blank" rel="noopener noreferrer">${esc(n.title)} ↗</a><small>${n.status === 'starter' ? 'Стартовый NumPy-пример · выполняется в CI источника' : 'Исторический архив · запуск проверяется перед занятием'}</small></li>`).join('')}</ul>
+    <h3>Короткие уроки</h3><p class="nc-caption">В каждом ноутбуке — три шага с кодом, проверками и разбором от Миры, Данила и Пикса. Данные небольшие, GPU не нужен. Объём короткого упражнения указан отдельно от большого исходного эксперимента.</p>
+    <ul class="nc-materials">${materials.map(n => `<li><a data-course-notebook="${c.id}" data-notebook-id="${n.id}" data-notebook-status="${n.status}" href="${esc(source(n))}" target="_blank" rel="noopener noreferrer">${esc(n.title)} ↗</a><small>Короткий урок · CPU · 3 шага${n.status === 'starter' ? ' · Стартовая NumPy-сеть' : ''}</small><p>${esc(n.goal)}</p><small>${esc(n.scope)}</small><a data-notebook-archive="${n.id}" href="${esc(archive(n))}" target="_blank" rel="noopener noreferrer">Исходный эксперимент в архиве ↗</a></li>`).join('')}</ul>
   </details></div>
 </article>`;
 }).join('\n');
@@ -85,9 +88,9 @@ const html = `<!doctype html>
 <nav class="nc-jumps" aria-label="Быстрый выбор курса">${courses.map((c,i) => `<a href="#${c.id}">${String(i+1).padStart(2,'0')} · ${esc(c.name)}</a>`).join('')}</nav>
 <div class="nc-grid" id="courses">${cards}</div>
 ${practice}
-<section class="nc-archive" id="archive" aria-labelledby="archive-title"><p class="nc-eyebrow">Все материалы на месте</p><h2 id="archive-title">66 ноутбуков распределены по курсам</h2><p>В каталог вошли все 24 работы прежней подборки и остальные 42 ноутбука: подготовка, статистика, временные ряды, перенос обучения и дополнительные задания. Каждый файл закреплён за одним курсом.</p>
-<p>Один стартовый NumPy-пример выполняется в CI исходного репозитория. Остальные 65 — исторический архив. Сохранённые выводы и точность в названиях файлов не подтверждают текущую воспроизводимость. Перед практикой проверим окружение и данные.</p>
-<a href="https://github.com/${manifest.repository}/tree/${manifest.ref}" target="_blank" rel="noopener noreferrer">Открыть полный архив источника ↗</a> · <a href="./#research">Прежняя подборка 24 работ →</a></section>
+<section class="nc-archive" id="archive" aria-labelledby="archive-title"><p class="nc-eyebrow">Все материалы на месте</p><h2 id="archive-title">66 коротких уроков в восьми курсах</h2><p>Все 24 темы прежней подборки и остальные 42 ноутбука сохранили исходные пути. Теперь каждый файл открывается с коротким маршрутом: цель, три шага, проверка и маленький самостоятельный опыт.</p>
+<p>Стартовая NumPy-сеть и 65 тематических упражнений выполняют небольшие задачи на CPU. Полные CNN, большие датасеты и прежние исследования доступны отдельно по ссылке на неизменяемый архив. Их исторические результаты не выдаются за результат короткого урока.</p>
+<a href="https://github.com/${manifest.repository}/tree/${manifest.archiveRef}" target="_blank" rel="noopener noreferrer">Открыть исходные большие эксперименты ↗</a> · <a href="./#research">Подборка 24 коротких уроков →</a></section>
 </main><footer class="nc-footer"><a href="./#programs">К другим программам школы →</a><span>AI PATH · Алексей Сафонов</span></footer></body></html>
 `;
 
@@ -102,7 +105,9 @@ const glyphs = {
   'ml-series': '<path d="M330 190v180h300M350 335l55-45 40 25 50-70"/><path d="M495 245l40 30 35-55 55-20" stroke-dasharray="12 10"/><path d="M495 185v185" stroke-dasharray="6 10"/>',
   'ml-tuning': '<path d="M350 220h260M350 280h260M350 340h260"/><circle cx="420" cy="220" r="20"/><circle cx="550" cy="280" r="20"/><circle cx="465" cy="340" r="20"/>'
 };
-const outputs = [['neural-courses.html', html.replace(/[ \t]+$/gm, '')], ...courses.map(c => ['assets/neural-courses/' + c.id + '.svg', `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" width="960" height="640"><rect width="960" height="640" fill="#edf0e8"/><circle cx="480" cy="285" r="210" fill="#e1e7da"/><g fill="#edf0e8" stroke="#354f40" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">${glyphs[c.id]}</g><g font-family="system-ui,sans-serif" text-anchor="middle" fill="#253f31" font-size="26">${c.diagram.map((label,i) => `<rect x="${70+i*290}" y="474" width="240" height="70" rx="16" fill="#fffdf6"/><text x="${190+i*290}" y="518">${esc(label)}</text>${i<2 ? `<path d="M${320+i*290} 510h28m-8-8 8 8-8 8" fill="none" stroke="#354f40" stroke-width="4"/>` : ''}`).join('')}</g></svg>\n`])];
+const catalog = { repository: manifest.repository, ref: manifest.ref, archiveRef: manifest.archiveRef, notebooks: notebooks.map(n => ({ ...n, url: source(n), archiveUrl: archive(n) })) };
+const catalogScript = '/* Generated from data/neural-notebooks.json. Run npm run build:neural-courses. */\nwindow.AIPathNotebookCatalog = ' + JSON.stringify(catalog, null, 2) + ';\n';
+const outputs = [['neural-courses.html', html.replace(/[ \t]+$/gm, '')], ['neural-notebook-data.js', catalogScript], ...courses.map(c => ['assets/neural-courses/' + c.id + '.svg', `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" width="960" height="640"><rect width="960" height="640" fill="#edf0e8"/><circle cx="480" cy="285" r="210" fill="#e1e7da"/><g fill="#edf0e8" stroke="#354f40" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">${glyphs[c.id]}</g><g font-family="system-ui,sans-serif" text-anchor="middle" fill="#253f31" font-size="26">${c.diagram.map((label,i) => `<rect x="${70+i*290}" y="474" width="240" height="70" rx="16" fill="#fffdf6"/><text x="${190+i*290}" y="518">${esc(label)}</text>${i<2 ? `<path d="M${320+i*290} 510h28m-8-8 8 8-8 8" fill="none" stroke="#354f40" stroke-width="4"/>` : ''}`).join('')}</g></svg>\n`])];
 const check = process.argv.includes('--check');
 for (const [path, content] of outputs) {
   const destination = new URL(path, root);

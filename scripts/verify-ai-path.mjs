@@ -1989,7 +1989,8 @@ async function neuralCourses(page, width) {
     const target = `https://github.com/${manifest.repository}/blob/${manifest.ref}/${n.path.split('/').map(encodeURIComponent).join('/')}`;
     assert(links.some(link => link.url === target && link.course === n.course && link.status === n.status), 'Course link preserves source path and readiness: ' + n.path);
   }
-  assert(links.filter(link => link.status === 'starter').length === 1, 'Historical notebooks are not presented as executed starter examples');
+  assert(links.filter(link => link.status === 'starter').length === 1 && links.filter(link => link.status === 'lesson').length === 65, 'One starter and 65 short CPU lessons are distinguished');
+  assert(await page.locator('[data-notebook-archive]').count() === 66, 'Every short lesson retains an original experiment link');
   for (const id of neuralCourseIds) {
     const card = page.locator(`[data-neural-course="${id}"]`);
     assert(await card.locator('[data-course-notebook]').count() === expectedCounts[id], 'Notebook coverage matches the source inventory: ' + id);
@@ -2120,11 +2121,16 @@ async function neuralNetworks(page, width) {
       assert((await page.locator(selector).innerText()).trim().length > 25, `Project gives a useful explanation of ${selector}: ${id}`);
     }
     const readiness = await page.locator('#nn-readiness').innerText();
-    assert(id === 'start' ? /выполнен в CI/.test(readiness) : /архив/i.test(readiness), `Readiness distinguishes the executed starter from historical source examples: ${id}`);
+    assert(/Короткий урок · CPU · 3 шага/.test(readiness), `Readiness names the short CPU lesson separately from the model diagram: ${id}`);
+    assert((await page.locator('#nn-lesson-title').innerText()).trim().length > 5, `The short lesson has its own readable title: ${id}`);
     const source = page.locator('#nn-source-link');
     const href = await source.getAttribute('href');
     assert(href.startsWith(sourceRoot) && href.endsWith('.ipynb'), `Project source is a pinned notebook rather than a mutable branch: ${id}`);
     assert(await source.getAttribute('target') === '_blank' && /noopener/.test(await source.getAttribute('rel')), `Notebook source opens safely without replacing the lesson: ${id}`);
+    const matchingLesson = notebookSource.notebooks.find(n => href === sourceRoot + n.path.split('/').map(encodeURIComponent).join('/'));
+    assert(matchingLesson && (await page.locator('#nn-lesson-title').innerText()) === matchingLesson.title, `Guide uses the same lesson title as the catalog: ${id}`);
+    const archived = await page.locator('#nn-archive-link').getAttribute('href');
+    assert(archived === `https://github.com/${notebookSource.repository}/blob/${notebookSource.archiveRef}/` + matchingLesson.path.split('/').map(encodeURIComponent).join('/'), `Advanced original remains pinned separately: ${id}`);
     sources.add(href);
     assert((await page.locator('#nn-arch-note').innerText()).includes('не запуск нейросети'), `Diagram is explicitly an explanation rather than simulated model execution: ${id}`);
     const controls = page.locator('#nn-arch-controls [data-arch-step]');
