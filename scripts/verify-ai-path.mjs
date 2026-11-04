@@ -631,10 +631,17 @@ async function contactNavigation(page, width) {
     await page.locator('#selectionDock').waitFor({ state: 'visible' });
     assert((await page.locator('#dockName').innerText()).trim() === (await page.locator('#selTitle').innerText()).trim(), 'Mobile dock names the committed program');
     assert(await page.locator('#dockPlan').getAttribute('href') === '#selected', 'Dock preserves access to the program plan');
-    assert(await page.locator('#dockStart').getAttribute('href') === '#start', 'Dock leads to the contact panel');
-    await assertUncovered(page.locator('#dockStart'), 'Mobile next-step button');
+    const program = new URL(page.url()).searchParams.get('program');
+    const trialTarget = program === 'ml' ? '#lessonDemo' : ['game','unity','designlab','build','vibe'].includes(program) ? '#programPreview' : null;
+    const action = page.locator(trialTarget ? '#dockTrial' : '#dockStart');
+    assert(await action.getAttribute('href') === (trialTarget || '#start'), 'Dock offers the selected program’s next step');
+    await assertUncovered(action, 'Mobile next-step button');
     await noOverflow(page, 'mobile selection dock visible');
-    await page.locator('#dockStart').click();
+    await action.click();
+    if (trialTarget) {
+      assert(new URL(page.url()).hash === trialTarget, 'Dock opens the trial before contact');
+      await page.locator('#startJump').click();
+    }
   } else {
     assert(!(await page.locator('#selectionDock').isVisible()), 'Desktop does not show the mobile dock');
     await page.locator('#startJump').click();
