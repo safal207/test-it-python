@@ -3,6 +3,7 @@
 "use strict";
 const root=document.getElementById("stylist");
 if(!root)return;
+root.setAttribute("tabindex","-1");
 const $=(id)=>document.getElementById(id);
 const initial={gender:"man",occasion:"formal",fit:"normal",pants:"straight",shoe:"needed",budget:15000,hem:true,sleeve:false,waist:false,source:null};
 const state={...initial};
@@ -45,7 +46,7 @@ if(state.source){const p=document.querySelector('[data-post="'+state.source+'"] 
 const form=root.querySelector(".styleForm");
 form.addEventListener("change",e=>{
 const el=e.target;
-if(el.name in state){state[el.name]=el.type==="checkbox"?el.checked:el.value;section()}else if(el.id==="styleBudget"){const n=Math.trunc(Number(el.value));state.budget=Math.min(1000000,Math.max(1000,Number.isFinite(n)?n:15000));section()}
+if(el.name in state){state[el.name]=el.type==="checkbox"?el.checked:el.value;renderOutput()}else if(el.id==="styleBudget"){const n=Math.trunc(Number(el.value));state.budget=Math.min(1000000,Math.max(1000,Number.isFinite(n)?n:15000));el.value=state.budget;renderOutput()}
 });
 $("resetStyle").addEventListener("click",()=>{Object.assign(state,initial);section()});
 renderOutput()
@@ -81,7 +82,7 @@ const value=$("styleDraft").textContent;
 try{await navigator.clipboard.writeText(value);$("copyStyle").textContent=t("copied")}catch(e){$("copyStyle").textContent=t("copyFailed");$("styleDraft").setAttribute("tabindex","0");$("styleDraft").focus()}
 });
 }
-window.addEventListener("bitos:compose",e=>{const id=e.detail&&e.detail.lookId;if(id){state.source=id;state.gender=(id==="look1"||id==="look4")?"woman":"man";section()}root.scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"})});
+window.addEventListener("bitos:compose",e=>{const id=e.detail&&e.detail.lookId;if(id){state.source=id;state.gender=(id==="look1"||id==="look4")?"woman":"man";section()}root.scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});root.focus({preventScroll:true})});
 $("language").addEventListener("click",section);
 section()
 })();
