@@ -9,7 +9,7 @@ Start with ages 7–12, then validate ages 13–16 separately. Parent or teacher
 ## Product boundaries
 
 - Free forever is the proposed product policy for core lessons, explanations, retries, basic progress and access to the core learning path. No paywall on mistakes, no XP purchases, no advertising in child sessions.
-- Five core paths: logic/maths, English, science, money literacy, and coding/AI literacy. Integrate goal-setting, time and healthy habits across paths. Teach online safety and AI limitations explicitly.
+- Two foundational project journeys: My First Business (understand needs, offer value honestly, price, revenue and costs, polite communication) and My First Book (original writing, spelling, editing, oral presentation, publishing and simulated book sales). Logic/maths, English, science, money literacy and coding/AI literacy are supporting skills. Integrate goal-setting and healthy habits. Teach online safety and AI limitations. Sales are a learning context, not pressure on children to earn or a prerequisite for all learning.
 - Keep adult QA, professional marketing and career programs in Studio/legacy catalogue, not in the child's navigation. Archive rather than destroy existing resources or change stored progress without migration.
 - Reuse existing game, physics, finance, age-aware journey and life-skills content after teacher review. No copied competitor characters, brand or copyrighted lesson content.
 - Optional paid extensions offered to adults: game creation club, 3D creative projects, mentor feedback, expanded family reports, later school licensing. Prices and demand unvalidated; no payments or subscriptions in prototype.
@@ -20,12 +20,18 @@ Start with ages 7–12, then validate ages 13–16 separately. Parent or teacher
 
 New standalone route `dist/ai-path/kids/index.html`, not linked from public home. Three original missions (logic, English, algorithms), three questions each, RU/EN switching, accessible buttons/feedback, local progress, parent information and proposed extras. No external network dependencies. This is a small functional pilot, not a full school or a market launch.
 
+## Prototype v0.2 — creation, communication and ethical sales
+
+Business and book journeys lead the route; original logic, English and coding missions remain available. Five missions and 19 bilingual questions. Business teaches customer needs, arithmetic and respect for refusal. Book teaches story structure, language, honest promotion, printing costs and oral rehearsal. The local book workshop accepts a fictional title, story and blurb, has an explicit save button, optional self-reported oral rehearsal and plain-text download. No recording, automatic speech scoring, AI-generated author text, external sharing, personal-data request, actual sales or payment. Reset clears both mission progress and book draft. XP marks completed exercises, not writing quality or speaking ability. Existing v0.1 progress keys remain compatible. All basic lessons, writing and export remain free.
+
+Later stages: editor/illustrator, simulated bookshop with unit economics, gradual age-specific spelling and grammar, narrative revision, speaking rubric with adult feedback, and a parent-controlled publication option only after rights, privacy, safeguarding and applicable law review. Real-world publication/sales must be optional and separately authorized by a responsible adult; no public profile or child contact details.
+
 ## Roadmap
 
 | Phase | Work | Acceptance |
 |---|---|---|
 | KIDS-01 | Functional learning loop and translation skeleton | 9 questions, language parity, retries, idempotent reward, restore/reset, 320/390/1440 layouts |
-| KIDS-02 | Separate navigation and age pathways; original mascot and design | Child path has one clear primary CTA; no adult course clutter; keyboard and contrast QA |
+| KIDS-02 | Business and author journeys, book workshop, original mascot and age pathways | Child path leads with creation and ethical sales; local draft/export, bilingual content, no adult course clutter; keyboard and contrast QA |
 | KIDS-03 | Reuse science/finance and curate free core curriculum | Educator-reviewed objectives and explanations, no factual/math errors, gradual difficulty |
 | KIDS-04 | Mastery map, spaced review and progress | Evidence of learning rather than XP alone; no duplicate rewards or pressure |
 | KIDS-05 | Parent experience and international pilot | Consent and privacy review; free starter cohort, localization reviewed by native speakers |
