@@ -1,0 +1,28 @@
+name: AI PATH Kids isolated QA
+on:
+  pull_request:
+    paths:
+      - "dist/ai-path/kids/**"
+      - "scripts/verify-ai-path-kids.mjs"
+      - ".github/workflows/ai-path-kids-qa.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  kids:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    container:
+      image: mcr.microsoft.com/playwright:v1.55.0-noble
+      options: --init --ipc=host
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install pinned browser client
+        run: npm install --no-save --no-package-lock --no-audit --no-fund playwright@1.55.0
+      - name: Validate test syntax
+        run: node --check scripts/verify-ai-path-kids.mjs
+      - name: Verify bilingual missions and local book workshop
+        run: node scripts/verify-ai-path-kids.mjs
