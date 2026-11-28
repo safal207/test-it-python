@@ -5,6 +5,8 @@ on:
   pull_request:
     paths:
       - "dist/ai-path/**"
+      - "dist/valta-sandbox/**"
+      - "scripts/verify-valta-sandbox.mjs"
       - "scripts/verify-ai-path.mjs"
       - "scripts/verify-project-funnel.mjs"
       - "scripts/build-neural-courses.mjs"
